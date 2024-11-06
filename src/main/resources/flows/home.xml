@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+  xsi:schemaLocation="http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+    
+    <bean class="com.tjx.lew00305.slimstore.model.Flow">
+        <property name="name" value="home" />
+        <property name="title" value="Home" />
+        <property name="message" value="Please scan barcode or search for product." />
+        <property name="formSuccess" value="search" />
+        <property name="formElements">
+            <array>
+                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
+                    <property name="type" value="text" />
+                    <property name="key" value="Search" />
+                    <property name="label" value="search" />
+                </bean>
+                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
+                    <property name="type" value="submit" />
+                    <property name="value" value="Go" />
+                </bean>
+            </array>
+        </property>
+        <property name="functionButtons">
+            <array>
+                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
+                    <property name="position" value="1" />
+                    <property name="label" value="Sale" />
+                    <property name="action" value="sale" />   
+                </bean>
+                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
+                    <property name="position" value="2" />
+                    <property name="label" value="Return" />
+                    <property name="action" value="return" />   
+                </bean>
+                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
+                    <property name="position" value="3" />
+                    <property name="label" value="Void" />
+                    <property name="action" value="void" />
+                </bean>
+                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
+                    <property name="position" value="6" />
+                    <property name="label" value="Reports" />
+                    <property name="action" value="report" />
+                </bean>
+                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
+                    <property name="position" value="7" />
+                    <property name="label" value="System" />
+                    <property name="action" value="system" />
+                </bean>
+                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
+                    <property name="position" value="8" />
+                    <property name="label" value="Log Out" />
+                    <property name="action" value="login" />
+                </bean>
+            </array>
+        </property>
+    </bean>
+
+</beans>

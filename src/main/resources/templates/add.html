@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Associates</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="/style.css" />
+        <script>
+            window.addEventListener("load", () => {
+                document.getElementById("name").focus();
+            })
+        </script>
+    </head>
+    <body>
+        <div>
+            <a th:href="@{/}">Home</a>
+        </div>
+        <h3>Associate Add</h3>
+        <form action="#" th:action="@{/save}" th:object="${associate}" method="POST">
+            <input type="text" th:field="*{name}" placeholder="Name" id="name">
+            <input type="text" th:field="*{ain}" placeholder="AIN">
+            <button type="submit">Save</button>
+        </form>
+        <hr>
+        <a th:href="@{/list}">Back</a>
+    </body>
+</html>

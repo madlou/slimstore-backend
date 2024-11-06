@@ -1,0 +1,13 @@
+### Compilied ###
+/target
+/playground
+/bin
+
+### VS Code ###
+.vscode/
+
+### Database Files ###
+dev/database/data
+/app.log
+/app.log.2024-10-31.0.gz
+/app.log.2024-10-31.0171716122734524.tmp

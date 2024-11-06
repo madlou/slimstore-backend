@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Associates</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="/style.css" />
+    </head>
+    <body>
+        <div>
+            <a th:href="@{/}">Home</a>
+        </div>
+        <h3>Associate Edit</h3>
+        <p><a th:href="@{/delete/{id}(id=${associate.id})}">Delete</a></p>
+        <hr>
+        <form action="#" th:action="@{/save}" th:object="${associate}" method="POST">
+            <input type="hidden" th:field="*{id}" />
+            <input type="text" th:field="*{name}" placeholder="Name">
+            <input type="text" th:field="*{ain}" placeholder="AIN">
+            <button type="submit">Save</button>
+        </form>
+        <hr>
+        <a th:href="@{/list}">Back</a>
+    </body>
+</html>

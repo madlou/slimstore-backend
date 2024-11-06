@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Associates</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="/style.css" />
+    </head>
+    <body>
+        <div>
+            <a th:href="@{/}">Home</a>
+        </div>
+        <h3>Associate List</h3>
+        <p>
+            <a th:href="@{/add}">Add Associate</a>
+        </p>
+        <hr>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>AIN</th>
+                <th>Action</th>
+            </tr>
+            <tr th:each="associate:${allassociates}">
+                <td th:text="${associate.id}"></td>
+                <td th:text="${associate.name}"></td>
+                <td th:text="${associate.ain}"></td>
+                <td><a th:href="@{/edit/{id}(id=${associate.id})}">Edit</a></td>
+            </tr>
+        </table>
+    </body>
+</html>
