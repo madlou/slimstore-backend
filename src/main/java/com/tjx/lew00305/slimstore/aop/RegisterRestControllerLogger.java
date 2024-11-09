@@ -15,11 +15,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class RegisterRestControllerLogger {
 
-    @Pointcut("execution(public * com.tjx.lew00305.playground.controller.AssociateHtmlController.*(..))")
-    private void publicMethodsFromHtmlController() {
+    @Pointcut("execution(public * com.tjx.lew00305.slimstore.controller.RegisterController.registerQuery(..))")
+    private void registerQueryFromRestController() {
     }
     
-    @Before(value = "publicMethodsFromHtmlController()")
+    @Before(value = "registerQueryFromRestController()")
     public void logBefore(JoinPoint joinPoint) {
         Object[] args = joinPoint.getArgs();
         String methodName = joinPoint.getSignature().getName();

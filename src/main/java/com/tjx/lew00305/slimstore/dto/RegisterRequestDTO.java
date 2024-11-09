@@ -5,7 +5,7 @@ import com.tjx.lew00305.slimstore.model.FormElement;
 import lombok.Data;
 
 @Data
-public class RegisterRequest {
+public class RegisterRequestDTO {
     
     private int storeNumber;
     private int registerNumber;

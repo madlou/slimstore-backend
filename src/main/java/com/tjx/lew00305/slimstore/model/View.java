@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import lombok.Data;
 
 @Data
-public class Flow {
+public class View {
 
     private String name;
     private String title;

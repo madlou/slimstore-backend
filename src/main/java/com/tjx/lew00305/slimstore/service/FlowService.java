@@ -3,21 +3,21 @@ package com.tjx.lew00305.slimstore.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tjx.lew00305.slimstore.config.FlowConfig;
-import com.tjx.lew00305.slimstore.model.Flow;
+import com.tjx.lew00305.slimstore.config.ViewConfig;
+import com.tjx.lew00305.slimstore.model.View;
 
 @Service
 public class FlowService {
 
     @Autowired
-    private FlowConfig flowConfig;
+    private ViewConfig flowConfig;
     
-    public Flow[] getAll() {
+    public View[] getAll() {
         return flowConfig.get();
     }
     
-    public Flow get(String name) {
-        for(Flow flow: flowConfig.get()) {
+    public View get(String name) {
+        for(View flow: flowConfig.get()) {
             if(flow.getName().equals(name)) {
                 return flow;
             }

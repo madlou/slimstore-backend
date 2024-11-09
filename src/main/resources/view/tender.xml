@@ -7,55 +7,46 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
     
-    <bean class="com.tjx.lew00305.slimstore.model.Flow">
-        <property name="name" value="home" />
-        <property name="title" value="Home" />
-        <property name="message" value="Please scan barcode or search for product." />
+    <bean class="com.tjx.lew00305.slimstore.model.View">
+        <property name="name" value="tender" />
+        <property name="title" value="Tender" />
+        <property name="message" value="Please select a tender." />
         <property name="formSuccess" value="search" />
         <property name="formElements">
             <array>
-                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
-                    <property name="type" value="text" />
-                    <property name="key" value="search" />
-                    <property name="label" value="Search" />
-                </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
-                    <property name="type" value="submit" />
-                    <property name="value" value="Go" />
-                </bean>
             </array>
         </property>
         <property name="functionButtons">
             <array>
                 <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
                     <property name="position" value="1" />
-                    <property name="label" value="Sale" />
-                    <property name="action" value="sale" />   
+                    <property name="label" value="Cash" />
+                    <property name="action" value="tender/cash" />   
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
                     <property name="position" value="2" />
-                    <property name="label" value="Return" />
-                    <property name="action" value="return" />   
+                    <property name="label" value="Card" />
+                    <property name="action" value="tender/card" />   
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
                     <property name="position" value="3" />
-                    <property name="label" value="Void" />
-                    <property name="action" value="void" />
+                    <property name="label" value="Gift Card" />
+                    <property name="action" value="tender/giftcard" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
-                    <property name="position" value="6" />
-                    <property name="label" value="Reports" />
-                    <property name="action" value="reports" />
+                    <property name="position" value="4" />
+                    <property name="label" value="Voucher" />
+                    <property name="action" value="tender/voucher" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
-                    <property name="position" value="7" />
-                    <property name="label" value="System" />
-                    <property name="action" value="system" />
+                    <property name="position" value="5" />
+                    <property name="label" value="Discount" />
+                    <property name="action" value="discount" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
                     <property name="position" value="8" />
-                    <property name="label" value="Log Out" />
-                    <property name="action" value="login" />
+                    <property name="label" value="Back" />
+                    <property name="action" value="home" />
                 </bean>
             </array>
         </property>
