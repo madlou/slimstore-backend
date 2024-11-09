@@ -8,35 +8,25 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
     
     <bean class="com.tjx.lew00305.slimstore.model.Flow">
-        <property name="name" value="user-new" />
-        <property name="title" value="New User" />
-        <property name="message" value="Please enter a new user below." />
-        <property name="formSuccess" value="search" />
+        <property name="name" value="return-manual" />
+        <property name="title" value="Manual Return" />
+        <property name="message" value="Please type information below." />
+        <property name="formSuccess" value="return-search" />
         <property name="formElements">
             <array>
                 <bean class="com.tjx.lew00305.slimstore.model.FormElement">
-                    <property name="type" value="number" />
-                    <property name="key" value="code" />
-                    <property name="label" value="Employee Number" />
-                </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
                     <property name="type" value="text" />
-                    <property name="key" value="name" />
-                    <property name="label" value="Name" />
+                    <property name="key" value="sku" />
+                    <property name="label" value="Product Code" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.FormElement">
-                    <property name="type" value="email" />
-                    <property name="key" value="email" />
-                    <property name="label" value="Email" />
-                </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
-                    <property name="type" value="password" />
-                    <property name="key" value="password" />
-                    <property name="label" value="Password" />
+                    <property name="type" value="number" />
+                    <property name="key" value="price" />
+                    <property name="label" value="Price" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.FormElement">
                     <property name="type" value="submit" />
-                    <property name="value" value="Create" />
+                    <property name="value" value="Enter" />
                 </bean>
             </array>
         </property>
@@ -45,10 +35,12 @@
                 <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="Back" />
-                    <property name="action" value="system" />
+                    <property name="action" value="return" />   
                 </bean>
             </array>
         </property>
     </bean>
 
+
 </beans>
+

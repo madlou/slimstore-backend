@@ -8,34 +8,20 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
     
     <bean class="com.tjx.lew00305.slimstore.model.Flow">
-        <property name="name" value="login" />
-        <property name="title" value="Login" />
-        <property name="message" value="Please login to continue." />
+        <property name="name" value="search" />
+        <property name="title" value="Search" />
+        <property name="message" value="Please select option to buy." />
         <property name="formValidation" value="login" />
-        <property name="formSuccess" value="home" />
+        <property name="formSuccess" value="product" />
         <property name="formElements">
             <array>
-                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
-                    <property name="type" value="text" />
-                    <property name="key" value="code" />
-                    <property name="label" value="Employee Number" />
-                </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
-                    <property name="type" value="password" />
-                    <property name="key" value="password" />
-                    <property name="label" value="Password" />
-                </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
-                    <property name="type" value="submit" />
-                    <property name="value" value="Login" />
-                </bean>
             </array>
         </property>
         <property name="functionButtons">
             <array>
                 <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
                     <property name="position" value="1" />
-                    <property name="label" value="Login" />
+                    <property name="label" value="Back" />
                     <property name="action" value="home" />   
                 </bean>
             </array>

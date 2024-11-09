@@ -1,5 +1,7 @@
 package com.tjx.lew00305.slimstore.model;
 
+import java.util.ArrayList;
+
 import lombok.Data;
 
 @Data

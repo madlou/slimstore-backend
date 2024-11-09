@@ -15,14 +15,9 @@
         <property name="formElements">
             <array>
                 <bean class="com.tjx.lew00305.slimstore.model.FormElement">
-                    <property name="type" value="text" />
+                    <property name="type" value="number" />
                     <property name="key" value="store" />
                     <property name="label" value="Store" />
-                </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
-                    <property name="type" value="date" />
-                    <property name="key" value="date" />
-                    <property name="label" value="Date" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.FormElement">
                     <property name="type" value="number" />
@@ -30,9 +25,14 @@
                     <property name="label" value="Register" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.FormElement">
-                    <property name="type" value="text" />
+                    <property name="type" value="number" />
                     <property name="key" value="transactionNumber" />
                     <property name="label" value="Transaction Number" />
+                </bean>
+                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
+                    <property name="type" value="date" />
+                    <property name="key" value="date" />
+                    <property name="label" value="Date" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.FormElement">
                     <property name="type" value="submit" />

@@ -1,5 +1,7 @@
 package com.tjx.lew00305.slimstore.controller;
 
+import java.util.ArrayList;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,6 +16,7 @@ import com.tjx.lew00305.slimstore.dto.RegisterRequest;
 import com.tjx.lew00305.slimstore.dto.RegisterResponse;
 import com.tjx.lew00305.slimstore.dto.UserDTO;
 import com.tjx.lew00305.slimstore.model.Flow;
+import com.tjx.lew00305.slimstore.model.FormElement;
 import com.tjx.lew00305.slimstore.service.ProductService;
 import com.tjx.lew00305.slimstore.service.TransactionService;
 import com.tjx.lew00305.slimstore.service.UserService;
@@ -34,10 +37,10 @@ public class RegisterController {
 
     @Autowired
     private FlowService flowService;
-    
+
     @Autowired
     private UserService userService;
-    
+
     @Autowired
     private ModelMapper modelMapper;
 
@@ -45,22 +48,20 @@ public class RegisterController {
     @PostMapping(path = "/slimstore/api/register")
     public @ResponseBody RegisterResponse registerQuery(@RequestBody RegisterRequest request) {
         RegisterResponse response = new RegisterResponse();
-        response.setFlow(flowService.get(request.getAction()));
+        String action = request.getAction();
+        Flow flow = flowService.get(action);
+        response.setFlow(flow);
         response.setStore(locationService.getStore(123));
         response.setRegister(locationService.getRegister(123, 1));
         response.setAuditLog(transactionService.getCurrentAuditLog());
         response.setUser(modelMapper.map(userService.getUser(), UserDTO.class));
+        switch (action) {
+            case "search":
+                FormElement[] formElements = request.getFormElements();
+                flow.setFormElements(productService.onlineSearch(formElements[0].getValue()));
+                break;
+        }
         return response;
-    }
-
-    @GetMapping(path = "/slimstore/api/flows")
-    public @ResponseBody Flow[] flows() {
-        return flowService.getAll();
-    }
-
-    @GetMapping(path = "/slimstore/api/flow/{name}")
-    public @ResponseBody Flow flow(@PathVariable() String name) {
-        return flowService.get(name);
     }
 
 }

@@ -16,8 +16,8 @@
             <array>
                 <bean class="com.tjx.lew00305.slimstore.model.FormElement">
                     <property name="type" value="text" />
-                    <property name="key" value="Search" />
-                    <property name="label" value="search" />
+                    <property name="key" value="search" />
+                    <property name="label" value="Search" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.FormElement">
                     <property name="type" value="submit" />
@@ -45,7 +45,7 @@
                 <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
                     <property name="position" value="6" />
                     <property name="label" value="Reports" />
-                    <property name="action" value="report" />
+                    <property name="action" value="reports" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
                     <property name="position" value="7" />
