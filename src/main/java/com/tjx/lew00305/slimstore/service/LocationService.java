@@ -8,8 +8,7 @@ import com.tjx.lew00305.slimstore.entity.StoreRegister;
 @Service
 public class LocationService {
 
-    public Store getStore(int i) {
-        // TODO Auto-generated method stub
+    public Store getStore(int storeNumber) {
         Store dummy = new Store();
         dummy.setId(1);
         dummy.setNumber(423);
@@ -18,7 +17,7 @@ public class LocationService {
         return dummy;
     }
 
-    public StoreRegister getRegister(int i, int j) {
+    public StoreRegister getRegister(int storeNumber, int registerNumber) {
         StoreRegister dummy = new StoreRegister();
         dummy.setId(1);
         dummy.setNumber(2);

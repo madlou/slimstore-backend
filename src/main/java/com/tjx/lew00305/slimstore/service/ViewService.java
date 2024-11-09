@@ -7,19 +7,19 @@ import com.tjx.lew00305.slimstore.config.ViewConfig;
 import com.tjx.lew00305.slimstore.model.View;
 
 @Service
-public class FlowService {
+public class ViewService {
 
     @Autowired
     private ViewConfig flowConfig;
     
     public View[] getAll() {
-        return flowConfig.get();
+        return flowConfig.getViews();
     }
     
-    public View get(String name) {
-        for(View flow: flowConfig.get()) {
-            if(flow.getName().equals(name)) {
-                return flow;
+    public View getView(String name) {
+        for(View view: flowConfig.getViews()) {
+            if(view.getName().equals(name)) {
+                return view;
             }
         }
         return null;

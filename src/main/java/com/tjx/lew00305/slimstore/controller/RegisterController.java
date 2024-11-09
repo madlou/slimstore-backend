@@ -20,7 +20,7 @@ import com.tjx.lew00305.slimstore.model.FormElement;
 import com.tjx.lew00305.slimstore.service.ProductService;
 import com.tjx.lew00305.slimstore.service.TransactionService;
 import com.tjx.lew00305.slimstore.service.UserService;
-import com.tjx.lew00305.slimstore.service.FlowService;
+import com.tjx.lew00305.slimstore.service.ViewService;
 import com.tjx.lew00305.slimstore.service.LocationService;
 
 @RestController
@@ -36,7 +36,7 @@ public class RegisterController {
     private TransactionService transactionService;
 
     @Autowired
-    private FlowService flowService;
+    private ViewService viewService;
 
     @Autowired
     private UserService userService;
@@ -49,8 +49,8 @@ public class RegisterController {
     public @ResponseBody RegisterResponseDTO registerQuery(@RequestBody RegisterRequestDTO request) {
         RegisterResponseDTO response = new RegisterResponseDTO();
         String action = request.getAction();
-        View flow = flowService.get(action);
-        response.setFlow(flow);
+        View view = viewService.getView(action);
+        response.setView(view);
         response.setStore(locationService.getStore(123));
         response.setRegister(locationService.getRegister(123, 1));
         response.setAuditLog(transactionService.getCurrentAuditLog());
@@ -58,7 +58,7 @@ public class RegisterController {
         switch (action) {
             case "search":
                 FormElement[] formElements = request.getFormElements();
-                flow.setFormElements(productService.onlineSearch(formElements[0].getValue()));
+                view.setFormElements(productService.onlineSearch(formElements[0].getValue()));
                 break;
         }
         return response;

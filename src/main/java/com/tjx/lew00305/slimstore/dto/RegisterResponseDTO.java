@@ -11,7 +11,7 @@ public class RegisterResponseDTO {
 
     private Store store;
     private StoreRegister register;
-    private View flow;
+    private View view;
     private String[] auditLog;
     private UserDTO user;
     

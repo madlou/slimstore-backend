@@ -27,7 +27,7 @@ public class ViewConfig {
     @Autowired    
     private View[] views;
         
-    public View[] get() {
+    public View[] getViews() {
         return views;
     }
 }
