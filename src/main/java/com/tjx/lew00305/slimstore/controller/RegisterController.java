@@ -1,12 +1,8 @@
 package com.tjx.lew00305.slimstore.controller;
 
-import java.util.ArrayList;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +17,9 @@ import com.tjx.lew00305.slimstore.service.ProductService;
 import com.tjx.lew00305.slimstore.service.TransactionService;
 import com.tjx.lew00305.slimstore.service.UserService;
 import com.tjx.lew00305.slimstore.service.ViewService;
+
+//import jakarta.servlet.http.HttpSession;
+
 import com.tjx.lew00305.slimstore.service.LocationService;
 
 @RestController
@@ -43,9 +42,12 @@ public class RegisterController {
 
     @Autowired
     private ModelMapper modelMapper;
+    
+//    @Autowired
+//    private HttpSession session;
 
     @CrossOrigin
-    @PostMapping(path = "/slimstore/api/register")
+    @PostMapping(path = "/api/register")
     public @ResponseBody RegisterResponseDTO registerQuery(@RequestBody RegisterRequestDTO request) {
         RegisterResponseDTO response = new RegisterResponseDTO();
         String action = request.getAction();
