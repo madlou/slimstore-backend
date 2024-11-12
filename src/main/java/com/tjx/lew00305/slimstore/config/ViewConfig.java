@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 
 import com.tjx.lew00305.slimstore.model.View;
-import com.tjx.lew00305.slimstore.service.ProductService;
 
 @Configuration
 @ImportResource({

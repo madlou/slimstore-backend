@@ -20,7 +20,7 @@ public class TransactionTender {
     private int transactionId;
     private int number;
     private String type;
-    private double value;
+    private float value;
     private String reference;
 
 }

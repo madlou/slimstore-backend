@@ -11,7 +11,7 @@
         <property name="name" value="system" />
         <property name="title" value="System" />
         <property name="message" value="Select from options." />
-        <property name="formValidation" value="login" />
+        <property name="formProcess" value="login" />
         <property name="formSuccess" value="home" />
         <property name="formElements">
             <array>
@@ -21,6 +21,11 @@
             <array>
                 <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
                     <property name="position" value="1" />
+                    <property name="label" value="Log Off" />
+                    <property name="action" value="login" />   
+                </bean>
+                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
+                    <property name="position" value="2" />
                     <property name="label" value="New User" />
                     <property name="action" value="user-new" />   
                 </bean>

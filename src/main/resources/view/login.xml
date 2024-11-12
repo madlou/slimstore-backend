@@ -11,7 +11,7 @@
         <property name="name" value="login" />
         <property name="title" value="Login" />
         <property name="message" value="Please login to continue." />
-        <property name="formValidation" value="login" />
+        <property name="formProcess" value="login" />
         <property name="formSuccess" value="home" />
         <property name="formElements">
             <array>

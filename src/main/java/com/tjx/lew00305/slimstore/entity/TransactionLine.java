@@ -23,7 +23,7 @@ public class TransactionLine {
     private int productId;
     private String type;
     private int quantity;
-    private double unitValue;
-    private double lineValue;
+    private float unitValue;
+    private float lineValue;
 
 }

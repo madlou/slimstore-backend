@@ -4,17 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FormElement {
+@Data
+public class BasketLine {
     
+    private String code;
+    private String name;
     private String type;
-    private String key;
-    private String label;
-    private String value;
-    private String image;
-    private float price;
-    private String[] options;
+    private int quantity;
+    private float unitValue;
 
 }

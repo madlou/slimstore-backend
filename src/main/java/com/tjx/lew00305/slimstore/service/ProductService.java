@@ -1,7 +1,5 @@
 package com.tjx.lew00305.slimstore.service;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -25,7 +23,7 @@ public class ProductService {
         FormElement[] products = new FormElement[productCount];
         for(int i=0; i< productCount; i++) {
             TjxComSearchDTO.Response.Doc doc = search.response.docs[i];
-            products[i] = new FormElement("image", doc.pid, doc.title, doc.thumbImage, doc.price, null);
+            products[i] = new FormElement("product", doc.pid, doc.title, "0", doc.thumbImage, doc.price, null);
         }
         return products;
     }

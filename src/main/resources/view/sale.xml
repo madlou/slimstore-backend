@@ -11,39 +11,49 @@
         <property name="name" value="sale" />
         <property name="title" value="Non-Merch Sale" />
         <property name="message" value="Please select option to buy." />
-        <property name="formValidation" value="login" />
+        <property name="formProcess" value="AddToBasket" />
         <property name="formSuccess" value="home" />
         <property name="formElements">
             <array>
                 <bean class="com.tjx.lew00305.slimstore.model.FormElement">
-                    <property name="type" value="image" />
+                    <property name="type" value="product" />
                     <property name="key" value="101" />
-                    <property name="label" value="Rare Cat @ $100" />
-                    <property name="value" value="https://loremflickr.com/200/200?random=101" />
+                    <property name="label" value="Rare Cat" />
+                    <property name="image" value="https://loremflickr.com/200/200?random=101" />
+                    <property name="value" value="0" />
+                    <property name="price" value="100" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.FormElement">
-                    <property name="type" value="image" />
+                    <property name="type" value="product" />
                     <property name="key" value="102" />
-                    <property name="label" value="Secret Cat @ $90" />
-                    <property name="value" value="https://loremflickr.com/200/200?random=102" />
+                    <property name="label" value="Secret Cat" />
+                    <property name="image" value="https://loremflickr.com/200/200?random=102" />
+                    <property name="value" value="0" />
+                    <property name="price" value="2.99" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.FormElement">
-                    <property name="type" value="image" />
+                    <property name="type" value="product" />
                     <property name="key" value="103" />
-                    <property name="label" value="Hidden Cat @ $80" />
-                    <property name="value" value="https://loremflickr.com/200/200?random=103" />
+                    <property name="label" value="Hidden Cat" />
+                    <property name="image" value="https://loremflickr.com/200/200?random=103" />
+                    <property name="value" value="0" />
+                    <property name="price" value="100.99" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.FormElement">
-                    <property name="type" value="image" />
+                    <property name="type" value="product" />
                     <property name="key" value="104" />
-                    <property name="label" value="Forbidden Cat @ $120" />
-                    <property name="value" value="https://loremflickr.com/200/200?random=104" />
+                    <property name="label" value="Forbidden Cat" />
+                    <property name="image" value="https://loremflickr.com/200/200?random=104" />
+                    <property name="value" value="0" />
+                    <property name="price" value="99.99" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.FormElement">
-                    <property name="type" value="image" />
+                    <property name="type" value="product" />
                     <property name="key" value="105" />
-                    <property name="label" value="Ultimate Cat @ $250" />
-                    <property name="value" value="https://loremflickr.com/200/200?random=105" />
+                    <property name="label" value="Ultimate Cat" />
+                    <property name="image" value="https://loremflickr.com/200/200?random=105" />
+                    <property name="value" value="0" />
+                    <property name="price" value="250.99" />
                 </bean>
             </array>
         </property>
@@ -51,6 +61,11 @@
             <array>
                 <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
                     <property name="position" value="1" />
+                    <property name="label" value="Add" />
+                    <property name="action" value="submit" />   
+                </bean>
+                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
+                    <property name="position" value="8" />
                     <property name="label" value="Back" />
                     <property name="action" value="home" />   
                 </bean>

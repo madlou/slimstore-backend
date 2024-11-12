@@ -1,5 +1,7 @@
 package com.tjx.lew00305.slimstore.controller;
 
+import javax.lang.model.element.Element;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,6 +19,7 @@ import com.tjx.lew00305.slimstore.service.ProductService;
 import com.tjx.lew00305.slimstore.service.TransactionService;
 import com.tjx.lew00305.slimstore.service.UserService;
 import com.tjx.lew00305.slimstore.service.ViewService;
+import com.tjx.lew00305.slimstore.service.BasketService;
 
 //import jakarta.servlet.http.HttpSession;
 
@@ -27,6 +30,9 @@ public class RegisterController {
 
     @Autowired
     private LocationService locationService;
+
+    @Autowired
+    private BasketService basketService;
 
     @Autowired
     private ProductService productService;
@@ -49,13 +55,20 @@ public class RegisterController {
     @CrossOrigin
     @PostMapping(path = "/api/register")
     public @ResponseBody RegisterResponseDTO registerQuery(@RequestBody RegisterRequestDTO request) {
+        if(!request.getFormProcess().isEmpty()) {
+            switch (request.getFormProcess()) {
+                case "AddToBasket":
+                    basketService.addFormElements(request.getFormElements());
+                    break;
+            }
+        }
         RegisterResponseDTO response = new RegisterResponseDTO();
         String action = request.getAction();
         View view = viewService.getView(action);
         response.setView(view);
         response.setStore(locationService.getStore(123));
         response.setRegister(locationService.getRegister(123, 1));
-        response.setAuditLog(transactionService.getCurrentAuditLog());
+        response.setBasket(basketService.getBasketArray());
         response.setUser(modelMapper.map(userService.getUser(), UserDTO.class));
         switch (action) {
             case "search":

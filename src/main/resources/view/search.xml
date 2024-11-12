@@ -11,8 +11,8 @@
         <property name="name" value="search" />
         <property name="title" value="Search" />
         <property name="message" value="Please select option to buy." />
-        <property name="formValidation" value="login" />
-        <property name="formSuccess" value="product" />
+        <property name="formProcess" value="AddToBasket" />
+        <property name="formSuccess" value="home" />
         <property name="formElements">
             <array>
             </array>
@@ -21,6 +21,11 @@
             <array>
                 <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
                     <property name="position" value="1" />
+                    <property name="label" value="Add" />
+                    <property name="action" value="submit" />   
+                </bean>
+                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
+                    <property name="position" value="8" />
                     <property name="label" value="Back" />
                     <property name="action" value="home" />   
                 </bean>
