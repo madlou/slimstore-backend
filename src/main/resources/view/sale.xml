@@ -18,42 +18,42 @@
                 <bean class="com.tjx.lew00305.slimstore.model.FormElement">
                     <property name="type" value="product" />
                     <property name="key" value="101" />
-                    <property name="label" value="Rare Cat" />
-                    <property name="image" value="https://loremflickr.com/200/200?random=101" />
+                    <property name="label" value="Pepsi" />
+                    <property name="image" value="image/pepsi.webp" />
                     <property name="value" value="0" />
-                    <property name="price" value="100" />
+                    <property name="price" value="2" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.FormElement">
                     <property name="type" value="product" />
                     <property name="key" value="102" />
-                    <property name="label" value="Secret Cat" />
-                    <property name="image" value="https://loremflickr.com/200/200?random=102" />
+                    <property name="label" value="Pepsi Max" />
+                    <property name="image" value="image/pepsi-max.webp" />
                     <property name="value" value="0" />
-                    <property name="price" value="2.99" />
+                    <property name="price" value="1.5" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.FormElement">
                     <property name="type" value="product" />
                     <property name="key" value="103" />
-                    <property name="label" value="Hidden Cat" />
-                    <property name="image" value="https://loremflickr.com/200/200?random=103" />
+                    <property name="label" value="Coca Cola" />
+                    <property name="image" value="image/coca-cola.webp" />
                     <property name="value" value="0" />
-                    <property name="price" value="100.99" />
+                    <property name="price" value="2" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.FormElement">
                     <property name="type" value="product" />
                     <property name="key" value="104" />
-                    <property name="label" value="Forbidden Cat" />
-                    <property name="image" value="https://loremflickr.com/200/200?random=104" />
+                    <property name="label" value="Fanta" />
+                    <property name="image" value="image/fanta.webp" />
                     <property name="value" value="0" />
-                    <property name="price" value="99.99" />
+                    <property name="price" value="2" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.FormElement">
                     <property name="type" value="product" />
                     <property name="key" value="105" />
-                    <property name="label" value="Ultimate Cat" />
-                    <property name="image" value="https://loremflickr.com/200/200?random=105" />
+                    <property name="label" value="Sprite" />
+                    <property name="image" value="image/sprite.webp" />
                     <property name="value" value="0" />
-                    <property name="price" value="250.99" />
+                    <property name="price" value="2" />
                 </bean>
             </array>
         </property>

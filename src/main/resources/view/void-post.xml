@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+  xsi:schemaLocation="http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+    
+    <bean class="com.tjx.lew00305.slimstore.model.View">
+        <property name="name" value="void-post" />
+        <property name="title" value="Void Post" />
+        <property name="message" value="Please scan receipt barcode or type in details below." />
+        <property name="formSuccess" value="return-search" />
+        <property name="formElements">
+            <array>
+                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
+                    <property name="type" value="number" />
+                    <property name="key" value="store" />
+                    <property name="label" value="Store" />
+                </bean>
+                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
+                    <property name="type" value="number" />
+                    <property name="key" value="register" />
+                    <property name="label" value="Register" />
+                </bean>
+                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
+                    <property name="type" value="number" />
+                    <property name="key" value="transactionNumber" />
+                    <property name="label" value="Transaction Number" />
+                </bean>
+                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
+                    <property name="type" value="date" />
+                    <property name="key" value="date" />
+                    <property name="label" value="Date" />
+                </bean>
+                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
+                    <property name="type" value="submit" />
+                    <property name="value" value="Search" />
+                </bean>
+            </array>
+        </property>
+        <property name="functionButtons">
+            <array>
+                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
+                    <property name="position" value="8" />
+                    <property name="label" value="Back" />
+                    <property name="action" value="void" />   
+                </bean>
+            </array>
+        </property>
+    </bean>
+
+
+</beans>
+

@@ -41,7 +41,7 @@
                 <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
                     <property name="position" value="5" />
                     <property name="label" value="Discount" />
-                    <property name="action" value="discount" />
+                    <property name="action" value="tender/discount" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
                     <property name="position" value="8" />

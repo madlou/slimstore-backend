@@ -17,11 +17,15 @@ public class ViewService {
     }
     
     public View getView(String name) {
+        View pageNotFound = new View();
         for(View view: flowConfig.getViews()) {
             if(view.getName().equals(name)) {
                 return view;
             }
+            if(view.getName().equals("404")) {
+                pageNotFound = view;
+            }
         }
-        return null;
+        return pageNotFound;
     }
 }

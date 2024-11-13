@@ -43,19 +43,21 @@
                     <property name="action" value="void" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
-                    <property name="position" value="6" />
-                    <property name="label" value="Reports" />
-                    <property name="action" value="reports" />
+                    <property name="position" value="4" />
+                    <property name="label" value="Gift Cards" />
+                    <property name="action" value="giftcard" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
                     <property name="position" value="7" />
                     <property name="label" value="System" />
                     <property name="action" value="system" />
+                    <property name="condition" value="basket.length = 0" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="Tender" />
                     <property name="action" value="tender" />
+                    <property name="condition" value="basket.length > 0" />
                 </bean>
             </array>
         </property>

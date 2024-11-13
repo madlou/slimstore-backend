@@ -33,4 +33,8 @@ public class BasketService {
         return basket.toArray(new BasketLine[0]);
     }
 
+    public void empty() {
+        basket = new ArrayList<BasketLine>();
+    }
+
 }

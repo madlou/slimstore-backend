@@ -10,38 +10,28 @@
     <bean class="com.tjx.lew00305.slimstore.model.View">
         <property name="name" value="void" />
         <property name="title" value="Void" />
-        <property name="message" value="Please scan receipt barcode or type in details below." />
-        <property name="formSuccess" value="return-search" />
+        <property name="message" value="Please select an option below." />
+        <property name="formSuccess" value="" />
         <property name="formElements">
             <array>
-                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
-                    <property name="type" value="number" />
-                    <property name="key" value="store" />
-                    <property name="label" value="Store" />
-                </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
-                    <property name="type" value="number" />
-                    <property name="key" value="register" />
-                    <property name="label" value="Register" />
-                </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
-                    <property name="type" value="number" />
-                    <property name="key" value="transactionNumber" />
-                    <property name="label" value="Transaction Number" />
-                </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
-                    <property name="type" value="date" />
-                    <property name="key" value="date" />
-                    <property name="label" value="Date" />
-                </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
-                    <property name="type" value="submit" />
-                    <property name="value" value="Search" />
-                </bean>
             </array>
         </property>
         <property name="functionButtons">
             <array>
+                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
+                    <property name="position" value="1" />
+                    <property name="label" value="Void Basket" />
+                    <property name="action" value="home" />   
+                    <property name="condition" value="basket.length > 0" />
+                    <property name="process" value="EmptyBasket" />
+                </bean>
+                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
+                    <property name="position" value="2" />
+                    <property name="label" value="Post Void" />
+                    <property name="action" value="void-post" />   
+                    <property name="condition" value="basket.length = 0" />
+                    <property name="process" value="EmptyBasket" />
+                </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="Back" />

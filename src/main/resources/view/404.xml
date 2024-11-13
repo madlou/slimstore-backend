@@ -8,10 +8,10 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
     
     <bean class="com.tjx.lew00305.slimstore.model.View">
-        <property name="name" value="reports" />
-        <property name="title" value="Reports" />
-        <property name="message" value="Run the below reports" />
-        <property name="formSuccess" value="return-search" />
+        <property name="name" value="404" />
+        <property name="title" value="404" />
+        <property name="message" value="ERROR: Page not found. This functionality is likely not been developed yet." />
+        <property name="formSuccess" value="" />
         <property name="formElements">
             <array>
             </array>
@@ -19,14 +19,12 @@
         <property name="functionButtons">
             <array>
                 <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
-                    <property name="position" value="8" />
-                    <property name="label" value="Back" />
-                    <property name="action" value="system" />   
+                    <property name="position" value="1" />
+                    <property name="label" value="Home" />
+                    <property name="action" value="home" />
                 </bean>
             </array>
         </property>
     </bean>
 
-
 </beans>
-

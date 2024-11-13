@@ -11,7 +11,7 @@ public class RegisterRequestDTO {
     private int registerNumber;
     private int userNumber;
     private String action;
-    private FormElement[] formElements;
     private String formProcess;
+    private FormElement[] formElements;
     
 }

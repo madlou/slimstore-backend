@@ -1,7 +1,5 @@
 package com.tjx.lew00305.slimstore.controller;
 
-import javax.lang.model.element.Element;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,6 +18,7 @@ import com.tjx.lew00305.slimstore.service.TransactionService;
 import com.tjx.lew00305.slimstore.service.UserService;
 import com.tjx.lew00305.slimstore.service.ViewService;
 import com.tjx.lew00305.slimstore.service.BasketService;
+import com.tjx.lew00305.slimstore.service.GiftCardService;
 
 //import jakarta.servlet.http.HttpSession;
 
@@ -41,6 +40,9 @@ public class RegisterController {
     private TransactionService transactionService;
 
     @Autowired
+    private GiftCardService giftCardService;
+
+    @Autowired
     private ViewService viewService;
 
     @Autowired
@@ -59,6 +61,15 @@ public class RegisterController {
             switch (request.getFormProcess()) {
                 case "AddToBasket":
                     basketService.addFormElements(request.getFormElements());
+                    break;
+                case "EmptyBasket":
+                    basketService.empty();
+                    break;
+                case "ProcessGiftcard":
+                    String card = request.getFormElements()[0].getValue();
+                    float value = Float.parseFloat(request.getFormElements()[1].getValue());
+                    basketService.addFormElement(new FormElement("sale", "TJXGC", "Gift Card (" + card + ")", "1" ,null, value, null));
+                    giftCardService.topup(card, value);
                     break;
             }
         }

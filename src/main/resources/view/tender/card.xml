@@ -8,10 +8,10 @@
                         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
     <bean class="com.tjx.lew00305.slimstore.model.View">
-        <property name="name" value="tender/cash" />
-        <property name="title" value="Tender Cash" />
-        <property name="message" value="Please enter or select a cash value." />
-        <property name="formSuccess" value="" />
+        <property name="name" value="tender/card" />
+        <property name="title" value="Tender Card" />
+        <property name="message" value="Please enter or select a card value." />
+        <property name="formSuccess" value="tender/card/ped" />
         <property name="formElements">
             <array>
                 <bean class="com.tjx.lew00305.slimstore.model.FormElement">
@@ -21,8 +21,9 @@
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.FormElement">
                     <property name="type" value="submit" />
-                    <property name="value" value="Cash" />
+                    <property name="value" value="Card" />
                 </bean>
+
             </array>
         </property>
         <property name="functionButtons">
@@ -30,27 +31,7 @@
                 <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
                     <property name="position" value="1" />
                     <property name="label" value="Full Amount" />
-                    <property name="action" value="tender/cash:amount=full" />
-                </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
-                    <property name="position" value="2" />
-                    <property name="label" value="£5" />
-                    <property name="action" value="tender/cash:amount=5" />
-                </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
-                    <property name="position" value="3" />
-                    <property name="label" value="£10" />
-                    <property name="action" value="tender/cash:amount=10" />
-                </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
-                    <property name="position" value="4" />
-                    <property name="label" value="£20" />
-                    <property name="action" value="tender/cash:amount=20" />
-                </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
-                    <property name="position" value="5" />
-                    <property name="label" value="£50" />
-                    <property name="action" value="tender/cash:amount=50" />
+                    <property name="action" value="tender/card/ped:amount=full" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
                     <property name="position" value="8" />
