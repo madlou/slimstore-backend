@@ -2,15 +2,18 @@ package com.tjx.lew00305.slimstore.service;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tjx.lew00305.slimstore.model.Basket;
 import com.tjx.lew00305.slimstore.model.BasketLine;
 import com.tjx.lew00305.slimstore.model.FormElement;
 
 @Service
 public class BasketService {
     
-    private ArrayList<BasketLine> basket = new ArrayList<BasketLine>();
+    @Autowired
+    private Basket basket;
     
     public void addFormElements(FormElement[] elements) {
         for(FormElement element : elements) {
@@ -25,16 +28,16 @@ public class BasketService {
         }
     }
     
-    public ArrayList<BasketLine> getBasket() {
-        return basket;
+    public ArrayList<BasketLine> getBasketArrayList() {
+        return basket.get();
     }
 
     public BasketLine[] getBasketArray() {
-        return basket.toArray(new BasketLine[0]);
+        return basket.getArray();
     }
 
     public void empty() {
-        basket = new ArrayList<BasketLine>();
+        basket.empty();
     }
 
 }

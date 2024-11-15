@@ -21,6 +21,8 @@ ENV MYSQL_DATABASE=slimstore_prod
 ENV MYSQL_USERNAME=root
 ENV MYSQL_PASSWORD=1234
 ENV HTTP_PORT=8000
+ENV REDIS_HOST=redis
+ENV REDIS_NAMESPACE=slimstore_prod
 ARG JAR_FILE=/usr/app/target/*.jar
 COPY --from=build $JAR_FILE /app/runner.jar
 EXPOSE $HTTP_PORT
