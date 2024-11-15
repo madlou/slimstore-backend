@@ -3,7 +3,7 @@ package com.tjx.lew00305.slimstore.model;
 import lombok.Data;
 
 @Data
-public class View {
+public class View implements Cloneable {
 
     private String name = "";
     private String title = "";

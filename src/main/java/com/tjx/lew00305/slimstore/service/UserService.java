@@ -34,16 +34,12 @@ public class UserService {
     }
     
     public UserDTO validateLogin(String username, String password) {
-        System.out.println(username + ":" + password);
         User user = getUser(username);
-        System.out.println(user.getEmail());
         if(user.getPassword().equals(password)) {
-            System.out.println("User Valid");
             UserDTO userDto = modelMapper.map(user, UserDTO.class);
             request.getSession().setAttribute("user", userDto);
             return userDto;
         }
-        System.out.println("User Invalid");
         return null;
     }
     

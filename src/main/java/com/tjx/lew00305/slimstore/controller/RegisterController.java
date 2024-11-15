@@ -55,13 +55,9 @@ public class RegisterController {
     @PostMapping(path = "/api/register")
     public @ResponseBody RegisterResponseDTO registerQuery(@RequestBody RegisterRequestDTO registerRequest) {
         RegisterResponseDTO response = new RegisterResponseDTO();
-        HttpSession session = request.getSession();
-        System.out.println("Session ID: " + session.getId());
         UserDTO user = userService.getUserFromSession();
-        System.out.println("User: " + ((user != null) ? user.getCode() : "Not logged in."));
         if(user == null && !registerRequest.getFormProcess().equals("Login")) {
-            View view = viewService.getView("login");
-            response.setView(view);
+            response.setView(viewService.getView("login"));
             return response;
         }
         if(!registerRequest.getFormProcess().isEmpty()) {
@@ -71,16 +67,14 @@ public class RegisterController {
                     String password = registerRequest.getFormElements()[1].getValue();
                     user = userService.validateLogin(username, password);
                     if(user == null) {
-                        View view = viewService.getView("login");
-                        response.setView(view);
+                        response.setView(viewService.getView("login"));
                         response.setError("Invalid login attempt.");
                         return response;
                     }
                     break;
                 case "Logout":
                     userService.logout();
-                    View view = viewService.getView("login");
-                    response.setView(view);
+                    response.setView(viewService.getView("login"));
                     return response;
                 case "AddToBasket":
                     basketService.addFormElements(registerRequest.getFormElements());
