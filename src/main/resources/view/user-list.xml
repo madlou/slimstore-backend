@@ -8,11 +8,9 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
     
     <bean class="com.tjx.lew00305.slimstore.model.View">
-        <property name="name" value="system" />
-        <property name="title" value="System" />
-        <property name="message" value="Select from options." />
-        <property name="formProcess" value="login" />
-        <property name="formSuccess" value="home" />
+        <property name="name" value="user-list" />
+        <property name="title" value="Users" />
+        <property name="message" value="User List:" />
         <property name="formElements">
             <array>
             </array>
@@ -21,24 +19,13 @@
             <array>
                 <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
                     <property name="position" value="1" />
-                    <property name="label" value="Log Off" />
-                    <property name="action" value="login" />
-                    <property name="process" value="Logout" />
-                </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
-                    <property name="position" value="2" />
-                    <property name="label" value="Users" />
-                    <property name="action" value="user-list" />   
-                </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
-                    <property name="position" value="7" />
-                    <property name="label" value="Reports" />
-                    <property name="action" value="reports" />
+                    <property name="label" value="New User" />
+                    <property name="action" value="user-new" />   
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="Back" />
-                    <property name="action" value="home" />   
+                    <property name="action" value="system" />
                 </bean>
             </array>
         </property>

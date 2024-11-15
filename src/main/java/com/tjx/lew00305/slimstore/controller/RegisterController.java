@@ -58,7 +58,11 @@ public class RegisterController {
                 case "Login":
                     String username = registerRequest.getFormElements()[0].getValue();
                     String password = registerRequest.getFormElements()[1].getValue();
-                    user = userService.validateLogin(username, password);
+                    try {
+                        user = userService.validateLogin(username, password);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }                        
                     if(user == null) {
                         response.setView(viewService.getView("login"));
                         response.setError("Invalid login attempt.");
@@ -69,6 +73,23 @@ public class RegisterController {
                     userService.logout();
                     response.setView(viewService.getView("login"));
                     return response;
+                case "NewUser":
+                    String a = registerRequest.getFormElements()[0].getValue();
+                    String b = registerRequest.getFormElements()[1].getValue();
+                    String c = registerRequest.getFormElements()[2].getValue();
+                    String d = registerRequest.getFormElements()[3].getValue();
+                    try {
+                        userService.addUser(a, b, c, d);
+                    } catch (Exception e) {
+                        response.setView(viewService.getView("user-new"));
+                        if(e.getMessage().contains("Duplicate entry")) {
+                            response.setError("Unable to create user: Employee number already being used.");                            
+                        } else {
+                            response.setError("Unable to create user: " +  e.getMessage());
+                        }
+                        return response;
+                    }
+                    break;
                 case "AddToBasket":
                     basketService.addFormElements(registerRequest.getFormElements());
                     break;
@@ -93,8 +114,11 @@ public class RegisterController {
         response.setUser(user);            
         switch (action) {
             case "search":
-                FormElement[] formElements = registerRequest.getFormElements();
-                view.setFormElements(productService.onlineSearch(formElements[0].getValue()));
+                String search = registerRequest.getFormElements()[0].getValue();
+                view.setFormElements(productService.onlineSearch(search));
+                break;
+            case "user-list":
+                view.setFormElements(userService.getUsersAsFormElements());
                 break;
         }
         return response;

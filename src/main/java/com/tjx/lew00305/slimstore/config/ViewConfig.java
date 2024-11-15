@@ -24,6 +24,7 @@ import com.tjx.lew00305.slimstore.model.View;
     "classpath:view/tender/discount.xml",
     "classpath:view/tender/giftcard.xml",
     "classpath:view/tender/voucher.xml",
+    "classpath:view/user-list.xml",
     "classpath:view/user-new.xml",
     "classpath:view/void.xml",
     "classpath:view/void-post.xml",

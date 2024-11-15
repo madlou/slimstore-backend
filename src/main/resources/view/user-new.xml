@@ -11,7 +11,8 @@
         <property name="name" value="user-new" />
         <property name="title" value="New User" />
         <property name="message" value="Please enter a new user below." />
-        <property name="formSuccess" value="search" />
+        <property name="formProcess" value="NewUser" />
+        <property name="formSuccess" value="user-list" />
         <property name="formElements">
             <array>
                 <bean class="com.tjx.lew00305.slimstore.model.FormElement">
@@ -45,7 +46,7 @@
                 <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="Back" />
-                    <property name="action" value="system" />
+                    <property name="action" value="user-list" />
                 </bean>
             </array>
         </property>

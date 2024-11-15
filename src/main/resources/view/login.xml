@@ -10,7 +10,7 @@
     <bean class="com.tjx.lew00305.slimstore.model.View">
         <property name="name" value="login" />
         <property name="title" value="Login" />
-        <property name="message" value="Please login to continue (lewis:1234)" />
+        <property name="message" value="Please login to continue (1111/2222/3333:1234)" />
         <property name="formProcess" value="Login" />
         <property name="formSuccess" value="home" />
         <property name="formElements">
