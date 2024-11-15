@@ -1,6 +1,5 @@
 package com.tjx.lew00305.slimstore.controller;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,12 +12,9 @@ import com.tjx.lew00305.slimstore.dto.UserDTO;
 import com.tjx.lew00305.slimstore.model.View;
 import com.tjx.lew00305.slimstore.model.FormElement;
 import com.tjx.lew00305.slimstore.service.ProductService;
-import com.tjx.lew00305.slimstore.service.TransactionService;
+//import com.tjx.lew00305.slimstore.service.TransactionService;
 import com.tjx.lew00305.slimstore.service.UserService;
 import com.tjx.lew00305.slimstore.service.ViewService;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 import com.tjx.lew00305.slimstore.service.BasketService;
 import com.tjx.lew00305.slimstore.service.GiftCardService;
@@ -37,8 +33,8 @@ public class RegisterController {
     @Autowired
     private ProductService productService;
 
-    @Autowired
-    private TransactionService transactionService;
+//    @Autowired
+//    private TransactionService transactionService;
 
     @Autowired
     private GiftCardService giftCardService;
@@ -48,9 +44,6 @@ public class RegisterController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private HttpServletRequest request;
 
     @PostMapping(path = "/api/register")
     public @ResponseBody RegisterResponseDTO registerQuery(@RequestBody RegisterRequestDTO registerRequest) {
@@ -94,12 +87,10 @@ public class RegisterController {
         action = action.isEmpty() ? "home" : action;
         View view = viewService.getView(action);
         response.setView(view);
-        if(user != null) {
-            response.setStore(locationService.getStore(123));
-            response.setRegister(locationService.getRegister(123, 1));
-            response.setBasket(basketService.getBasketArray());
-            response.setUser(user);            
-        }
+        response.setStore(locationService.getStore(123));
+        response.setRegister(locationService.getRegister(123, 1));
+        response.setBasket(basketService.getBasketArray());
+        response.setUser(user);            
         switch (action) {
             case "search":
                 FormElement[] formElements = registerRequest.getFormElements();

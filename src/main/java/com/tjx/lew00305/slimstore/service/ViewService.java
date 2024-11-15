@@ -2,7 +2,6 @@ package com.tjx.lew00305.slimstore.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.annotation.RequestScope;
 
 import com.tjx.lew00305.slimstore.config.ViewConfig;
 import com.tjx.lew00305.slimstore.model.View;
