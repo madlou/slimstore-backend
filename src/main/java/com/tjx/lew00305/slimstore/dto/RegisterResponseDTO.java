@@ -10,10 +10,11 @@ import lombok.Data;
 @Data
 public class RegisterResponseDTO {
 
-    private Store store;
-    private StoreRegister register;
-    private View view;
-    private BasketLine[] basket;
-    private UserDTO user;
+    private Store store = new Store();
+    private StoreRegister register = new StoreRegister();
+    private View view = new View();
+    private BasketLine[] basket = new BasketLine[0];
+    private UserDTO user = new UserDTO();
+    private String error = new String();
     
 }

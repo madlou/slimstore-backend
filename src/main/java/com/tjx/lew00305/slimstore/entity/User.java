@@ -1,5 +1,7 @@
 package com.tjx.lew00305.slimstore.entity;
 
+import org.springframework.web.context.annotation.SessionScope;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

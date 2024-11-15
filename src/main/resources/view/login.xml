@@ -10,8 +10,8 @@
     <bean class="com.tjx.lew00305.slimstore.model.View">
         <property name="name" value="login" />
         <property name="title" value="Login" />
-        <property name="message" value="Please login to continue." />
-        <property name="formProcess" value="login" />
+        <property name="message" value="Please login to continue (lewis:1234)" />
+        <property name="formProcess" value="Login" />
         <property name="formSuccess" value="home" />
         <property name="formElements">
             <array>
@@ -33,11 +33,6 @@
         </property>
         <property name="functionButtons">
             <array>
-                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
-                    <property name="position" value="1" />
-                    <property name="label" value="Login" />
-                    <property name="action" value="home" />   
-                </bean>
             </array>
         </property>
     </bean>

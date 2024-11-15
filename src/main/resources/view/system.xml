@@ -23,6 +23,7 @@
                     <property name="position" value="1" />
                     <property name="label" value="Log Off" />
                     <property name="action" value="login" />
+                    <property name="process" value="Logout" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
                     <property name="position" value="2" />
