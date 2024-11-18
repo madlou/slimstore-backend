@@ -29,7 +29,7 @@
             <array>
                 <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
                     <property name="position" value="1" />
-                    <property name="label" value="Sale" />
+                    <property name="label" value="Drink Sale" />
                     <property name="action" value="sale" />   
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
