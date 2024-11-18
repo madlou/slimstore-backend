@@ -80,7 +80,6 @@ public class UserService {
                 elements.add(userElement);
             }
         }
-        System.out.print(elements);
         return elements.toArray(new FormElement[0]);
     }
 
