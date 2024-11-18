@@ -30,7 +30,6 @@
                     <property name="label" value="Post Void" />
                     <property name="action" value="void-post" />   
                     <property name="condition" value="basket.length = 0" />
-                    <property name="process" value="EmptyBasket" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
                     <property name="position" value="8" />
