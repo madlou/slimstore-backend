@@ -7,7 +7,7 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
     
-    <bean class="com.tjx.lew00305.slimstore.model.View">
+    <bean class="com.tjx.lew00305.slimstore.model.common.View">
         <property name="name" value="sale" />
         <property name="title" value="Non-Merch Sale" />
         <property name="message" value="Please select option to buy." />
@@ -15,7 +15,7 @@
         <property name="formSuccess" value="home" />
         <property name="formElements">
             <array>
-                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                     <property name="type" value="product" />
                     <property name="key" value="101" />
                     <property name="label" value="Pepsi" />
@@ -23,7 +23,7 @@
                     <property name="value" value="0" />
                     <property name="price" value="2" />
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                     <property name="type" value="product" />
                     <property name="key" value="102" />
                     <property name="label" value="Pepsi Max" />
@@ -31,7 +31,7 @@
                     <property name="value" value="0" />
                     <property name="price" value="1.5" />
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                     <property name="type" value="product" />
                     <property name="key" value="103" />
                     <property name="label" value="Coca Cola" />
@@ -39,7 +39,7 @@
                     <property name="value" value="0" />
                     <property name="price" value="2" />
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                     <property name="type" value="product" />
                     <property name="key" value="104" />
                     <property name="label" value="Fanta" />
@@ -47,7 +47,7 @@
                     <property name="value" value="0" />
                     <property name="price" value="2" />
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                     <property name="type" value="product" />
                     <property name="key" value="105" />
                     <property name="label" value="Sprite" />
@@ -59,12 +59,12 @@
         </property>
         <property name="functionButtons">
             <array>
-                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="1" />
                     <property name="label" value="Add" />
                     <property name="action" value="submit" />   
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="Back" />
                     <property name="action" value="home" />   

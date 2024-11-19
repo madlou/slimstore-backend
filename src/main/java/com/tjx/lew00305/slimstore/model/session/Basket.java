@@ -1,4 +1,4 @@
-package com.tjx.lew00305.slimstore.model;
+package com.tjx.lew00305.slimstore.model.session;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -21,12 +21,20 @@ public class Basket implements Serializable {
         basket = new ArrayList<BasketLine>();        
     }
     
-    public ArrayList<BasketLine> get(){
+    public ArrayList<BasketLine> getArrayList(){
         return basket;
     }
     
     public BasketLine[] getArray() {
         return basket.toArray(new BasketLine[0]);
+    }
+    
+    public float getTotal() {
+        float total = 0;
+        for(BasketLine line : basket) {
+            total += line.getQuantity() * line.getUnitValue();
+        }
+        return total;
     }
    
 }

@@ -1,4 +1,5 @@
-package com.tjx.lew00305.slimstore.entity;
+package com.tjx.lew00305.slimstore.model.entity;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -11,19 +12,15 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class TransactionLine {
-
+public class Store {
+    
     @Id
     @GeneratedValue()
     private int id;
-    @JoinColumn(name = "transaction.id")
-    private int transactionId;
+    @Column(unique = true)
     private int number;
-    @JoinColumn(name = "product.id")
-    private int productId;
-    private String type;
-    private int quantity;
-    private float unitValue;
-    private float lineValue;
+    private String name;
+    @JoinColumn(name = "country.code")
+    private String countryCode;
 
 }

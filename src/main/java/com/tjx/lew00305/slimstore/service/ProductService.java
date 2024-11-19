@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.tjx.lew00305.slimstore.dto.TjxComSearchDTO;
-import com.tjx.lew00305.slimstore.model.FormElement;
+import com.tjx.lew00305.slimstore.model.common.FormElement;
 
 @Service
 public class ProductService {

@@ -4,11 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 
-import com.tjx.lew00305.slimstore.model.View;
+import com.tjx.lew00305.slimstore.model.common.View;
 
 @Configuration
 @ImportResource({
     "classpath:view/404.xml",
+    "classpath:view/complete.xml",
     "classpath:view/giftcard.xml",
     "classpath:view/home.xml",
     "classpath:view/login.xml",

@@ -1,4 +1,4 @@
-package com.tjx.lew00305.slimstore.model;
+package com.tjx.lew00305.slimstore.model.session;
 
 import java.io.Serializable;
 
@@ -10,12 +10,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class BasketLine implements Serializable {
+public class TenderLine implements Serializable {
     
-    private String code;
-    private String name;
     private String type;
-    private int quantity;
-    private float unitValue;
+    private String label;
+    private float value;
+    private String reference;
 
 }

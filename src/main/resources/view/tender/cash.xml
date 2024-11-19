@@ -7,52 +7,53 @@
                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
                         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
-    <bean class="com.tjx.lew00305.slimstore.model.View">
+    <bean class="com.tjx.lew00305.slimstore.model.common.View">
         <property name="name" value="tender/cash" />
         <property name="title" value="Tender Cash" />
         <property name="message" value="Please enter or select a cash value." />
-        <property name="formSuccess" value="" />
+        <property name="formProcess" value="Tender" />
+        <property name="formSuccess" value="tender" />
         <property name="formElements">
             <array>
-                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                     <property name="type" value="decimal" />
-                    <property name="key" value="amount" />
-                    <property name="label" value="Amount" />
+                    <property name="key" value="cash" />
+                    <property name="label" value="Cash" />
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                     <property name="type" value="submit" />
-                    <property name="value" value="Cash" />
+                    <property name="value" value="Submit" />
                 </bean>
             </array>
         </property>
         <property name="functionButtons">
             <array>
-                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="1" />
                     <property name="label" value="Full Amount" />
-                    <property name="action" value="tender/cash:amount=full" />
+                    <property name="action" value="tender:full" />
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="2" />
                     <property name="label" value="£5" />
-                    <property name="action" value="tender/cash:amount=5" />
+                    <property name="action" value="tender:5" />
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="3" />
                     <property name="label" value="£10" />
-                    <property name="action" value="tender/cash:amount=10" />
+                    <property name="action" value="tender:10" />
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="4" />
                     <property name="label" value="£20" />
-                    <property name="action" value="tender/cash:amount=20" />
+                    <property name="action" value="tender:20" />
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="5" />
                     <property name="label" value="£50" />
-                    <property name="action" value="tender/cash:amount=50" />
+                    <property name="action" value="tender:50" />
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="Back" />
                     <property name="action" value="tender" />

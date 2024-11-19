@@ -1,4 +1,5 @@
-package com.tjx.lew00305.slimstore.entity;
+package com.tjx.lew00305.slimstore.model.entity;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -11,16 +12,15 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class TransactionTender {
-
+public class Country {
+    
     @Id
     @GeneratedValue()
     private int id;
-    @JoinColumn(name = "transaction.id")
-    private int transactionId;
-    private int number;
-    private String type;
-    private float value;
-    private String reference;
+    @Column(unique = true)
+    private String code;
+    private String name;
+    @JoinColumn(name = "currency.code")
+    private String currencyCode;
 
 }

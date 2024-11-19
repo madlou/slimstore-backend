@@ -2,8 +2,8 @@ package com.tjx.lew00305.slimstore.service;
 
 import org.springframework.stereotype.Service;
 
-import com.tjx.lew00305.slimstore.entity.Store;
-import com.tjx.lew00305.slimstore.entity.StoreRegister;
+import com.tjx.lew00305.slimstore.model.entity.Store;
+import com.tjx.lew00305.slimstore.model.entity.StoreRegister;
 
 @Service
 public class LocationService {

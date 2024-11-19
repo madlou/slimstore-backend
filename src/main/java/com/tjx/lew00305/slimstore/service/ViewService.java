@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tjx.lew00305.slimstore.config.ViewConfig;
-import com.tjx.lew00305.slimstore.model.View;
+import com.tjx.lew00305.slimstore.dto.RegisterRequestDTO;
+import com.tjx.lew00305.slimstore.model.common.FormElement;
+import com.tjx.lew00305.slimstore.model.common.View;
 
 @Service
 public class ViewService {
@@ -12,11 +14,24 @@ public class ViewService {
     @Autowired
     private ViewConfig flowConfig;
     
+    @Autowired
+    private ProductService productService;
+    
+    @Autowired
+    private UserService userService;
+
     public View[] getAll() {
         return flowConfig.getViews();
     }
     
-    public View getView(String name) {
+    public View getViewByRequest(RegisterRequestDTO request) {
+        String action = request.getAction();
+        action = action.isEmpty() ? "home" : action;
+        View view = getViewByName(action);
+        return enrichView(view, action, request.getFormElements());
+    }
+    
+    public View getViewByName(String name) {
         View pageNotFound = new View();
         for(View view: flowConfig.getViews()) {
             if(view.getName().equals(name)) {
@@ -26,6 +41,20 @@ public class ViewService {
                 pageNotFound = view;
             }
         }
-        return pageNotFound;
+        return pageNotFound;        
     }
+    
+    private View enrichView(View view, String action, FormElement[] formElements) {
+        switch (action) {
+            case "search":
+                String searchQuery = formElements[0].getValue();
+                view.setFormElements(productService.onlineSearch(searchQuery));
+                break;
+            case "user-list":
+                view.setFormElements(userService.getUsersAsFormElements());
+                break;
+        }
+        return view;
+    }
+    
 }

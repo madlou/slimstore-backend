@@ -1,4 +1,4 @@
-package com.tjx.lew00305.slimstore.entity;
+package com.tjx.lew00305.slimstore.model.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;

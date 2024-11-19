@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.tjx.lew00305.slimstore.dto.RegisterRequestDTO;
+import com.tjx.lew00305.slimstore.dto.RegisterResponseDTO;
 import com.tjx.lew00305.slimstore.dto.UserDTO;
-import com.tjx.lew00305.slimstore.entity.User;
-import com.tjx.lew00305.slimstore.model.FormElement;
+import com.tjx.lew00305.slimstore.model.common.FormElement;
+import com.tjx.lew00305.slimstore.model.entity.User;
 import com.tjx.lew00305.slimstore.repository.UserRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,7 +27,7 @@ public class UserService {
     
     @Autowired
     private UserRepository userRepository;
-    
+        
     @Value("${tjx.admin.password}")
     private String adminPassword;
 
@@ -37,6 +39,22 @@ public class UserService {
     public User addUser(String username, String name, String email, String password) throws Exception {
         User user = userRepository.save(new User(null, username, email, name, password));            
         return user;
+    }
+    
+    public RegisterResponseDTO addUserFromRequest(RegisterRequestDTO request, RegisterResponseDTO response) {
+        FormElement[] fe = request.getFormElements();
+        try {
+            addUser(fe[0].getValue(), fe[1].getValue(), fe[2].getValue(), fe[3].getValue());
+            return response;
+        } catch (Exception e) {
+            if(e.getMessage().contains("Duplicate entry")) {
+                response.setError("Unable to create user: Employee number already being used.");                            
+            } else {
+                response.setError("Unable to create user: " +  e.getMessage());
+            }
+            return response;
+        }
+
     }
     
     private User getUser(String username) throws Exception {
@@ -57,6 +75,17 @@ public class UserService {
             UserDTO userDto = modelMapper.map(user, UserDTO.class);
             request.getSession().setAttribute("user", userDto);
             return userDto;
+        }
+        return null;
+    }
+    
+    public UserDTO validateLoginByRequest(RegisterRequestDTO request) {
+        String username = request.getFormElements()[0].getValue();
+        String password = request.getFormElements()[1].getValue();
+        try {
+            return validateLogin(username, password);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }

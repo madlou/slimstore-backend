@@ -1,6 +1,6 @@
 package com.tjx.lew00305.slimstore.dto;
 
-import com.tjx.lew00305.slimstore.model.FormElement;
+import com.tjx.lew00305.slimstore.model.common.FormElement;
 
 import lombok.Data;
 

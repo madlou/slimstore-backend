@@ -1,5 +1,5 @@
-package com.tjx.lew00305.slimstore.entity;
-import jakarta.persistence.Column;
+package com.tjx.lew00305.slimstore.model.entity;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -12,15 +12,15 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Store {
-    
+public class StoreRegister {
+
     @Id
     @GeneratedValue()
     private int id;
-    @Column(unique = true)
+    @JoinColumn(name = "store.id")
+    private int storeId;
     private int number;
-    private String name;
-    @JoinColumn(name = "country.code")
-    private String countryCode;
-
+    private String status;
+    private int lastTxnNumber;
+    
 }

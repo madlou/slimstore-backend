@@ -8,9 +8,9 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
     
     <bean class="com.tjx.lew00305.slimstore.model.common.View">
-        <property name="name" value="void" />
-        <property name="title" value="Void" />
-        <property name="message" value="Please select an option below." />
+        <property name="name" value="complete" />
+        <property name="title" value="Transaction Complete" />
+        <property name="message" value="The transaction has completed, press F1 to continue a new transaction." />
         <property name="formSuccess" value="" />
         <property name="formElements">
             <array>
@@ -20,26 +20,12 @@
             <array>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="1" />
-                    <property name="label" value="Void Basket" />
-                    <property name="action" value="home" />   
-                    <property name="condition" value="basket.length > 0" />
-                    <property name="process" value="EmptyBasket" />
-                </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
-                    <property name="position" value="2" />
-                    <property name="label" value="Post Void" />
-                    <property name="action" value="void-post" />   
-                    <property name="condition" value="basket.length = 0" />
-                </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
-                    <property name="position" value="8" />
-                    <property name="label" value="Back" />
-                    <property name="action" value="home" />   
+                    <property name="label" value="Complete" />
+                    <property name="action" value="home" />
+                    <property name="process" value="TransactionComplete" />
                 </bean>
             </array>
         </property>
     </bean>
 
-
 </beans>
-

@@ -7,7 +7,7 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
     
-    <bean class="com.tjx.lew00305.slimstore.model.View">
+    <bean class="com.tjx.lew00305.slimstore.model.common.View">
         <property name="name" value="404" />
         <property name="title" value="404" />
         <property name="message" value="ERROR: Page not found. This functionality is likely not been developed yet." />
@@ -18,7 +18,7 @@
         </property>
         <property name="functionButtons">
             <array>
-                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="1" />
                     <property name="label" value="Home" />
                     <property name="action" value="home" />

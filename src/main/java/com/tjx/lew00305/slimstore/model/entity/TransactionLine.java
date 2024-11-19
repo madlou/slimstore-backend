@@ -1,7 +1,4 @@
-package com.tjx.lew00305.slimstore.entity;
-
-import java.sql.Timestamp;
-
+package com.tjx.lew00305.slimstore.model.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -14,15 +11,19 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Transaction {
+public class TransactionLine {
 
     @Id
     @GeneratedValue()
     private int id;
-    @JoinColumn(name = "storeregister.id")
-    private int registerID;
+    @JoinColumn(name = "transaction.id")
+    private int transactionId;
     private int number;
-    private Timestamp date;
-    private int txnNumber;
-    
+    @JoinColumn(name = "product.id")
+    private int productId;
+    private String type;
+    private int quantity;
+    private float unitValue;
+    private float lineValue;
+
 }

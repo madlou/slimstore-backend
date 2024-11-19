@@ -7,19 +7,19 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
     
-    <bean class="com.tjx.lew00305.slimstore.model.View">
+    <bean class="com.tjx.lew00305.slimstore.model.common.View">
         <property name="name" value="home" />
         <property name="title" value="Home" />
         <property name="message" value="Please scan barcode or search for product." />
         <property name="formSuccess" value="search" />
         <property name="formElements">
             <array>
-                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                     <property name="type" value="text" />
                     <property name="key" value="search" />
                     <property name="label" value="Search" />
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                     <property name="type" value="submit" />
                     <property name="value" value="Go" />
                 </bean>
@@ -27,33 +27,33 @@
         </property>
         <property name="functionButtons">
             <array>
-                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="1" />
                     <property name="label" value="Drink Sale" />
                     <property name="action" value="sale" />   
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="2" />
                     <property name="label" value="Return" />
                     <property name="action" value="return" />   
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="3" />
                     <property name="label" value="Void" />
                     <property name="action" value="void" />
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="4" />
                     <property name="label" value="Gift Cards" />
                     <property name="action" value="giftcard" />
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="7" />
                     <property name="label" value="System" />
                     <property name="action" value="system" />
                     <property name="condition" value="basket.length = 0" />
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="Tender" />
                     <property name="action" value="tender" />

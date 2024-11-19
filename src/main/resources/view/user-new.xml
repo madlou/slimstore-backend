@@ -7,7 +7,7 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
     
-    <bean class="com.tjx.lew00305.slimstore.model.View">
+    <bean class="com.tjx.lew00305.slimstore.model.common.View">
         <property name="name" value="user-new" />
         <property name="title" value="New User" />
         <property name="message" value="Please enter a new user below." />
@@ -15,27 +15,27 @@
         <property name="formSuccess" value="user-list" />
         <property name="formElements">
             <array>
-                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                     <property name="type" value="number" />
                     <property name="key" value="code" />
                     <property name="label" value="Employee Number" />
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                     <property name="type" value="text" />
                     <property name="key" value="name" />
                     <property name="label" value="Name" />
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                     <property name="type" value="email" />
                     <property name="key" value="email" />
                     <property name="label" value="Email" />
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                     <property name="type" value="password" />
                     <property name="key" value="password" />
                     <property name="label" value="Password" />
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.FormElement">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                     <property name="type" value="submit" />
                     <property name="value" value="Create" />
                 </bean>
@@ -43,7 +43,7 @@
         </property>
         <property name="functionButtons">
             <array>
-                <bean class="com.tjx.lew00305.slimstore.model.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="Back" />
                     <property name="action" value="user-list" />
