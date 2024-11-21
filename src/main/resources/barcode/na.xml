@@ -86,7 +86,7 @@
     </bean>
 
     <bean class="com.tjx.lew00305.slimstore.model.common.BarcodeSpecification">
-        <property name="region" value="CANADA" />
+        <property name="region" value="CA" />
         <property name="banner" value="TJMAXX" />
         <property name="type" value="STORE" />
         <property name="length" value="14" />
@@ -99,7 +99,7 @@
     </bean>
 
     <bean class="com.tjx.lew00305.slimstore.model.common.BarcodeSpecification">
-        <property name="region" value="CANADA" />
+        <property name="region" value="CA" />
         <property name="banner" value="TJMAXX" />
         <property name="type" value="STORE" />
         <property name="length" value="16" />
