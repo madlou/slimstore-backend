@@ -4,4 +4,6 @@ public enum Banner {
     TJMAXX,
     TKMAXX,
     MARSHALLS,
+    HOMEGOODS,
+    HOMESENSE,
 }
