@@ -22,7 +22,7 @@ public class TenderService {
     public void addTenderByRequest(RegisterRequestDTO request) {
         addFormElements(request.getFormElements());
         if(tender.getTotal() >= basketService.getTotal()) {
-            tender.add(new TenderLine("cash-change", "Cash Change", basketService.getTotal() - tender.getTotal(), null));
+            tender.add(new TenderLine("cash", "Cash Change", basketService.getTotal() - tender.getTotal(), ""));
             tender.setComplete();
         }
     }

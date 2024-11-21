@@ -19,8 +19,8 @@ public class TransactionLine {
     @JoinColumn(name = "transaction.id")
     private Integer transactionId;
     private Integer number;
-    @JoinColumn(name = "product.id")
-    private Integer productId;
+    private String productId;
+    private String productCode;
     private String type;
     private Integer quantity;
     private Float unitValue;

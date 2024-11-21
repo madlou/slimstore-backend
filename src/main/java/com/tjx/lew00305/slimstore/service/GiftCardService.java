@@ -21,7 +21,7 @@ public class GiftCardService {
         // TODO get txn number
         int transactionNumber = request.getRegisterNumber();
         topupQueue(card, value, transactionNumber);
-        return new FormElement("sale", "TJXGC", "Gift Card (" + card + ")", "1" ,null, value, null);
+        return new FormElement("giftcard", "TJXGC", "Gift Card (" + card + ")", "1" ,null, value, null);
     }
 
 }

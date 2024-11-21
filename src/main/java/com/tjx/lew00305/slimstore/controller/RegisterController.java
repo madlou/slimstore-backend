@@ -22,6 +22,7 @@ import com.tjx.lew00305.slimstore.service.GiftCardService;
 
 import com.tjx.lew00305.slimstore.service.LocationService;
 import com.tjx.lew00305.slimstore.service.TenderService;
+import com.tjx.lew00305.slimstore.service.TransactionService;
 
 @RestController
 public class RegisterController {
@@ -40,6 +41,8 @@ public class RegisterController {
     private UserService userService;
     @Autowired
     private ViewService viewService;
+    @Autowired
+    private TransactionService transactionService;
 
     @PostMapping(path = "/api/register")
     public @ResponseBody RegisterResponseDTO registerQuery(
@@ -124,7 +127,12 @@ public class RegisterController {
         response.setTender(tenderService.getTenderArray());
         response.setUser(user);
         if(tenderService.isComplete()) {
-            response.setView(viewService.getViewByName("complete"));
+            try {
+                transactionService.addTransaction();
+            } catch (Exception e) {
+                response.setError("ERROR: " + e.getMessage());
+            }
+            response.setView(viewService.getViewByName("complete"));                
         }
         return response;
     }

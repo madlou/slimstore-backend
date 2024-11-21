@@ -23,7 +23,6 @@ public class Transaction {
     private Integer registerID;
     private Integer number;
     private Timestamp date;
-    private Integer txnNumber;
     private Float total;
     
 }
