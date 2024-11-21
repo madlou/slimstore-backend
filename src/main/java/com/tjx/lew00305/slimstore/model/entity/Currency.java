@@ -15,7 +15,7 @@ public class Currency {
 
     @Id
     @GeneratedValue()
-    private int id;
+    private Integer id;
     @Column(unique = true)
     private String code;
     private String label;

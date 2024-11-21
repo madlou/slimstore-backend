@@ -16,6 +16,10 @@ public class ProductService {
     
     @Autowired
     private RestTemplate restTemplate;
+        
+    public FormElement[] search(String query) {
+        return onlineSearch(query);
+    }
     
     public FormElement[] onlineSearch(String query) {
         TjxComSearchDTO search = restTemplate.getForObject(onlineSearchUrl + query, TjxComSearchDTO.class);
@@ -27,5 +31,7 @@ public class ProductService {
         }
         return products;
     }
+    
+    
 
 }

@@ -9,5 +9,5 @@ public class SlimStoreApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SlimStoreApplication.class, args);
 	}
-
+	 //"9206603710000999"
 }

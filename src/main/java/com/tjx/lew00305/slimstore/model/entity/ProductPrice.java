@@ -15,12 +15,12 @@ public class ProductPrice {
 
     @Id
     @GeneratedValue()
-    private int id;
+    private Integer id;
     @JoinColumn(name = "product.id")
-    private int productId;
+    private Integer productId;
     @JoinColumn(name = "country.code")
-    private int countryCode;
-    private int price;
-    private int taxRate;
+    private Integer countryCode;
+    private Integer price;
+    private Integer taxRate;
 
 }

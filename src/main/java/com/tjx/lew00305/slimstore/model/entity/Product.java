@@ -16,7 +16,7 @@ public class Product {
     
     @Id
     @GeneratedValue()
-    private int id;
+    private Integer id;
     @Column(unique = true)
     private String code;
     private String name;

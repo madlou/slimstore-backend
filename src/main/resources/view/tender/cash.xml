@@ -32,26 +32,31 @@
                     <property name="position" value="1" />
                     <property name="label" value="Full Amount" />
                     <property name="action" value="tender:full" />
+                    <property name="process" value="Tender" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="2" />
                     <property name="label" value="£5" />
                     <property name="action" value="tender:5" />
+                    <property name="process" value="Tender" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="3" />
                     <property name="label" value="£10" />
                     <property name="action" value="tender:10" />
+                    <property name="process" value="Tender" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="4" />
                     <property name="label" value="£20" />
                     <property name="action" value="tender:20" />
+                    <property name="process" value="Tender" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="5" />
                     <property name="label" value="£50" />
                     <property name="action" value="tender:50" />
+                    <property name="process" value="Tender" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="8" />

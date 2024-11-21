@@ -9,7 +9,6 @@ import com.tjx.lew00305.slimstore.dto.RegisterRequestDTO;
 import com.tjx.lew00305.slimstore.model.common.FormElement;
 import com.tjx.lew00305.slimstore.model.session.Basket;
 import com.tjx.lew00305.slimstore.model.session.BasketLine;
-import com.tjx.lew00305.slimstore.model.session.Tender;
 
 @Service
 public class BasketService {

@@ -10,7 +10,7 @@
     <bean class="com.tjx.lew00305.slimstore.model.common.View">
         <property name="name" value="complete" />
         <property name="title" value="Transaction Complete" />
-        <property name="message" value="The transaction has completed, press F1 to continue a new transaction." />
+        <property name="message" value="The transaction has completed." />
         <property name="formSuccess" value="" />
         <property name="formElements">
             <array>

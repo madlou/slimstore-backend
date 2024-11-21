@@ -15,12 +15,12 @@ public class TransactionTender {
 
     @Id
     @GeneratedValue()
-    private int id;
+    private Integer id;
     @JoinColumn(name = "transaction.id")
-    private int transactionId;
-    private int number;
+    private Integer transactionId;
+    private Integer number;
     private String type;
-    private float value;
+    private Float value;
     private String reference;
 
 }

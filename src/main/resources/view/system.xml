@@ -31,9 +31,14 @@
                     <property name="action" value="user-list" />   
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
-                    <property name="position" value="7" />
+                    <property name="position" value="6" />
                     <property name="label" value="Reports" />
                     <property name="action" value="reports" />
+                </bean>
+                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                    <property name="position" value="7" />
+                    <property name="label" value="Register Setup" />
+                    <property name="action" value="register-setup" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="8" />

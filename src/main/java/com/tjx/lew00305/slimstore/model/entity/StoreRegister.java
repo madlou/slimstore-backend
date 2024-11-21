@@ -1,5 +1,7 @@
 package com.tjx.lew00305.slimstore.model.entity;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -8,19 +10,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@SuppressWarnings("serial")
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class StoreRegister {
+public class StoreRegister implements Serializable {
 
     @Id
     @GeneratedValue()
-    private int id;
+    private Integer id;
     @JoinColumn(name = "store.id")
-    private int storeId;
-    private int number;
+    private Integer storeId;
+    private Integer number;
     private String status;
-    private int lastTxnNumber;
+    private Integer lastTxnNumber;
     
 }

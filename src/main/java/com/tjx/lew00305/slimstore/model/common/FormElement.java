@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class FormElement {
     
-    private String type;
-    private String key;
-    private String label;
-    private String value;
-    private String image;
+    private String type = "";
+    private String key = "";
+    private String label = "";
+    private String value = "";
+    private String image = "";
     private Float price;
     private String[] options;
 

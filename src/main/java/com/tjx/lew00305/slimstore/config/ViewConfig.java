@@ -7,29 +7,7 @@ import org.springframework.context.annotation.ImportResource;
 import com.tjx.lew00305.slimstore.model.common.View;
 
 @Configuration
-@ImportResource({
-    "classpath:view/404.xml",
-    "classpath:view/complete.xml",
-    "classpath:view/giftcard.xml",
-    "classpath:view/home.xml",
-    "classpath:view/login.xml",
-    "classpath:view/reports.xml",
-    "classpath:view/return.xml",
-    "classpath:view/return-manual.xml",
-    "classpath:view/sale.xml",
-    "classpath:view/search.xml",
-    "classpath:view/system.xml",
-    "classpath:view/tender.xml",
-    "classpath:view/tender/card.xml",
-    "classpath:view/tender/cash.xml",
-    "classpath:view/tender/discount.xml",
-    "classpath:view/tender/giftcard.xml",
-    "classpath:view/tender/voucher.xml",
-    "classpath:view/user-list.xml",
-    "classpath:view/user-new.xml",
-    "classpath:view/void.xml",
-    "classpath:view/void-post.xml",
-})
+@ImportResource("classpath:view/**/*.xml")
 public class ViewConfig {
         
     @Autowired    

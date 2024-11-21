@@ -12,6 +12,7 @@
         <property name="title" value="Home" />
         <property name="message" value="Please scan barcode or search for product." />
         <property name="formSuccess" value="search" />
+        <property name="formProcess" value="Search" />
         <property name="formElements">
             <array>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">

@@ -18,11 +18,12 @@ public class Transaction {
 
     @Id
     @GeneratedValue()
-    private int id;
+    private Integer id;
     @JoinColumn(name = "storeregister.id")
-    private int registerID;
-    private int number;
+    private Integer registerID;
+    private Integer number;
     private Timestamp date;
-    private int txnNumber;
+    private Integer txnNumber;
+    private Float total;
     
 }

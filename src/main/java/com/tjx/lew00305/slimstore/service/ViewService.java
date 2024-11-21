@@ -20,6 +20,9 @@ public class ViewService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private LocationService locationService;
+
     public View[] getAll() {
         return flowConfig.getViews();
     }
@@ -48,10 +51,16 @@ public class ViewService {
         switch (action) {
             case "search":
                 String searchQuery = formElements[0].getValue();
-                view.setFormElements(productService.onlineSearch(searchQuery));
+                view.setFormElements(productService.search(searchQuery));
                 break;
             case "user-list":
                 view.setFormElements(userService.getUsersAsFormElements());
+                break;
+            case "register-setup":
+                FormElement[] regListElements = view.getFormElements();
+                regListElements[0].setValue("" + locationService.getStore().getNumber());
+                regListElements[1].setValue("" + locationService.getStoreRegister().getNumber());
+                view.setFormElements(regListElements);
                 break;
         }
         return view;

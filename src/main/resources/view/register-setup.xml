@@ -8,31 +8,37 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
     
     <bean class="com.tjx.lew00305.slimstore.model.common.View">
-        <property name="name" value="login" />
-        <property name="title" value="Login" />
-        <property name="message" value="Please login to continue." />
-        <property name="formProcess" value="Login" />
+        <property name="name" value="register-setup" />
+        <property name="title" value="Register Setup" />
+        <property name="message" value="Please enter your store and register details." />
+        <property name="formProcess" value="ChangeRegister" />
         <property name="formSuccess" value="home" />
         <property name="formElements">
             <array>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
-                    <property name="type" value="text" />
-                    <property name="key" value="code" />
-                    <property name="label" value="Employee Number" />
+                    <property name="type" value="number" />
+                    <property name="key" value="storeNumber" />
+                    <property name="label" value="Store Number" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
-                    <property name="type" value="password" />
-                    <property name="key" value="password" />
-                    <property name="label" value="Password" />
+                    <property name="type" value="number" />
+                    <property name="key" value="registerNumber" />
+                    <property name="label" value="Register Number" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                     <property name="type" value="submit" />
-                    <property name="value" value="Login" />
+                    <property name="value" value="Submit" />
                 </bean>
             </array>
         </property>
         <property name="functionButtons">
             <array>
+                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                    <property name="position" value="8" />
+                    <property name="label" value="Back" />
+                    <property name="action" value="system" />
+                </bean>
+            
             </array>
         </property>
     </bean>

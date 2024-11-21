@@ -34,9 +34,14 @@ public class TenderService {
     }
     
     public void addFormElement(FormElement element) {
-        int quantity = Integer.parseInt(element.getValue());
-        if(quantity > 0) {
-            tender.add(new TenderLine(element.getKey(), element.getLabel(), Float.parseFloat(element.getValue()), ""));
+        float value;
+        if(element.getValue().equals("full")) {
+            value = basketService.getTotal() - tender.getTotal();
+        } else {
+            value = Float.parseFloat(element.getValue());            
+        }
+        if(value > 0) {
+            tender.add(new TenderLine(element.getKey(), element.getLabel(), value, ""));
         }
     }
     

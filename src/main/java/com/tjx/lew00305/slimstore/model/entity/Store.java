@@ -1,4 +1,6 @@
 package com.tjx.lew00305.slimstore.model.entity;
+import java.io.Serializable;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,17 +10,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@SuppressWarnings("serial")
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Store {
+public class Store  implements Serializable {
     
     @Id
     @GeneratedValue()
-    private int id;
+    private Integer id;
     @Column(unique = true)
-    private int number;
+    private Integer number;
     private String name;
     @JoinColumn(name = "country.code")
     private String countryCode;

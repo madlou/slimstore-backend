@@ -12,28 +12,27 @@ import com.tjx.lew00305.slimstore.dto.RegisterResponseDTO;
 import com.tjx.lew00305.slimstore.dto.UserDTO;
 import com.tjx.lew00305.slimstore.model.common.FormElement;
 import com.tjx.lew00305.slimstore.model.entity.User;
+import com.tjx.lew00305.slimstore.model.session.UserSession;
 import com.tjx.lew00305.slimstore.repository.UserRepository;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class UserService {
     
     @Autowired
-    private HttpServletRequest request;
-
-    @Autowired
     private ModelMapper modelMapper;
     
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private UserSession userSession;
         
     @Value("${tjx.admin.password}")
     private String adminPassword;
 
     
     public UserDTO getUserFromSession() {
-        return (UserDTO) request.getSession().getAttribute("user");
+        return userSession.getUserDTO();
     }
     
     public User addUser(String username, String name, String email, String password) throws Exception {
@@ -73,15 +72,19 @@ public class UserService {
         User user = getUser(username);
         if(user != null && user.getPassword().equals(password)) {
             UserDTO userDto = modelMapper.map(user, UserDTO.class);
-            request.getSession().setAttribute("user", userDto);
+            userSession.setUserDTO(userDto);
             return userDto;
         }
         return null;
     }
     
     public UserDTO validateLoginByRequest(RegisterRequestDTO request) {
-        String username = request.getFormElements()[0].getValue();
-        String password = request.getFormElements()[1].getValue();
+        FormElement[] formElements = request.getFormElements();
+        if(formElements[0] == null || formElements[1] == null) {
+            return null;
+        }
+        String username = formElements[0].getValue();
+        String password = formElements[1].getValue();
         try {
             return validateLogin(username, password);
         } catch (Exception e) {
@@ -91,7 +94,7 @@ public class UserService {
     }
     
     public void logout() {
-        request.getSession().removeAttribute("user");
+        userSession.setUserDTO(new UserDTO());
     }
 
     public FormElement[] getUsersAsFormElements() {

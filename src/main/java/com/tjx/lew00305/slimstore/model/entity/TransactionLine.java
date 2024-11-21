@@ -15,15 +15,15 @@ public class TransactionLine {
 
     @Id
     @GeneratedValue()
-    private int id;
+    private Integer id;
     @JoinColumn(name = "transaction.id")
-    private int transactionId;
-    private int number;
+    private Integer transactionId;
+    private Integer number;
     @JoinColumn(name = "product.id")
-    private int productId;
+    private Integer productId;
     private String type;
-    private int quantity;
-    private float unitValue;
-    private float lineValue;
+    private Integer quantity;
+    private Float unitValue;
+    private Float lineValue;
 
 }
