@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+  xsi:schemaLocation="http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+    
+    <bean class="com.tjx.lew00305.slimstore.model.common.BarcodeSpecification">
+        <property name="region" value="NA" />
+        <property name="banner" value="MARSHALLS" />
+        <property name="type" value="PREPRINTED" />
+        <property name="length" value="18" />
+        <property name="division" value="0" />
+        <property name="department" value="4" />
+        <property name="category" value="0" />
+        <property name="style" value="9" />
+        <property name="price" value="5" />
+        <property name="week" value="0" />
+    </bean>
+
+    <bean class="com.tjx.lew00305.slimstore.model.common.BarcodeSpecification">
+        <property name="region" value="NA" />
+        <property name="banner" value="TJMAXX" />
+        <property name="type" value="PREPRINTED" />
+        <property name="length" value="14" />
+        <property name="division" value="0" />
+        <property name="department" value="2" />
+        <property name="category" value="0" />
+        <property name="style" value="6" />
+        <property name="price" value="6" />
+        <property name="week" value="0" />
+    </bean>
+
+    <bean class="com.tjx.lew00305.slimstore.model.common.BarcodeSpecification">
+        <property name="region" value="NA" />
+        <property name="banner" value="MARSHALLS" />
+        <property name="type" value="STORE" />
+        <property name="length" value="20" />
+        <property name="division" value="0" />
+        <property name="department" value="4" />
+        <property name="category" value="0" />
+        <property name="style" value="9" />
+        <property name="price" value="5" />
+        <property name="week" value="2" />
+    </bean>
+
+      <bean class="com.tjx.lew00305.slimstore.model.common.BarcodeSpecification">
+        <property name="region" value="NA" />
+        <property name="banner" value="TJMAXX" />
+        <property name="type" value="STORE" />
+        <property name="length" value="20" />
+        <property name="division" value="2" />
+        <property name="department" value="2" />
+        <property name="category" value="2" />
+        <property name="style" value="6" />
+        <property name="price" value="6" />
+        <property name="week" value="2" />
+    </bean>
+
+      <bean class="com.tjx.lew00305.slimstore.model.common.BarcodeSpecification">
+        <property name="region" value="NA" />
+        <property name="banner" value="HOMEGOODS" />
+        <property name="type" value="STORE" />
+        <property name="length" value="20" />
+        <property name="division" value="2" />
+        <property name="department" value="2" />
+        <property name="category" value="2" />
+        <property name="style" value="6" />
+        <property name="price" value="6" />
+        <property name="week" value="2" />
+    </bean>
+
+        <bean class="com.tjx.lew00305.slimstore.model.common.BarcodeSpecification">
+        <property name="region" value="NA" />
+        <property name="banner" value="HOMESENSE" />
+        <property name="type" value="STORE" />
+        <property name="length" value="20" />
+        <property name="division" value="2" />
+        <property name="department" value="2" />
+        <property name="category" value="2" />
+        <property name="style" value="6" />
+        <property name="price" value="6" />
+        <property name="week" value="2" />
+    </bean>
+
+    <bean class="com.tjx.lew00305.slimstore.model.common.BarcodeSpecification">
+        <property name="region" value="CANADA" />
+        <property name="banner" value="TJMAXX" />
+        <property name="type" value="STORE" />
+        <property name="length" value="14" />
+        <property name="division" value="0" />
+        <property name="department" value="2" />
+        <property name="category" value="0" />
+        <property name="style" value="6" />
+        <property name="price" value="6" />
+        <property name="week" value="2" />
+    </bean>
+
+    <bean class="com.tjx.lew00305.slimstore.model.common.BarcodeSpecification">
+        <property name="region" value="CANADA" />
+        <property name="banner" value="TJMAXX" />
+        <property name="type" value="STORE" />
+        <property name="length" value="16" />
+        <property name="division" value="0" />
+        <property name="department" value="2" />
+        <property name="category" value="2" />
+        <property name="style" value="6" />
+        <property name="price" value="6" />
+        <property name="week" value="2" />
+    </bean>
+
+</beans>
