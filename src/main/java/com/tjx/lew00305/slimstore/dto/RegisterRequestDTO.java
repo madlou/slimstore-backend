@@ -7,9 +7,6 @@ import lombok.Data;
 @Data
 public class RegisterRequestDTO {
     
-    private int storeNumber;
-    private int registerNumber;
-    private int userNumber;
     private String action;
     private String formProcess;
     private FormElement[] formElements;
