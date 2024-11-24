@@ -7,7 +7,6 @@ import com.tjx.lew00305.slimstore.dto.RegisterRequestDTO;
 import com.tjx.lew00305.slimstore.model.entity.Store;
 import com.tjx.lew00305.slimstore.model.entity.StoreRegister;
 import com.tjx.lew00305.slimstore.model.session.LocationSession;
-import com.tjx.lew00305.slimstore.model.session.UserSession;
 import com.tjx.lew00305.slimstore.repository.StoreRegisterRepository;
 import com.tjx.lew00305.slimstore.repository.StoreRepository;
 
@@ -24,7 +23,7 @@ public class LocationService {
     private LocationSession locationSession;
 
     @Autowired
-    private UserSession userSession;
+    private UserService userService;
 
     public Store getStore() {
         return locationSession.getStore();
@@ -34,26 +33,25 @@ public class LocationService {
         return locationSession.getStoreRegister();
     }
     
-    public LocationSession validateLocation(String storeNumberString, String registerNumberString) {
-        Integer storeNumber = Integer.parseInt(storeNumberString);
-        Integer registerNumber = Integer.parseInt(registerNumberString);
+    public void setLocation(Integer storeNumber, Integer registerNumber) {
         Store store = storeRepository.findByNumber(storeNumber);
         StoreRegister storeRegister = store.getRegisterByNumber(registerNumber);
-//        StoreRegister storeRegister = storeRegisterRepository.findByNumber(registerNumber);
-        if(store == null || storeRegister == null) {
-            return null;            
-        }
-        locationSession.setStore(store);
-        locationSession.setStoreRegister(storeRegister);
-        return locationSession;
+        setLocation(store, storeRegister);
     }
 
+    public void setLocation(Store store, StoreRegister register) {
+        if(store != null && register != null) {
+            locationSession.setStore(store);
+            locationSession.setStoreRegister(register);
+        }
+    }
+    
     public LocationSession validateLocationByRequest(RegisterRequestDTO request) {
         Integer storeNumber = Integer.parseInt(request.getFormElements()[0].getValue());
         Integer registerNumber = Integer.parseInt(request.getFormElements()[1].getValue());
         Store store = storeRepository.findByNumber(storeNumber);
         if(store == null) {
-            if(userSession.getUser().getCode().equals("admin")) {
+            if(userService.getUser().getCode().equals("admin")) {
                 createStore(storeNumber, registerNumber);
                 return locationSession;
             } else {
@@ -62,15 +60,14 @@ public class LocationService {
         }
         StoreRegister storeRegister = store.getRegisterByNumber(registerNumber);
         if(storeRegister == null) {
-            if(userSession.getUser().getCode().equals("admin")) {
+            if(userService.getUser().getCode().equals("admin")) {
                 createRegister(store, registerNumber);
                 return locationSession;
             } else {
                 return null;
             }
         }
-        locationSession.setStore(store);
-        locationSession.setStoreRegister(storeRegister);
+        setLocation(store, storeRegister);
         return locationSession;
     }
 
@@ -84,16 +81,25 @@ public class LocationService {
         locationSession.getStoreRegister().setLastTxnNumber(txnNumber);;
     }
     
-    public void createStore(Integer storeNumber, Integer registerNumber) {
-        Store store = storeRepository.save(new Store(storeNumber, "Unset", "Unset", null));
-        StoreRegister storeRegister = storeRegisterRepository.save(new StoreRegister(null, store, registerNumber, "CLOSED", 1, null));
+    private void createStore(Integer storeNumber, Integer registerNumber) {
+        Store store = new Store();
+        store.setNumber(storeNumber);
+        store.setName("Unset");
+        store.setCountryCode("Unset");
+        store = storeRepository.save(store);
+        store.getRegisters().add(createRegister(store, registerNumber));
         locationSession.setStore(store);
-        locationSession.setStoreRegister(storeRegister);
     }
 
-    public void createRegister(Store store, Integer registerNumber) {
-        StoreRegister storeRegister = storeRegisterRepository.save(new StoreRegister(null, store, registerNumber, "CLOSED", 1, null));
-        locationSession.setStore(store);
+    private StoreRegister createRegister(Store store, Integer registerNumber) {
+        StoreRegister storeRegister = new StoreRegister();
+        storeRegister.setStore(store);
+        storeRegister.setNumber(registerNumber);
+        storeRegister.setStatus("CLOSED");
+        storeRegister.setLastTxnNumber(0);
+        storeRegister = storeRegisterRepository.save(storeRegister);
         locationSession.setStoreRegister(storeRegister);
+        return storeRegister;
     }
+    
 }

@@ -1,6 +1,9 @@
 package com.tjx.lew00305.slimstore.model.entity;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.web.context.annotation.SessionScope;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -17,6 +20,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@SessionScope
 public class Store implements Serializable {
     
     @Id
@@ -26,7 +30,7 @@ public class Store implements Serializable {
     private String countryCode;
     @OneToMany(mappedBy = "store")
     @JsonIgnore
-    private List<StoreRegister> registers;
+    private List<StoreRegister> registers = new ArrayList<StoreRegister>();
     
     public StoreRegister getRegisterByNumber(Integer number) {
         for(StoreRegister register : registers) {

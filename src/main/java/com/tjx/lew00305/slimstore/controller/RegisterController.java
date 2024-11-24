@@ -97,15 +97,13 @@ public class RegisterController {
                 case "AddToBasket":
                     basketService.addBasketByRequest(request);
                     break;
-                case "EmptyBasket":
-                    basketService.empty();
-                    break;
                 case "Tender":
                     tenderService.addTenderByRequest(request);
                     break;
                 case "ProcessGiftcard":
                     basketService.addFormElement(giftCardService.topupByRequest(request));
                     break;
+                case "EmptyBasket":
                 case "TransactionComplete":
                     basketService.empty();
                     tenderService.empty();
@@ -119,7 +117,10 @@ public class RegisterController {
         Store store = locationService.getStore();
         if(store == null && storeRegCookie != null) {
             String[] storeRegCookieSplit = storeRegCookie.split("-");
-            locationService.validateLocation(storeRegCookieSplit[0], storeRegCookieSplit[1]);
+            locationService.setLocation(
+                Integer.parseInt(storeRegCookieSplit[0]),
+                Integer.parseInt(storeRegCookieSplit[1])
+            );
             store = locationService.getStore();
         }
         if(store == null && !request.getFormProcess().equals("ChangeRegister")) {

@@ -17,12 +17,26 @@
             <array>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                     <property name="type" value="select" />
+                    <property name="key" value="scope" />
+                    <property name="label" value="Scope" />
+                    <property name="options">
+                        <array value-type="java.lang.String">
+                            <value>Register</value>
+                            <value>Store</value>
+                            <value>Company</value>
+                        </array>
+                    </property>
+                </bean>
+                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                    <property name="type" value="select" />
                     <property name="key" value="report" />
                     <property name="label" value="Report" />
                     <property name="options">
                         <array value-type="java.lang.String">
-                            <value>Store Transactions</value>
-                            <value>Register Transactions</value>
+                            <value>Transactions</value>
+                            <value>Transaction Lines</value>
+                            <value>Transaction Tenders</value>
+                            <value>Aggregate Tenders</value>
                         </array>
                     </property>
                 </bean>

@@ -2,6 +2,8 @@ package com.tjx.lew00305.slimstore.model.entity;
 
 import java.io.Serializable;
 
+import org.springframework.web.context.annotation.SessionScope;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -18,6 +20,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@SessionScope
 public class User implements Serializable {
     
     @Id

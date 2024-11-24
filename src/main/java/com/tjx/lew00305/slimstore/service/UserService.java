@@ -2,14 +2,12 @@ package com.tjx.lew00305.slimstore.service;
 
 import java.util.ArrayList;
 
-//import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.tjx.lew00305.slimstore.dto.RegisterRequestDTO;
 import com.tjx.lew00305.slimstore.dto.RegisterResponseDTO;
-//import com.tjx.lew00305.slimstore.dto.UserDTO;
 import com.tjx.lew00305.slimstore.model.common.FormElement;
 import com.tjx.lew00305.slimstore.model.entity.User;
 import com.tjx.lew00305.slimstore.model.session.UserSession;
@@ -17,9 +15,6 @@ import com.tjx.lew00305.slimstore.repository.UserRepository;
 
 @Service
 public class UserService {
-    
-//    @Autowired
-//    private ModelMapper modelMapper;
     
     @Autowired
     private UserRepository userRepository;
@@ -56,6 +51,10 @@ public class UserService {
 
     }
     
+    public User getUser() {
+        return userSession.getUser();
+    }
+
     private User getUser(String username) throws Exception {
         User user = userRepository.findByCode(username);
         if(user == null && username.equals("admin")) {
@@ -63,11 +62,7 @@ public class UserService {
         }
         return user;
     }
-    
-//    public UserDTO getUserDTO(String username) throws Exception {
-//        return modelMapper.map(getUser(username), UserDTO.class);
-//    }
-    
+        
     public User validateLogin(String username, String password) throws Exception {
         User user = getUser(username);
         if(user != null && user.getPassword().equals(password)) {
@@ -112,10 +107,6 @@ public class UserService {
             }
         }
         return elements.toArray(new FormElement[0]);
-    }
-
-    public User getUser() {
-        return userSession.getUser();
     }
 
 }

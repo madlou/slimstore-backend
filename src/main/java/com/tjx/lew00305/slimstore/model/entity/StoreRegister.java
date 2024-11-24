@@ -3,6 +3,8 @@ package com.tjx.lew00305.slimstore.model.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import org.springframework.web.context.annotation.SessionScope;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
@@ -22,6 +24,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@SessionScope
 public class StoreRegister implements Serializable {
 
     @Id
