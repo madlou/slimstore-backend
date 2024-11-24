@@ -5,7 +5,7 @@ import java.io.Serializable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
-import com.tjx.lew00305.slimstore.dto.UserDTO;
+import com.tjx.lew00305.slimstore.model.entity.User;
 
 import lombok.Data;
 
@@ -15,6 +15,6 @@ import lombok.Data;
 @SessionScope
 public class UserSession implements Serializable {
 
-    private UserDTO userDTO;
+    private User user;
     
 }

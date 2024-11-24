@@ -11,9 +11,30 @@
         <property name="name" value="reports" />
         <property name="title" value="Reports" />
         <property name="message" value="Run the below reports" />
-        <property name="formSuccess" value="return-search" />
+        <property name="formSuccess" value="reports" />
+        <property name="formProcess" value="RunReport" />
         <property name="formElements">
             <array>
+                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                    <property name="type" value="select" />
+                    <property name="key" value="report" />
+                    <property name="label" value="Report" />
+                    <property name="options">
+                        <array value-type="java.lang.String">
+                            <value>Store Transactions</value>
+                            <value>Register Transactions</value>
+                        </array>
+                    </property>
+                </bean>
+                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                    <property name="type" value="number" />
+                    <property name="key" value="days" />
+                    <property name="label" value="Days" />
+                </bean>
+                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                    <property name="type" value="submit" />
+                    <property name="value" value="Submit" />
+                </bean>
             </array>
         </property>
         <property name="functionButtons">

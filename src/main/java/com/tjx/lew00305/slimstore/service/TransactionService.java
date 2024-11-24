@@ -34,43 +34,51 @@ public class TransactionService {
     
     @Autowired
     private TenderService tenderService;
-    
+
+    @Autowired
+    private UserService userService;
+
     public void addTransaction() throws Exception {
         Integer txnNumber = locationService.getStoreRegister().getLastTxnNumber() + 1;
-        locationService.setTransactionNumber(locationService.getStoreRegister().getId(),txnNumber);
-        txnRepo.save(new Transaction(
-            null,
-            locationService.getStoreRegister().getId(),
-            txnNumber,
-            new Timestamp(System.currentTimeMillis()),
-            basketService.getTotal()
-        ));
+        locationService.setTransactionNumber(locationService.getStoreRegister().getId(), txnNumber);
+        Transaction transaction = new Transaction();
+        transaction.setStore(locationService.getStore());
+        transaction.setRegister(locationService.getStoreRegister());
+        transaction.setUser(userService.getUser());
+        transaction.setNumber(txnNumber);
+        transaction.setDate(new Timestamp(System.currentTimeMillis()));
+        transaction.setTotal(basketService.getTotal());
+        transaction = txnRepo.save(transaction);
         Integer counter = 1;
-        for(BasketLine line : basketService.getBasketArray()) {
-            lineRepo.save(new TransactionLine(
-                null,
-                txnNumber,
-                counter++,
-                null,
-                line.getCode(),
-                line.getType(),
-                line.getQuantity(),
-                line.getUnitValue(),
-                line.getQuantity() * line.getUnitValue()
-            ));            
+        for(BasketLine basketLine : basketService.getBasketArray()) {
+            TransactionLine txnLine = new TransactionLine();
+            txnLine.setTransaction(transaction);
+            txnLine.setNumber(counter++);
+            txnLine.setProductCode(basketLine.getCode());
+            txnLine.setType(basketLine.getType());
+            txnLine.setQuantity(basketLine.getQuantity());
+            txnLine.setUnitValue(basketLine.getUnitValue());
+            txnLine.setLineValue(basketLine.getQuantity() * basketLine.getUnitValue());
+            lineRepo.save(txnLine);            
         }
         counter = 1;
-        for(TenderLine line : tenderService.getTenderArray()) {
-            tenderRepo.save(new TransactionTender(
-                null,
-                txnNumber,
-                counter++,
-                line.getType(),
-                line.getValue(),
-                line.getReference()
-            ));            
+        for(TenderLine tenderLine : tenderService.getTenderArray()) {
+            TransactionTender txnTender = new TransactionTender();
+            txnTender.setTransaction(transaction);
+            txnTender.setNumber(counter++);
+            txnTender.setType(tenderLine.getType());
+            txnTender.setValue(tenderLine.getValue());
+            txnTender.setReference(tenderLine.getReference());
+            tenderRepo.save(txnTender);            
         }
-
     }
     
+   public Iterable<Transaction> getTransactionReport(){
+       return txnRepo.findAll();
+   }
+    
+   public Iterable<Transaction> findByDateBetweenOrderByDateDesc(){
+       return txnRepo.findAll();
+   }
+   
 }

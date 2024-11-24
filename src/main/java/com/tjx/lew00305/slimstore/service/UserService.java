@@ -2,14 +2,14 @@ package com.tjx.lew00305.slimstore.service;
 
 import java.util.ArrayList;
 
-import org.modelmapper.ModelMapper;
+//import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.tjx.lew00305.slimstore.dto.RegisterRequestDTO;
 import com.tjx.lew00305.slimstore.dto.RegisterResponseDTO;
-import com.tjx.lew00305.slimstore.dto.UserDTO;
+//import com.tjx.lew00305.slimstore.dto.UserDTO;
 import com.tjx.lew00305.slimstore.model.common.FormElement;
 import com.tjx.lew00305.slimstore.model.entity.User;
 import com.tjx.lew00305.slimstore.model.session.UserSession;
@@ -18,8 +18,8 @@ import com.tjx.lew00305.slimstore.repository.UserRepository;
 @Service
 public class UserService {
     
-    @Autowired
-    private ModelMapper modelMapper;
+//    @Autowired
+//    private ModelMapper modelMapper;
     
     @Autowired
     private UserRepository userRepository;
@@ -31,8 +31,8 @@ public class UserService {
     private String adminPassword;
 
     
-    public UserDTO getUserFromSession() {
-        return userSession.getUserDTO();
+    public User getUserFromSession() {
+        return userSession.getUser();
     }
     
     public User addUser(String username, String name, String email, String password) throws Exception {
@@ -64,21 +64,20 @@ public class UserService {
         return user;
     }
     
-    public UserDTO getUserDTO(String username) throws Exception {
-        return modelMapper.map(getUser(username), UserDTO.class);
-    }
+//    public UserDTO getUserDTO(String username) throws Exception {
+//        return modelMapper.map(getUser(username), UserDTO.class);
+//    }
     
-    public UserDTO validateLogin(String username, String password) throws Exception {
+    public User validateLogin(String username, String password) throws Exception {
         User user = getUser(username);
         if(user != null && user.getPassword().equals(password)) {
-            UserDTO userDto = modelMapper.map(user, UserDTO.class);
-            userSession.setUserDTO(userDto);
-            return userDto;
+            userSession.setUser(user);
+            return user;
         }
         return null;
     }
     
-    public UserDTO validateLoginByRequest(RegisterRequestDTO request) {
+    public User validateLoginByRequest(RegisterRequestDTO request) {
         FormElement[] formElements = request.getFormElements();
         if(formElements[0] == null || formElements[1] == null) {
             return null;
@@ -94,7 +93,7 @@ public class UserService {
     }
     
     public void logout() {
-        userSession.setUserDTO(new UserDTO());
+        userSession.setUser(new User());
     }
 
     public FormElement[] getUsersAsFormElements() {
@@ -113,6 +112,10 @@ public class UserService {
             }
         }
         return elements.toArray(new FormElement[0]);
+    }
+
+    public User getUser() {
+        return userSession.getUser();
     }
 
 }

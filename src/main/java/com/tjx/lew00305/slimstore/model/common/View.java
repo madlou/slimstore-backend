@@ -1,5 +1,6 @@
 package com.tjx.lew00305.slimstore.model.common;
 
+
 import lombok.Data;
 
 @Data

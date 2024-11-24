@@ -2,6 +2,7 @@ package com.tjx.lew00305.slimstore.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -9,19 +10,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tjx.lew00305.slimstore.dto.RegisterRequestDTO;
 import com.tjx.lew00305.slimstore.dto.RegisterResponseDTO;
-import com.tjx.lew00305.slimstore.dto.UserDTO;
 import com.tjx.lew00305.slimstore.model.common.Barcode;
 import com.tjx.lew00305.slimstore.model.common.View;
 import com.tjx.lew00305.slimstore.model.entity.Store;
+import com.tjx.lew00305.slimstore.model.entity.Transaction;
+import com.tjx.lew00305.slimstore.model.entity.User;
 import com.tjx.lew00305.slimstore.model.session.LocationSession;
 import com.tjx.lew00305.slimstore.service.UserService;
 import com.tjx.lew00305.slimstore.service.ViewService;
 import com.tjx.lew00305.slimstore.service.BarcodeService;
 import com.tjx.lew00305.slimstore.service.BasketService;
 import com.tjx.lew00305.slimstore.service.GiftCardService;
-
 import com.tjx.lew00305.slimstore.service.LocationService;
 import com.tjx.lew00305.slimstore.service.TenderService;
+import com.tjx.lew00305.slimstore.service.TransactionReportService;
 import com.tjx.lew00305.slimstore.service.TransactionService;
 
 @RestController
@@ -43,6 +45,8 @@ public class RegisterController {
     private ViewService viewService;
     @Autowired
     private TransactionService transactionService;
+    @Autowired
+    private TransactionReportService transactionReportService;
 
     @PostMapping(path = "/api/register")
     public @ResponseBody RegisterResponseDTO registerQuery(
@@ -50,7 +54,7 @@ public class RegisterController {
             @CookieValue(name = "store-register", required = false) String storeRegCookie
     ) {
         RegisterResponseDTO response = new RegisterResponseDTO();
-        UserDTO user = userService.getUserFromSession();
+        User user = userService.getUserFromSession();
         if((user == null || user.getCode() == null) && !request.getFormProcess().equals("Login")) {
             response.setView(viewService.getViewByName("login"));
             return response;
@@ -106,6 +110,10 @@ public class RegisterController {
                     basketService.empty();
                     tenderService.empty();
                     break;
+                case "RunReport":
+                    response.setReport(transactionReportService.runReportByRequest(request));
+                    break;
+
             }
         }
         Store store = locationService.getStore();
@@ -135,6 +143,11 @@ public class RegisterController {
             response.setView(viewService.getViewByName("complete"));                
         }
         return response;
+    }
+    
+    @GetMapping(path = "/api/test")
+    public Iterable<Transaction> getTestReport(){
+        return transactionService.getTransactionReport();
     }
     
 }
