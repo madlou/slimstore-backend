@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.tjx.lew00305.slimstore.dto.RegisterRequestDTO;
 import com.tjx.lew00305.slimstore.dto.RegisterResponseDTO;
+import com.tjx.lew00305.slimstore.model.common.Form;
 import com.tjx.lew00305.slimstore.model.common.FormElement;
 import com.tjx.lew00305.slimstore.model.entity.User;
 import com.tjx.lew00305.slimstore.model.session.UserSession;
@@ -40,9 +41,14 @@ public class UserService {
     }
     
     public RegisterResponseDTO addUserFromRequest(RegisterRequestDTO request, RegisterResponseDTO response) {
-        FormElement[] fe = request.getFormElements();
+        Form form = request.getForm();
         try {
-            addUser(fe[0].getValue(), fe[1].getValue(), fe[2].getValue(), fe[3].getValue());
+            addUser(
+                form.getValueByKey("code"),
+                form.getValueByKey("name"),
+                form.getValueByKey("email"),
+                form.getValueByKey("password")
+            );
             return response;
         } catch (Exception e) {
             if(e.getMessage().contains("Duplicate entry")) {
@@ -101,12 +107,9 @@ public class UserService {
     }
     
     public User validateLoginByRequest(RegisterRequestDTO request) {
-        FormElement[] formElements = request.getFormElements();
-        if(formElements[0] == null || formElements[1] == null) {
-            return null;
-        }
-        String username = formElements[0].getValue();
-        String password = formElements[1].getValue();
+        Form form = request.getForm();
+        String username = form.getValueByKey("code");
+        String password = form.getValueByKey("password");
         try {
             return validateLogin(username, password);
         } catch (Exception e) {

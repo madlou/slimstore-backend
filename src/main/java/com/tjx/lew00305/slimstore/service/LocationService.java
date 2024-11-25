@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tjx.lew00305.slimstore.dto.RegisterRequestDTO;
+import com.tjx.lew00305.slimstore.model.common.Form;
 import com.tjx.lew00305.slimstore.model.entity.Store;
 import com.tjx.lew00305.slimstore.model.entity.StoreRegister;
 import com.tjx.lew00305.slimstore.model.session.LocationSession;
@@ -47,8 +48,9 @@ public class LocationService {
     }
     
     public LocationSession validateLocationByRequest(RegisterRequestDTO request) {
-        Integer storeNumber = Integer.parseInt(request.getFormElements()[0].getValue());
-        Integer registerNumber = Integer.parseInt(request.getFormElements()[1].getValue());
+        Form form = request.getForm();
+        Integer storeNumber = form.getIntegerValueByKey("storeNumber");
+        Integer registerNumber = form.getIntegerValueByKey("registerNumber");
         Store store = storeRepository.findByNumber(storeNumber);
         if(store == null) {
             if(userService.getUser().getCode().equals("admin")) {

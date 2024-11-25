@@ -19,24 +19,8 @@ public class BarcodeService {
     @Autowired
     private BarcodeConfig barcodeConfig;
     
-    public BarcodeSpecification getSpecifiction(Region region, Banner banner) {
-        for(BarcodeSpecification spec : barcodeConfig.getBarcodeSpecifications()) {
-            if(spec.getRegion().equals(region.name()) && spec.getBanner().equals(banner.name())) {
-                return spec;
-            }
-        }
-        return null;
-    }
-    
-    public boolean barcodeCheck(String value) {
-        BarcodeSpecification spec = getSpecifiction(Region.EU, Banner.TKMAXX);
-        String regExpn = "^[0-9]{" + spec.getLength() + "}$";
-        Pattern pattern = Pattern.compile(regExpn);
-        Matcher matcher = pattern.matcher(value);
-        if(matcher.matches()) {
-            return true;
-        }
-        return false;
+    public Barcode getBarcodeByRequest(RegisterRequestDTO request) {
+        return getBarcode(request.getForm().getValueByKey("search"));
     }
     
     public Barcode getBarcode(String value) {
@@ -73,12 +57,25 @@ public class BarcodeService {
         }
         return barcode;
     }
-
-    public Barcode getBarcodeByRequest(RegisterRequestDTO request) {
-        if(request.getFormElements().length == 0) {
-            return null;
+    
+    private BarcodeSpecification getSpecifiction(Region region, Banner banner) {
+        for(BarcodeSpecification spec : barcodeConfig.getBarcodeSpecifications()) {
+            if(spec.getRegion().equals(region.name()) && spec.getBanner().equals(banner.name())) {
+                return spec;
+            }
         }
-        return getBarcode(request.getFormElements()[0].getValue());
+        return null;
     }
-        
+    
+    private boolean barcodeCheck(String value) {
+        BarcodeSpecification spec = getSpecifiction(Region.EU, Banner.TKMAXX);
+        String regExpn = "^[0-9]{" + spec.getLength() + "}$";
+        Pattern pattern = Pattern.compile(regExpn);
+        Matcher matcher = pattern.matcher(value);
+        if(matcher.matches()) {
+            return true;
+        }
+        return false;
+    }
+
 }

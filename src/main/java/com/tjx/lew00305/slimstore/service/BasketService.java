@@ -17,7 +17,7 @@ public class BasketService {
     private Basket basket;
     
     public void addBasketByRequest(RegisterRequestDTO request) {
-        addFormElements(request.getFormElements());
+        addFormElements(request.getForm().getElements());
     }
     
     public void addFormElements(FormElement[] elements) {

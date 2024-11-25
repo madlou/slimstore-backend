@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tjx.lew00305.slimstore.dto.RegisterRequestDTO;
-import com.tjx.lew00305.slimstore.model.common.FormElement;
+import com.tjx.lew00305.slimstore.model.common.Form;
 import com.tjx.lew00305.slimstore.model.entity.Store;
 import com.tjx.lew00305.slimstore.model.entity.StoreRegister;
 import com.tjx.lew00305.slimstore.model.entity.Transaction;
@@ -38,14 +38,11 @@ public class TransactionReportService {
     
     @SuppressWarnings("rawtypes")
     public List runReportByRequest(RegisterRequestDTO request) {
-        FormElement[] formElements = request.getFormElements();
-        if(formElements == null || formElements.length < 3) {
-            return null;
-        }
+        Form form = request.getForm();
         return runReport(
-            formElements[0].getValue(),
-            formElements[1].getValue(),
-            Integer.parseInt(formElements[2].getValue())
+            form.getValueByKey("scope"),
+            form.getValueByKey("report"),
+            form.getIntegerValueByKey("days")
         );
     }
     

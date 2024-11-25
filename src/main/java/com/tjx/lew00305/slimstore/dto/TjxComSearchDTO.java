@@ -2,13 +2,6 @@ package com.tjx.lew00305.slimstore.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class TjxComSearchDTO {
 
     public Response response;
@@ -19,9 +12,6 @@ public class TjxComSearchDTO {
     public String[] didYouMean;
     public Metadata metadata;
     
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
     public class Response {
         
         public int numFound;
@@ -30,9 +20,6 @@ public class TjxComSearchDTO {
         @JsonProperty("facet_counts")
         public FacetCounts facetCounts;
         
-        @Data
-        @NoArgsConstructor
-        @AllArgsConstructor
         public static class Doc {
                         
             public String description;
@@ -91,9 +78,6 @@ public class TjxComSearchDTO {
             public String department;
             public Variant[] variants;
             
-            @Data
-            @NoArgsConstructor
-            @AllArgsConstructor
             public static class Variant {
                 
                 public String skuid;
@@ -102,9 +86,6 @@ public class TjxComSearchDTO {
 
         }
         
-        @Data
-        @NoArgsConstructor
-        @AllArgsConstructor
         public static class FacetCounts {
             
             public FacetFields facetFields;
@@ -113,9 +94,6 @@ public class TjxComSearchDTO {
             @JsonProperty("facet_ranges")
             public FacetRanges facetRanges;
             
-            @Data
-            @NoArgsConstructor
-            @AllArgsConstructor
             public static class FacetFields {
                 
                 @JsonProperty("Brand")
@@ -135,9 +113,6 @@ public class TjxComSearchDTO {
                 @JsonProperty("Clearance")
                 public NameCount[] clearance;
                 
-                @Data
-                @NoArgsConstructor
-                @AllArgsConstructor
                 public static class NameCount {
                     
                     public String name;
@@ -147,22 +122,15 @@ public class TjxComSearchDTO {
                 
             }
             
-            @Data
             public static class FacetQueries {
                 
             }
             
-            @Data
-            @NoArgsConstructor
-            @AllArgsConstructor
             public static class FacetRanges {
                 
                 @JsonProperty("Price")
                 public Price[] price;
                 
-                @Data
-                @NoArgsConstructor
-                @AllArgsConstructor
                 public static class Price {
                     
                     public String start;
@@ -180,24 +148,15 @@ public class TjxComSearchDTO {
         
     }
     
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
     public static class Stats {
         
         @JsonProperty("")
         public StatFields stats_fields;
         
-        @Data
-        @NoArgsConstructor
-        @AllArgsConstructor
         public static class StatFields {
             
             public Price price;
             
-            @Data
-            @NoArgsConstructor
-            @AllArgsConstructor
             public static class Price {
                 
                 public Double min;
@@ -209,31 +168,19 @@ public class TjxComSearchDTO {
         
     }
     
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
     public static class Metadata {
         
         public Query query;
         
-        @Data
-        @NoArgsConstructor
-        @AllArgsConstructor
         public static class Query {
             
             public Precision precision;
             
-            @Data
-            @NoArgsConstructor
-            @AllArgsConstructor
             public static class Precision {
                 
                 public StringValue configured;
                 public StringValue applied;
                 
-                @Data
-                @NoArgsConstructor
-                @AllArgsConstructor
                 public static class StringValue {
                     
                     public String value;

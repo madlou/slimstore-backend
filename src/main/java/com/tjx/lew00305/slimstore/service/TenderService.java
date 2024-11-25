@@ -20,7 +20,7 @@ public class TenderService {
     private Tender tender;
     
     public void addTenderByRequest(RegisterRequestDTO request) {
-        addFormElements(request.getFormElements());
+        addFormElements(request.getForm().getElements());
         Float remaining = basketService.getTotal() - tender.getTotal();
         if(remaining <= 0) {
             if(remaining < 0) {

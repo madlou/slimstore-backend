@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.tjx.lew00305.slimstore.config.ViewConfig;
 import com.tjx.lew00305.slimstore.dto.RegisterRequestDTO;
+import com.tjx.lew00305.slimstore.model.common.Form;
 import com.tjx.lew00305.slimstore.model.common.FormElement;
 import com.tjx.lew00305.slimstore.model.common.View;
 
@@ -31,7 +32,7 @@ public class ViewService {
         String action = request.getAction();
         action = action.isEmpty() ? "home" : action;
         View view = getViewByName(action);
-        return enrichView(view, action, request.getFormElements());
+        return enrichView(view, action, request.getForm());
     }
     
     public View getViewByName(String name) {
@@ -47,10 +48,10 @@ public class ViewService {
         return pageNotFound;        
     }
     
-    private View enrichView(View view, String action, FormElement[] formElements) {
+    private View enrichView(View view, String action, Form form) {
         switch (action) {
             case "search":
-                String searchQuery = formElements[0].getValue();
+                String searchQuery = form.getValueByKey("search");
                 view.setFormElements(productService.search(searchQuery));
                 break;
             case "user-list":

@@ -54,12 +54,12 @@ public class RegisterController {
             @CookieValue(name = "store-register", required = false) String storeRegCookie
     ) {
         RegisterResponseDTO response = new RegisterResponseDTO();
-        if(userService.isLoggedOut() && !request.getFormProcess().equals("Login")) {
+        if(userService.isLoggedOut() && !request.getForm().getProcess().equals("Login")) {
             response.setView(viewService.getViewByName("login"));
             return response;
         }
-        if(!request.getFormProcess().isEmpty()) {
-            switch (request.getFormProcess()) {
+        if(!request.getForm().getProcess().isEmpty()) {
+            switch (request.getForm().getProcess()) {
                 case "Login":
                     userService.validateLoginByRequest(request);
                     if(userService.isLoggedOut()) {
@@ -122,7 +122,7 @@ public class RegisterController {
             );
             store = locationService.getStore();
         }
-        if(store == null && !request.getFormProcess().equals("ChangeRegister")) {
+        if(store == null && !request.getForm().getProcess().equals("ChangeRegister")) {
             response.setView(viewService.getViewByName("register-setup"));
             response.setError("Store and register setup required.");
             return response;
