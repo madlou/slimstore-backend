@@ -73,12 +73,4 @@ public class TransactionService {
         }
     }
     
-   public Iterable<Transaction> getTransactionReport(){
-       return txnRepo.findAll();
-   }
-    
-   public Iterable<Transaction> findByDateBetweenOrderByDateDesc(){
-       return txnRepo.findAll();
-   }
-   
 }

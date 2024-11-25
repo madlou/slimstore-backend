@@ -32,6 +32,10 @@ public class TransactionReportService {
     @Autowired
     private LocationService locationService;
     
+    public Iterable<Transaction> getTransactionReport(){
+        return txnRepo.findAll();
+    }
+    
     @SuppressWarnings("rawtypes")
     public List runReportByRequest(RegisterRequestDTO request) {
         FormElement[] formElements = request.getFormElements();

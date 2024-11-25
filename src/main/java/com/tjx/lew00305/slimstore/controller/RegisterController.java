@@ -54,16 +54,15 @@ public class RegisterController {
             @CookieValue(name = "store-register", required = false) String storeRegCookie
     ) {
         RegisterResponseDTO response = new RegisterResponseDTO();
-        User user = userService.getUserFromSession();
-        if((user == null || user.getCode() == null) && !request.getFormProcess().equals("Login")) {
+        if(userService.isLoggedOut() && !request.getFormProcess().equals("Login")) {
             response.setView(viewService.getViewByName("login"));
             return response;
         }
         if(!request.getFormProcess().isEmpty()) {
             switch (request.getFormProcess()) {
                 case "Login":
-                    user = userService.validateLoginByRequest(request);
-                    if(user == null) {
+                    userService.validateLoginByRequest(request);
+                    if(userService.isLoggedOut()) {
                         response.setView(viewService.getViewByName("login"));
                         response.setError("Invalid login attempt.");
                         return response;
@@ -134,7 +133,7 @@ public class RegisterController {
         response.setRegister(locationService.getStoreRegister());
         response.setBasket(basketService.getBasketArray());
         response.setTender(tenderService.getTenderArray());
-        response.setUser(user);
+        response.setUser(userService.getUser());
         if(tenderService.isComplete()) {
             try {
                 transactionService.addTransaction();
@@ -146,9 +145,20 @@ public class RegisterController {
         return response;
     }
     
-    @GetMapping(path = "/api/test")
-    public Iterable<Transaction> getTestReport(){
-        return transactionService.getTransactionReport();
+    @GetMapping(path = "/api/transactions/all")
+    public Iterable<Transaction> getAllTransactions(){
+        if(!userService.isUserAdmin()) {
+            return null;
+        }
+        return transactionReportService.getTransactionReport();
     }
-    
+
+    @GetMapping(path = "/api/users/all")
+    public Iterable<User> getAllUsers(){
+        if(!userService.isUserAdmin()) {
+            return null;
+        }
+        return userService.getAllUsers();
+    }
+
 }

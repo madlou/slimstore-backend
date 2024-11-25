@@ -27,6 +27,10 @@ public class UserService {
 
     
     public User getUserFromSession() {
+        User user = userSession.getUser();
+        if(user == null || user.getCode() == null) {
+            return null;
+        }
         return userSession.getUser();
     }
     
@@ -51,6 +55,10 @@ public class UserService {
 
     }
     
+    public Iterable<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+    
     public User getUser() {
         return userSession.getUser();
     }
@@ -61,6 +69,26 @@ public class UserService {
             return addUser("admin", "Admin Person", "admin@admin.com", adminPassword);
         }
         return user;
+    }
+    
+    public Boolean isLoggedIn() {
+        User user = getUser();
+        if(user == null || user.getCode() == null) {
+            return false;
+        }
+        return true;
+    }
+    
+    public Boolean isLoggedOut() {
+        return !isLoggedIn();
+    }
+    
+    public Boolean isUserAdmin() {
+        User user = getUser();
+        if(user == null || !user.getCode().equals("admin")) {
+            return false;
+        }
+        return true;
     }
         
     public User validateLogin(String username, String password) throws Exception {
