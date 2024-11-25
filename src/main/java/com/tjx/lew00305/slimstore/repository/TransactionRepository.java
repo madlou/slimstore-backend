@@ -1,6 +1,6 @@
 package com.tjx.lew00305.slimstore.repository;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -13,9 +13,9 @@ import com.tjx.lew00305.slimstore.model.report.TransactionTenderAggregationInter
 
 public interface TransactionRepository extends CrudRepository<Transaction, Integer> {
 
-    List<Transaction> findByRegisterAndDateBetweenOrderByDateAsc(StoreRegister register, Date start, Date stop);
-    List<Transaction> findByStoreAndDateBetweenOrderByDateAsc(Store store, Date start, Date stop);
-    List<Transaction> findByDateBetweenOrderByDateAsc(Date start, Date stop);    
+    List<Transaction> findByRegisterAndDateBetweenOrderByDateAsc(StoreRegister register, LocalDateTime start, LocalDateTime stop);
+    List<Transaction> findByStoreAndDateBetweenOrderByDateAsc(Store store, LocalDateTime start, LocalDateTime stop);
+    List<Transaction> findByDateBetweenOrderByDateAsc(LocalDateTime start, LocalDateTime stop);    
     @Query(value = 
         "SELECT " + 
         "s.number AS 'store', " +
@@ -46,7 +46,7 @@ public interface TransactionRepository extends CrudRepository<Transaction, Integ
         "DATE(x.date) ASC, " +
         "t.type ASC "
         , nativeQuery = true)
-    List<TransactionTenderAggregationInterface> aggregateTenders(String reg, String store, String start, String stop);
+    List<TransactionTenderAggregationInterface> aggregateTenders(String reg, String store, LocalDateTime start, LocalDateTime stop);
     
 }
 

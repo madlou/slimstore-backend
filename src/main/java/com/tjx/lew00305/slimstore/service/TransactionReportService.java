@@ -1,7 +1,7 @@
 package com.tjx.lew00305.slimstore.service;
 
-import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,11 +49,19 @@ public class TransactionReportService {
     @SuppressWarnings("rawtypes")
     public List runReport(String scope, String name, Integer days) {
         String reportName = scope + " " + name;
-        java.util.Date day = new Date(System.currentTimeMillis());
-        Date start = new Date(day.getTime() - (86400000L * (days)));
-        String startString = start.toString();
-        Date stop = new Date(day.getTime());
-        String stopString = stop.toString();
+        LocalDateTime start = LocalDateTime
+            .now()
+            .withHour(0)
+            .withMinute(0)
+            .withSecond(0)
+            .withNano(0)
+            .minusDays(days - 1);
+        LocalDateTime stop = LocalDateTime
+            .now()
+            .withHour(23)
+            .withMinute(59)
+            .withSecond(59)
+            .withNano(999_999_999);
         Store store = locationService.getStore();
         String storeNumber = "" + store.getNumber();
         StoreRegister register = locationService.getStoreRegister();
@@ -61,11 +69,11 @@ public class TransactionReportService {
         switch(reportName) {
             case "Register Transactions":
                 return getTransactionFlat(
-                    txnRepo.findByRegisterAndDateBetweenOrderByDateAsc(register , start, stop)
+                    txnRepo.findByRegisterAndDateBetweenOrderByDateAsc(register, start, stop)
                 );
             case "Store Transactions":
                 return getTransactionFlat(
-                    txnRepo.findByStoreAndDateBetweenOrderByDateAsc(store , start, stop)
+                    txnRepo.findByStoreAndDateBetweenOrderByDateAsc(store, start, stop)
                 );
             case "Company Transactions":
                 return getTransactionFlat(
@@ -73,11 +81,11 @@ public class TransactionReportService {
                 );
             case "Register Transaction Lines":
                 return getTransactionLineFlat(
-                    txnRepo.findByRegisterAndDateBetweenOrderByDateAsc(register , start, stop)
+                    txnRepo.findByRegisterAndDateBetweenOrderByDateAsc(register, start, stop)
                 );
             case "Store Transaction Lines":
                 return getTransactionLineFlat(
-                    txnRepo.findByStoreAndDateBetweenOrderByDateAsc(store , start, stop)
+                    txnRepo.findByStoreAndDateBetweenOrderByDateAsc(store, start, stop)
                 );
             case "Company Transaction Lines":
                 return getTransactionLineFlat(
@@ -85,11 +93,11 @@ public class TransactionReportService {
                 );
             case "Register Transaction Tenders":
                 return getTransactionTenderFlat(
-                    txnRepo.findByRegisterAndDateBetweenOrderByDateAsc(register , start, stop)
+                    txnRepo.findByRegisterAndDateBetweenOrderByDateAsc(register, start, stop)
                 );
             case "Store Transaction Tenders":
                 return getTransactionTenderFlat(
-                    txnRepo.findByStoreAndDateBetweenOrderByDateAsc(store , start, stop)
+                    txnRepo.findByStoreAndDateBetweenOrderByDateAsc(store, start, stop)
                 );
             case "Company Transaction Tenders":
                 return getTransactionTenderFlat(
@@ -97,15 +105,15 @@ public class TransactionReportService {
                 );
             case "Register Aggregate Tenders":
                 return getTransactionTenderAggregation(
-                    txnRepo.aggregateTenders(regNumber, storeNumber, startString, stopString)
+                    txnRepo.aggregateTenders(regNumber, storeNumber, start, stop)
                 );
             case "Store Aggregate Tenders":
                 return getTransactionTenderAggregation(
-                    txnRepo.aggregateTenders("%", storeNumber, startString, stopString)
+                    txnRepo.aggregateTenders("%", storeNumber, start, stop)
                 );
             case "Company Aggregate Tenders":
                 return getTransactionTenderAggregation(
-                    txnRepo.aggregateTenders("%", "%", startString, stopString)
+                    txnRepo.aggregateTenders("%", "%", start, stop)
                 );
         }
         return null;
