@@ -57,11 +57,16 @@ public class ViewService {
             case "user-list":
                 view.setFormElements(userService.getUsersAsFormElements());
                 break;
-            case "register-setup":
+            case "register-change":
                 FormElement[] regListElements = view.getFormElements();
                 regListElements[0].setValue("" + locationService.getStore().getNumber());
                 regListElements[1].setValue("" + locationService.getStoreRegister().getNumber());
                 view.setFormElements(regListElements);
+                break;
+            case "store-setup":
+                FormElement[] storeListElements = view.getFormElements();
+                storeListElements[0].setValue("" + locationService.getStore().getName());
+                view.setFormElements(storeListElements);
                 break;
         }
         return view;

@@ -72,6 +72,9 @@ public class RegisterController {
                     userService.logout();
                     response.setView(viewService.getViewByName("login"));
                     return response;
+                case "StoreSetup":
+                    locationService.updateStoreByRequest(request);
+                    break;
                 case "ChangeRegister":
                     LocationSession location = locationService.validateLocationByRequest(request);
                     if(location == null) {

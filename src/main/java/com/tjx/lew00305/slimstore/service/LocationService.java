@@ -103,5 +103,12 @@ public class LocationService {
         locationSession.setStoreRegister(storeRegister);
         return storeRegister;
     }
+
+    public void updateStoreByRequest(RegisterRequestDTO request) {
+        String storeName = request.getForm().getValueByKey("name");
+        Store store = getStore();
+        store.setName(storeName);
+        storeRepository.save(store);
+    }
     
 }
