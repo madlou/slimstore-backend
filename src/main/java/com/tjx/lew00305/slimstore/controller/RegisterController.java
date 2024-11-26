@@ -78,7 +78,7 @@ public class RegisterController {
                 case "ChangeRegister":
                     LocationSession location = locationService.validateLocationByRequest(request);
                     if(location == null) {
-                        response.setView(viewService.getViewByName("register-setup"));
+                        response.setView(viewService.getViewByName("register-change"));
                         response.setError("Invalid location details.");
                         return response;
                     }
@@ -92,6 +92,12 @@ public class RegisterController {
                     break;
                 case "NewUser":
                     response = userService.addUserFromRequest(request, response);
+                    if(!response.getError().isEmpty()) {
+                        response.setView(viewService.getViewByName("user-new"));
+                    }
+                    break;
+                case "SaveUser":
+                    response = userService.saveUserFromRequest(request, response);
                     if(!response.getError().isEmpty()) {
                         response.setView(viewService.getViewByName("user-new"));
                     }
@@ -126,7 +132,7 @@ public class RegisterController {
             store = locationService.getStore();
         }
         if(store == null && !request.getForm().getProcess().equals("ChangeRegister")) {
-            response.setView(viewService.getViewByName("register-setup"));
+            response.setView(viewService.getViewByName("register-change"));
             response.setError("Store and register setup required.");
             return response;
         }

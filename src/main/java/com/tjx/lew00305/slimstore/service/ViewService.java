@@ -8,6 +8,7 @@ import com.tjx.lew00305.slimstore.dto.RegisterRequestDTO;
 import com.tjx.lew00305.slimstore.model.common.Form;
 import com.tjx.lew00305.slimstore.model.common.FormElement;
 import com.tjx.lew00305.slimstore.model.common.View;
+import com.tjx.lew00305.slimstore.model.entity.User;
 
 @Service
 public class ViewService {
@@ -67,6 +68,15 @@ public class ViewService {
                 FormElement[] storeListElements = view.getFormElements();
                 storeListElements[0].setValue("" + locationService.getStore().getName());
                 view.setFormElements(storeListElements);
+                break;
+            case "user-edit":
+                FormElement[] userListElements = view.getFormElements();
+                User editUser = userService.getUser(form.getValueByKey("code"));
+                userListElements[0].setValue(editUser.getCode());
+                userListElements[1].setValue(editUser.getName());
+                userListElements[2].setValue(editUser.getEmail());
+                userListElements[3].setValue("");
+                view.setFormElements(userListElements);
                 break;
         }
         return view;

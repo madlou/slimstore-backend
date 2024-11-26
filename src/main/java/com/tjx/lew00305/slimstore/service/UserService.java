@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.tjx.lew00305.slimstore.dto.RegisterRequestDTO;
 import com.tjx.lew00305.slimstore.dto.RegisterResponseDTO;
 import com.tjx.lew00305.slimstore.model.common.Form;
+import com.tjx.lew00305.slimstore.model.common.FormButton;
 import com.tjx.lew00305.slimstore.model.common.FormElement;
 import com.tjx.lew00305.slimstore.model.entity.User;
 import com.tjx.lew00305.slimstore.model.session.UserSession;
@@ -40,6 +41,16 @@ public class UserService {
         return user;
     }
     
+    public User saveUser(String username, String name, String email, String password) throws Exception {
+        User user = userRepository.findByCode(username);
+        user.setName(name);
+        user.setEmail(email);
+        if(password.length() > 0) {
+            user.setPassword(password);            
+        }
+        return userRepository.save(user);            
+    }
+    
     public RegisterResponseDTO addUserFromRequest(RegisterRequestDTO request, RegisterResponseDTO response) {
         Form form = request.getForm();
         try {
@@ -58,8 +69,24 @@ public class UserService {
             }
             return response;
         }
-
     }
+    
+    public RegisterResponseDTO saveUserFromRequest(RegisterRequestDTO request, RegisterResponseDTO response) {
+        Form form = request.getForm();
+        try {
+            saveUser(
+                form.getValueByKey("code"),
+                form.getValueByKey("name"),
+                form.getValueByKey("email"),
+                form.getValueByKey("password")
+            );
+            return response;
+        } catch (Exception e) {
+            response.setError("Unable to save user: " +  e.getMessage());
+            return response;
+        }
+    }
+
     
     public Iterable<User> getAllUsers() {
         return userRepository.findAll();
@@ -69,10 +96,14 @@ public class UserService {
         return userSession.getUser();
     }
 
-    private User getUser(String username) throws Exception {
+    public User getUser(String username) {
         User user = userRepository.findByCode(username);
         if(user == null && username.equals("admin")) {
-            return addUser("admin", "Admin Person", "admin@admin.com", adminPassword);
+            try {
+                return addUser("admin", "Admin Person", "admin@admin.com", adminPassword);
+            } catch (Exception e) {
+                // do nothing
+            }
         }
         return user;
     }
@@ -127,13 +158,22 @@ public class UserService {
         ArrayList<FormElement> elements = new ArrayList<FormElement>();
         for(User user: users) {
             if(!user.getCode().equals("admin")) {
-                FormElement userElement = new FormElement(
-                    "button", 
-                    user.getCode(), 
-                    "Edit", 
-                    user.getName(), 
-                    null, null, null
-                );
+                FormElement userElement = new FormElement();
+                userElement.setType("button");
+                userElement.setKey(user.getCode());
+                userElement.setLabel("Edit");
+                userElement.setValue(user.getName());
+                FormButton button = new FormButton();
+                button.setLabel("Edit");
+                button.setAction("user-edit");
+                button.setProcess("SaveUser");
+                Form buttonForm = button.getForm();
+                FormElement buttonElement = new FormElement();
+                buttonElement.setKey("code");
+                buttonElement.setValue(user.getCode());
+                buttonForm.addElement(buttonElement);
+                button.setForm(buttonForm);
+                userElement.setButton(button);
                 elements.add(userElement);
             }
         }

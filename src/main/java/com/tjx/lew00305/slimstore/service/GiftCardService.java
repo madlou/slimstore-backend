@@ -22,7 +22,7 @@ public class GiftCardService {
         String card = form.getValueByKey("card");
         Float value = form.getFloatValueByKey("amount");
         topup(card, value);
-        return new FormElement("giftcard", "TJXGC", "Gift Card (" + card + ")", "1" ,null, value, null);
+        return new FormElement("giftcard", "TJXGC", "Gift Card (" + card + ")", "1" ,null, value, null, null);
     }
     
     public void topup(String card, Float value) {

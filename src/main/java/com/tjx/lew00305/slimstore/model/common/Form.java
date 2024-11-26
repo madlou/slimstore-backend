@@ -5,7 +5,9 @@ import lombok.Data;
 @Data
 public class Form {
 
-    private FormElement[] elements;
+    private FormElement[] elements = new FormElement[0];
+//    private String targetView;
+//    private String serverProcess;
     private String process;
     
     public FormElement findByKey(String key) {
@@ -39,6 +41,17 @@ public class Form {
             return null;
         }
         return Float.parseFloat(element.getValue());
+    }
+    
+    public void addElement(FormElement newElement) {
+        Integer size = elements.length;
+        FormElement[] newElements = new FormElement[size + 1];
+        Integer counter = 0;
+        for(FormElement element : elements) {
+            newElements[counter++] = element;
+        }
+        newElements[size] = newElement;
+        elements = newElements;
     }
 
 }

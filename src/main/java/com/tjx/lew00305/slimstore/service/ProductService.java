@@ -27,7 +27,7 @@ public class ProductService {
         FormElement[] products = new FormElement[productCount];
         for(int i=0; i< productCount; i++) {
             TjxComSearchDTO.Response.Doc doc = search.response.docs[i];
-            products[i] = new FormElement("product", doc.pid, doc.title, "0", doc.thumbImage, doc.price, null);
+            products[i] = new FormElement("product", doc.pid, doc.title, "0", doc.thumbImage, doc.price, null, null);
         }
         return products;
     }

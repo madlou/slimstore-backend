@@ -45,6 +45,6 @@ public class Barcode {
     }
 
     public FormElement getFormElement() {
-        return new FormElement("product", getName(), getDepartmentCategory(), "1", "", getPrice(), null);
+        return new FormElement("product", getName(), getDepartmentCategory(), "1", "", getPrice(), null, null);
     }
 }

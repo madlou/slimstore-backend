@@ -15,6 +15,7 @@ public class FormElement {
     private String value = "";
     private String image = "";
     private Float price;
+    private FormButton button;
     private String[] options;
 
 }
