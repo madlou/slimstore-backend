@@ -47,19 +47,19 @@ public class RegisterController {
 
     @PostMapping(path = "/api/register")
     public @ResponseBody RegisterResponseDTO registerQuery(
-            @RequestBody RegisterRequestDTO request,
+            @RequestBody RegisterRequestDTO requestForm,
             @CookieValue(name = "store-register", required = false) String storeRegCookie
     ) {
         String errorMessage = null;
         RegisterResponseDTO response = new RegisterResponseDTO();
-        if(userService.isLoggedOut() && !request.getServerProcess().equals("Login")) {
+        if(userService.isLoggedOut() && !requestForm.getServerProcess().equals("Login")) {
             response.setView(viewService.getViewByName(ViewName.LOGIN));
             return response;
         }
-        if(!request.getServerProcess().isEmpty()) {
-            switch (request.getServerProcess()) {
+        if(!requestForm.getServerProcess().isEmpty()) {
+            switch (requestForm.getServerProcess()) {
                 case "Login":
-                    userService.validateLoginByForm(request);
+                    userService.validateLoginByForm(requestForm);
                     if(userService.isLoggedOut()) {
                         response.setView(viewService.getViewByName(ViewName.LOGIN));
                         response.setError("Invalid login attempt.");
@@ -71,36 +71,36 @@ public class RegisterController {
                     response.setView(viewService.getViewByName(ViewName.LOGIN));
                     return response;
                 case "StoreSetup":
-                    locationService.updateStoreByForm(request);
+                    locationService.updateStoreByForm(requestForm);
                     break;
                 case "ChangeRegister":
-                    errorMessage = locationService.validateLocationByForm(request);
+                    errorMessage = locationService.validateLocationByForm(requestForm);
                     if(errorMessage != null) {
                         response.setError("Invalid location details.");
-                        request.setTargetView(ViewName.REGISTER_CHANGE.toString());
+                        requestForm.setTargetView(ViewName.REGISTER_CHANGE.toString());
                     }
                     break;
                 case "Search":
-                    Barcode barcode = barcodeService.getBarcodeByForm(request);
+                    Barcode barcode = barcodeService.getBarcodeByForm(requestForm);
                     if(barcode != null) {
                         basketService.addFormElement(barcode.getFormElement());
-                        request.setTargetView("home");
+                        requestForm.setTargetView("home");
                     }
                     break;
                 case "NewUser":
-                    errorMessage = userService.addUserByForm(request);
+                    errorMessage = userService.addUserByForm(requestForm);
                     break;
                 case "SaveUser":
-                    errorMessage = userService.saveUserByForm(request);
+                    errorMessage = userService.saveUserByForm(requestForm);
                     break;
                 case "AddToBasket":
-                    basketService.addBasketByForm(request);
+                    basketService.addBasketByForm(requestForm);
                     break;
                 case "Tender":
-                    tenderService.addTenderByForm(request);
+                    tenderService.addTenderByForm(requestForm);
                     break;
                 case "ProcessGiftcard":
-                    basketService.addFormElement(giftCardService.topupByForm(request));
+                    basketService.addFormElement(giftCardService.topupByForm(requestForm));
                     break;
                 case "EmptyBasket":
                 case "TransactionComplete":
@@ -108,9 +108,8 @@ public class RegisterController {
                     tenderService.empty();
                     break;
                 case "RunReport":
-                    response.setReport(transactionReportService.runReportByForm(request));
+                    response.setReport(transactionReportService.runReportByForm(requestForm));
                     break;
-
             }
         }
         Store store = locationService.getStore();
@@ -122,11 +121,11 @@ public class RegisterController {
             );
             store = locationService.getStore();
         }
-        if(store == null && !request.getServerProcess().equals("ChangeRegister")) {
-            request.setTargetView(ViewName.REGISTER_CHANGE.toString());
+        if(store == null && !requestForm.getServerProcess().equals("ChangeRegister")) {
+            requestForm.setTargetView(ViewName.REGISTER_CHANGE.toString());
             response.setError("Store and register setup required.");
         }
-        View view = viewService.getViewByForm(request);
+        View view = viewService.getViewByForm(requestForm);
         response.setView(view);
         response.setStore(locationService.getStore());
         response.setRegister(locationService.getStoreRegister());
@@ -134,11 +133,7 @@ public class RegisterController {
         response.setTender(tenderService.getTenderArray());
         response.setUser(userService.getUser());
         if(tenderService.isComplete()) {
-            try {
-                transactionService.addTransaction();
-            } catch (Exception e) {
-                errorMessage = e.getMessage();
-            }
+            transactionService.addTransaction();
             response.setView(viewService.getViewByName(ViewName.COMPLETE));                
         }
         if(errorMessage != null) {

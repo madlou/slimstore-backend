@@ -76,11 +76,8 @@ public class LocationService {
         return null;
     }
 
-    public void setTransactionNumber(Integer id, Integer txnNumber) throws Exception {
+    public void setTransactionNumber(Integer id, Integer txnNumber) {
         StoreRegister reg = storeRegisterRepository.findById(id).orElse(null);
-        if(reg == null) {
-            throw new Exception("Register not found on transaction number update!");
-        }
         reg.setLastTxnNumber(txnNumber);
         storeRegisterRepository.save(reg);
         locationSession.getStoreRegister().setLastTxnNumber(txnNumber);;

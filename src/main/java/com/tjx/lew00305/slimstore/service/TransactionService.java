@@ -38,7 +38,7 @@ public class TransactionService {
     @Autowired
     private UserService userService;
 
-    public void addTransaction() throws Exception {
+    public void addTransaction() {
         Integer txnNumber = locationService.getStoreRegister().getLastTxnNumber() + 1;
         locationService.setTransactionNumber(locationService.getStoreRegister().getId(), txnNumber);
         Transaction transaction = new Transaction();
