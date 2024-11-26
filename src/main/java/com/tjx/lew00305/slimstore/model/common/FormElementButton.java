@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @RequestScope
-public class FormButton {
+public class FormElementButton {
     
     public String label = "";
     public String action = "";

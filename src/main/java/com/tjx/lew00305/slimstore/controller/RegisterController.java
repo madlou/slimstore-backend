@@ -2,7 +2,6 @@ package com.tjx.lew00305.slimstore.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,8 +13,6 @@ import com.tjx.lew00305.slimstore.model.common.Barcode;
 import com.tjx.lew00305.slimstore.model.common.View;
 import com.tjx.lew00305.slimstore.model.common.View.ViewName;
 import com.tjx.lew00305.slimstore.model.entity.Store;
-import com.tjx.lew00305.slimstore.model.entity.Transaction;
-import com.tjx.lew00305.slimstore.model.entity.User;
 import com.tjx.lew00305.slimstore.service.UserService;
 import com.tjx.lew00305.slimstore.service.ViewService;
 import com.tjx.lew00305.slimstore.service.BarcodeService;
@@ -150,20 +147,4 @@ public class RegisterController {
         return response;
     }
     
-    @GetMapping(path = "/api/transactions/all")
-    public Iterable<Transaction> getAllTransactions(){
-        if(!userService.isUserAdmin()) {
-            return null;
-        }
-        return transactionReportService.getTransactionReport();
-    }
-
-    @GetMapping(path = "/api/users/all")
-    public Iterable<User> getAllUsers(){
-        if(!userService.isUserAdmin()) {
-            return null;
-        }
-        return userService.getAllUsers();
-    }
-
 }

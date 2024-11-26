@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.tjx.lew00305.slimstore.model.common.Form;
-import com.tjx.lew00305.slimstore.model.common.FormButton;
+import com.tjx.lew00305.slimstore.model.common.FormElementButton;
 import com.tjx.lew00305.slimstore.model.common.FormElement;
 import com.tjx.lew00305.slimstore.model.entity.User;
 import com.tjx.lew00305.slimstore.model.session.UserSession;
@@ -155,7 +155,7 @@ public class UserService {
                 userElement.setKey(user.getCode());
                 userElement.setLabel("Edit");
                 userElement.setValue(user.getName());
-                FormButton button = new FormButton();
+                FormElementButton button = new FormElementButton();
                 button.setLabel("Edit");
                 button.setAction("user-edit");
                 button.setProcess("SaveUser");
