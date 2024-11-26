@@ -16,9 +16,9 @@ public class GiftCardService {
         // TODO Auto-generated method stub
     }
     
-    public FormElement topupByForm(Form form) {
-        String card = form.getValueByKey("card");
-        Float value = form.getFloatValueByKey("amount");
+    public FormElement topupByForm(Form requestForm) {
+        String card = requestForm.getValueByKey("card");
+        Float value = requestForm.getFloatValueByKey("amount");
         topup(card, value);
         return new FormElement("giftcard", "TJXGC", "Gift Card (" + card + ")", "1" ,null, value, null, null);
     }

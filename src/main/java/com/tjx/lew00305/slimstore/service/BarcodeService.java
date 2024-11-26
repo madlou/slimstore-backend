@@ -19,8 +19,8 @@ public class BarcodeService {
     @Autowired
     private BarcodeConfig barcodeConfig;
     
-    public Barcode getBarcodeByForm(Form form) {
-        return getBarcode(form.getValueByKey("search"));
+    public Barcode getBarcodeByForm(Form requestForm) {
+        return getBarcode(requestForm.getValueByKey("search"));
     }
     
     public Barcode getBarcode(String value) {

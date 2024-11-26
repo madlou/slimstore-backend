@@ -49,13 +49,13 @@ public class UserService {
         return userRepository.save(user);            
     }
     
-    public String addUserByForm(Form form) {
+    public String addUserByForm(Form requestForm) {
         try {
             addUser(
-                form.getValueByKey("code"),
-                form.getValueByKey("name"),
-                form.getValueByKey("email"),
-                form.getValueByKey("password")
+                requestForm.getValueByKey("code"),
+                requestForm.getValueByKey("name"),
+                requestForm.getValueByKey("email"),
+                requestForm.getValueByKey("password")
             );
             return null;
         } catch (Exception e) {
@@ -67,13 +67,13 @@ public class UserService {
         }
     }
     
-    public String saveUserByForm(Form form) {
+    public String saveUserByForm(Form requestForm) {
         try {
             saveUser(
-                form.getValueByKey("code"),
-                form.getValueByKey("name"),
-                form.getValueByKey("email"),
-                form.getValueByKey("password")
+                requestForm.getValueByKey("code"),
+                requestForm.getValueByKey("name"),
+                requestForm.getValueByKey("email"),
+                requestForm.getValueByKey("password")
             );
             return null;
         } catch (Exception e) {
@@ -130,9 +130,9 @@ public class UserService {
         return null;
     }
     
-    public User validateLoginByForm(Form form) {
-        String username = form.getValueByKey("code");
-        String password = form.getValueByKey("password");
+    public User validateLoginByForm(Form requestForm) {
+        String username = requestForm.getValueByKey("code");
+        String password = requestForm.getValueByKey("password");
         try {
             return validateLogin(username, password);
         } catch (Exception e) {

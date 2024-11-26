@@ -46,16 +46,16 @@ public class LocationService {
         }
     }
     
-    public void updateStoreByForm(Form form) {
-        String storeName = form.getValueByKey("name");
+    public void updateStoreByForm(Form requestForm) {
+        String storeName = requestForm.getValueByKey("name");
         Store store = getStore();
         store.setName(storeName);
         storeRepository.save(store);
     }
     
-    public String validateLocationByForm(Form form) {
-        Integer storeNumber = form.getIntegerValueByKey("storeNumber");
-        Integer registerNumber = form.getIntegerValueByKey("registerNumber");
+    public String validateLocationByForm(Form requestForm) {
+        Integer storeNumber = requestForm.getIntegerValueByKey("storeNumber");
+        Integer registerNumber = requestForm.getIntegerValueByKey("registerNumber");
         Store store = storeRepository.findByNumber(storeNumber);
         if(store == null) {
             if(userService.getUser().getCode().equals("admin")) {

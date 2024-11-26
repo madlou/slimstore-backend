@@ -16,8 +16,8 @@ public class BasketService {
     @Autowired
     private Basket basket;
     
-    public void addBasketByForm(Form form) {
-        addFormElements(form.getElements());
+    public void addBasketByForm(Form requestForm) {
+        addFormElements(requestForm.getElements());
     }
     
     public void addFormElements(FormElement[] elements) {

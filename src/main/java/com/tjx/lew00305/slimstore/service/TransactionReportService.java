@@ -36,11 +36,11 @@ public class TransactionReportService {
     }
     
     @SuppressWarnings("rawtypes")
-    public List runReportByForm(Form form) {
+    public List runReportByForm(Form requestForm) {
         return runReport(
-            form.getValueByKey("scope"),
-            form.getValueByKey("report"),
-            form.getIntegerValueByKey("days")
+            requestForm.getValueByKey("scope"),
+            requestForm.getValueByKey("report"),
+            requestForm.getIntegerValueByKey("days")
         );
     }
     

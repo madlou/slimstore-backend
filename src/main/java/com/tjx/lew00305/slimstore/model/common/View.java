@@ -37,9 +37,6 @@ public class View {
     private String title = "";
     private String message = "";
     private Form form;
-//    private String formProcess = "";
-//    private ViewName formSuccess;
-//    private FormElement[] formElements = new FormElement[0];
     private FunctionButton[] functionButtons = new FunctionButton[0];
     
 }

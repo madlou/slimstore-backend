@@ -19,8 +19,8 @@ public class TenderService {
     @Autowired
     private Tender tender;
     
-    public void addTenderByForm(Form form) {
-        addFormElements(form.getElements());
+    public void addTenderByForm(Form requestForm) {
+        addFormElements(requestForm.getElements());
         Float remaining = basketService.getTotal() - tender.getTotal();
         if(remaining <= 0) {
             if(remaining < 0) {
