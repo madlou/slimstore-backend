@@ -20,4 +20,17 @@
         <property name="week" value="0" />
     </bean>
 
+    <bean class="com.tjx.lew00305.slimstore.model.common.BarcodeSpecification">
+        <property name="region" value="EU" />
+        <property name="banner" value="HOMESENSE" />
+        <property name="type" value="STORE" />
+        <property name="length" value="16" />
+        <property name="division" value="0" />
+        <property name="department" value="2" />
+        <property name="category" value="2" />
+        <property name="style" value="6" />
+        <property name="price" value="6" />
+        <property name="week" value="0" />
+    </bean>
+
 </beans>
