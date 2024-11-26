@@ -8,11 +8,11 @@
                         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
     <bean class="com.tjx.lew00305.slimstore.model.common.View">
-        <property name="name" value="giftcard" />
+        <property name="name" value="GIFTCARD" />
         <property name="title" value="Top-up Gift Card" />
         <property name="message" value="Please swipe/scan Gift Card." />
         <property name="formProcess" value="ProcessGiftcard" />
-        <property name="formSuccess" value="home" />
+        <property name="formSuccess" value="HOME" />
         <property name="formElements">
             <array>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
@@ -37,7 +37,7 @@
                 <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="Back" />
-                    <property name="action" value="home" />
+                    <property name="action" value="HOME" />
                 </bean>
             </array>
         </property>

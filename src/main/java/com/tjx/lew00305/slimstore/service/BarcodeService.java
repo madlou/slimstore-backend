@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tjx.lew00305.slimstore.config.BarcodeConfig;
-import com.tjx.lew00305.slimstore.dto.RegisterRequestDTO;
 import com.tjx.lew00305.slimstore.enums.Banner;
 import com.tjx.lew00305.slimstore.enums.Region;
 import com.tjx.lew00305.slimstore.model.common.Barcode;
 import com.tjx.lew00305.slimstore.model.common.BarcodeSpecification;
+import com.tjx.lew00305.slimstore.model.common.Form;
 
 @Service
 public class BarcodeService {
@@ -19,8 +19,8 @@ public class BarcodeService {
     @Autowired
     private BarcodeConfig barcodeConfig;
     
-    public Barcode getBarcodeByRequest(RegisterRequestDTO request) {
-        return getBarcode(request.getForm().getValueByKey("search"));
+    public Barcode getBarcodeByForm(Form form) {
+        return getBarcode(form.getValueByKey("search"));
     }
     
     public Barcode getBarcode(String value) {

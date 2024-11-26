@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tjx.lew00305.slimstore.dto.RegisterRequestDTO;
+import com.tjx.lew00305.slimstore.model.common.Form;
 import com.tjx.lew00305.slimstore.model.common.FormElement;
 import com.tjx.lew00305.slimstore.model.session.Basket;
 import com.tjx.lew00305.slimstore.model.session.BasketLine;
@@ -16,8 +16,8 @@ public class BasketService {
     @Autowired
     private Basket basket;
     
-    public void addBasketByRequest(RegisterRequestDTO request) {
-        addFormElements(request.getForm().getElements());
+    public void addBasketByForm(Form form) {
+        addFormElements(form.getElements());
     }
     
     public void addFormElements(FormElement[] elements) {

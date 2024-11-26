@@ -8,7 +8,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tjx.lew00305.slimstore.dto.RegisterRequestDTO;
 import com.tjx.lew00305.slimstore.model.common.Form;
 import com.tjx.lew00305.slimstore.model.entity.Store;
 import com.tjx.lew00305.slimstore.model.entity.StoreRegister;
@@ -37,8 +36,7 @@ public class TransactionReportService {
     }
     
     @SuppressWarnings("rawtypes")
-    public List runReportByRequest(RegisterRequestDTO request) {
-        Form form = request.getForm();
+    public List runReportByForm(Form form) {
         return runReport(
             form.getValueByKey("scope"),
             form.getValueByKey("report"),

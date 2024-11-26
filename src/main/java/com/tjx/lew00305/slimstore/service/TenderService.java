@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tjx.lew00305.slimstore.dto.RegisterRequestDTO;
+import com.tjx.lew00305.slimstore.model.common.Form;
 import com.tjx.lew00305.slimstore.model.common.FormElement;
 import com.tjx.lew00305.slimstore.model.session.Tender;
 import com.tjx.lew00305.slimstore.model.session.TenderLine;
@@ -19,8 +19,8 @@ public class TenderService {
     @Autowired
     private Tender tender;
     
-    public void addTenderByRequest(RegisterRequestDTO request) {
-        addFormElements(request.getForm().getElements());
+    public void addTenderByForm(Form form) {
+        addFormElements(form.getElements());
         Float remaining = basketService.getTotal() - tender.getTotal();
         if(remaining <= 0) {
             if(remaining < 0) {

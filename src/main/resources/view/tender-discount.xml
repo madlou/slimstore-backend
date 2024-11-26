@@ -8,32 +8,30 @@
                         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
     <bean class="com.tjx.lew00305.slimstore.model.common.View">
-        <property name="name" value="tender/card" />
-        <property name="title" value="Tender Card" />
-        <property name="message" value="Please enter or select a card value." />
-        <property name="formSuccess" value="tender/card/ped" />
+        <property name="name" value="TENDER_DISCOUNT" />
+        <property name="title" value="Tender Discount" />
+        <property name="message"
+            value="Please select a discount option." />
+        <property name="formSuccess" value="TENDER" />
         <property name="formElements">
-            <array>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
-                    <property name="type" value="decimal" />
-                    <property name="key" value="amount" />
-                    <property name="label" value="Amount" />
-                </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
-                    <property name="type" value="submit" />
-                    <property name="value" value="Card" />
-                </bean>
-
-            </array>
+            <array> </array>
         </property>
         <property name="functionButtons">
             <array>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                <bean
+                    class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="1" />
-                    <property name="label" value="Full Amount" />
-                    <property name="action" value="tender/card/ped:amount=full" />
+                    <property name="label" value="Staff Discount" />
+                    <property name="action" value="tender/discount/staff" />
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                <bean
+                    class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                    <property name="position" value="2" />
+                    <property name="label" value="Damaged Discount" />
+                    <property name="action" value="tender/discount/damaged" />
+                </bean>
+                <bean
+                    class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="Back" />
                     <property name="action" value="tender" />

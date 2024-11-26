@@ -5,10 +5,9 @@ import lombok.Data;
 @Data
 public class Form {
 
+    private String targetView;
+    private String serverProcess;
     private FormElement[] elements = new FormElement[0];
-//    private String targetView;
-//    private String serverProcess;
-    private String process;
     
     public FormElement findByKey(String key) {
         for(FormElement element : elements) {

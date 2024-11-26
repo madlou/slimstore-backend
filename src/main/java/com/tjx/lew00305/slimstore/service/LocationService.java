@@ -3,7 +3,6 @@ package com.tjx.lew00305.slimstore.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tjx.lew00305.slimstore.dto.RegisterRequestDTO;
 import com.tjx.lew00305.slimstore.model.common.Form;
 import com.tjx.lew00305.slimstore.model.entity.Store;
 import com.tjx.lew00305.slimstore.model.entity.StoreRegister;
@@ -47,30 +46,34 @@ public class LocationService {
         }
     }
     
-    public LocationSession validateLocationByRequest(RegisterRequestDTO request) {
-        Form form = request.getForm();
+    public void updateStoreByForm(Form form) {
+        String storeName = form.getValueByKey("name");
+        Store store = getStore();
+        store.setName(storeName);
+        storeRepository.save(store);
+    }
+    
+    public String validateLocationByForm(Form form) {
         Integer storeNumber = form.getIntegerValueByKey("storeNumber");
         Integer registerNumber = form.getIntegerValueByKey("registerNumber");
         Store store = storeRepository.findByNumber(storeNumber);
         if(store == null) {
             if(userService.getUser().getCode().equals("admin")) {
-                createStore(storeNumber, registerNumber);
-                return locationSession;
+                store = createStore(storeNumber, registerNumber);
             } else {
-                return null;
+                return "Invalid store number.";
             }
         }
         StoreRegister storeRegister = store.getRegisterByNumber(registerNumber);
         if(storeRegister == null) {
             if(userService.getUser().getCode().equals("admin")) {
-                createRegister(store, registerNumber);
-                return locationSession;
+                storeRegister = createRegister(store, registerNumber);
             } else {
-                return null;
+                return "Invalid register number.";
             }
         }
         setLocation(store, storeRegister);
-        return locationSession;
+        return null;
     }
 
     public void setTransactionNumber(Integer id, Integer txnNumber) throws Exception {
@@ -83,14 +86,14 @@ public class LocationService {
         locationSession.getStoreRegister().setLastTxnNumber(txnNumber);;
     }
     
-    private void createStore(Integer storeNumber, Integer registerNumber) {
+    private Store createStore(Integer storeNumber, Integer registerNumber) {
         Store store = new Store();
         store.setNumber(storeNumber);
         store.setName("Unset");
         store.setCountryCode("Unset");
         store = storeRepository.save(store);
         store.getRegisters().add(createRegister(store, registerNumber));
-        locationSession.setStore(store);
+        return store;
     }
 
     private StoreRegister createRegister(Store store, Integer registerNumber) {
@@ -100,15 +103,7 @@ public class LocationService {
         storeRegister.setStatus("CLOSED");
         storeRegister.setLastTxnNumber(0);
         storeRegister = storeRegisterRepository.save(storeRegister);
-        locationSession.setStoreRegister(storeRegister);
         return storeRegister;
     }
 
-    public void updateStoreByRequest(RegisterRequestDTO request) {
-        String storeName = request.getForm().getValueByKey("name");
-        Store store = getStore();
-        store.setName(storeName);
-        storeRepository.save(store);
-    }
-    
 }

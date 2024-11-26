@@ -8,11 +8,12 @@
                         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
     <bean class="com.tjx.lew00305.slimstore.model.common.View">
-        <property name="name" value="tender/cash" />
+        <property name="name" value="TENDER_CASH" />
         <property name="title" value="Tender Cash" />
-        <property name="message" value="Please enter or select a cash value." />
+        <property name="message"
+            value="Please enter or select a cash value." />
         <property name="formProcess" value="Tender" />
-        <property name="formSuccess" value="tender" />
+        <property name="formSuccess" value="TENDER" />
         <property name="formElements">
             <array>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
@@ -28,37 +29,43 @@
         </property>
         <property name="functionButtons">
             <array>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                <bean
+                    class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="1" />
                     <property name="label" value="Full Amount" />
                     <property name="action" value="tender:full" />
                     <property name="process" value="Tender" />
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                <bean
+                    class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="2" />
                     <property name="label" value="£5" />
                     <property name="action" value="tender:5" />
                     <property name="process" value="Tender" />
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                <bean
+                    class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="3" />
                     <property name="label" value="£10" />
                     <property name="action" value="tender:10" />
                     <property name="process" value="Tender" />
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                <bean
+                    class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="4" />
                     <property name="label" value="£20" />
                     <property name="action" value="tender:20" />
                     <property name="process" value="Tender" />
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                <bean
+                    class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="5" />
                     <property name="label" value="£50" />
                     <property name="action" value="tender:50" />
                     <property name="process" value="Tender" />
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                <bean
+                    class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="Back" />
                     <property name="action" value="tender" />

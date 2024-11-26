@@ -12,10 +12,10 @@ import com.tjx.lew00305.slimstore.dto.RegisterRequestDTO;
 import com.tjx.lew00305.slimstore.dto.RegisterResponseDTO;
 import com.tjx.lew00305.slimstore.model.common.Barcode;
 import com.tjx.lew00305.slimstore.model.common.View;
+import com.tjx.lew00305.slimstore.model.common.View.ViewName;
 import com.tjx.lew00305.slimstore.model.entity.Store;
 import com.tjx.lew00305.slimstore.model.entity.Transaction;
 import com.tjx.lew00305.slimstore.model.entity.User;
-import com.tjx.lew00305.slimstore.model.session.LocationSession;
 import com.tjx.lew00305.slimstore.service.UserService;
 import com.tjx.lew00305.slimstore.service.ViewService;
 import com.tjx.lew00305.slimstore.service.BarcodeService;
@@ -53,63 +53,57 @@ public class RegisterController {
             @RequestBody RegisterRequestDTO request,
             @CookieValue(name = "store-register", required = false) String storeRegCookie
     ) {
+        String errorMessage = null;
         RegisterResponseDTO response = new RegisterResponseDTO();
-        if(userService.isLoggedOut() && !request.getForm().getProcess().equals("Login")) {
-            response.setView(viewService.getViewByName("login"));
+        if(userService.isLoggedOut() && !request.getServerProcess().equals("Login")) {
+            response.setView(viewService.getViewByName(ViewName.LOGIN));
             return response;
         }
-        if(!request.getForm().getProcess().isEmpty()) {
-            switch (request.getForm().getProcess()) {
+        if(!request.getServerProcess().isEmpty()) {
+            switch (request.getServerProcess()) {
                 case "Login":
-                    userService.validateLoginByRequest(request);
+                    userService.validateLoginByForm(request);
                     if(userService.isLoggedOut()) {
-                        response.setView(viewService.getViewByName("login"));
+                        response.setView(viewService.getViewByName(ViewName.LOGIN));
                         response.setError("Invalid login attempt.");
                         return response;
                     }
                     break;
                 case "Logout":
                     userService.logout();
-                    response.setView(viewService.getViewByName("login"));
+                    response.setView(viewService.getViewByName(ViewName.LOGIN));
                     return response;
                 case "StoreSetup":
-                    locationService.updateStoreByRequest(request);
+                    locationService.updateStoreByForm(request);
                     break;
                 case "ChangeRegister":
-                    LocationSession location = locationService.validateLocationByRequest(request);
-                    if(location == null) {
-                        response.setView(viewService.getViewByName("register-change"));
+                    errorMessage = locationService.validateLocationByForm(request);
+                    if(errorMessage != null) {
                         response.setError("Invalid location details.");
-                        return response;
+                        request.setTargetView(ViewName.REGISTER_CHANGE.toString());
                     }
                     break;
                 case "Search":
-                    Barcode barcode = barcodeService.getBarcodeByRequest(request);
+                    Barcode barcode = barcodeService.getBarcodeByForm(request);
                     if(barcode != null) {
                         basketService.addFormElement(barcode.getFormElement());
-                        request.setAction("home");
+                        request.setTargetView("home");
                     }
                     break;
                 case "NewUser":
-                    response = userService.addUserFromRequest(request, response);
-                    if(!response.getError().isEmpty()) {
-                        response.setView(viewService.getViewByName("user-new"));
-                    }
+                    errorMessage = userService.addUserByForm(request);
                     break;
                 case "SaveUser":
-                    response = userService.saveUserFromRequest(request, response);
-                    if(!response.getError().isEmpty()) {
-                        response.setView(viewService.getViewByName("user-new"));
-                    }
+                    errorMessage = userService.saveUserByForm(request);
                     break;
                 case "AddToBasket":
-                    basketService.addBasketByRequest(request);
+                    basketService.addBasketByForm(request);
                     break;
                 case "Tender":
-                    tenderService.addTenderByRequest(request);
+                    tenderService.addTenderByForm(request);
                     break;
                 case "ProcessGiftcard":
-                    basketService.addFormElement(giftCardService.topupByRequest(request));
+                    basketService.addFormElement(giftCardService.topupByForm(request));
                     break;
                 case "EmptyBasket":
                 case "TransactionComplete":
@@ -117,7 +111,7 @@ public class RegisterController {
                     tenderService.empty();
                     break;
                 case "RunReport":
-                    response.setReport(transactionReportService.runReportByRequest(request));
+                    response.setReport(transactionReportService.runReportByForm(request));
                     break;
 
             }
@@ -131,12 +125,11 @@ public class RegisterController {
             );
             store = locationService.getStore();
         }
-        if(store == null && !request.getForm().getProcess().equals("ChangeRegister")) {
-            response.setView(viewService.getViewByName("register-change"));
+        if(store == null && !request.getServerProcess().equals("ChangeRegister")) {
+            request.setTargetView(ViewName.REGISTER_CHANGE.toString());
             response.setError("Store and register setup required.");
-            return response;
         }
-        View view = viewService.getViewByRequest(request);
+        View view = viewService.getViewByForm(request);
         response.setView(view);
         response.setStore(locationService.getStore());
         response.setRegister(locationService.getStoreRegister());
@@ -147,9 +140,12 @@ public class RegisterController {
             try {
                 transactionService.addTransaction();
             } catch (Exception e) {
-                response.setError("ERROR: " + e.getMessage());
+                errorMessage = e.getMessage();
             }
-            response.setView(viewService.getViewByName("complete"));                
+            response.setView(viewService.getViewByName(ViewName.COMPLETE));                
+        }
+        if(errorMessage != null) {
+            response.setError("ERROR: " + errorMessage);
         }
         return response;
     }

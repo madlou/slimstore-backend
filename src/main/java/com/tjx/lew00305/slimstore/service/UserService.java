@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.tjx.lew00305.slimstore.dto.RegisterRequestDTO;
-import com.tjx.lew00305.slimstore.dto.RegisterResponseDTO;
 import com.tjx.lew00305.slimstore.model.common.Form;
 import com.tjx.lew00305.slimstore.model.common.FormButton;
 import com.tjx.lew00305.slimstore.model.common.FormElement;
@@ -51,8 +49,7 @@ public class UserService {
         return userRepository.save(user);            
     }
     
-    public RegisterResponseDTO addUserFromRequest(RegisterRequestDTO request, RegisterResponseDTO response) {
-        Form form = request.getForm();
+    public String addUserByForm(Form form) {
         try {
             addUser(
                 form.getValueByKey("code"),
@@ -60,19 +57,17 @@ public class UserService {
                 form.getValueByKey("email"),
                 form.getValueByKey("password")
             );
-            return response;
+            return null;
         } catch (Exception e) {
             if(e.getMessage().contains("Duplicate entry")) {
-                response.setError("Unable to create user: Employee number already being used.");                            
+                return "Unable to create user, employee number already being used.";                            
             } else {
-                response.setError("Unable to create user: " +  e.getMessage());
+                return "Unable to create user '" +  e.getMessage() + "'";
             }
-            return response;
         }
     }
     
-    public RegisterResponseDTO saveUserFromRequest(RegisterRequestDTO request, RegisterResponseDTO response) {
-        Form form = request.getForm();
+    public String saveUserByForm(Form form) {
         try {
             saveUser(
                 form.getValueByKey("code"),
@@ -80,13 +75,11 @@ public class UserService {
                 form.getValueByKey("email"),
                 form.getValueByKey("password")
             );
-            return response;
+            return null;
         } catch (Exception e) {
-            response.setError("Unable to save user: " +  e.getMessage());
-            return response;
+            return "Unable to save user: " +  e.getMessage();
         }
     }
-
     
     public Iterable<User> getAllUsers() {
         return userRepository.findAll();
@@ -137,8 +130,7 @@ public class UserService {
         return null;
     }
     
-    public User validateLoginByRequest(RegisterRequestDTO request) {
-        Form form = request.getForm();
+    public User validateLoginByForm(Form form) {
         String username = form.getValueByKey("code");
         String password = form.getValueByKey("password");
         try {

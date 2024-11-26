@@ -8,23 +8,13 @@
                         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
     <bean class="com.tjx.lew00305.slimstore.model.common.View">
-        <property name="name" value="tender/giftcard" />
-        <property name="title" value="Tender Gift Card" />
-        <property name="message" value="Please swipe/scan Gift Card." />
-        <property name="formProcess" value="ProcessGiftcard" />
-        <property name="formSuccess" value="tender" />
+        <property name="name" value="TENDER_CARD" />
+        <property name="title" value="Tender Card" />
+        <property name="message"
+            value="Please enter or select a card value." />
+        <property name="formSuccess" value="TENDER" />
         <property name="formElements">
             <array>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
-                    <property name="type" value="number" />
-                    <property name="key" value="card" />
-                    <property name="label" value="Card Number" />
-                </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
-                    <property name="type" value="number" />
-                    <property name="key" value="pin" />
-                    <property name="label" value="PIN Number" />
-                </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                     <property name="type" value="decimal" />
                     <property name="key" value="amount" />
@@ -32,14 +22,20 @@
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                     <property name="type" value="submit" />
-                    <property name="value" value="Redeem Gift Card" />
+                    <property name="value" value="Card" />
                 </bean>
-
             </array>
         </property>
         <property name="functionButtons">
             <array>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                <bean
+                    class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                    <property name="position" value="1" />
+                    <property name="label" value="Full Amount" />
+                    <property name="action" value="tender/card/ped:amount=full" />
+                </bean>
+                <bean
+                    class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="Back" />
                     <property name="action" value="tender" />
