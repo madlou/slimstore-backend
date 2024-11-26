@@ -42,6 +42,21 @@ public class Form {
         return Float.parseFloat(element.getValue());
     }
     
+    public void setValueByKey(String key, String value) {
+        FormElement element = findByKey(key);
+        element.setValue(value);
+    }
+
+    public void setValueByKey(String key, Integer value) {
+        FormElement element = findByKey(key);
+        element.setValue(value.toString());
+    }
+
+    public void setValueByKey(String key, Float value) {
+        FormElement element = findByKey(key);
+        element.setValue(value.toString());
+    }
+    
     public void addElement(FormElement newElement) {
         Integer size = elements.length;
         FormElement[] newElements = new FormElement[size + 1];

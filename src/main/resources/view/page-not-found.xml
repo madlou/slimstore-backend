@@ -9,12 +9,8 @@
 
     <bean class="com.tjx.lew00305.slimstore.model.common.View">
         <property name="name" value="PAGE_NOT_FOUND" />
-        <property name="title" value="404" />
-        <property name="message"
-            value="ERROR: Page not found. This functionality is likely not been developed yet." />
-        <property name="formElements">
-            <array> </array>
-        </property>
+        <property name="title" value="Page Not Found" />
+        <property name="message" value="ERROR: Page not found. This functionality is likely not been developed yet." />
         <property name="functionButtons">
             <array>
                 <bean

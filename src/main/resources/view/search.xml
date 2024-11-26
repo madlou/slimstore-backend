@@ -11,10 +11,15 @@
         <property name="name" value="SEARCH" />
         <property name="title" value="Search" />
         <property name="message" value="Please select option to buy." />
-        <property name="formProcess" value="AddToBasket" />
-        <property name="formSuccess" value="HOME" />
-        <property name="formElements">
-            <array> </array>
+        <property name="form">
+            <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                <property name="targetView" value="HOME" />
+                <property name="serverProcess" value="AddToBasket" />
+                <property name="elements">
+                    <array>
+                    </array>
+                </property>
+            </bean>
         </property>
         <property name="functionButtons">
             <array>

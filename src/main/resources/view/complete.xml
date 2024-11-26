@@ -11,9 +11,6 @@
         <property name="name" value="COMPLETE" />
         <property name="title" value="Transaction Complete" />
         <property name="message" value="The transaction has completed." />
-        <property name="formElements">
-            <array> </array>
-        </property>
         <property name="functionButtons">
             <array>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">

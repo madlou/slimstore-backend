@@ -10,22 +10,25 @@
     <bean class="com.tjx.lew00305.slimstore.model.common.View">
         <property name="name" value="TENDER_CASH" />
         <property name="title" value="Tender Cash" />
-        <property name="message"
-            value="Please enter or select a cash value." />
-        <property name="formProcess" value="Tender" />
-        <property name="formSuccess" value="TENDER" />
-        <property name="formElements">
-            <array>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
-                    <property name="type" value="decimal" />
-                    <property name="key" value="cash" />
-                    <property name="label" value="Cash" />
-                </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
-                    <property name="type" value="submit" />
-                    <property name="value" value="Submit" />
-                </bean>
-            </array>
+        <property name="message" value="Please enter or select a cash value." />
+        <property name="form">
+            <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                <property name="targetView" value="TENDER" />
+                <property name="serverProcess" value="Tender" />
+                <property name="elements">
+                    <array>
+                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                            <property name="type" value="decimal" />
+                            <property name="key" value="cash" />
+                            <property name="label" value="Cash" />
+                        </bean>
+                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                            <property name="type" value="submit" />
+                            <property name="value" value="Submit" />
+                        </bean>
+                    </array>
+                </property>
+            </bean>
         </property>
         <property name="functionButtons">
             <array>

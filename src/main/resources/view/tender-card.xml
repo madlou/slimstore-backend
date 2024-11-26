@@ -10,21 +10,25 @@
     <bean class="com.tjx.lew00305.slimstore.model.common.View">
         <property name="name" value="TENDER_CARD" />
         <property name="title" value="Tender Card" />
-        <property name="message"
-            value="Please enter or select a card value." />
-        <property name="formSuccess" value="TENDER" />
-        <property name="formElements">
-            <array>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
-                    <property name="type" value="decimal" />
-                    <property name="key" value="amount" />
-                    <property name="label" value="Amount" />
-                </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
-                    <property name="type" value="submit" />
-                    <property name="value" value="Card" />
-                </bean>
-            </array>
+        <property name="message" value="Please enter or select a card value." />
+        <property name="form">
+            <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                <property name="targetView" value="TENDER" />
+                <property name="serverProcess" value="" />
+                <property name="elements">
+                    <array>
+                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                            <property name="type" value="decimal" />
+                            <property name="key" value="amount" />
+                            <property name="label" value="Amount" />
+                        </bean>
+                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                            <property name="type" value="submit" />
+                            <property name="value" value="Card" />
+                        </bean>
+                    </array>
+                </property>
+            </bean>
         </property>
         <property name="functionButtons">
             <array>

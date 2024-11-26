@@ -11,20 +11,24 @@
         <property name="name" value="HOME" />
         <property name="title" value="Home" />
         <property name="message" value="Please scan barcode or search for product." />
-        <property name="formSuccess" value="SEARCH" />
-        <property name="formProcess" value="Search" />
-        <property name="formElements">
-            <array>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
-                    <property name="type" value="text" />
-                    <property name="key" value="search" />
-                    <property name="label" value="Search" />
-                </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
-                    <property name="type" value="submit" />
-                    <property name="value" value="Go" />
-                </bean>
-            </array>
+        <property name="form">
+            <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                <property name="targetView" value="SEARCH" />
+                <property name="serverProcess" value="Search" />
+                <property name="elements">
+                    <array>
+                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                            <property name="type" value="text" />
+                            <property name="key" value="search" />
+                            <property name="label" value="Search" />
+                        </bean>
+                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                            <property name="type" value="submit" />
+                            <property name="value" value="Go" />
+                        </bean>
+                    </array>
+                </property>
+            </bean>
         </property>
         <property name="functionButtons">
             <array>

@@ -53,10 +53,10 @@ public class ViewService {
         switch (action) {
             case SEARCH:
                 String searchQuery = form.getValueByKey("search");
-                view.setFormElements(productService.search(searchQuery));
+                view.getForm().setElements(productService.search(searchQuery));
                 break;
             case USER_LIST:
-                view.setFormElements(userService.getUsersAsFormElements());
+                view.getForm().setElements(userService.getUsersAsFormElements());
                 break;
             case REGISTER_CHANGE:
                 String storeNumber = (locationService.getStore() != null)
@@ -65,24 +65,24 @@ public class ViewService {
                 String registerNumber = (locationService.getStoreRegister() != null)
                     ? locationService.getStoreRegister().getNumber().toString()
                     : "";
-                FormElement[] regListElements = view.getFormElements();
+                FormElement[] regListElements = view.getForm().getElements();
                 regListElements[0].setValue(storeNumber);
                 regListElements[1].setValue(registerNumber);
-                view.setFormElements(regListElements);                    
+                view.getForm().setElements(regListElements);                    
                 break;
             case STORE_SETUP:
-                FormElement[] storeListElements = view.getFormElements();
+                FormElement[] storeListElements = view.getForm().getElements();
                 storeListElements[0].setValue("" + locationService.getStore().getName());
-                view.setFormElements(storeListElements);
+                view.getForm().setElements(storeListElements);
                 break;
             case USER_EDIT:
-                FormElement[] userListElements = view.getFormElements();
+                FormElement[] userListElements = view.getForm().getElements();
                 User editUser = userService.getUser(form.getValueByKey("code"));
                 userListElements[0].setValue(editUser.getCode());
                 userListElements[1].setValue(editUser.getName());
                 userListElements[2].setValue(editUser.getEmail());
                 userListElements[3].setValue("");
-                view.setFormElements(userListElements);
+                view.getForm().setElements(userListElements);
                 break;
             default:
                 break;

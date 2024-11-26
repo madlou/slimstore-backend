@@ -12,20 +12,24 @@
         <property name="title" value="Store Setup" />
         <property name="message"
             value="You can change the store setup below." />
-        <property name="formProcess" value="StoreSetup" />
-        <property name="formSuccess" value="HOME" />
-        <property name="formElements">
-            <array>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
-                    <property name="type" value="text" />
-                    <property name="key" value="name" />
-                    <property name="label" value="Store Name" />
-                </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
-                    <property name="type" value="submit" />
-                    <property name="value" value="Submit" />
-                </bean>
-            </array>
+            <property name="form">
+            <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                <property name="targetView" value="HOME" />
+                <property name="serverProcess" value="StoreSetup" />
+                <property name="elements">
+                    <array>
+                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                            <property name="type" value="text" />
+                            <property name="key" value="name" />
+                            <property name="label" value="Store Name" />
+                        </bean>
+                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                            <property name="type" value="submit" />
+                            <property name="value" value="Submit" />
+                        </bean>
+                    </array>
+                </property>
+            </bean>
         </property>
         <property name="functionButtons">
             <array>

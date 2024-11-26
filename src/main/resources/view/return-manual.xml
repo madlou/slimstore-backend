@@ -10,25 +10,30 @@
     <bean class="com.tjx.lew00305.slimstore.model.common.View">
         <property name="name" value="RETURN_MANUAL" />
         <property name="title" value="Manual Return" />
-        <property name="message"
-            value="Please type information below." />
-        <property name="formElements">
-            <array>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
-                    <property name="type" value="text" />
-                    <property name="key" value="sku" />
-                    <property name="label" value="Product Code" />
-                </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
-                    <property name="type" value="number" />
-                    <property name="key" value="price" />
-                    <property name="label" value="Price" />
-                </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
-                    <property name="type" value="submit" />
-                    <property name="value" value="Enter" />
-                </bean>
-            </array>
+        <property name="message" value="Please type information below." />
+        <property name="form">
+            <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                <property name="targetView" value="" />
+                <property name="serverProcess" value="" />
+                <property name="elements">
+                    <array>
+                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                            <property name="type" value="text" />
+                            <property name="key" value="sku" />
+                            <property name="label" value="Product Code" />
+                        </bean>
+                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                            <property name="type" value="number" />
+                            <property name="key" value="price" />
+                            <property name="label" value="Price" />
+                        </bean>
+                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                            <property name="type" value="submit" />
+                            <property name="value" value="Enter" />
+                        </bean>
+                    </array>
+                </property>
+            </bean>
         </property>
         <property name="functionButtons">
             <array>
