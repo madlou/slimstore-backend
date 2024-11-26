@@ -55,7 +55,7 @@ public class TransactionService {
             txnLine.setTransaction(transaction);
             txnLine.setNumber(counter++);
             txnLine.setProductCode(basketLine.getCode());
-            txnLine.setType(basketLine.getType());
+            txnLine.setType(basketLine.getType().toString().toLowerCase());
             txnLine.setQuantity(basketLine.getQuantity());
             txnLine.setUnitValue(basketLine.getUnitValue());
             txnLine.setLineValue(basketLine.getQuantity() * basketLine.getUnitValue());

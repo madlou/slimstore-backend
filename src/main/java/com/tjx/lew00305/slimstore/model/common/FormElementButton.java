@@ -1,17 +1,15 @@
 package com.tjx.lew00305.slimstore.model.common;
 
-import org.springframework.web.context.annotation.RequestScope;
-
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-@RequestScope
+@AllArgsConstructor
+@NoArgsConstructor
 public class FormElementButton {
     
-    public String label = "";
-    public String action = "";
-    public String process = "";
-    public Form form = new Form();
-    public boolean disable = false;
+    private String label = "";
+    private Form form = new Form();
 
 }

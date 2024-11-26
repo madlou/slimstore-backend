@@ -20,7 +20,13 @@ public class GiftCardService {
         String card = requestForm.getValueByKey("card");
         Float value = requestForm.getFloatValueByKey("amount");
         topup(card, value);
-        return new FormElement("giftcard", "TJXGC", "Gift Card (" + card + ")", "1" ,null, value, null, null);
+        FormElement element = new FormElement();
+        element.setType(FormElement.Type.PRODUCT_GIFTCARD);
+        element.setKey("TJXGC");
+        element.setLabel("Gift Card (" + card + ")");
+        element.setQuantity(1);
+        element.setPrice(value);
+        return element;
     }
     
     public void topup(String card, Float value) {

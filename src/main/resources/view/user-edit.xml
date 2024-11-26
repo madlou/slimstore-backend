@@ -18,9 +18,10 @@
                 <property name="elements">
                     <array>
                         <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
-                            <property name="type" value="disabled" />
+                            <property name="type" value="text" />
                             <property name="key" value="code" />
                             <property name="label" value="Employee Number" />
+                            <property name="disabled" value="true" />
                         </bean>
                         <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                             <property name="type" value="text" />

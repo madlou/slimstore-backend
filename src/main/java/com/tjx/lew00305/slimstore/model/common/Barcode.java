@@ -45,6 +45,12 @@ public class Barcode {
     }
 
     public FormElement getFormElement() {
-        return new FormElement("product", getName(), getDepartmentCategory(), "1", "", getPrice(), null, null);
+        FormElement element = new FormElement();
+        element.setType(FormElement.Type.PRODUCT_SCAN);
+        element.setKey(getName());
+        element.setLabel(getDepartmentCategory());
+        element.setQuantity(1);
+        element.setPrice(getPrice());
+        return element;
     }
 }

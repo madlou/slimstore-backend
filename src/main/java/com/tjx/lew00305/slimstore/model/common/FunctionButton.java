@@ -8,11 +8,11 @@ import lombok.Data;
 @RequestScope
 public class FunctionButton {
     
-    public int position = 0;
-    public String label = "";
-    public String action = "";
-    public String process = "";
-    public String condition = "";
-    public boolean disable = false;
+    private int position = 0;
+    private String label = "";
+    private String action = "";
+    private String process = "";
+    private String condition = "";
+    private Boolean disable = false;
 
 }

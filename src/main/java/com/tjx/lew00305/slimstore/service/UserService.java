@@ -150,23 +150,23 @@ public class UserService {
         ArrayList<FormElement> elements = new ArrayList<FormElement>();
         for(User user: users) {
             if(!user.getCode().equals("admin")) {
-                FormElement userElement = new FormElement();
-                userElement.setType("button");
-                userElement.setKey(user.getCode());
-                userElement.setLabel("Edit");
-                userElement.setValue(user.getName());
+                FormElement editFormElement = new FormElement();
+                editFormElement.setKey("code");
+                editFormElement.setValue(user.getCode());
+                Form editForm = new Form();
+                editForm.setTargetView("user-edit");
+                editForm.setServerProcess("SaveUser");
+                editForm.addElement(editFormElement);
                 FormElementButton button = new FormElementButton();
                 button.setLabel("Edit");
-                button.setAction("user-edit");
-                button.setProcess("SaveUser");
-                Form buttonForm = button.getForm();
-                FormElement buttonElement = new FormElement();
-                buttonElement.setKey("code");
-                buttonElement.setValue(user.getCode());
-                buttonForm.addElement(buttonElement);
-                button.setForm(buttonForm);
-                userElement.setButton(button);
-                elements.add(userElement);
+                button.setForm(editForm);
+                FormElement userRow = new FormElement();
+                userRow.setType(FormElement.Type.BUTTON);
+                userRow.setKey(user.getCode());
+                userRow.setLabel("Edit");
+                userRow.setValue(user.getName());
+                userRow.setButton(button);
+                elements.add(userRow);
             }
         }
         return elements.toArray(new FormElement[0]);

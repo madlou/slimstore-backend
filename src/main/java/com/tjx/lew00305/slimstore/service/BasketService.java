@@ -30,10 +30,13 @@ public class BasketService {
         if(element == null) {
             return;
         }
-        int quantity = Integer.parseInt(element.getValue());
-        if(quantity > 0) {
-            basket.add(new BasketLine(element.getKey(), element.getLabel(), element.getType(), quantity, element.getPrice()));
-        }
+        BasketLine basketLine = new BasketLine();
+        basketLine.setCode(element.getKey());
+        basketLine.setName(element.getLabel());
+        basketLine.setType(element.getType());
+        basketLine.setQuantity(element.getQuantity());
+        basketLine.setUnitValue(element.getPrice());
+        basket.add(basketLine);
     }
     
     public ArrayList<BasketLine> getBasketArrayList() {
