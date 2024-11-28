@@ -35,33 +35,66 @@
                 <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="1" />
                     <property name="label" value="Drink Sale" />
-                    <property name="action" value="sale" />
+                    <property name="form">
+                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                            <property name="targetView" value="sale" />
+                        </bean>
+                    </property>
+                </bean>
+                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                    <property name="position" value="1" />
+                    <property name="label" value="Drink Sale" />
+                    <property name="form">
+                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                            <property name="targetView" value="SALE" />
+                        </bean>
+                    </property>
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="2" />
                     <property name="label" value="Return" />
-                    <property name="action" value="return" />
+                    <property name="form">
+                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                            <property name="targetView" value="return" />
+                        </bean>
+                    </property>
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="3" />
                     <property name="label" value="Void" />
-                    <property name="action" value="void" />
+                    <property name="form">
+                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                            <property name="targetView" value="void" />
+                        </bean>
+                    </property>
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="4" />
                     <property name="label" value="Gift Cards" />
-                    <property name="action" value="giftcard" />
+                    <property name="form">
+                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                            <property name="targetView" value="giftcard" />
+                        </bean>
+                    </property>
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="7" />
                     <property name="label" value="System" />
-                    <property name="action" value="system" />
+                    <property name="form">
+                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                            <property name="targetView" value="system" />
+                        </bean>
+                    </property>
                     <property name="condition" value="basket.length = 0" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="Tender" />
-                    <property name="action" value="tender" />
+                    <property name="form">
+                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                            <property name="targetView" value="tender" />
+                        </bean>
+                    </property>
                     <property name="condition" value="basket.length > 0" />
                 </bean>
             </array>

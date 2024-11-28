@@ -27,38 +27,62 @@
                     class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="1" />
                     <property name="label" value="Log Off" />
-                    <property name="action" value="login" />
-                    <property name="process" value="Logout" />
+                    <property name="form">
+                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                            <property name="targetView" value="login" />
+                            <property name="serverProcess" value="Logout" />
+                        </bean>
+                    </property>
                 </bean>
                 <bean
                     class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="2" />
                     <property name="label" value="Users" />
-                    <property name="action" value="user-list" />
+                    <property name="form">
+                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                            <property name="targetView" value="user-list" />
+                        </bean>
+                    </property>
                 </bean>
                 <bean
                     class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="3" />
                     <property name="label" value="Reports" />
-                    <property name="action" value="reports" />
+                    <property name="form">
+                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                            <property name="targetView" value="reports" />
+                        </bean>
+                    </property>
                 </bean>
                 <bean
                     class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="6" />
                     <property name="label" value="Change Register" />
-                    <property name="action" value="register-change" />
+                    <property name="form">
+                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                            <property name="targetView" value="register-change" />
+                        </bean>
+                    </property>
                 </bean>
                 <bean
                     class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="7" />
                     <property name="label" value="Store Setup" />
-                    <property name="action" value="store-setup" />
+                    <property name="form">
+                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                            <property name="targetView" value="store-setup" />
+                        </bean>
+                    </property>
                 </bean>
                 <bean
                     class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="Back" />
-                    <property name="action" value="home" />
+                    <property name="form">
+                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                            <property name="targetView" value="home" />
+                        </bean>
+                    </property>
                 </bean>
             </array>
         </property>

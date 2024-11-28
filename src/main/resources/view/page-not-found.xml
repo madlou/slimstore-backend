@@ -17,7 +17,11 @@
                     class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="1" />
                     <property name="label" value="Home" />
-                    <property name="action" value="HOME" />
+                    <property name="form">
+                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                            <property name="targetView" value="HOME" />
+                        </bean>
+                    </property>
                 </bean>
             </array>
         </property>

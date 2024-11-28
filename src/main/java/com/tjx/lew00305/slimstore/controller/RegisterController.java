@@ -56,7 +56,7 @@ public class RegisterController {
             response.setView(viewService.getViewByName(ViewName.LOGIN));
             return response;
         }
-        if(!requestForm.getServerProcess().isEmpty()) {
+        if(requestForm.getServerProcess() != null) {
             switch (requestForm.getServerProcess()) {
                 case "Login":
                     userService.validateLoginByForm(requestForm);

@@ -27,22 +27,34 @@
                     class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="1" />
                     <property name="label" value="Void Basket" />
-                    <property name="action" value="home" />
+                    <property name="form">
+                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                            <property name="targetView" value="home" />
+                            <property name="serverProcess" value="EmptyBasket" />
+                        </bean>
+                    </property>
                     <property name="condition" value="basket.length > 0" />
-                    <property name="process" value="EmptyBasket" />
                 </bean>
                 <bean
                     class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="2" />
                     <property name="label" value="Post Void" />
-                    <property name="action" value="void-post" />
+                    <property name="form">
+                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                            <property name="targetView" value="void-post" />
+                        </bean>
+                    </property>
                     <property name="condition" value="basket.length = 0" />
                 </bean>
                 <bean
                     class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="Back" />
-                    <property name="action" value="home" />
+                    <property name="form">
+                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                            <property name="targetView" value="home" />
+                        </bean>
+                    </property>
                 </bean>
             </array>
         </property>

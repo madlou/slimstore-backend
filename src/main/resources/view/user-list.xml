@@ -27,13 +27,21 @@
                     class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="1" />
                     <property name="label" value="New User" />
-                    <property name="action" value="user-new" />
+                    <property name="form">
+                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                            <property name="targetView" value="user-new" />
+                        </bean>
+                    </property>
                 </bean>
                 <bean
                     class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="Back" />
-                    <property name="action" value="system" />
+                    <property name="form">
+                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                            <property name="targetView" value="system" />
+                        </bean>
+                    </property>
                 </bean>
             </array>
         </property>

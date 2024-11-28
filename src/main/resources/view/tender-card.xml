@@ -36,13 +36,21 @@
                     class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="1" />
                     <property name="label" value="Full Amount" />
-                    <property name="action" value="tender/card/ped:amount=full" />
+                    <property name="form">
+                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                            <property name="targetView" value="tender/card/ped:amount=full" />
+                        </bean>
+                    </property>
                 </bean>
                 <bean
                     class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="Back" />
-                    <property name="action" value="tender" />
+                    <property name="form">
+                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                            <property name="targetView" value="tender" />
+                        </bean>
+                    </property>
                 </bean>
             </array>
         </property>

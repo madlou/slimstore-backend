@@ -36,42 +36,116 @@
                     class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="1" />
                     <property name="label" value="Full Amount" />
-                    <property name="action" value="tender:full" />
-                    <property name="process" value="Tender" />
+                    <property name="form">
+                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                            <property name="targetView" value="tender" />
+                            <property name="serverProcess" value="Tender" />
+                            <property name="elements">
+                                <array>
+                                    <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                                        <property name="type" value="decimal" />
+                                        <property name="key" value="cash" />
+                                        <property name="label" value="Cash" />
+                                        <property name="value" value="full" />
+                                    </bean>
+                                </array>
+                            </property>
+                        </bean>
+                    </property>
                 </bean>
                 <bean
                     class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="2" />
                     <property name="label" value="£5" />
-                    <property name="action" value="tender:5" />
-                    <property name="process" value="Tender" />
+                    <property name="form">
+                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                            <property name="targetView" value="tender" />
+                            <property name="serverProcess" value="Tender" />
+                            <property name="elements">
+                                <array>
+                                    <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                                        <property name="type" value="decimal" />
+                                        <property name="key" value="cash" />
+                                        <property name="label" value="Cash" />
+                                        <property name="value" value="5" />
+                                    </bean>
+                                </array>
+                            </property>
+                        </bean>
+                    </property>
                 </bean>
                 <bean
                     class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="3" />
                     <property name="label" value="£10" />
-                    <property name="action" value="tender:10" />
-                    <property name="process" value="Tender" />
+                    <property name="form">
+                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                            <property name="targetView" value="tender" />
+                            <property name="serverProcess" value="Tender" />
+                            <property name="elements">
+                                <array>
+                                    <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                                        <property name="type" value="decimal" />
+                                        <property name="key" value="cash" />
+                                        <property name="label" value="Cash" />
+                                        <property name="value" value="10" />
+                                    </bean>
+                                </array>
+                            </property>
+                        </bean>
+                    </property>
                 </bean>
                 <bean
                     class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="4" />
                     <property name="label" value="£20" />
-                    <property name="action" value="tender:20" />
-                    <property name="process" value="Tender" />
+                    <property name="form">
+                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                            <property name="targetView" value="tender" />
+                            <property name="serverProcess" value="Tender" />
+                            <property name="elements">
+                                <array>
+                                    <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                                        <property name="type" value="decimal" />
+                                        <property name="key" value="cash" />
+                                        <property name="label" value="Cash" />
+                                        <property name="value" value="20" />
+                                    </bean>
+                                </array>
+                            </property>
+                        </bean>
+                    </property>
                 </bean>
                 <bean
                     class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="5" />
                     <property name="label" value="£50" />
-                    <property name="action" value="tender:50" />
-                    <property name="process" value="Tender" />
+                    <property name="form">
+                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                            <property name="targetView" value="tender" />
+                            <property name="serverProcess" value="Tender" />
+                            <property name="elements">
+                                <array>
+                                    <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                                        <property name="type" value="decimal" />
+                                        <property name="key" value="cash" />
+                                        <property name="label" value="Cash" />
+                                        <property name="value" value="50" />
+                                    </bean>
+                                </array>
+                            </property>
+                        </bean>
+                    </property>
                 </bean>
                 <bean
                     class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="Back" />
-                    <property name="action" value="tender" />
+                    <property name="form">
+                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                            <property name="targetView" value="tender" />
+                        </bean>
+                    </property>
                 </bean>
             </array>
         </property>

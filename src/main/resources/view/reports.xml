@@ -21,6 +21,7 @@
                             <property name="type" value="select" />
                             <property name="key" value="scope" />
                             <property name="label" value="Scope" />
+                            <property name="value" value="Register" />
                             <property name="options">
                                 <array value-type="java.lang.String">
                                     <value>Register</value>
@@ -33,6 +34,7 @@
                             <property name="type" value="select" />
                             <property name="key" value="report" />
                             <property name="label" value="Report" />
+                            <property name="value" value="Transactions" />
                             <property name="options">
                                 <array value-type="java.lang.String">
                                     <value>Transactions</value>
@@ -62,7 +64,11 @@
                     class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="Back" />
-                    <property name="action" value="system" />
+                    <property name="form">
+                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                            <property name="targetView" value="system" />
+                        </bean>
+                    </property>
                 </bean>
             </array>
         </property>
