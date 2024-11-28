@@ -53,7 +53,7 @@
                     <property name="label" value="Manual Return" />
                     <property name="form">
                         <bean class="com.tjx.lew00305.slimstore.model.common.Form">
-                            <property name="targetView" value="return-manual" />
+                            <property name="targetView" value="RETURN_MANUAL" />
                         </bean>
                     </property>
                 </bean>
@@ -63,7 +63,7 @@
                     <property name="label" value="Back" />
                     <property name="form">
                         <bean class="com.tjx.lew00305.slimstore.model.common.Form">
-                            <property name="targetView" value="home" />
+                            <property name="targetView" value="HOME" />
                         </bean>
                     </property>
                 </bean>

@@ -1,11 +1,13 @@
 package com.tjx.lew00305.slimstore.model.common;
 
+import com.tjx.lew00305.slimstore.model.common.View.ViewName;
+
 import lombok.Data;
 
 @Data
 public class Form {
 
-    private String targetView;
+    private ViewName targetView;
     private String serverProcess;
     private FormElement[] elements = new FormElement[0];
     

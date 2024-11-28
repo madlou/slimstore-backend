@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.tjx.lew00305.slimstore.model.common.Form;
 import com.tjx.lew00305.slimstore.model.common.FormElementButton;
+import com.tjx.lew00305.slimstore.model.common.View.ViewName;
 import com.tjx.lew00305.slimstore.model.common.FormElement;
 import com.tjx.lew00305.slimstore.model.common.FormElement.Type;
 import com.tjx.lew00305.slimstore.model.entity.User;
@@ -156,7 +157,7 @@ public class UserService {
                 editFormElement.setValue(user.getCode());
                 editFormElement.setType(Type.TEXT);
                 Form editForm = new Form();
-                editForm.setTargetView("user-edit");
+                editForm.setTargetView(ViewName.USER_EDIT);
                 editForm.addElement(editFormElement);
                 FormElementButton button = new FormElementButton();
                 button.setLabel("Edit");

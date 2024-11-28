@@ -37,7 +37,7 @@
                     <property name="label" value="Drink Sale" />
                     <property name="form">
                         <bean class="com.tjx.lew00305.slimstore.model.common.Form">
-                            <property name="targetView" value="sale" />
+                            <property name="targetView" value="SALE" />
                         </bean>
                     </property>
                 </bean>
@@ -55,7 +55,7 @@
                     <property name="label" value="Return" />
                     <property name="form">
                         <bean class="com.tjx.lew00305.slimstore.model.common.Form">
-                            <property name="targetView" value="return" />
+                            <property name="targetView" value="RETURN" />
                         </bean>
                     </property>
                 </bean>
@@ -64,7 +64,7 @@
                     <property name="label" value="Void" />
                     <property name="form">
                         <bean class="com.tjx.lew00305.slimstore.model.common.Form">
-                            <property name="targetView" value="void" />
+                            <property name="targetView" value="VOID" />
                         </bean>
                     </property>
                 </bean>
@@ -73,7 +73,7 @@
                     <property name="label" value="Gift Cards" />
                     <property name="form">
                         <bean class="com.tjx.lew00305.slimstore.model.common.Form">
-                            <property name="targetView" value="giftcard" />
+                            <property name="targetView" value="GIFTCARD" />
                         </bean>
                     </property>
                 </bean>
@@ -82,7 +82,7 @@
                     <property name="label" value="System" />
                     <property name="form">
                         <bean class="com.tjx.lew00305.slimstore.model.common.Form">
-                            <property name="targetView" value="system" />
+                            <property name="targetView" value="SYSTEM" />
                         </bean>
                     </property>
                     <property name="condition" value="basket.length = 0" />
@@ -92,7 +92,7 @@
                     <property name="label" value="Tender" />
                     <property name="form">
                         <bean class="com.tjx.lew00305.slimstore.model.common.Form">
-                            <property name="targetView" value="tender" />
+                            <property name="targetView" value="TENDER" />
                         </bean>
                     </property>
                     <property name="condition" value="basket.length > 0" />

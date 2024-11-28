@@ -29,8 +29,7 @@ public class ViewService {
     }
     
     public View getViewByForm(Form requestForm) {
-        String viewNameString = requestForm.getTargetView().toUpperCase().replace("-", "_");
-        ViewName viewName = viewNameString.isEmpty() ? ViewName.HOME : ViewName.valueOf(viewNameString);
+        ViewName viewName = requestForm.getTargetView() == null ? ViewName.HOME : requestForm.getTargetView();
         View view = getViewByName(viewName);
         return enrichView(view, requestForm);
     }

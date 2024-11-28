@@ -29,7 +29,7 @@
                     <property name="label" value="Void Basket" />
                     <property name="form">
                         <bean class="com.tjx.lew00305.slimstore.model.common.Form">
-                            <property name="targetView" value="home" />
+                            <property name="targetView" value="HOME" />
                             <property name="serverProcess" value="EmptyBasket" />
                         </bean>
                     </property>
@@ -41,7 +41,7 @@
                     <property name="label" value="Post Void" />
                     <property name="form">
                         <bean class="com.tjx.lew00305.slimstore.model.common.Form">
-                            <property name="targetView" value="void-post" />
+                            <property name="targetView" value="VOID_POST" />
                         </bean>
                     </property>
                     <property name="condition" value="basket.length = 0" />
@@ -52,7 +52,7 @@
                     <property name="label" value="Back" />
                     <property name="form">
                         <bean class="com.tjx.lew00305.slimstore.model.common.Form">
-                            <property name="targetView" value="home" />
+                            <property name="targetView" value="HOME" />
                         </bean>
                     </property>
                 </bean>

@@ -77,14 +77,14 @@ public class RegisterController {
                     errorMessage = locationService.validateLocationByForm(requestForm);
                     if(errorMessage != null) {
                         response.setError("Invalid location details.");
-                        requestForm.setTargetView(ViewName.REGISTER_CHANGE.toString());
+                        requestForm.setTargetView(ViewName.REGISTER_CHANGE);
                     }
                     break;
                 case "Search":
                     Barcode barcode = barcodeService.getBarcodeByForm(requestForm);
                     if(barcode != null) {
                         basketService.addFormElement(barcode.getFormElement());
-                        requestForm.setTargetView("home");
+                        requestForm.setTargetView(ViewName.HOME);
                     }
                     break;
                 case "NewUser":
@@ -122,7 +122,7 @@ public class RegisterController {
             store = locationService.getStore();
         }
         if(store == null && !requestForm.getServerProcess().equals("ChangeRegister")) {
-            requestForm.setTargetView(ViewName.REGISTER_CHANGE.toString());
+            requestForm.setTargetView(ViewName.REGISTER_CHANGE);
             response.setError("Store and register setup required.");
         }
         View view = viewService.getViewByForm(requestForm);

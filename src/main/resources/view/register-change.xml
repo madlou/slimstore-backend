@@ -43,7 +43,7 @@
                     <property name="label" value="Back" />
                     <property name="form">
                         <bean class="com.tjx.lew00305.slimstore.model.common.Form">
-                            <property name="targetView" value="system" />
+                            <property name="targetView" value="SYSTEM" />
                         </bean>
                     </property>
                 </bean>

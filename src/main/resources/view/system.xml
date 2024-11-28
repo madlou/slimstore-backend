@@ -29,7 +29,7 @@
                     <property name="label" value="Log Off" />
                     <property name="form">
                         <bean class="com.tjx.lew00305.slimstore.model.common.Form">
-                            <property name="targetView" value="login" />
+                            <property name="targetView" value="LOGIN" />
                             <property name="serverProcess" value="Logout" />
                         </bean>
                     </property>
@@ -40,7 +40,7 @@
                     <property name="label" value="Users" />
                     <property name="form">
                         <bean class="com.tjx.lew00305.slimstore.model.common.Form">
-                            <property name="targetView" value="user-list" />
+                            <property name="targetView" value="USER_LIST" />
                         </bean>
                     </property>
                 </bean>
@@ -50,7 +50,7 @@
                     <property name="label" value="Reports" />
                     <property name="form">
                         <bean class="com.tjx.lew00305.slimstore.model.common.Form">
-                            <property name="targetView" value="reports" />
+                            <property name="targetView" value="REPORTS" />
                         </bean>
                     </property>
                 </bean>
@@ -60,7 +60,7 @@
                     <property name="label" value="Change Register" />
                     <property name="form">
                         <bean class="com.tjx.lew00305.slimstore.model.common.Form">
-                            <property name="targetView" value="register-change" />
+                            <property name="targetView" value="REGISTER_CHANGE" />
                         </bean>
                     </property>
                 </bean>
@@ -70,7 +70,7 @@
                     <property name="label" value="Store Setup" />
                     <property name="form">
                         <bean class="com.tjx.lew00305.slimstore.model.common.Form">
-                            <property name="targetView" value="store-setup" />
+                            <property name="targetView" value="STORE_SETUP" />
                         </bean>
                     </property>
                 </bean>
@@ -80,7 +80,7 @@
                     <property name="label" value="Back" />
                     <property name="form">
                         <bean class="com.tjx.lew00305.slimstore.model.common.Form">
-                            <property name="targetView" value="home" />
+                            <property name="targetView" value="HOME" />
                         </bean>
                     </property>
                 </bean>

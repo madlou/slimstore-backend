@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import org.springframework.web.context.annotation.SessionScope;
 
-import com.tjx.lew00305.slimstore.model.common.FormElement;
 import com.tjx.lew00305.slimstore.model.common.FormElement.Type;
 
 import lombok.AllArgsConstructor;
@@ -20,7 +19,7 @@ public class BasketLine implements Serializable {
     
     private String code;
     private String name;
-    private FormElement.Type type;
+    private Type type;
     private int quantity;
     private float unitValue;
 

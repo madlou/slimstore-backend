@@ -38,7 +38,7 @@
                     <property name="label" value="Full Amount" />
                     <property name="form">
                         <bean class="com.tjx.lew00305.slimstore.model.common.Form">
-                            <property name="targetView" value="tender" />
+                            <property name="targetView" value="TENDER" />
                             <property name="serverProcess" value="Tender" />
                             <property name="elements">
                                 <array>

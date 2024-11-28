@@ -53,7 +53,7 @@
                     <property name="label" value="Back" />
                     <property name="form">
                         <bean class="com.tjx.lew00305.slimstore.model.common.Form">
-                            <property name="targetView" value="user-list" />
+                            <property name="targetView" value="USER_LIST" />
                         </bean>
                     </property>
                 </bean>
