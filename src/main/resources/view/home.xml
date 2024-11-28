@@ -14,7 +14,7 @@
         <property name="form">
             <bean class="com.tjx.lew00305.slimstore.model.common.Form">
                 <property name="targetView" value="SEARCH" />
-                <property name="serverProcess" value="Search" />
+                <property name="serverProcess" value="SEARCH" />
                 <property name="elements">
                     <array>
                         <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">

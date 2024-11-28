@@ -13,18 +13,11 @@
         <property name="message" value="Please select a tender." />
         <property name="form">
             <bean class="com.tjx.lew00305.slimstore.model.common.Form">
-                <property name="targetView" value="" />
-                <property name="serverProcess" value="" />
-                <property name="elements">
-                    <array>
-                    </array>
-                </property>
             </bean>
         </property>
         <property name="functionButtons">
             <array>
-                <bean
-                    class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="1" />
                     <property name="label" value="Cash" />
                     <property name="form">
@@ -33,8 +26,7 @@
                         </bean>
                     </property>
                 </bean>
-                <bean
-                    class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="2" />
                     <property name="label" value="Card" />
                     <property name="form">
@@ -43,8 +35,7 @@
                         </bean>
                     </property>
                 </bean>
-                <bean
-                    class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="3" />
                     <property name="label" value="Gift Card" />
                     <property name="form">
@@ -53,8 +44,7 @@
                         </bean>
                     </property>
                 </bean>
-                <bean
-                    class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="4" />
                     <property name="label" value="Voucher" />
                     <property name="form">
@@ -63,8 +53,7 @@
                         </bean>
                     </property>
                 </bean>
-                <bean
-                    class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="5" />
                     <property name="label" value="Discount" />
                     <property name="form">
@@ -73,8 +62,7 @@
                         </bean>
                     </property>
                 </bean>
-                <bean
-                    class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="Back" />
                     <property name="form">

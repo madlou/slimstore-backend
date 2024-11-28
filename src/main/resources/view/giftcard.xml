@@ -14,7 +14,7 @@
         <property name="form">
             <bean class="com.tjx.lew00305.slimstore.model.common.Form">
                 <property name="targetView" value="HOME" />
-                <property name="serverProcess" value="ProcessGiftcard" />
+                <property name="serverProcess" value="PROCESS_GIFTCARD" />
                 <property name="elements">
                     <array>
                         <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">

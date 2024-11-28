@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tjx.lew00305.slimstore.dto.RegisterRequestDTO;
 import com.tjx.lew00305.slimstore.dto.RegisterResponseDTO;
 import com.tjx.lew00305.slimstore.model.common.Barcode;
+import com.tjx.lew00305.slimstore.model.common.Form.ServerProcess;
 import com.tjx.lew00305.slimstore.model.common.View;
 import com.tjx.lew00305.slimstore.model.common.View.ViewName;
 import com.tjx.lew00305.slimstore.model.entity.Store;
@@ -52,13 +53,13 @@ public class RegisterController {
     ) {
         String errorMessage = null;
         RegisterResponseDTO response = new RegisterResponseDTO();
-        if(userService.isLoggedOut() && !requestForm.getServerProcess().equals("Login")) {
+        if(userService.isLoggedOut() && requestForm.getServerProcess() != ServerProcess.LOGIN) {
             response.setView(viewService.getViewByName(ViewName.LOGIN));
             return response;
         }
         if(requestForm.getServerProcess() != null) {
             switch (requestForm.getServerProcess()) {
-                case "Login":
+                case LOGIN:
                     userService.validateLoginByForm(requestForm);
                     if(userService.isLoggedOut()) {
                         response.setView(viewService.getViewByName(ViewName.LOGIN));
@@ -66,48 +67,48 @@ public class RegisterController {
                         return response;
                     }
                     break;
-                case "Logout":
+                case LOGOUT:
                     userService.logout();
                     response.setView(viewService.getViewByName(ViewName.LOGIN));
                     return response;
-                case "StoreSetup":
+                case STORE_SETUP:
                     locationService.updateStoreByForm(requestForm);
                     break;
-                case "ChangeRegister":
+                case CHANGE_REGISTER:
                     errorMessage = locationService.validateLocationByForm(requestForm);
                     if(errorMessage != null) {
                         response.setError("Invalid location details.");
                         requestForm.setTargetView(ViewName.REGISTER_CHANGE);
                     }
                     break;
-                case "Search":
+                case SEARCH:
                     Barcode barcode = barcodeService.getBarcodeByForm(requestForm);
                     if(barcode != null) {
                         basketService.addFormElement(barcode.getFormElement());
                         requestForm.setTargetView(ViewName.HOME);
                     }
                     break;
-                case "NewUser":
+                case NEW_USER:
                     errorMessage = userService.addUserByForm(requestForm);
                     break;
-                case "SaveUser":
+                case SAVE_USER:
                     errorMessage = userService.saveUserByForm(requestForm);
                     break;
-                case "AddToBasket":
+                case ADD_TO_BASKET:
                     basketService.addBasketByForm(requestForm);
                     break;
-                case "Tender":
+                case TENDER:
                     tenderService.addTenderByForm(requestForm);
                     break;
-                case "ProcessGiftcard":
+                case PROCESS_GIFTCARD:
                     basketService.addFormElement(giftCardService.topupByForm(requestForm));
                     break;
-                case "EmptyBasket":
-                case "TransactionComplete":
+                case EMPTY_BASKET:
+                case TRANSACTION_COMPLETE:
                     basketService.empty();
                     tenderService.empty();
                     break;
-                case "RunReport":
+                case RUN_REPORT:
                     response.setReport(transactionReportService.runReportByForm(requestForm));
                     break;
             }
@@ -121,7 +122,7 @@ public class RegisterController {
             );
             store = locationService.getStore();
         }
-        if(store == null && !requestForm.getServerProcess().equals("ChangeRegister")) {
+        if(store == null && requestForm.getServerProcess() != ServerProcess.CHANGE_REGISTER) {
             requestForm.setTargetView(ViewName.REGISTER_CHANGE);
             response.setError("Store and register setup required.");
         }

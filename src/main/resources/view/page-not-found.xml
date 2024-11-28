@@ -13,8 +13,7 @@
         <property name="message" value="ERROR: Page not found. This functionality is likely not been developed yet." />
         <property name="functionButtons">
             <array>
-                <bean
-                    class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="1" />
                     <property name="label" value="Home" />
                     <property name="form">

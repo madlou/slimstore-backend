@@ -14,7 +14,7 @@
         <property name="form">
             <bean class="com.tjx.lew00305.slimstore.model.common.Form">
                 <property name="targetView" value="USER_LIST" />
-                <property name="serverProcess" value="NewUser" />
+                <property name="serverProcess" value="NEW_USER" />
                 <property name="elements">
                     <array>
                         <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
@@ -47,8 +47,7 @@
         </property>
         <property name="functionButtons">
             <array>
-                <bean
-                    class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="Back" />
                     <property name="form">

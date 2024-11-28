@@ -7,8 +7,24 @@ import lombok.Data;
 @Data
 public class Form {
 
+    public enum ServerProcess {
+        ADD_TO_BASKET,
+        CHANGE_REGISTER,
+        EMPTY_BASKET,
+        LOGIN,
+        LOGOUT,
+        NEW_USER,
+        PROCESS_GIFTCARD,
+        RUN_REPORT,
+        SAVE_USER,
+        SEARCH,
+        STORE_SETUP,
+        TENDER,
+        TRANSACTION_COMPLETE,
+    }
+    
     private ViewName targetView;
-    private String serverProcess;
+    private ServerProcess serverProcess;
     private FormElement[] elements = new FormElement[0];
     
     public FormElement findByKey(String key) {
