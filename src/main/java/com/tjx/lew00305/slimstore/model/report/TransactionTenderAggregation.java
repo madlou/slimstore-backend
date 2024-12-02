@@ -1,5 +1,7 @@
 package com.tjx.lew00305.slimstore.model.report;
 
+import java.math.BigDecimal;
+
 import lombok.Data;
 
 @Data
@@ -10,6 +12,6 @@ public class TransactionTenderAggregation {
     Integer reg;
     String date;
     String type;
-    Float value;
+    BigDecimal value;
     
 }

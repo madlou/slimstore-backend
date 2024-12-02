@@ -1,6 +1,7 @@
 package com.tjx.lew00305.slimstore.model.session;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import org.springframework.web.context.annotation.SessionScope;
 
@@ -20,7 +21,16 @@ public class BasketLine implements Serializable {
     private String code;
     private String name;
     private Type type;
-    private int quantity;
-    private float unitValue;
+    private Integer quantity;
+    private BigDecimal unitValue;
+    
+    public Integer getSignedQuantity() {
+        Integer multiplier = (type == Type.RETURN) ? -1 : 1;
+        return quantity * multiplier;
+    }
+    
+    public BigDecimal getLineValue() {
+        return unitValue.multiply(new BigDecimal(getSignedQuantity()));
+    }
 
 }

@@ -2,6 +2,7 @@ package com.tjx.lew00305.slimstore.service;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,6 @@ import com.tjx.lew00305.slimstore.model.entity.Transaction;
 import com.tjx.lew00305.slimstore.model.entity.TransactionLine;
 import com.tjx.lew00305.slimstore.model.entity.TransactionTender;
 import com.tjx.lew00305.slimstore.model.report.TransactionAudit;
-import com.tjx.lew00305.slimstore.model.report.TransactionAuditInterface;
 import com.tjx.lew00305.slimstore.model.report.TransactionFlat;
 import com.tjx.lew00305.slimstore.model.report.TransactionLineFlat;
 import com.tjx.lew00305.slimstore.model.report.TransactionTenderAggregation;
@@ -117,15 +117,15 @@ public class TransactionReportService {
                 );
             case "Register Audit Transactions":
                 return getTransactionAudit(
-                    txnRepo.auditReport(regNumber, storeNumber, start, stop)
+                    txnRepo.findByRegisterAndDateBetweenOrderByDateAsc(register, start, stop)
                 );
             case "Store Audit Transactions":
                 return getTransactionAudit(
-                    txnRepo.auditReport("%", storeNumber, start, stop)
+                    txnRepo.findByStoreAndDateBetweenOrderByDateAsc(store, start, stop)
                 );
             case "Company Audit Transactions":
                 return getTransactionAudit(
-                    txnRepo.auditReport("%", "%", start, stop)
+                    txnRepo.findByDateBetweenOrderByDateAsc(start, stop)
                 );
         }
         return null;
@@ -213,20 +213,29 @@ public class TransactionReportService {
         return (List<TransactionTenderAggregation>) report;
     }
     
-    private List<TransactionAudit> getTransactionAudit(List<TransactionAuditInterface> data){
+    private List<TransactionAudit> getTransactionAudit(List<Transaction> data){
+        DateTimeFormatter dateFormater = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter timeFormater = DateTimeFormatter.ofPattern("HH:mm:ss");
         ArrayList<TransactionAudit> report = new ArrayList<TransactionAudit>();
-        for(TransactionAuditInterface row : data) {
+        for(Transaction row : data) {
             TransactionAudit line = new TransactionAudit();
-            line.setStore(row.getStore());
-            line.setStoreName(row.getStoreName());
-            line.setReg(row.getReg());
-            line.setDate(row.getDate());
-            line.setTime(row.getTime());
-            line.setTxn(row.getTxn());
-            line.setTxnTotal(row.getTxnTotal());
+            line.setStore(row.getStore().getNumber());
+            line.setStoreName(row.getStore().getName());
+            line.setReg(row.getRegister().getNumber());
+            line.setDate(row.getDate().toLocalDateTime().format(dateFormater));
+            line.setTime(row.getDate().toLocalDateTime().format(timeFormater));
+            line.setTxn(row.getNumber());
+            line.setTxnTotal(row.getTotal());
             line.setLineTotal(row.getLineTotal());
             line.setTenderTotal(row.getTenderTotal());
-            line.setCheck(row.getCheck());
+            if(
+                line.getTxnTotal().compareTo(line.getLineTotal()) == 0 &&
+                line.getTxnTotal().compareTo(line.getTenderTotal()) == 0
+            ) {
+                line.setCheck("OK");                
+            } else {
+                line.setCheck("ISSUE");
+            }
             report.add(line);                
         }
         return (List<TransactionAudit>) report;

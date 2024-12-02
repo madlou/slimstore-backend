@@ -9,7 +9,6 @@ import org.springframework.data.repository.CrudRepository;
 import com.tjx.lew00305.slimstore.model.entity.Store;
 import com.tjx.lew00305.slimstore.model.entity.StoreRegister;
 import com.tjx.lew00305.slimstore.model.entity.Transaction;
-import com.tjx.lew00305.slimstore.model.report.TransactionAuditInterface;
 import com.tjx.lew00305.slimstore.model.report.TransactionTenderAggregationInterface;
 
 public interface TransactionRepository extends CrudRepository<Transaction, Integer> {
@@ -48,43 +47,6 @@ public interface TransactionRepository extends CrudRepository<Transaction, Integ
         "t.type ASC "
         , nativeQuery = true)
     List<TransactionTenderAggregationInterface> aggregateTenders(String reg, String store, LocalDateTime start, LocalDateTime stop);
-    @Query(value = 
-            "SELECT " + 
-            "s.number AS 'store', " +
-            "s.name AS 'storeName', " +
-            "DATE(x.date) AS 'date', " +
-            "TIME(x.date) AS 'time', " +
-            "r.number AS 'reg', " +
-            "x.number AS 'txn', " +
-            "SUM(x.total) AS 'txnTotal', " +
-            "SUM(l.line_value) AS 'lineTotal', " +
-            "SUM(t.value) AS 'tenderTotal', " +
-            "IF((SUM(x.total) = SUM(l.line_value) AND SUM(x.total) = SUM(t.value)),'OK','ISSUE') AS 'check'" +            
-            "FROM store s " +
-            "LEFT JOIN store_register r ON (s.number = r.store_id) " +
-            "LEFT JOIN transaction x ON (r.id = x.register_id) " +
-            "LEFT JOIN transaction_line l ON (x.id = l.transaction_id) " +
-            "LEFT JOIN transaction_tender t ON (x.id = t.transaction_id) " +
-            "WHERE " +
-            "r.number LIKE ?1 AND " +
-            "s.number LIKE ?2 AND " +
-            "DATE(x.date) >= ?3 AND " +
-            "DATE(x.date) <= ?4 " +
-            "GROUP BY " +
-            "s.number, " +
-            "s.name, " +
-            "DATE(x.date), " +
-            "TIME(x.date), " +
-            "r.number, " +
-            "x.number " +
-//            "HAVING t.type != \"\" " + // (value < 0) OR (value > 0)
-            "ORDER BY " +
-            "s.number ASC, " +
-            "r.number ASC, " +
-            "DATE(x.date) ASC, " +
-            "x.number ASC "
-            , nativeQuery = true)
-        List<TransactionAuditInterface> auditReport(String reg, String store, LocalDateTime start, LocalDateTime stop);
     Transaction findByStoreAndRegisterAndNumberAndDateBetween(Store store, StoreRegister regNumber, Integer txnNumber, LocalDateTime start, LocalDateTime stop);
 }
 

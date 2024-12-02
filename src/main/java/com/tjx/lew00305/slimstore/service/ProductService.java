@@ -1,5 +1,7 @@
 package com.tjx.lew00305.slimstore.service;
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -32,7 +34,7 @@ public class ProductService {
             element.setKey(doc.pid);
             element.setLabel(doc.title);
             element.setQuantity(0);
-            element.setPrice(doc.price);
+            element.setPrice(new BigDecimal(doc.price));
             element.setImage(doc.thumbImage);
             products[i] = element;
         }

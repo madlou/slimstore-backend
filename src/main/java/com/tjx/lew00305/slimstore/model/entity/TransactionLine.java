@@ -1,4 +1,6 @@
 package com.tjx.lew00305.slimstore.model.entity;
+import java.math.BigDecimal;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -39,8 +41,8 @@ public class TransactionLine {
     @Enumerated(EnumType.STRING)
     private TransactionLineType type;
     private Integer quantity;
-    private Float unitValue;
-    private Float lineValue;
+    private BigDecimal unitValue;
+    private BigDecimal lineValue;
     private Integer returnedQuantity;
     @Column(name = "linked_id")
     private Integer originalTransactionLineId;

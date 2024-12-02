@@ -1,5 +1,6 @@
 package com.tjx.lew00305.slimstore.model.entity;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -41,10 +42,26 @@ public class Transaction {
     private User user;
     private Integer number;
     private Timestamp date;
-    private Float total;
+    private BigDecimal total;
     @OneToMany(mappedBy = "transaction", fetch = FetchType.EAGER)
     private List<TransactionLine> lines;
     @OneToMany(mappedBy = "transaction", fetch = FetchType.EAGER)
     private List<TransactionTender> tenders;
     
+    public BigDecimal getLineTotal() {
+        BigDecimal total = BigDecimal.valueOf(0);
+        for(TransactionLine line : getLines()) {
+            total = total.add(line.getLineValue());
+        }
+        return total;
+    }
+
+    public BigDecimal getTenderTotal() {
+        BigDecimal total = BigDecimal.valueOf(0);
+        for(TransactionTender line : getTenders()) {
+            total = total.add(line.getValue());
+        }
+        return total;
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.tjx.lew00305.slimstore.model.session;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import org.springframework.web.context.annotation.SessionScope;
 
@@ -17,7 +18,7 @@ public class TenderLine implements Serializable {
     
     private String type;
     private String label;
-    private float value;
+    private BigDecimal value;
     private String reference;
 
 }

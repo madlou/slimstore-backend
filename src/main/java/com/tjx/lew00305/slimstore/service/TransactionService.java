@@ -1,5 +1,6 @@
 package com.tjx.lew00305.slimstore.service;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
@@ -56,10 +57,9 @@ public class TransactionService {
         transaction = txnRepo.save(transaction);
         Integer counter = 1;
         for(BasketLine basketLine : basketService.getBasketArray()) {
-            Integer multiplier = (basketLine.getType() == Type.RETURN ? -1 : 1);
             TransactionLine txnLine = new TransactionLine();
             String code = basketLine.getCode();
-            if(multiplier < 0) {
+            if(basketLine.getSignedQuantity() < 0) {
                 String[] split = basketLine.getCode().split(":");
                 Integer lineId = Integer.parseInt(split[4]);
                 TransactionLine originalLine = lineRepo.findById(lineId).orElse(null);
@@ -71,13 +71,13 @@ public class TransactionService {
             txnLine.setTransaction(transaction);
             txnLine.setNumber(counter++);
             txnLine.setProductCode(code);
-            TransactionLineType type = multiplier < 0
+            TransactionLineType type = basketLine.getSignedQuantity() < 0
                 ? TransactionLineType.RETURN
                 : TransactionLineType.SALE;
             txnLine.setType(type);
-            txnLine.setQuantity(basketLine.getQuantity() * multiplier);
+            txnLine.setQuantity(basketLine.getSignedQuantity());
             txnLine.setUnitValue(basketLine.getUnitValue());
-            txnLine.setLineValue(basketLine.getQuantity() * basketLine.getUnitValue() * multiplier);
+            txnLine.setLineValue(basketLine.getLineValue());
             txnLine.setReturnedQuantity(0);
             lineRepo.save(txnLine);
         }

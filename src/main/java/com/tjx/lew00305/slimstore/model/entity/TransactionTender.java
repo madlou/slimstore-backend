@@ -1,4 +1,6 @@
 package com.tjx.lew00305.slimstore.model.entity;
+import java.math.BigDecimal;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
@@ -27,7 +29,7 @@ public class TransactionTender {
     private Transaction transaction;
     private Integer number;
     private String type;
-    private Float value;
+    private BigDecimal value;
     private String reference;
 
 }

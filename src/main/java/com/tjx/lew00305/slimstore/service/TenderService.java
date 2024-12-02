@@ -1,5 +1,6 @@
 package com.tjx.lew00305.slimstore.service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +19,20 @@ public class TenderService {
 
     @Autowired
     private Tender tender;
-    
+        
     public String addTenderByForm(Form requestForm) {
         try {
             addFormElements(requestForm.getElements());
-            if(isSale() && getRemaining() <= 0) {
-                if(getRemaining() < 0) {
+//            System.out.println(isSale());
+//            System.out.println(getRemaining().toPlainString());
+//            System.out.println(getRemaining().compareTo(BigDecimal.ZERO));
+            if(isSale() && getRemaining().compareTo(BigDecimal.ZERO) <= 0) {
+                if(getRemaining().compareTo(BigDecimal.ZERO) < 0) {
                     tender.add(new TenderLine("cash", "Cash Change", getRemaining(), ""));                
                 }
                 tender.setComplete();
             }
-            if(isRefund() && getRemaining() == 0) {
+            if(isRefund() && getRemaining().compareTo(BigDecimal.ZERO) == 0) {
                 tender.setComplete();
             }            
         } catch (Exception e) {
@@ -44,20 +48,22 @@ public class TenderService {
     }
     
     public void addFormElement(FormElement element) throws Exception {
-        float value;
+        BigDecimal value;
         if(element.getValue().equals("full")) {
-            value = basketService.getTotal() - tender.getTotal();
+            value = basketService.getTotal().subtract(tender.getTotal());
         } else {
-            value = Float.parseFloat(element.getValue());
+            value = new BigDecimal(element.getValue());
             if(isRefund()) {
-                value *= -1;
+                value = value.negate();
             }
         }
-        System.out.println(isRefund() ? "Refund " + value + " " + getRemaining(): "Sale");
-        if(isRefund() && value < getRemaining()) {
+        if(isRefund() && getRemaining().compareTo(value) > 0) {
             throw new Exception("Refund too high.");
         }
-        if((isSale() && value > 0) || (isRefund() && value < 0)) {
+        if(
+            (isSale() && value.compareTo(BigDecimal.ZERO) > 0) ||
+            (isRefund() && value.compareTo(BigDecimal.ZERO) <= 0 && getRemaining().compareTo(value) <= 0)
+        ) {
             tender.add(new TenderLine(element.getKey(), element.getLabel(), value, ""));
         } else {
             throw new Exception("Value not allowed");
@@ -77,8 +83,13 @@ public class TenderService {
         tender.empty();
     }
     
-    public Float getRemaining() {
-        Float remaining = basketService.getTotal() - tender.getTotal();
+    public BigDecimal getRemaining() {
+        System.out.println(isSale());
+        System.out.println(isRefund());
+        System.out.println(basketService.getTotal());
+        System.out.println(tender.getTotal());
+        System.out.println(basketService.getTotal().subtract(tender.getTotal()));
+        BigDecimal remaining = basketService.getTotal().subtract(tender.getTotal());
         return remaining;
     }
     
@@ -87,11 +98,11 @@ public class TenderService {
     }
 
     public boolean isSale() {
-        return basketService.getTotal() >= 0;
+        return basketService.getTotal().compareTo(BigDecimal.ZERO) >= 0;
     }
 
     public boolean isRefund() {
-        return basketService.getTotal() < 0;
+        return basketService.getTotal().compareTo(BigDecimal.ZERO) < 0;
     }
 
 }

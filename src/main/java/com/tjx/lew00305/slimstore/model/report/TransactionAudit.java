@@ -1,5 +1,7 @@
 package com.tjx.lew00305.slimstore.model.report;
 
+import java.math.BigDecimal;
+
 import lombok.Data;
 
 @Data
@@ -11,9 +13,9 @@ public class TransactionAudit {
     String date;
     String time;
     Integer txn;
-    Float txnTotal;
-    Float lineTotal;
-    Float tenderTotal;
+    BigDecimal txnTotal;
+    BigDecimal lineTotal;
+    BigDecimal tenderTotal;
     String check;
     
 }

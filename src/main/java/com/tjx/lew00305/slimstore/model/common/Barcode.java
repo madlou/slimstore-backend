@@ -1,5 +1,7 @@
 package com.tjx.lew00305.slimstore.model.common;
 
+import java.math.BigDecimal;
+
 import lombok.Data;
 
 @Data
@@ -9,7 +11,7 @@ public class Barcode {
     Integer department;
     Integer category;
     Integer style;
-    Float price;
+    BigDecimal price;
     Integer week;
     
     public String getDepartmentCategory() {

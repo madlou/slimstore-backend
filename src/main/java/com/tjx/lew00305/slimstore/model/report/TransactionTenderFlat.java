@@ -1,5 +1,7 @@
 package com.tjx.lew00305.slimstore.model.report;
 
+import java.math.BigDecimal;
+
 import lombok.Data;
 
 @Data
@@ -13,7 +15,7 @@ public class TransactionTenderFlat {
     private Integer txn;
     private Integer number;
     private String type;
-    private Float value;
+    private BigDecimal value;
     private String reference;
     
 }

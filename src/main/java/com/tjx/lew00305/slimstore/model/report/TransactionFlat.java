@@ -1,5 +1,7 @@
 package com.tjx.lew00305.slimstore.model.report;
 
+import java.math.BigDecimal;
+
 import lombok.Data;
 
 @Data
@@ -12,6 +14,6 @@ public class TransactionFlat {
     private Integer reg;
     private Integer txn;
     private String user;
-    private Float total;
+    private BigDecimal total;
     
 }

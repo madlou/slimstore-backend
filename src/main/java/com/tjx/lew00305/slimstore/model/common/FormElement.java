@@ -1,5 +1,7 @@
 package com.tjx.lew00305.slimstore.model.common;
 
+import java.math.BigDecimal;
+
 import lombok.Data;
 
 @Data
@@ -31,7 +33,7 @@ public class FormElement {
     private String[] options;
     private Boolean disabled = false;
     private String image;
-    private Float price;
+    private BigDecimal price;
     private Integer quantity;
     private FormElementButton button;
 

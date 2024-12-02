@@ -1,6 +1,7 @@
 package com.tjx.lew00305.slimstore.model.session;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Component;
@@ -32,10 +33,10 @@ public class Tender implements Serializable {
         return tender.toArray(new TenderLine[0]);
     }
     
-    public float getTotal() {
-        float total = 0;
+    public BigDecimal getTotal() {
+        BigDecimal total = new BigDecimal(0);
         for(TenderLine line : tender) {
-            total += line.getValue();
+            total = total.add(line.getValue());
         }
         return total;
     }

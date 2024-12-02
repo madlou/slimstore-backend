@@ -1,5 +1,6 @@
 package com.tjx.lew00305.slimstore.service;
 
+import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,7 +50,9 @@ public class BarcodeService {
         length = spec.getStyle();
         if(length > 0) {barcode.setStyle(Integer.parseInt(value.substring(counter, counter + length)));
             counter += length;
-            barcode.setPrice(Float.parseFloat(value.substring(counter, counter + length)) / 100);
+            BigDecimal price = new BigDecimal(value.substring(counter, counter + length));
+            price = price.movePointLeft(2);
+            barcode.setPrice(price);
         }
         length = spec.getWeek();
         if(length > 0) {counter += length;

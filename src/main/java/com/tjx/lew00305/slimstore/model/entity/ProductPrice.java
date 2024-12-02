@@ -1,4 +1,6 @@
 package com.tjx.lew00305.slimstore.model.entity;
+import java.math.BigDecimal;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,7 +23,7 @@ public class ProductPrice {
     private Integer productId;
     @JoinColumn(name = "country.code")
     private Integer countryCode;
-    private Integer price;
+    private BigDecimal price;
     private Integer taxRate;
 
 }

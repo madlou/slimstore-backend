@@ -1,5 +1,7 @@
 package com.tjx.lew00305.slimstore.model.common;
 
+import java.math.BigDecimal;
+
 import com.tjx.lew00305.slimstore.model.common.View.ViewName;
 
 import lombok.Data;
@@ -60,6 +62,14 @@ public class Form {
         return Float.parseFloat(element.getValue());
     }
     
+    public BigDecimal getBigDecimalValueByKey(String key) {
+        FormElement element = findByKey(key);
+        if(element == null) {
+            return null;
+        }
+        return new BigDecimal(element.getValue());
+    }
+    
     public void setValueByKey(String key, String value) {
         FormElement element = findByKey(key);
         element.setValue(value);
@@ -71,6 +81,11 @@ public class Form {
     }
 
     public void setValueByKey(String key, Float value) {
+        FormElement element = findByKey(key);
+        element.setValue(value.toString());
+    }
+    
+    public void setValueByKey(String key, BigDecimal value) {
         FormElement element = findByKey(key);
         element.setValue(value.toString());
     }

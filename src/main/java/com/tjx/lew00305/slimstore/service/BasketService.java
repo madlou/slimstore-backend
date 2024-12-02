@@ -1,5 +1,6 @@
 package com.tjx.lew00305.slimstore.service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,7 @@ public class BasketService {
         basket.empty();
     }
     
-    public float getTotal() {
+    public BigDecimal getTotal() {
         return basket.getTotal();
     }
 
