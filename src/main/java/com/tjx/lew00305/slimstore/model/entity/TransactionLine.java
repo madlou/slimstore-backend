@@ -1,7 +1,10 @@
 package com.tjx.lew00305.slimstore.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -16,6 +19,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TransactionLine {
+    
+    public enum TransactionLineType {
+        SALE,
+        RETURN
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,11 +36,13 @@ public class TransactionLine {
     private Integer number;
     private String productId;
     private String productCode;
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private TransactionLineType type;
     private Integer quantity;
     private Float unitValue;
     private Float lineValue;
-    
-    
+    private Integer returnedQuantity;
+    @Column(name = "linked_id")
+    private Integer originalTransactionLineId;
 
 }

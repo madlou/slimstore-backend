@@ -154,6 +154,7 @@ public class TransactionReportService {
                 line.setType(lineRow.getType());
                 line.setQuantity(lineRow.getQuantity());
                 line.setLineValue(lineRow.getLineValue());
+                line.setReturnedQuantity(lineRow.getReturnedQuantity());
                 report.add(line);                
             }
         }

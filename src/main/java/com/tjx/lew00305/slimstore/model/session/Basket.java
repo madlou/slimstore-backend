@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
+import com.tjx.lew00305.slimstore.model.common.FormElement.Type;
+
 @SuppressWarnings("serial")
 @Component
 @SessionScope
@@ -30,9 +32,10 @@ public class Basket implements Serializable {
     }
     
     public float getTotal() {
-        float total = 0;
+        Float total = Float.parseFloat("0");
         for(BasketLine line : basket) {
-            total += line.getQuantity() * line.getUnitValue();
+            Integer multiplier = (line.getType() == Type.RETURN ? -1 : 1);
+            total += line.getQuantity() * line.getUnitValue() * multiplier;
         }
         return total;
     }

@@ -6,21 +6,22 @@ import lombok.Data;
 public class FormElement {
     
     public enum Type {
-        TEXT,
-        EMAIL,
-        NUMBER,
-        DECIMAL,
-        DATE,
-        PASSWORD,
-        SELECT,
-        SUBMIT,
         BUTTON,
+        DATE,
+        DECIMAL,
+        EMAIL,
         IMAGE,
+        NUMBER,
+        PASSWORD,
         PRODUCT,
         PRODUCT_DRINK,
         PRODUCT_WEB,
         PRODUCT_SCAN,
         PRODUCT_GIFTCARD,
+        RETURN,
+        SELECT,
+        SUBMIT,
+        TEXT,
     }
     
     private Type type;

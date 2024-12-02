@@ -59,6 +59,19 @@ public class RegisterController {
         }
         if(requestForm.getServerProcess() != null) {
             switch (requestForm.getServerProcess()) {
+                case ADD_TO_BASKET:
+                    basketService.addBasketByForm(requestForm);
+                    break;
+                case CHANGE_REGISTER:
+                    errorMessage = locationService.validateLocationByForm(requestForm);
+                    if(errorMessage != null) {
+                        response.setError("Invalid location details.");
+                        requestForm.setTargetView(ViewName.REGISTER_CHANGE);
+                    }
+                    break;
+                case EMPTY_BASKET:
+                    basketService.empty();
+                    break;
                 case LOGIN:
                     userService.validateLoginByForm(requestForm);
                     if(userService.isLoggedOut()) {
@@ -71,15 +84,14 @@ public class RegisterController {
                     userService.logout();
                     response.setView(viewService.getViewByName(ViewName.LOGIN));
                     return response;
-                case STORE_SETUP:
-                    locationService.updateStoreByForm(requestForm);
+                case NEW_USER:
+                    errorMessage = userService.addUserByForm(requestForm);
                     break;
-                case CHANGE_REGISTER:
-                    errorMessage = locationService.validateLocationByForm(requestForm);
-                    if(errorMessage != null) {
-                        response.setError("Invalid location details.");
-                        requestForm.setTargetView(ViewName.REGISTER_CHANGE);
-                    }
+                case PROCESS_GIFTCARD:
+                    basketService.addFormElement(giftCardService.topupByForm(requestForm));
+                    break;
+                case RUN_REPORT:
+                    response.setReport(transactionReportService.runReportByForm(requestForm));
                     break;
                 case SEARCH:
                     Barcode barcode = barcodeService.getBarcodeByForm(requestForm);
@@ -88,28 +100,18 @@ public class RegisterController {
                         requestForm.setTargetView(ViewName.HOME);
                     }
                     break;
-                case NEW_USER:
-                    errorMessage = userService.addUserByForm(requestForm);
-                    break;
                 case SAVE_USER:
                     errorMessage = userService.saveUserByForm(requestForm);
                     break;
-                case ADD_TO_BASKET:
-                    basketService.addBasketByForm(requestForm);
+                case STORE_SETUP:
+                    locationService.updateStoreByForm(requestForm);
                     break;
                 case TENDER:
                     tenderService.addTenderByForm(requestForm);
                     break;
-                case PROCESS_GIFTCARD:
-                    basketService.addFormElement(giftCardService.topupByForm(requestForm));
-                    break;
-                case EMPTY_BASKET:
                 case TRANSACTION_COMPLETE:
                     basketService.empty();
                     tenderService.empty();
-                    break;
-                case RUN_REPORT:
-                    response.setReport(transactionReportService.runReportByForm(requestForm));
                     break;
             }
         }

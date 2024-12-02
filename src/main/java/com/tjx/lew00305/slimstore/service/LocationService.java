@@ -29,6 +29,10 @@ public class LocationService {
         return locationSession.getStore();
     }
 
+    public Store getStore(Integer number) {
+        return storeRepository.findByNumber(number);
+    }
+
     public StoreRegister getStoreRegister() {
         return locationSession.getStoreRegister();
     }

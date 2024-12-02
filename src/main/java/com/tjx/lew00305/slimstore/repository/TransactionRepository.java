@@ -39,7 +39,7 @@ public interface TransactionRepository extends CrudRepository<Transaction, Integ
         "DATE(x.date), " +
         "r.number, " +
         "t.type " +
-        "HAVING value > 0 " +
+        "HAVING t.type != \"\" " + // (value < 0) OR (value > 0)
         "ORDER BY " +
         "s.number ASC, " +
         "r.number ASC, " +
@@ -47,7 +47,7 @@ public interface TransactionRepository extends CrudRepository<Transaction, Integ
         "t.type ASC "
         , nativeQuery = true)
     List<TransactionTenderAggregationInterface> aggregateTenders(String reg, String store, LocalDateTime start, LocalDateTime stop);
-    
+    Transaction findByStoreAndRegisterAndNumberAndDateBetween(Store store, StoreRegister regNumber, Integer txnNumber, LocalDateTime start, LocalDateTime stop);
 }
 
 //record TransactionsOnly(

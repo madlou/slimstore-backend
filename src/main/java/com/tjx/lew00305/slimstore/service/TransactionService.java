@@ -1,12 +1,17 @@
 package com.tjx.lew00305.slimstore.service;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tjx.lew00305.slimstore.model.common.FormElement.Type;
+import com.tjx.lew00305.slimstore.model.entity.Store;
+import com.tjx.lew00305.slimstore.model.entity.StoreRegister;
 import com.tjx.lew00305.slimstore.model.entity.Transaction;
 import com.tjx.lew00305.slimstore.model.entity.TransactionLine;
+import com.tjx.lew00305.slimstore.model.entity.TransactionLine.TransactionLineType;
 import com.tjx.lew00305.slimstore.model.entity.TransactionTender;
 import com.tjx.lew00305.slimstore.model.session.BasketLine;
 import com.tjx.lew00305.slimstore.model.session.TenderLine;
@@ -51,15 +56,30 @@ public class TransactionService {
         transaction = txnRepo.save(transaction);
         Integer counter = 1;
         for(BasketLine basketLine : basketService.getBasketArray()) {
+            Integer multiplier = (basketLine.getType() == Type.RETURN ? -1 : 1);
             TransactionLine txnLine = new TransactionLine();
+            String code = basketLine.getCode();
+            if(multiplier < 0) {
+                String[] split = basketLine.getCode().split(":");
+                Integer lineId = Integer.parseInt(split[4]);
+                TransactionLine originalLine = lineRepo.findById(lineId).orElse(null);
+                originalLine.setReturnedQuantity(originalLine.getReturnedQuantity() + basketLine.getQuantity());
+                lineRepo.save(originalLine);
+                txnLine.setOriginalTransactionLineId(lineId);
+                code = originalLine.getProductCode();
+            }
             txnLine.setTransaction(transaction);
             txnLine.setNumber(counter++);
-            txnLine.setProductCode(basketLine.getCode());
-            txnLine.setType(basketLine.getType().toString().toLowerCase());
-            txnLine.setQuantity(basketLine.getQuantity());
+            txnLine.setProductCode(code);
+            TransactionLineType type = multiplier < 0
+                ? TransactionLineType.RETURN
+                : TransactionLineType.SALE;
+            txnLine.setType(type);
+            txnLine.setQuantity(basketLine.getQuantity() * multiplier);
             txnLine.setUnitValue(basketLine.getUnitValue());
-            txnLine.setLineValue(basketLine.getQuantity() * basketLine.getUnitValue());
-            lineRepo.save(txnLine);            
+            txnLine.setLineValue(basketLine.getQuantity() * basketLine.getUnitValue() * multiplier);
+            txnLine.setReturnedQuantity(0);
+            lineRepo.save(txnLine);
         }
         counter = 1;
         for(TenderLine tenderLine : tenderService.getTenderArray()) {
@@ -71,6 +91,14 @@ public class TransactionService {
             txnTender.setReference(tenderLine.getReference());
             tenderRepo.save(txnTender);            
         }
+    }
+
+    public Transaction getTransaction(Integer storeNumber, Integer regNumber, Integer txnNumber, String date) {
+        Store store = locationService.getStore(storeNumber);
+        StoreRegister register = store.getRegisterByNumber(regNumber);
+        LocalDateTime start = LocalDateTime.parse(date + "T00:00:00");
+        LocalDateTime stop = LocalDateTime.parse(date + "T23:59:59");
+        return txnRepo.findByStoreAndRegisterAndNumberAndDateBetween(store, register, txnNumber, start, stop);
     }
     
 }

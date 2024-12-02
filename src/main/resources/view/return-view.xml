@@ -8,41 +8,31 @@
                         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
     <bean class="com.tjx.lew00305.slimstore.model.common.View" scope="request">
-        <property name="name" value="GIFTCARD" />
-        <property name="title" value="Top-up Gift Card" />
-        <property name="message" value="Please swipe/scan Gift Card." />
+        <property name="name" value="RETURN_VIEW" />
+        <property name="title" value="Return View" />
+        <property name="message" value="Please enter quantities for refunding." />
         <property name="form">
             <bean class="com.tjx.lew00305.slimstore.model.common.Form">
                 <property name="targetView" value="HOME" />
-                <property name="serverProcess" value="PROCESS_GIFTCARD" />
+                <property name="serverProcess" value="ADD_TO_BASKET" />
                 <property name="elements">
-                    <array>
-                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
-                            <property name="type" value="number" />
-                            <property name="key" value="card" />
-                            <property name="label" value="Card Number" />
-                        </bean>
-                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
-                            <property name="type" value="decimal" />
-                            <property name="key" value="amount" />
-                            <property name="label" value="Amount" />
-                        </bean>
-                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
-                            <property name="type" value="submit" />
-                            <property name="value" value="Top-up Gift Card" />
-                        </bean>
-                    </array>
+                    <array />
                 </property>
             </bean>
         </property>
         <property name="functionButtons">
             <array>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                    <property name="position" value="1" />
+                    <property name="label" value="Return Items" />
+                    <property name="primaryFormSubmit" value="true" />
+                </bean>
+                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="Back" />
                     <property name="form">
                         <bean class="com.tjx.lew00305.slimstore.model.common.Form">
-                            <property name="targetView" value="HOME" />
+                            <property name="targetView" value="RETURN" />
                         </bean>
                     </property>
                 </bean>
@@ -50,4 +40,6 @@
         </property>
     </bean>
 
+
 </beans>
+
