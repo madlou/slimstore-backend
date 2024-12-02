@@ -14,6 +14,8 @@ import com.tjx.lew00305.slimstore.model.entity.StoreRegister;
 import com.tjx.lew00305.slimstore.model.entity.Transaction;
 import com.tjx.lew00305.slimstore.model.entity.TransactionLine;
 import com.tjx.lew00305.slimstore.model.entity.TransactionTender;
+import com.tjx.lew00305.slimstore.model.report.TransactionAudit;
+import com.tjx.lew00305.slimstore.model.report.TransactionAuditInterface;
 import com.tjx.lew00305.slimstore.model.report.TransactionFlat;
 import com.tjx.lew00305.slimstore.model.report.TransactionLineFlat;
 import com.tjx.lew00305.slimstore.model.report.TransactionTenderAggregation;
@@ -113,6 +115,18 @@ public class TransactionReportService {
                 return getTransactionTenderAggregation(
                     txnRepo.aggregateTenders("%", "%", start, stop)
                 );
+            case "Register Audit Transactions":
+                return getTransactionAudit(
+                    txnRepo.auditReport(regNumber, storeNumber, start, stop)
+                );
+            case "Store Audit Transactions":
+                return getTransactionAudit(
+                    txnRepo.auditReport("%", storeNumber, start, stop)
+                );
+            case "Company Audit Transactions":
+                return getTransactionAudit(
+                    txnRepo.auditReport("%", "%", start, stop)
+                );
         }
         return null;
     }
@@ -197,6 +211,25 @@ public class TransactionReportService {
             report.add(line);                
         }
         return (List<TransactionTenderAggregation>) report;
+    }
+    
+    private List<TransactionAudit> getTransactionAudit(List<TransactionAuditInterface> data){
+        ArrayList<TransactionAudit> report = new ArrayList<TransactionAudit>();
+        for(TransactionAuditInterface row : data) {
+            TransactionAudit line = new TransactionAudit();
+            line.setStore(row.getStore());
+            line.setStoreName(row.getStoreName());
+            line.setReg(row.getReg());
+            line.setDate(row.getDate());
+            line.setTime(row.getTime());
+            line.setTxn(row.getTxn());
+            line.setTxnTotal(row.getTxnTotal());
+            line.setLineTotal(row.getLineTotal());
+            line.setTenderTotal(row.getTenderTotal());
+            line.setCheck(row.getCheck());
+            report.add(line);                
+        }
+        return (List<TransactionAudit>) report;
     }
     
 }

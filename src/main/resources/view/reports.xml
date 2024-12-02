@@ -41,6 +41,7 @@
                                     <value>Transaction Lines</value>
                                     <value>Transaction Tenders</value>
                                     <value>Aggregate Tenders</value>
+                                    <value>Audit Transactions</value>
                                 </array>
                             </property>
                         </bean>
