@@ -71,6 +71,7 @@
                             </property>
                         </bean>
                     </property>
+                    <property name="condition" value="basket.total > 0" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="3" />
@@ -91,6 +92,7 @@
                             </property>
                         </bean>
                     </property>
+                    <property name="condition" value="basket.total > 0" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="4" />
@@ -111,6 +113,7 @@
                             </property>
                         </bean>
                     </property>
+                    <property name="condition" value="basket.total > 0" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="5" />
@@ -131,6 +134,7 @@
                             </property>
                         </bean>
                     </property>
+                    <property name="condition" value="basket.total > 0" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="8" />

@@ -107,7 +107,7 @@ public class RegisterController {
                     locationService.updateStoreByForm(requestForm);
                     break;
                 case TENDER:
-                    tenderService.addTenderByForm(requestForm);
+                    errorMessage = tenderService.addTenderByForm(requestForm);
                     break;
                 case TRANSACTION_COMPLETE:
                     basketService.empty();
