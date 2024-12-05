@@ -32,6 +32,11 @@ public class UserInterfaceTranslationDTO {
     private String lineTotal;
     private String tenderTotal;
     private String check;
+    private String currencySymbol;
+    private String subtotal;
+    private String transactionLines;
+    private String items;
+    private String difference;
     private String devmessage1;
     private String devmessage2;
     private String devmessage3;

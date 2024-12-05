@@ -56,6 +56,11 @@ public class TranslationService {
         fixedLines.add("ui.line_total");
         fixedLines.add("ui.tender_total");
         fixedLines.add("ui.check");
+        fixedLines.add("ui.currency_symbol");
+        fixedLines.add("ui.subtotal");
+        fixedLines.add("ui.transaction_lines");
+        fixedLines.add("ui.items");
+        fixedLines.add("ui.difference");
         fixedLines.add("ui.devmessage1");
         fixedLines.add("ui.devmessage2");
         fixedLines.add("ui.devmessage3");
@@ -91,6 +96,11 @@ public class TranslationService {
         uiTranslations.setLineTotal(messageSource.getMessage("ui.line_total", null, null, locale));
         uiTranslations.setTenderTotal(messageSource.getMessage("ui.tender_total", null, null, locale));
         uiTranslations.setCheck(messageSource.getMessage("ui.check", null, null, locale));
+        uiTranslations.setCurrencySymbol(messageSource.getMessage("ui.currency_symbol", null, null, locale));
+        uiTranslations.setSubtotal(messageSource.getMessage("ui.subtotal", null, null, locale));
+        uiTranslations.setTransactionLines(messageSource.getMessage("ui.transaction_lines", null, null, locale));
+        uiTranslations.setItems(messageSource.getMessage("ui.items", null, null, locale));
+        uiTranslations.setDifference(messageSource.getMessage("ui.difference", null, null, locale));
         uiTranslations.setDevmessage1(messageSource.getMessage("ui.devmessage1", null, null, locale));
         uiTranslations.setDevmessage2(messageSource.getMessage("ui.devmessage2", null, null, locale));
         uiTranslations.setDevmessage3(messageSource.getMessage("ui.devmessage3", null, null, locale));
