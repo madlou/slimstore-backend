@@ -1,5 +1,10 @@
 package com.tjx.lew00305.slimstore.service;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -26,7 +31,8 @@ public class TranslationService {
     @Autowired
     private ViewConfig viewConfig;
     
-    List<String> fixedLines = new ArrayList<String>();;
+    private List<String> fixedLines = new ArrayList<String>();
+    private String translationFile = "messages.properties";
     
     public TranslationService() {
         fixedLines.add("ui.logo");
@@ -160,7 +166,6 @@ public class TranslationService {
     
     public List<String> generateTranslations() {
         List<String> output = new ArrayList<String>();
-        output.add("<pre>");
         for(String line : fixedLines) {
             output.add(
                 line + "=" + messageSource.getMessage(line, null, null, Locale.ENGLISH)
@@ -183,7 +188,25 @@ public class TranslationService {
                 output.add(crumb + "button." + button.getPosition() + "=" + button.getLabel());
             }
         }
+        saveToFile(output);
         return output;
+    }
+    
+    private void saveToFile(List<String> lines) {
+        try (
+            OutputStreamWriter writer = new OutputStreamWriter(
+                new FileOutputStream(translationFile),
+                StandardCharsets.UTF_8
+            )
+        ) {
+            for(String line : lines) {
+                writer.write((line + System.getProperty("line.separator")));
+            }
+            writer.close();
+        } catch (Exception e) {
+            System.out.println("An error occurred saving file: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
     
 }

@@ -1,5 +1,6 @@
 package com.tjx.lew00305.slimstore.controller;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,9 @@ public class ApiController {
         if(!userService.isUserAdmin()) {
             return null;
         }
-        return translationService.generateTranslations().stream().collect(Collectors.joining("\n"));
+        List<String> translations = translationService.generateTranslations();
+        translations.add(0, "<pre>");
+        return translations.stream().collect(Collectors.joining("\n"));
     }
 
 }
