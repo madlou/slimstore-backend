@@ -1,13 +1,12 @@
 package com.tjx.lew00305.slimstore.service;
 
-import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.lang.reflect.Method;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -31,86 +30,31 @@ public class TranslationService {
     @Autowired
     private ViewConfig viewConfig;
     
-    private List<String> fixedLines = new ArrayList<String>();
+    private List<String> uiTranslationList = new ArrayList<String>();
     private String translationFile = "messages.properties";
     
     public TranslationService() {
-        fixedLines.add("ui.logo");
-        fixedLines.add("ui.header");
-        fixedLines.add("ui.keyboard");
-        fixedLines.add("ui.store");
-        fixedLines.add("ui.register");
-        fixedLines.add("ui.user");
-        fixedLines.add("ui.administrator");
-        fixedLines.add("ui.transaction");
-        fixedLines.add("ui.status");
-        fixedLines.add("ui.password");
-        fixedLines.add("ui.role");
-        fixedLines.add("ui.store_name");
-        fixedLines.add("ui.date");
-        fixedLines.add("ui.time");
-        fixedLines.add("ui.number");
-        fixedLines.add("ui.product");
-        fixedLines.add("ui.type");
-        fixedLines.add("ui.quantity");
-        fixedLines.add("ui.line_value");
-        fixedLines.add("ui.returned_quantity");
-        fixedLines.add("ui.total");
-        fixedLines.add("ui.reference");
-        fixedLines.add("ui.value");
-        fixedLines.add("ui.transaction_total");
-        fixedLines.add("ui.line_total");
-        fixedLines.add("ui.tender_total");
-        fixedLines.add("ui.check");
-        fixedLines.add("ui.currency_symbol");
-        fixedLines.add("ui.subtotal");
-        fixedLines.add("ui.transaction_lines");
-        fixedLines.add("ui.items");
-        fixedLines.add("ui.difference");
-        fixedLines.add("ui.devmessage1");
-        fixedLines.add("ui.devmessage2");
-        fixedLines.add("ui.devmessage3");
+        Method[] methods = new UserInterfaceTranslationDTO().getClass().getMethods();
+        for(Method method : methods) {
+            if(method.getName().substring(0, 3).equals("get")) {
+                uiTranslationList.add("ui." + camelToSnake(method.getName().substring(3)));
+            }
+        }
     }
     
     public UserInterfaceTranslationDTO getUserInterfaceTranslations() {
         Locale locale = request.getLocale();
-        UserInterfaceTranslationDTO uiTranslations = new UserInterfaceTranslationDTO();
-        uiTranslations.setLogo(messageSource.getMessage("ui.logo", null, null, locale));
-        uiTranslations.setHeader(messageSource.getMessage("ui.header", null, null, locale));
-        uiTranslations.setKeyboard(messageSource.getMessage("ui.keyboard", null, null, locale));
-        uiTranslations.setStore(messageSource.getMessage("ui.store", null, null, locale));
-        uiTranslations.setRegister(messageSource.getMessage("ui.register", null, null, locale));
-        uiTranslations.setUser(messageSource.getMessage("ui.user", null, null, locale));
-        uiTranslations.setAdministrator(messageSource.getMessage("ui.administrator", null, null, locale));
-        uiTranslations.setTransaction(messageSource.getMessage("ui.transaction", null, null, locale));
-        uiTranslations.setStatus(messageSource.getMessage("ui.status", null, null, locale));
-        uiTranslations.setPassword(messageSource.getMessage("ui.password", null, null, locale));
-        uiTranslations.setRole(messageSource.getMessage("ui.role", null, null, locale));
-        uiTranslations.setStoreName(messageSource.getMessage("ui.store_name", null, null, locale));
-        uiTranslations.setDate(messageSource.getMessage("ui.date", null, null, locale));
-        uiTranslations.setTime(messageSource.getMessage("ui.time", null, null, locale));
-        uiTranslations.setNumber(messageSource.getMessage("ui.number", null, null, locale));
-        uiTranslations.setProduct(messageSource.getMessage("ui.product", null, null, locale));
-        uiTranslations.setType(messageSource.getMessage("ui.type", null, null, locale));
-        uiTranslations.setQuantity(messageSource.getMessage("ui.quantity", null, null, locale));
-        uiTranslations.setLineValue(messageSource.getMessage("ui.line_value", null, null, locale));
-        uiTranslations.setReturnedQuantity(messageSource.getMessage("ui.returned_quantity", null, null, locale));
-        uiTranslations.setTotal(messageSource.getMessage("ui.total", null, null, locale));
-        uiTranslations.setReference(messageSource.getMessage("ui.reference", null, null, locale));
-        uiTranslations.setValue(messageSource.getMessage("ui.value", null, null, locale));
-        uiTranslations.setTransactionTotal(messageSource.getMessage("ui.transaction_total", null, null, locale));
-        uiTranslations.setLineTotal(messageSource.getMessage("ui.line_total", null, null, locale));
-        uiTranslations.setTenderTotal(messageSource.getMessage("ui.tender_total", null, null, locale));
-        uiTranslations.setCheck(messageSource.getMessage("ui.check", null, null, locale));
-        uiTranslations.setCurrencySymbol(messageSource.getMessage("ui.currency_symbol", null, null, locale));
-        uiTranslations.setSubtotal(messageSource.getMessage("ui.subtotal", null, null, locale));
-        uiTranslations.setTransactionLines(messageSource.getMessage("ui.transaction_lines", null, null, locale));
-        uiTranslations.setItems(messageSource.getMessage("ui.items", null, null, locale));
-        uiTranslations.setDifference(messageSource.getMessage("ui.difference", null, null, locale));
-        uiTranslations.setDevmessage1(messageSource.getMessage("ui.devmessage1", null, null, locale));
-        uiTranslations.setDevmessage2(messageSource.getMessage("ui.devmessage2", null, null, locale));
-        uiTranslations.setDevmessage3(messageSource.getMessage("ui.devmessage3", null, null, locale));
-        return uiTranslations;
+        UserInterfaceTranslationDTO uiTranslation = new UserInterfaceTranslationDTO();
+        try {
+            for(String item : uiTranslationList) {
+                String methodName = snakeToCamel("set_" + item.substring(3));
+                Method method = uiTranslation.getClass().getMethod(methodName, String.class);
+                method.invoke(uiTranslation, messageSource.getMessage(item, null, null, locale));                
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return uiTranslation;
     }
 
     public View translateView(View view) {
@@ -166,7 +110,7 @@ public class TranslationService {
     
     public List<String> generateTranslations() {
         List<String> output = new ArrayList<String>();
-        for(String line : fixedLines) {
+        for(String line : uiTranslationList) {
             output.add(
                 line + "=" + messageSource.getMessage(line, null, null, Locale.ENGLISH)
             );
@@ -209,4 +153,14 @@ public class TranslationService {
         }
     }
     
+    private String snakeToCamel(String text) {
+        while(text.contains("_")) {
+            text = text.replaceFirst("_[a-z]", String.valueOf(Character.toUpperCase(text.charAt(text.indexOf("_") + 1))));
+        }
+        return text;
+    }
+    
+    private String camelToSnake(String text) {
+        return text.replaceAll("([^_A-Z])([A-Z])", "$1_$2").toLowerCase();
+    }
 }
