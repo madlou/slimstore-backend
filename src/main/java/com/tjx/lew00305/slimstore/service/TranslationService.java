@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.lang.reflect.Method;
@@ -36,7 +37,7 @@ public class TranslationService {
     public TranslationService() {
         Method[] methods = new UserInterfaceTranslationDTO().getClass().getMethods();
         for(Method method : methods) {
-            if(method.getName().substring(0, 3).equals("get")) {
+            if(method.getName().substring(0, 3).equals("get") && !method.getName().equals("getClass")) {
                 uiTranslationList.add("ui." + camelToSnake(method.getName().substring(3)));
             }
         }
@@ -132,6 +133,7 @@ public class TranslationService {
                 output.add(crumb + "button." + button.getPosition() + "=" + button.getLabel());
             }
         }
+        Collections.sort(output);
         saveToFile(output);
         return output;
     }
