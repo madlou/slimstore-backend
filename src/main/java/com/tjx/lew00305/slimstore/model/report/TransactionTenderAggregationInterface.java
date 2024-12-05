@@ -7,7 +7,7 @@ public interface TransactionTenderAggregationInterface {
     Integer getStore();
     String getStoreName();
     String getDate();
-    Integer getReg();
+    Integer getRegister();
     String getType();
     BigDecimal getValue();
   

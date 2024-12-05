@@ -24,5 +24,6 @@ public class RegisterResponseDTO {
     private String error = new String();
     @SuppressWarnings("rawtypes")
     private List report = Collections.emptyList();
+    private UserInterfaceTranslationDTO uiTranslations;
 
 }

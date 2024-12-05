@@ -1,0 +1,11 @@
+    <bean id="localeHolder" class="org.springframework.context.i18n.LocaleContextHolder" scope="prototype">
+    </bean>
+    
+    <bean id="locale" class="java.util.Locale" scope="prototype">
+            <constructor-arg index="0" value="#{localeHolder.getLocale()}" />
+    </bean>
+    
+    <bean id="messageSourceAccessor" class="org.springframework.context.support.MessageSourceAccessor" scope="prototype">
+        <constructor-arg index="0" ref="messageSource" />
+        <constructor-arg index="1" ref="locale" />
+    </bean>

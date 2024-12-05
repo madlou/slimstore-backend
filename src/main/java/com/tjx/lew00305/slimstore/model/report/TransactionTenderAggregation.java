@@ -9,7 +9,7 @@ public class TransactionTenderAggregation {
 
     Integer store;
     String storeName;
-    Integer reg;
+    Integer register;
     String date;
     String type;
     BigDecimal value;

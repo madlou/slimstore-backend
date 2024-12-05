@@ -141,8 +141,8 @@ public class TransactionReportService {
             line.setStoreName(txnRow.getStore().getName());
             line.setDate(dateFormatter.format(txnRow.getDate()));
             line.setTime(timeFormatter.format(txnRow.getDate()));            
-            line.setReg(txnRow.getRegister().getNumber());
-            line.setTxn(txnRow.getNumber());
+            line.setRegister(txnRow.getRegister().getNumber());
+            line.setTransaction(txnRow.getNumber());
             line.setUser(txnRow.getUser().getName());
             line.setTotal(txnRow.getTotal());
             report.add(line);
@@ -161,8 +161,8 @@ public class TransactionReportService {
                 line.setStoreName(txnRow.getStore().getName());
                 line.setDate(dateFormatter.format(txnRow.getDate()));
                 line.setTime(timeFormatter.format(txnRow.getDate()));            
-                line.setReg(txnRow.getRegister().getNumber());
-                line.setTxn(txnRow.getNumber());
+                line.setRegister(txnRow.getRegister().getNumber());
+                line.setTransaction(txnRow.getNumber());
                 line.setNumber(lineRow.getNumber());
                 line.setProduct(lineRow.getProductCode());
                 line.setType(lineRow.getType());
@@ -186,8 +186,8 @@ public class TransactionReportService {
                 line.setStoreName(txnRow.getStore().getName());
                 line.setDate(dateFormatter.format(txnRow.getDate()));
                 line.setTime(timeFormatter.format(txnRow.getDate()));            
-                line.setReg(txnRow.getRegister().getNumber());
-                line.setTxn(txnRow.getNumber());
+                line.setRegister(txnRow.getRegister().getNumber());
+                line.setTransaction(txnRow.getNumber());
                 line.setNumber(tenderRow.getNumber());
                 line.setType(tenderRow.getType());
                 line.setValue(tenderRow.getValue());
@@ -204,7 +204,7 @@ public class TransactionReportService {
             TransactionTenderAggregation line = new TransactionTenderAggregation();
             line.setStore(row.getStore());
             line.setStoreName(row.getStoreName());
-            line.setReg(row.getReg());
+            line.setRegister(row.getRegister());
             line.setDate(row.getDate());
             line.setType(row.getType());
             line.setValue(row.getValue());
@@ -221,20 +221,20 @@ public class TransactionReportService {
             TransactionAudit line = new TransactionAudit();
             line.setStore(row.getStore().getNumber());
             line.setStoreName(row.getStore().getName());
-            line.setReg(row.getRegister().getNumber());
+            line.setRegister(row.getRegister().getNumber());
             line.setDate(row.getDate().toLocalDateTime().format(dateFormater));
             line.setTime(row.getDate().toLocalDateTime().format(timeFormater));
-            line.setTxn(row.getNumber());
-            line.setTxnTotal(row.getTotal());
+            line.setTransaction(row.getNumber());
+            line.setTransactionTotal(row.getTotal());
             line.setLineTotal(row.getLineTotal());
             line.setTenderTotal(row.getTenderTotal());
             if(
-                line.getTxnTotal().compareTo(line.getLineTotal()) == 0 &&
-                line.getTxnTotal().compareTo(line.getTenderTotal()) == 0
+                line.getTransactionTotal().compareTo(line.getLineTotal()) == 0 &&
+                line.getTransactionTotal().compareTo(line.getTenderTotal()) == 0
             ) {
-                line.setCheck("OK");                
+                line.setCheck("");                
             } else {
-                line.setCheck("ISSUE");
+                line.setCheck("X");
             }
             report.add(line);                
         }

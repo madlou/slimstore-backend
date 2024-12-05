@@ -26,6 +26,8 @@ public class ViewService {
     private LocationService locationService;
     @Autowired
     private TransactionService transactionService;
+    @Autowired
+    private TranslationService translationService;
 
     public View getViewByForm(Form requestForm) {
         ViewName viewName = requestForm.getTargetView() == null ? ViewName.HOME : requestForm.getTargetView();
@@ -34,7 +36,9 @@ public class ViewService {
     }
     
     public View getViewByName(ViewName viewName) {
-        return viewConfig.getView(viewName);      
+        View view = viewConfig.getView(viewName);
+        view = translationService.translateView(view);
+        return view;
     }
     
     private View enrichView(View view, Form requestForm) {

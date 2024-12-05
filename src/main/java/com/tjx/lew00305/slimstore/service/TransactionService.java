@@ -1,13 +1,11 @@
 package com.tjx.lew00305.slimstore.service;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tjx.lew00305.slimstore.model.common.FormElement.Type;
 import com.tjx.lew00305.slimstore.model.entity.Store;
 import com.tjx.lew00305.slimstore.model.entity.StoreRegister;
 import com.tjx.lew00305.slimstore.model.entity.Transaction;

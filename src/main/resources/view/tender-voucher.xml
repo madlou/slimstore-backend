@@ -23,7 +23,8 @@
                         </bean>
                         <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                             <property name="type" value="submit" />
-                            <property name="value" value="Voucher" />
+                            <property name="key" value="submit" />
+                            <property name="label" value="Voucher" />
                         </bean>
                     </array>
                 </property>

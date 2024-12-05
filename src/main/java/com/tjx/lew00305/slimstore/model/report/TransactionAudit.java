@@ -9,11 +9,11 @@ public class TransactionAudit {
 
     Integer store;
     String storeName;
-    Integer reg;
+    Integer register;
     String date;
     String time;
-    Integer txn;
-    BigDecimal txnTotal;
+    Integer transaction;
+    BigDecimal transactionTotal;
     BigDecimal lineTotal;
     BigDecimal tenderTotal;
     String check;

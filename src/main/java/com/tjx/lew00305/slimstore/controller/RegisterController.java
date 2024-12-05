@@ -23,6 +23,7 @@ import com.tjx.lew00305.slimstore.service.LocationService;
 import com.tjx.lew00305.slimstore.service.TenderService;
 import com.tjx.lew00305.slimstore.service.TransactionReportService;
 import com.tjx.lew00305.slimstore.service.TransactionService;
+import com.tjx.lew00305.slimstore.service.TranslationService;
 
 @RestController
 public class RegisterController {
@@ -45,6 +46,8 @@ public class RegisterController {
     private TransactionService transactionService;
     @Autowired
     private TransactionReportService transactionReportService;
+    @Autowired
+    private TranslationService translationService;
 
     @PostMapping(path = "/api/register")
     public @ResponseBody RegisterResponseDTO registerQuery(
@@ -54,8 +57,7 @@ public class RegisterController {
         String errorMessage = null;
         RegisterResponseDTO response = new RegisterResponseDTO();
         if(userService.isLoggedOut() && requestForm.getServerProcess() != ServerProcess.LOGIN) {
-            response.setView(viewService.getViewByName(ViewName.LOGIN));
-            return response;
+            return updateDTO(response, viewService.getViewByName(ViewName.LOGIN));
         }
         if(requestForm.getServerProcess() != null) {
             switch (requestForm.getServerProcess()) {
@@ -71,19 +73,18 @@ public class RegisterController {
                     break;
                 case EMPTY_BASKET:
                     basketService.empty();
+                    tenderService.empty();
                     break;
                 case LOGIN:
                     userService.validateLoginByForm(requestForm);
                     if(userService.isLoggedOut()) {
-                        response.setView(viewService.getViewByName(ViewName.LOGIN));
                         response.setError("Invalid login attempt.");
-                        return response;
+                        return updateDTO(response, viewService.getViewByName(ViewName.LOGIN));
                     }
                     break;
                 case LOGOUT:
                     userService.logout();
-                    response.setView(viewService.getViewByName(ViewName.LOGIN));
-                    return response;
+                    return updateDTO(response, viewService.getViewByName(ViewName.LOGIN));
                 case NEW_USER:
                     errorMessage = userService.addUserByForm(requestForm);
                     break;
@@ -108,6 +109,10 @@ public class RegisterController {
                     break;
                 case TENDER:
                     errorMessage = tenderService.addTenderByForm(requestForm);
+                    if(tenderService.isComplete()) {
+                        transactionService.addTransaction();
+                        return updateDTO(response, viewService.getViewByName(ViewName.COMPLETE));                
+                    }
                     break;
                 case TRANSACTION_COMPLETE:
                     basketService.empty();
@@ -128,20 +133,20 @@ public class RegisterController {
             requestForm.setTargetView(ViewName.REGISTER_CHANGE);
             response.setError("Store and register setup required.");
         }
-        View view = viewService.getViewByForm(requestForm);
+        if(errorMessage != null) {
+            response.setError("ERROR: " + errorMessage);
+        }
+        return updateDTO(response, viewService.getViewByForm(requestForm));
+    }
+    
+    private RegisterResponseDTO updateDTO(RegisterResponseDTO response, View view) {
         response.setView(view);
         response.setStore(locationService.getStore());
         response.setRegister(locationService.getStoreRegister());
         response.setBasket(basketService.getBasketArray());
         response.setTender(tenderService.getTenderArray());
         response.setUser(userService.getUser());
-        if(tenderService.isComplete()) {
-            transactionService.addTransaction();
-            response.setView(viewService.getViewByName(ViewName.COMPLETE));                
-        }
-        if(errorMessage != null) {
-            response.setError("ERROR: " + errorMessage);
-        }
+        response.setUiTranslations(translationService.getUserInterfaceTranslations());
         return response;
     }
     

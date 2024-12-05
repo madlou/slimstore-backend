@@ -27,7 +27,8 @@
                         </bean>
                         <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                             <property name="type" value="submit" />
-                            <property name="value" value="Enter" />
+                            <property name="key" value="submit" />
+                            <property name="label" value="Enter" />
                         </bean>
                     </array>
                 </property>

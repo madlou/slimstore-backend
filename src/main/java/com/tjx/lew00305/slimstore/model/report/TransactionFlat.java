@@ -11,8 +11,8 @@ public class TransactionFlat {
     private String storeName;
     private String date;
     private String time;
-    private Integer reg;
-    private Integer txn;
+    private Integer register;
+    private Integer transaction;
     private String user;
     private BigDecimal total;
     

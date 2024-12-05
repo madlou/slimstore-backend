@@ -16,6 +16,10 @@ public class ViewConfig {
     @Autowired
     private View[] views;
         
+    public View[] getAll() {
+        return views;
+    }
+        
     public View getView(ViewName viewName) {
         View pageNotFound = new View();
         for(View view: views) {
@@ -28,5 +32,6 @@ public class ViewConfig {
         }
         return pageNotFound;
     }
+
     
 }

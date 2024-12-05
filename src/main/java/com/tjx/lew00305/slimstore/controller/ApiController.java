@@ -1,5 +1,7 @@
 package com.tjx.lew00305.slimstore.controller;
 
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,6 +10,7 @@ import com.tjx.lew00305.slimstore.model.entity.Transaction;
 import com.tjx.lew00305.slimstore.model.entity.User;
 import com.tjx.lew00305.slimstore.service.UserService;
 import com.tjx.lew00305.slimstore.service.TransactionReportService;
+import com.tjx.lew00305.slimstore.service.TranslationService;
 
 @RestController
 public class ApiController {
@@ -16,6 +19,8 @@ public class ApiController {
     private UserService userService;
     @Autowired
     private TransactionReportService transactionReportService;
+    @Autowired
+    private TranslationService translationService;
 
     @GetMapping(path = "/api/transactions/all")
     public Iterable<Transaction> getAllTransactions(){
@@ -31,6 +36,14 @@ public class ApiController {
             return null;
         }
         return userService.getAllUsers();
+    }
+
+    @GetMapping(path = "/api/translations/generate")
+    public String generateTranslations(){
+        if(!userService.isUserAdmin()) {
+            return null;
+        }
+        return translationService.generateTranslations().stream().collect(Collectors.joining("\n"));
     }
 
 }

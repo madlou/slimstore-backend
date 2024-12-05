@@ -13,8 +13,8 @@ public class TransactionLineFlat {
     private String storeName;
     private String date;
     private String time;
-    private Integer reg;
-    private Integer txn;
+    private Integer register;
+    private Integer transaction;
     private Integer number;
     private String product;
     private TransactionLineType type;

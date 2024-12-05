@@ -1,10 +1,12 @@
 package com.tjx.lew00305.slimstore.model.common;
 
+import java.util.Locale;
+
 import lombok.Data;
 
 @Data
 public class View {
-
+    
     public enum ViewName {
         COMPLETE,
         GIFTCARD,
@@ -38,5 +40,6 @@ public class View {
     private String message = "";
     private Form form = new Form();
     private FunctionButton[] functionButtons = new FunctionButton[0];
-    
+    private Locale locale;
+        
 }
