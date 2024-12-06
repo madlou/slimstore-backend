@@ -29,7 +29,6 @@ public class TransactionReportService {
     
     @Autowired
     private TransactionRepository txnRepo;
-   
     @Autowired
     private LocationService locationService;
     

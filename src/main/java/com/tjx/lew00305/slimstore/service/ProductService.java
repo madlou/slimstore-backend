@@ -13,12 +13,12 @@ import com.tjx.lew00305.slimstore.model.common.FormElement;
 @Service
 public class ProductService {
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     @Value("${tjx.online.search}")
     private String onlineSearchUrl;
     
-    @Autowired
-    private RestTemplate restTemplate;
-        
     public FormElement[] search(String query) {
         return onlineSearch(query);
     }

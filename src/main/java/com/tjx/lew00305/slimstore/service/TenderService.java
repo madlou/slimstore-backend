@@ -16,16 +16,12 @@ public class TenderService {
     
     @Autowired
     private BasketService basketService;
-
     @Autowired
     private Tender tender;
         
     public String addTenderByForm(Form requestForm) {
         try {
             addFormElements(requestForm.getElements());
-//            System.out.println(isSale());
-//            System.out.println(getRemaining().toPlainString());
-//            System.out.println(getRemaining().compareTo(BigDecimal.ZERO));
             if(isSale() && getRemaining().compareTo(BigDecimal.ZERO) <= 0) {
                 if(getRemaining().compareTo(BigDecimal.ZERO) < 0) {
                     tender.add(new TenderLine("cash", "Cash Change", getRemaining(), ""));                

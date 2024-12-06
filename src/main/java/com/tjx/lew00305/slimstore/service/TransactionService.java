@@ -23,22 +23,16 @@ public class TransactionService {
     
     @Autowired
     private TransactionRepository txnRepo;
-
     @Autowired
     private TransactionLineRepository lineRepo;
-    
     @Autowired
     private TransactionTenderRepository tenderRepo;
-    
     @Autowired
     private LocationService locationService;
-
     @Autowired
     private BasketService basketService;
-    
     @Autowired
     private TenderService tenderService;
-
     @Autowired
     private UserService userService;
 

@@ -15,13 +15,10 @@ public class LocationService {
     
     @Autowired
     private StoreRepository storeRepository;
-    
     @Autowired
     private StoreRegisterRepository storeRegisterRepository;
-    
     @Autowired
     private LocationSession locationSession;
-
     @Autowired
     private UserService userService;
 
