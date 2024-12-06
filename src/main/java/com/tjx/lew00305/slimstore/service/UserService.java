@@ -19,8 +19,9 @@ import com.tjx.lew00305.slimstore.repository.UserRepository;
 public class UserService {
     
     @Autowired
-    private UserRepository userRepository;
-    
+    private TranslationService translationService;
+    @Autowired
+    private UserRepository userRepository;    
     @Autowired
     private UserSession userSession;
         
@@ -150,6 +151,7 @@ public class UserService {
     public FormElement[] getUsersAsFormElements() {
         Iterable<User> users = userRepository.findAll();
         ArrayList<FormElement> elements = new ArrayList<FormElement>();
+        String editTranslation = translationService.translate("ui.edit");
         for(User user: users) {
             if(!user.getCode().equals("admin")) {
                 FormElement editFormElement = new FormElement();
@@ -160,12 +162,12 @@ public class UserService {
                 editForm.setTargetView(ViewName.USER_EDIT);
                 editForm.addElement(editFormElement);
                 FormElementButton button = new FormElementButton();
-                button.setLabel("Edit");
+                button.setLabel(editTranslation);
                 button.setForm(editForm);
                 FormElement userRow = new FormElement();
                 userRow.setType(FormElement.Type.BUTTON);
                 userRow.setKey(user.getCode());
-                userRow.setLabel("Edit");
+                userRow.setLabel(editTranslation);
                 userRow.setValue(user.getName());
                 userRow.setButton(button);
                 elements.add(userRow);

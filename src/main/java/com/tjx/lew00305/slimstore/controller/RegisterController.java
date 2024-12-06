@@ -16,6 +16,9 @@ import com.tjx.lew00305.slimstore.model.common.View.ViewName;
 import com.tjx.lew00305.slimstore.model.entity.Store;
 import com.tjx.lew00305.slimstore.service.UserService;
 import com.tjx.lew00305.slimstore.service.ViewService;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import com.tjx.lew00305.slimstore.service.BarcodeService;
 import com.tjx.lew00305.slimstore.service.BasketService;
 import com.tjx.lew00305.slimstore.service.GiftCardService;
@@ -48,6 +51,8 @@ public class RegisterController {
     private TransactionReportService transactionReportService;
     @Autowired
     private TranslationService translationService;
+    @Autowired
+    private HttpServletRequest request;
 
     @PostMapping(path = "/api/register")
     public @ResponseBody RegisterResponseDTO registerQuery(
@@ -146,7 +151,7 @@ public class RegisterController {
         response.setBasket(basketService.getBasketArray());
         response.setTender(tenderService.getTenderArray());
         response.setUser(userService.getUser());
-        response.setUiTranslations(translationService.getUserInterfaceTranslations());
+        response.setUiTranslations(translationService.getUserInterfaceTranslations(request.getLocale()));
         return response;
     }
     

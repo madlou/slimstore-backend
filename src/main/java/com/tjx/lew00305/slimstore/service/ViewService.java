@@ -13,6 +13,8 @@ import com.tjx.lew00305.slimstore.model.entity.Transaction;
 import com.tjx.lew00305.slimstore.model.entity.TransactionLine;
 import com.tjx.lew00305.slimstore.model.entity.User;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @Service
 public class ViewService {
 
@@ -28,6 +30,8 @@ public class ViewService {
     private TransactionService transactionService;
     @Autowired
     private TranslationService translationService;
+    @Autowired
+    private HttpServletRequest request;
 
     public View getViewByForm(Form requestForm) {
         ViewName viewName = requestForm.getTargetView() == null ? ViewName.HOME : requestForm.getTargetView();
@@ -37,6 +41,8 @@ public class ViewService {
     
     public View getViewByName(ViewName viewName) {
         View view = viewConfig.getView(viewName);
+        view.setLocale(request.getLocale());
+        view.setCacheKey(view.getName() + ":" + view.getLocale().toString());
         view = translationService.translateView(view);
         return view;
     }
@@ -58,6 +64,7 @@ public class ViewService {
                 responseForm.setValueByKey("store", locationService.getStore().getNumber());
                 break;
             case RETURN_VIEW:
+                responseForm.setElements(new FormElement[0]);
                 Transaction txn = transactionService.getTransaction(
                     requestForm.getIntegerValueByKey("store"),
                     requestForm.getIntegerValueByKey("register"),

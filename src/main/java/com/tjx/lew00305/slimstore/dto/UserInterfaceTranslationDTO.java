@@ -13,6 +13,7 @@ public class UserInterfaceTranslationDTO {
     private String devmessage2;
     private String devmessage3;
     private String difference;
+    private String edit;
     private String header;
     private String items;
     private String keyboard;

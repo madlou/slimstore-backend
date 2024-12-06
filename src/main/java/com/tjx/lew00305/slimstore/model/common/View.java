@@ -41,5 +41,6 @@ public class View {
     private Form form = new Form();
     private FunctionButton[] functionButtons = new FunctionButton[0];
     private Locale locale;
+    private String cacheKey;
         
 }

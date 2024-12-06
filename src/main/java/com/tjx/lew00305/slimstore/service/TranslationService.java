@@ -10,6 +10,7 @@ import java.util.Locale;
 import java.lang.reflect.Method;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
@@ -27,9 +28,9 @@ public class TranslationService {
     @Autowired
     private MessageSource messageSource;
     @Autowired
-    private HttpServletRequest request;
-    @Autowired
     private ViewConfig viewConfig;
+    @Autowired
+    private HttpServletRequest request;
     
     private List<String> uiTranslationList = new ArrayList<String>();
     private String translationFile = "messages.properties";
@@ -43,8 +44,8 @@ public class TranslationService {
         }
     }
     
-    public UserInterfaceTranslationDTO getUserInterfaceTranslations() {
-        Locale locale = request.getLocale();
+    @Cacheable("uiTranslations")
+    public UserInterfaceTranslationDTO getUserInterfaceTranslations(Locale locale) {
         UserInterfaceTranslationDTO uiTranslation = new UserInterfaceTranslationDTO();
         try {
             for(String item : uiTranslationList) {
@@ -58,10 +59,10 @@ public class TranslationService {
         return uiTranslation;
     }
 
+    @Cacheable(value = "view", key="#view.cacheKey")
     public View translateView(View view) {
-        Locale locale = request.getLocale();
+        Locale locale = view.getLocale();
         String crumb = "view." + view.getName().toString().toLowerCase() + ".";
-        view.setLocale(locale);
         view.setTitle(messageSource.getMessage(
             crumb + "title", 
             null, 
@@ -136,6 +137,15 @@ public class TranslationService {
         Collections.sort(output);
         saveToFile(output);
         return output;
+    }
+    
+    public String translate(String code) {
+        return messageSource.getMessage(
+            code,
+            null,
+            null, 
+            request.getLocale()
+        );
     }
     
     private void saveToFile(List<String> lines) {
