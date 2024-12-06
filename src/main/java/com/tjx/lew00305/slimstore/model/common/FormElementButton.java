@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FormElementButton {
-    
+
     private String label = "";
     private Form form = new Form();
-    
+
 }

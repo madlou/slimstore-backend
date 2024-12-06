@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class TransactionFlat {
-    
+
     private Integer store;
     private String storeName;
     private String date;
@@ -15,5 +15,5 @@ public class TransactionFlat {
     private Integer transaction;
     private String user;
     private BigDecimal total;
-    
+
 }

@@ -14,11 +14,11 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
     
-    @Bean
-    public LocaleResolver localeResolver() {
-        SessionLocaleResolver slr = new SessionLocaleResolver();
-        slr.setDefaultLocale(Locale.UK);
-        return slr;
+    @Override
+    public void addInterceptors(
+        InterceptorRegistry registry
+    ) {
+        registry.addInterceptor(localeChangeInterceptor());
     }
     
     @Bean
@@ -28,11 +28,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
         return lci;
     }
     
-    @Override
-    public void addInterceptors(
-        InterceptorRegistry registry
-    ) {
-        registry.addInterceptor(localeChangeInterceptor());
+    @Bean
+    public LocaleResolver localeResolver() {
+        SessionLocaleResolver slr = new SessionLocaleResolver();
+        slr.setDefaultLocale(Locale.UK);
+        return slr;
     }
     
     @Bean
@@ -40,7 +40,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setBasename("classpath:i18n/messages");
         messageSource.setDefaultEncoding("UTF-8");
-        messageSource.setCacheSeconds(3600); // 3600
+        messageSource.setCacheSeconds(3600);
         return messageSource;
     }
     

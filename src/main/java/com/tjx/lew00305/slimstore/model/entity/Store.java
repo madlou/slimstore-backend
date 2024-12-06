@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @SessionScope
 public class Store implements Serializable {
-    
+
     @Id
     private Integer number;
     private String name;
@@ -32,7 +32,7 @@ public class Store implements Serializable {
     @OneToMany(mappedBy = "store")
     @JsonIgnore
     private List<StoreRegister> registers = new ArrayList<StoreRegister>();
-    
+
     public StoreRegister getRegisterByNumber(
         Integer number
     ) {
@@ -43,5 +43,5 @@ public class Store implements Serializable {
         }
         return null;
     }
-    
+
 }

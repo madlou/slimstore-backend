@@ -12,24 +12,7 @@ import com.tjx.lew00305.slimstore.model.entity.Transaction;
 import com.tjx.lew00305.slimstore.model.report.TransactionTenderAggregationInterface;
 
 public interface TransactionRepository extends CrudRepository<Transaction, Integer> {
-    
-    List<Transaction> findByRegisterAndDateBetweenOrderByDateAsc(
-        StoreRegister register,
-        LocalDateTime start,
-        LocalDateTime stop
-    );
-    
-    List<Transaction> findByStoreAndDateBetweenOrderByDateAsc(
-        Store store,
-        LocalDateTime start,
-        LocalDateTime stop
-    );
-    
-    List<Transaction> findByDateBetweenOrderByDateAsc(
-        LocalDateTime start,
-        LocalDateTime stop
-    );
-    
+
     @Query(value = "SELECT " +
         "s.number AS 'store', " +
         "s.name AS 'storeName', " +
@@ -64,7 +47,24 @@ public interface TransactionRepository extends CrudRepository<Transaction, Integ
         LocalDateTime start,
         LocalDateTime stop
     );
+
+    List<Transaction> findByDateBetweenOrderByDateAsc(
+        LocalDateTime start,
+        LocalDateTime stop
+    );
+
+    List<Transaction> findByRegisterAndDateBetweenOrderByDateAsc(
+        StoreRegister register,
+        LocalDateTime start,
+        LocalDateTime stop
+    );
     
+    List<Transaction> findByStoreAndDateBetweenOrderByDateAsc(
+        Store store,
+        LocalDateTime start,
+        LocalDateTime stop
+    );
+
     Transaction findByStoreAndRegisterAndNumberAndDateBetween(
         Store store,
         StoreRegister regNumber,
@@ -82,17 +82,17 @@ public interface TransactionRepository extends CrudRepository<Transaction, Integ
 //) {}
 //
 //record TransactionsAndTenders(
-//    Store store, 
-//    Integer number, 
-//    Timestamp date, 
-//    Float total, 
+//    Store store,
+//    Integer number,
+//    Timestamp date,
+//    Float total,
 //    List<TransactionTender> tenders
 //) {}
 //
 //record TransactionsAndLines(
-//    Store store, 
-//    Integer number, 
-//    Timestamp date, 
-//    Float total, 
+//    Store store,
+//    Integer number,
+//    Timestamp date,
+//    Float total,
 //    List<TransactionLine> lines
 //) {}

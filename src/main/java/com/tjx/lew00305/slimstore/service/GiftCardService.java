@@ -2,7 +2,6 @@ package com.tjx.lew00305.slimstore.service;
 
 import java.math.BigDecimal;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tjx.lew00305.slimstore.model.common.Form;
@@ -10,18 +9,24 @@ import com.tjx.lew00305.slimstore.model.common.FormElement;
 
 @Service
 public class GiftCardService {
-    
-    @Autowired
+
     private LocationService locationService;
-    
-    public void topupQueue(
-        String card,
-        BigDecimal value,
-        Integer transactionNumber
+
+    public GiftCardService(
+        LocationService locationService
     ) {
-        // TODO Auto-generated method stub
+        this.locationService = locationService;
     }
     
+    public void topup(
+        String card,
+        BigDecimal value
+    ) {
+        Integer transactionNumber = locationService.getStoreRegister().getLastTxnNumber() +
+            1;
+        topupQueue(card, value, transactionNumber);
+    }
+
     public FormElement topupByForm(
         Form requestForm
     ) {
@@ -36,14 +41,13 @@ public class GiftCardService {
         element.setPrice(value);
         return element;
     }
-    
-    public void topup(
+
+    public void topupQueue(
         String card,
-        BigDecimal value
+        BigDecimal value,
+        Integer transactionNumber
     ) {
-        Integer transactionNumber = locationService.getStoreRegister().getLastTxnNumber() +
-            1;
-        topupQueue(card, value, transactionNumber);
+        // TODO Auto-generated method stub
     }
-    
+
 }

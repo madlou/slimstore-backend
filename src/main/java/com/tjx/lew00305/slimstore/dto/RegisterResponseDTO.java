@@ -14,7 +14,7 @@ import lombok.Data;
 
 @Data
 public class RegisterResponseDTO {
-    
+
     private Store store = new Store();
     private StoreRegister register = new StoreRegister();
     private View view = new View();
@@ -25,5 +25,5 @@ public class RegisterResponseDTO {
     @SuppressWarnings("rawtypes")
     private List report = Collections.emptyList();
     private UserInterfaceTranslationDTO uiTranslations;
-    
+
 }

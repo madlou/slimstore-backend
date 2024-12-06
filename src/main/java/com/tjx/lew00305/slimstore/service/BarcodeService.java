@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tjx.lew00305.slimstore.config.BarcodeConfig;
@@ -17,13 +16,25 @@ import com.tjx.lew00305.slimstore.model.common.Form;
 @Service
 public class BarcodeService {
     
-    @Autowired
     private BarcodeConfig barcodeConfig;
     
-    public Barcode getBarcodeByForm(
-        Form requestForm
+    public BarcodeService(
+        BarcodeConfig barcodeConfig
     ) {
-        return getBarcode(requestForm.getValueByKey("search"));
+        this.barcodeConfig = barcodeConfig;
+    }
+
+    private boolean barcodeCheck(
+        String value
+    ) {
+        BarcodeSpecification spec = getSpecifiction(Region.EU, Banner.TKMAXX);
+        String regExpn = "^[0-9]{" + spec.getLength() + "}$";
+        Pattern pattern = Pattern.compile(regExpn);
+        Matcher matcher = pattern.matcher(value);
+        if (matcher.matches()) {
+            return true;
+        }
+        return false;
     }
     
     public Barcode getBarcode(
@@ -73,6 +84,12 @@ public class BarcodeService {
         return barcode;
     }
     
+    public Barcode getBarcodeByForm(
+        Form requestForm
+    ) {
+        return getBarcode(requestForm.getValueByKey("search"));
+    }
+    
     private BarcodeSpecification getSpecifiction(
         Region region,
         Banner banner
@@ -84,19 +101,6 @@ public class BarcodeService {
             }
         }
         return null;
-    }
-    
-    private boolean barcodeCheck(
-        String value
-    ) {
-        BarcodeSpecification spec = getSpecifiction(Region.EU, Banner.TKMAXX);
-        String regExpn = "^[0-9]{" + spec.getLength() + "}$";
-        Pattern pattern = Pattern.compile(regExpn);
-        Matcher matcher = pattern.matcher(value);
-        if (matcher.matches()) {
-            return true;
-        }
-        return false;
     }
     
 }

@@ -3,7 +3,6 @@ package com.tjx.lew00305.slimstore.service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tjx.lew00305.slimstore.model.common.Form;
@@ -13,24 +12,21 @@ import com.tjx.lew00305.slimstore.model.session.BasketLine;
 
 @Service
 public class BasketService {
-    
-    @Autowired
+
     private Basket basket;
+
+    public BasketService(
+        Basket basket
+    ) {
+        this.basket = basket;
+    }
     
     public void addBasketByForm(
         Form requestForm
     ) {
         addFormElements(requestForm.getElements());
     }
-    
-    public void addFormElements(
-        FormElement[] elements
-    ) {
-        for (FormElement element : elements) {
-            addFormElement(element);
-        }
-    }
-    
+
     public void addFormElement(
         FormElement element
     ) {
@@ -45,21 +41,29 @@ public class BasketService {
         basketLine.setUnitValue(element.getPrice());
         basket.add(basketLine);
     }
-    
-    public ArrayList<BasketLine> getBasketArrayList() {
-        return basket.getArrayList();
+
+    public void addFormElements(
+        FormElement[] elements
+    ) {
+        for (FormElement element : elements) {
+            addFormElement(element);
+        }
     }
-    
-    public BasketLine[] getBasketArray() {
-        return basket.getArray();
-    }
-    
+
     public void empty() {
         basket.empty();
     }
-    
+
+    public BasketLine[] getBasketArray() {
+        return basket.getArray();
+    }
+
+    public ArrayList<BasketLine> getBasketArrayList() {
+        return basket.getArrayList();
+    }
+
     public BigDecimal getTotal() {
         return basket.getTotal();
     }
-    
+
 }

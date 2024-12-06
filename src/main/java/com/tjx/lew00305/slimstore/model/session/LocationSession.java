@@ -15,8 +15,8 @@ import lombok.Data;
 @Component
 @SessionScope
 public class LocationSession implements Serializable {
-    
+
     private Store store;
     private StoreRegister storeRegister;
-    
+
 }

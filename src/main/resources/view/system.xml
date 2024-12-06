@@ -14,8 +14,7 @@
         <property name="form">
             <bean class="com.tjx.lew00305.slimstore.model.common.Form">
                 <property name="elements">
-                    <array>
-                    </array>
+                    <array> </array>
                 </property>
             </bean>
         </property>

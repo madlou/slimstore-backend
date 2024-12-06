@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class UserInterfaceTranslationDTO {
-    
+
     private String administrator;
     private String check;
     private String currencySymbol;

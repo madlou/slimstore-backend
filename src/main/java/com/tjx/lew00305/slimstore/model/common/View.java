@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class View {
-    
+
     public enum ViewName {
         COMPLETE,
         GIFTCARD,
@@ -34,7 +34,7 @@ public class View {
         VOID,
         VOID_POST,
     }
-    
+
     private ViewName name;
     private String title = "";
     private String message = "";

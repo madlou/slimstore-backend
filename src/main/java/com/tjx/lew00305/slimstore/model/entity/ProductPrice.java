@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductPrice {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -26,5 +26,5 @@ public class ProductPrice {
     private Integer countryCode;
     private BigDecimal price;
     private Integer taxRate;
-    
+
 }

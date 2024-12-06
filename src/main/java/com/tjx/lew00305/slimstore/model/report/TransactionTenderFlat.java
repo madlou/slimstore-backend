@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class TransactionTenderFlat {
-    
+
     private Integer store;
     private String storeName;
     private String date;
@@ -17,5 +17,5 @@ public class TransactionTenderFlat {
     private String type;
     private BigDecimal value;
     private String reference;
-    
+
 }

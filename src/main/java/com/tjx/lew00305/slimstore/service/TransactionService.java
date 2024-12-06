@@ -3,7 +3,6 @@ package com.tjx.lew00305.slimstore.service;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tjx.lew00305.slimstore.model.entity.Store;
@@ -21,24 +20,35 @@ import com.tjx.lew00305.slimstore.repository.TransactionTenderRepository;
 @Service
 public class TransactionService {
     
-    @Autowired
     private TransactionRepository txnRepo;
-    @Autowired
     private TransactionLineRepository lineRepo;
-    @Autowired
     private TransactionTenderRepository tenderRepo;
-    @Autowired
     private LocationService locationService;
-    @Autowired
     private BasketService basketService;
-    @Autowired
     private TenderService tenderService;
-    @Autowired
     private UserService userService;
     
+    public TransactionService(
+        TransactionRepository txnRepo,
+        TransactionLineRepository lineRepo,
+        TransactionTenderRepository tenderRepo,
+        LocationService locationService,
+        BasketService basketService,
+        TenderService tenderService,
+        UserService userService
+    ) {
+        this.txnRepo = txnRepo;
+        this.lineRepo = lineRepo;
+        this.tenderRepo = tenderRepo;
+        this.locationService = locationService;
+        this.basketService = basketService;
+        this.tenderService = tenderService;
+        this.userService = userService;
+    }
+
     public void addTransaction() {
-        Integer txnNumber = locationService.getStoreRegister().getLastTxnNumber() +
-            1;
+        Integer txnNumber = 1 +
+            locationService.getStoreRegister().getLastTxnNumber();
         locationService.setTransactionNumber(locationService.getStoreRegister().getId(), txnNumber);
         Transaction transaction = new Transaction();
         transaction.setStore(locationService.getStore());

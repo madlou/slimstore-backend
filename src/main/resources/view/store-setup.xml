@@ -10,9 +10,8 @@
     <bean class="com.tjx.lew00305.slimstore.model.common.View" scope="request">
         <property name="name" value="STORE_SETUP" />
         <property name="title" value="Store Setup" />
-        <property name="message"
-            value="You can change the store setup below." />
-            <property name="form">
+        <property name="message" value="You can change the store setup below." />
+        <property name="form">
             <bean class="com.tjx.lew00305.slimstore.model.common.Form">
                 <property name="targetView" value="HOME" />
                 <property name="serverProcess" value="STORE_SETUP" />

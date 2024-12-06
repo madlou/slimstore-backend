@@ -6,7 +6,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tjx.lew00305.slimstore.model.common.Form;
@@ -25,23 +24,140 @@ import com.tjx.lew00305.slimstore.repository.TransactionRepository;
 
 @Service
 public class TransactionReportService {
-    
-    @Autowired
+
     private TransactionRepository txnRepo;
-    @Autowired
     private LocationService locationService;
+
+    public TransactionReportService(
+        TransactionRepository txnRepo,
+        LocationService locationService
+    ) {
+        this.txnRepo = txnRepo;
+        this.locationService = locationService;
+    }
     
+    private List<TransactionAudit> getTransactionAudit(
+        List<Transaction> data
+    ) {
+        DateTimeFormatter dateFormater = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter timeFormater = DateTimeFormatter.ofPattern("HH:mm:ss");
+        ArrayList<TransactionAudit> report = new ArrayList<TransactionAudit>();
+        for (Transaction row : data) {
+            TransactionAudit line = new TransactionAudit();
+            line.setStore(row.getStore().getNumber());
+            line.setStoreName(row.getStore().getName());
+            line.setRegister(row.getRegister().getNumber());
+            line.setDate(row.getDate().toLocalDateTime().format(dateFormater));
+            line.setTime(row.getDate().toLocalDateTime().format(timeFormater));
+            line.setTransaction(row.getNumber());
+            line.setTransactionTotal(row.getTotal());
+            line.setLineTotal(row.getLineTotal());
+            line.setTenderTotal(row.getTenderTotal());
+            if ((line.getTransactionTotal().compareTo(line.getLineTotal()) == 0) &&
+                (line.getTransactionTotal().compareTo(line.getTenderTotal()) == 0)) {
+                line.setCheck("");
+            } else {
+                line.setCheck("X");
+            }
+            report.add(line);
+        }
+        return report;
+    }
+
+    private List<TransactionFlat> getTransactionFlat(
+        List<Transaction> data
+    ) {
+        ArrayList<TransactionFlat> report = new ArrayList<TransactionFlat>();
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
+        for (Transaction txnRow : data) {
+            TransactionFlat line = new TransactionFlat();
+            line.setStore(txnRow.getStore().getNumber());
+            line.setStoreName(txnRow.getStore().getName());
+            line.setDate(dateFormatter.format(txnRow.getDate()));
+            line.setTime(timeFormatter.format(txnRow.getDate()));
+            line.setRegister(txnRow.getRegister().getNumber());
+            line.setTransaction(txnRow.getNumber());
+            line.setUser(txnRow.getUser().getName());
+            line.setTotal(txnRow.getTotal());
+            report.add(line);
+        }
+        return report;
+    }
+
+    private List<TransactionLineFlat> getTransactionLineFlat(
+        List<Transaction> data
+    ) {
+        ArrayList<TransactionLineFlat> report = new ArrayList<TransactionLineFlat>();
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
+        for (Transaction txnRow : data) {
+            for (TransactionLine lineRow : txnRow.getLines()) {
+                TransactionLineFlat line = new TransactionLineFlat();
+                line.setStore(txnRow.getStore().getNumber());
+                line.setStoreName(txnRow.getStore().getName());
+                line.setDate(dateFormatter.format(txnRow.getDate()));
+                line.setTime(timeFormatter.format(txnRow.getDate()));
+                line.setRegister(txnRow.getRegister().getNumber());
+                line.setTransaction(txnRow.getNumber());
+                line.setNumber(lineRow.getNumber());
+                line.setProduct(lineRow.getProductCode());
+                line.setType(lineRow.getType());
+                line.setQuantity(lineRow.getQuantity());
+                line.setLineValue(lineRow.getLineValue());
+                line.setReturnedQuantity(lineRow.getReturnedQuantity());
+                report.add(line);
+            }
+        }
+        return report;
+    }
+
     public Iterable<Transaction> getTransactionReport() {
         return txnRepo.findAll();
     }
-    
-    @SuppressWarnings("rawtypes")
-    public List runReportByForm(
-        Form requestForm
+
+    private List<TransactionTenderAggregation> getTransactionTenderAggregation(
+        List<TransactionTenderAggregationInterface> data
     ) {
-        return runReport(requestForm.getValueByKey("scope"), requestForm.getValueByKey("report"), requestForm.getIntegerValueByKey("days"));
+        ArrayList<TransactionTenderAggregation> report = new ArrayList<TransactionTenderAggregation>();
+        for (TransactionTenderAggregationInterface row : data) {
+            TransactionTenderAggregation line = new TransactionTenderAggregation();
+            line.setStore(row.getStore());
+            line.setStoreName(row.getStoreName());
+            line.setRegister(row.getRegister());
+            line.setDate(row.getDate());
+            line.setType(row.getType());
+            line.setValue(row.getValue());
+            report.add(line);
+        }
+        return report;
     }
-    
+
+    private List<TransactionTenderFlat> getTransactionTenderFlat(
+        List<Transaction> data
+    ) {
+        ArrayList<TransactionTenderFlat> report = new ArrayList<TransactionTenderFlat>();
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
+        for (Transaction txnRow : data) {
+            for (TransactionTender tenderRow : txnRow.getTenders()) {
+                TransactionTenderFlat line = new TransactionTenderFlat();
+                line.setStore(txnRow.getStore().getNumber());
+                line.setStoreName(txnRow.getStore().getName());
+                line.setDate(dateFormatter.format(txnRow.getDate()));
+                line.setTime(timeFormatter.format(txnRow.getDate()));
+                line.setRegister(txnRow.getRegister().getNumber());
+                line.setTransaction(txnRow.getNumber());
+                line.setNumber(tenderRow.getNumber());
+                line.setType(tenderRow.getType());
+                line.setValue(tenderRow.getValue());
+                line.setReference(tenderRow.getReference());
+                report.add(line);
+            }
+        }
+        return report;
+    }
+
     @SuppressWarnings("rawtypes")
     public List runReport(
         String scope,
@@ -90,123 +206,12 @@ public class TransactionReportService {
         }
         return null;
     }
-    
-    private List<TransactionFlat> getTransactionFlat(
-        List<Transaction> data
+
+    @SuppressWarnings("rawtypes")
+    public List runReportByForm(
+        Form requestForm
     ) {
-        ArrayList<TransactionFlat> report = new ArrayList<TransactionFlat>();
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
-        for (Transaction txnRow : data) {
-            TransactionFlat line = new TransactionFlat();
-            line.setStore(txnRow.getStore().getNumber());
-            line.setStoreName(txnRow.getStore().getName());
-            line.setDate(dateFormatter.format(txnRow.getDate()));
-            line.setTime(timeFormatter.format(txnRow.getDate()));
-            line.setRegister(txnRow.getRegister().getNumber());
-            line.setTransaction(txnRow.getNumber());
-            line.setUser(txnRow.getUser().getName());
-            line.setTotal(txnRow.getTotal());
-            report.add(line);
-        }
-        return (List<TransactionFlat>) report;
+        return runReport(requestForm.getValueByKey("scope"), requestForm.getValueByKey("report"), requestForm.getIntegerValueByKey("days"));
     }
-    
-    private List<TransactionLineFlat> getTransactionLineFlat(
-        List<Transaction> data
-    ) {
-        ArrayList<TransactionLineFlat> report = new ArrayList<TransactionLineFlat>();
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
-        for (Transaction txnRow : data) {
-            for (TransactionLine lineRow : txnRow.getLines()) {
-                TransactionLineFlat line = new TransactionLineFlat();
-                line.setStore(txnRow.getStore().getNumber());
-                line.setStoreName(txnRow.getStore().getName());
-                line.setDate(dateFormatter.format(txnRow.getDate()));
-                line.setTime(timeFormatter.format(txnRow.getDate()));
-                line.setRegister(txnRow.getRegister().getNumber());
-                line.setTransaction(txnRow.getNumber());
-                line.setNumber(lineRow.getNumber());
-                line.setProduct(lineRow.getProductCode());
-                line.setType(lineRow.getType());
-                line.setQuantity(lineRow.getQuantity());
-                line.setLineValue(lineRow.getLineValue());
-                line.setReturnedQuantity(lineRow.getReturnedQuantity());
-                report.add(line);
-            }
-        }
-        return (List<TransactionLineFlat>) report;
-    }
-    
-    private List<TransactionTenderFlat> getTransactionTenderFlat(
-        List<Transaction> data
-    ) {
-        ArrayList<TransactionTenderFlat> report = new ArrayList<TransactionTenderFlat>();
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
-        for (Transaction txnRow : data) {
-            for (TransactionTender tenderRow : txnRow.getTenders()) {
-                TransactionTenderFlat line = new TransactionTenderFlat();
-                line.setStore(txnRow.getStore().getNumber());
-                line.setStoreName(txnRow.getStore().getName());
-                line.setDate(dateFormatter.format(txnRow.getDate()));
-                line.setTime(timeFormatter.format(txnRow.getDate()));
-                line.setRegister(txnRow.getRegister().getNumber());
-                line.setTransaction(txnRow.getNumber());
-                line.setNumber(tenderRow.getNumber());
-                line.setType(tenderRow.getType());
-                line.setValue(tenderRow.getValue());
-                line.setReference(tenderRow.getReference());
-                report.add(line);
-            }
-        }
-        return (List<TransactionTenderFlat>) report;
-    }
-    
-    private List<TransactionTenderAggregation> getTransactionTenderAggregation(
-        List<TransactionTenderAggregationInterface> data
-    ) {
-        ArrayList<TransactionTenderAggregation> report = new ArrayList<TransactionTenderAggregation>();
-        for (TransactionTenderAggregationInterface row : data) {
-            TransactionTenderAggregation line = new TransactionTenderAggregation();
-            line.setStore(row.getStore());
-            line.setStoreName(row.getStoreName());
-            line.setRegister(row.getRegister());
-            line.setDate(row.getDate());
-            line.setType(row.getType());
-            line.setValue(row.getValue());
-            report.add(line);
-        }
-        return (List<TransactionTenderAggregation>) report;
-    }
-    
-    private List<TransactionAudit> getTransactionAudit(
-        List<Transaction> data
-    ) {
-        DateTimeFormatter dateFormater = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        DateTimeFormatter timeFormater = DateTimeFormatter.ofPattern("HH:mm:ss");
-        ArrayList<TransactionAudit> report = new ArrayList<TransactionAudit>();
-        for (Transaction row : data) {
-            TransactionAudit line = new TransactionAudit();
-            line.setStore(row.getStore().getNumber());
-            line.setStoreName(row.getStore().getName());
-            line.setRegister(row.getRegister().getNumber());
-            line.setDate(row.getDate().toLocalDateTime().format(dateFormater));
-            line.setTime(row.getDate().toLocalDateTime().format(timeFormater));
-            line.setTransaction(row.getNumber());
-            line.setTransactionTotal(row.getTotal());
-            line.setLineTotal(row.getLineTotal());
-            line.setTenderTotal(row.getTenderTotal());
-            if (line.getTransactionTotal().compareTo(line.getLineTotal()) == 0 &&
-                line.getTransactionTotal().compareTo(line.getTenderTotal()) == 0) {
-                line.setCheck("");
-            } else {
-                line.setCheck("X");
-            }
-            report.add(line);
-        }
-        return (List<TransactionAudit>) report;
-    }
-    
+
 }

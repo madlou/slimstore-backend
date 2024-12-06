@@ -2,7 +2,6 @@ package com.tjx.lew00305.slimstore.service;
 
 import java.math.BigDecimal;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -13,18 +12,18 @@ import com.tjx.lew00305.slimstore.model.common.FormElement;
 @Service
 public class ProductService {
     
-    @Autowired
     private RestTemplate restTemplate;
-    
-    @Value("${tjx.online.search}")
     private String onlineSearchUrl;
-    
-    public FormElement[] search(
-        String query
+
+    public ProductService(
+        RestTemplate restTemplate,
+        @Value("${tjx.online.search}")
+        String onlineSearchUrl
     ) {
-        return onlineSearch(query);
+        this.restTemplate = restTemplate;
+        this.onlineSearchUrl = onlineSearchUrl;
     }
-    
+
     public FormElement[] onlineSearch(
         String query
     ) {
@@ -44,6 +43,12 @@ public class ProductService {
             products[i] = element;
         }
         return products;
+    }
+    
+    public FormElement[] search(
+        String query
+    ) {
+        return onlineSearch(query);
     }
     
 }

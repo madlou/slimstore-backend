@@ -15,10 +15,10 @@ import lombok.NoArgsConstructor;
 @Data
 @SessionScope
 public class TenderLine implements Serializable {
-    
+
     private String type;
     private String label;
     private BigDecimal value;
     private String reference;
-    
+
 }

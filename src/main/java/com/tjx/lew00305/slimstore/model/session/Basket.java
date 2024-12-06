@@ -11,27 +11,27 @@ import org.springframework.web.context.annotation.SessionScope;
 @Component
 @SessionScope
 public class Basket implements Serializable {
-    
+
     private ArrayList<BasketLine> basket = new ArrayList<BasketLine>();
-    
+
     public void add(
         BasketLine basketLine
     ) {
         basket.add(basketLine);
     }
-    
+
     public void empty() {
         basket = new ArrayList<BasketLine>();
     }
-    
-    public ArrayList<BasketLine> getArrayList() {
-        return basket;
-    }
-    
+
     public BasketLine[] getArray() {
         return basket.toArray(new BasketLine[0]);
     }
-    
+
+    public ArrayList<BasketLine> getArrayList() {
+        return basket;
+    }
+
     public BigDecimal getTotal() {
         BigDecimal total = new BigDecimal(0);
         for (BasketLine line : basket) {
@@ -39,5 +39,5 @@ public class Basket implements Serializable {
         }
         return total;
     }
-    
+
 }

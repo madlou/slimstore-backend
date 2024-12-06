@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class TransactionAudit {
-    
+
     Integer store;
     String storeName;
     Integer register;
@@ -17,5 +17,5 @@ public class TransactionAudit {
     BigDecimal lineTotal;
     BigDecimal tenderTotal;
     String check;
-    
+
 }

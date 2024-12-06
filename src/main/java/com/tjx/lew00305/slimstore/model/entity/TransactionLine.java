@@ -22,12 +22,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TransactionLine {
-    
+
     public enum TransactionLineType {
         SALE,
         RETURN
     }
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
@@ -47,5 +47,5 @@ public class TransactionLine {
     private Integer returnedQuantity;
     @Column(name = "linked_id")
     private Integer originalTransactionLineId;
-    
+
 }

@@ -12,8 +12,7 @@
         <property name="title" value="Users" />
         <property name="message" value="User List:" />
         <property name="form">
-            <bean class="com.tjx.lew00305.slimstore.model.common.Form">
-            </bean>
+            <bean class="com.tjx.lew00305.slimstore.model.common.Form"> </bean>
         </property>
         <property name="functionButtons">
             <array>

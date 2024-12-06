@@ -1,6 +1,5 @@
 package com.tjx.lew00305.slimstore.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tjx.lew00305.slimstore.config.ViewConfig;
@@ -17,38 +16,31 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class ViewService {
-    
-    @Autowired
+
     private ViewConfig viewConfig;
-    @Autowired
     private ProductService productService;
-    @Autowired
     private UserService userService;
-    @Autowired
     private LocationService locationService;
-    @Autowired
     private TransactionService transactionService;
-    @Autowired
     private TranslationService translationService;
-    @Autowired
     private HttpServletRequest request;
-    
-    public View getViewByForm(
-        Form requestForm
+
+    public ViewService(
+        ViewConfig viewConfig,
+        ProductService productService,
+        UserService userService,
+        LocationService locationService,
+        TransactionService transactionService,
+        TranslationService translationService,
+        HttpServletRequest request
     ) {
-        ViewName viewName = requestForm.getTargetView() == null ? ViewName.HOME : requestForm.getTargetView();
-        View view = getViewByName(viewName);
-        return enrichView(view, requestForm);
-    }
-    
-    public View getViewByName(
-        ViewName viewName
-    ) {
-        View view = viewConfig.getView(viewName);
-        view.setLocale(request.getLocale());
-        view.setCacheKey(view.getName() + ":" + view.getLocale().toString());
-        view = translationService.translateView(view);
-        return view;
+        this.viewConfig = viewConfig;
+        this.productService = productService;
+        this.userService = userService;
+        this.locationService = locationService;
+        this.transactionService = transactionService;
+        this.translationService = translationService;
+        this.request = request;
     }
     
     private View enrichView(
@@ -114,5 +106,23 @@ public class ViewService {
         }
         return view;
     }
-    
+
+    public View getViewByForm(
+        Form requestForm
+    ) {
+        ViewName viewName = requestForm.getTargetView() == null ? ViewName.HOME : requestForm.getTargetView();
+        View view = getViewByName(viewName);
+        return enrichView(view, requestForm);
+    }
+
+    public View getViewByName(
+        ViewName viewName
+    ) {
+        View view = viewConfig.getView(viewName);
+        view.setLocale(request.getLocale());
+        view.setCacheKey(view.getName() + ":" + view.getLocale().toString());
+        view = translationService.translateView(view);
+        return view;
+    }
+
 }

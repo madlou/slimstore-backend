@@ -1,6 +1,5 @@
 package com.tjx.lew00305.slimstore.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,26 +27,40 @@ import com.tjx.lew00305.slimstore.service.ViewService;
 @RestController
 public class RegisterController {
     
-    @Autowired
     private BasketService basketService;
-    @Autowired
     private GiftCardService giftCardService;
-    @Autowired
     private LocationService locationService;
-    @Autowired
     private TenderService tenderService;
-    @Autowired
     private BarcodeService barcodeService;
-    @Autowired
     private UserInterfaceService userInterfaceService;
-    @Autowired
     private UserService userService;
-    @Autowired
     private ViewService viewService;
-    @Autowired
     private TransactionService transactionService;
-    @Autowired
     private TransactionReportService transactionReportService;
+    
+    public RegisterController(
+        BasketService basketService,
+        GiftCardService giftCardService,
+        LocationService locationService,
+        TenderService tenderService,
+        BarcodeService barcodeService,
+        UserInterfaceService userInterfaceService,
+        UserService userService,
+        ViewService viewService,
+        TransactionService transactionService,
+        TransactionReportService transactionReportService
+    ) {
+        this.basketService = basketService;
+        this.giftCardService = giftCardService;
+        this.locationService = locationService;
+        this.tenderService = tenderService;
+        this.barcodeService = barcodeService;
+        this.userInterfaceService = userInterfaceService;
+        this.userService = userService;
+        this.viewService = viewService;
+        this.transactionService = transactionService;
+        this.transactionReportService = transactionReportService;
+    }
     
     @PostMapping(path = "/api/register")
     public @ResponseBody
@@ -60,7 +73,7 @@ public class RegisterController {
         String errorMessage = null;
         RegisterResponseDTO response = new RegisterResponseDTO();
         if (userService.isLoggedOut() &&
-            requestForm.getServerProcess() != ServerProcess.LOGIN) {
+            (requestForm.getServerProcess() != ServerProcess.LOGIN)) {
             return updateDTO(response, viewService.getViewByName(ViewName.LOGIN));
         }
         if (requestForm.getServerProcess() != null) {
@@ -125,14 +138,14 @@ public class RegisterController {
             }
         }
         Store store = locationService.getStore();
-        if (store == null &&
-            storeRegCookie != null) {
+        if ((store == null) &&
+            (storeRegCookie != null)) {
             String[] storeRegCookieSplit = storeRegCookie.split("-");
             locationService.setLocation(Integer.parseInt(storeRegCookieSplit[0]), Integer.parseInt(storeRegCookieSplit[1]));
             store = locationService.getStore();
         }
-        if (store == null &&
-            requestForm.getServerProcess() != ServerProcess.CHANGE_REGISTER) {
+        if ((store == null) &&
+            (requestForm.getServerProcess() != ServerProcess.CHANGE_REGISTER)) {
             requestForm.setTargetView(ViewName.REGISTER_CHANGE);
             response.setError("Store and register setup required.");
         }

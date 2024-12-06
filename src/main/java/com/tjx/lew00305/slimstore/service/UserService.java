@@ -2,7 +2,6 @@ package com.tjx.lew00305.slimstore.service;
 
 import java.util.ArrayList;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -17,24 +16,24 @@ import com.tjx.lew00305.slimstore.repository.UserRepository;
 
 @Service
 public class UserService {
-    
-    @Autowired
+
     private TranslationService translationService;
-    @Autowired
     private UserRepository userRepository;
-    @Autowired
     private UserSession userSession;
-    
-    @Value("${tjx.admin.password}")
+
     private String adminPassword;
-    
-    public User getUserFromSession() {
-        User user = userSession.getUser();
-        if (user == null ||
-            user.getCode() == null) {
-            return null;
-        }
-        return userSession.getUser();
+
+    public UserService(
+        TranslationService translationService,
+        UserRepository userRepository,
+        UserSession userSession,
+        @Value("${tjx.admin.password}")
+        String adminPassword
+    ) {
+        this.translationService = translationService;
+        this.userRepository = userRepository;
+        this.userSession = userSession;
+        this.adminPassword = adminPassword;
     }
     
     public User addUser(
@@ -46,22 +45,7 @@ public class UserService {
         User user = userRepository.save(new User(null, username, email, name, password));
         return user;
     }
-    
-    public User saveUser(
-        String username,
-        String name,
-        String email,
-        String password
-    ) throws Exception {
-        User user = userRepository.findByCode(username);
-        user.setName(name);
-        user.setEmail(email);
-        if (password.length() > 0) {
-            user.setPassword(password);
-        }
-        return userRepository.save(user);
-    }
-    
+
     public String addUserByForm(
         Form requestForm
     ) {
@@ -77,32 +61,20 @@ public class UserService {
             }
         }
     }
-    
-    public String saveUserByForm(
-        Form requestForm
-    ) {
-        try {
-            saveUser(requestForm.getValueByKey("code"), requestForm.getValueByKey("name"), requestForm.getValueByKey("email"), requestForm.getValueByKey(
-                "password"));
-            return null;
-        } catch (Exception e) {
-            return "Unable to save user: " + e.getMessage();
-        }
-    }
-    
+
     public Iterable<User> getAllUsers() {
         return userRepository.findAll();
     }
-    
+
     public User getUser() {
         return userSession.getUser();
     }
-    
+
     public User getUser(
         String username
     ) {
         User user = userRepository.findByCode(username);
-        if (user == null &&
+        if ((user == null) &&
             username.equals("admin")) {
             try {
                 return addUser("admin", "Admin Person", "admin@admin.com", adminPassword);
@@ -112,59 +84,16 @@ public class UserService {
         }
         return user;
     }
-    
-    public Boolean isLoggedIn() {
-        User user = getUser();
-        if (user == null ||
-            user.getCode() == null) {
-            return false;
+
+    public User getUserFromSession() {
+        User user = userSession.getUser();
+        if ((user == null) ||
+            (user.getCode() == null)) {
+            return null;
         }
-        return true;
+        return userSession.getUser();
     }
-    
-    public Boolean isLoggedOut() {
-        return !isLoggedIn();
-    }
-    
-    public Boolean isUserAdmin() {
-        User user = getUser();
-        if (user == null ||
-            !user.getCode().equals("admin")) {
-            return false;
-        }
-        return true;
-    }
-    
-    public User validateLogin(
-        String username,
-        String password
-    ) throws Exception {
-        User user = getUser(username);
-        if (user != null &&
-            user.getPassword().equals(password)) {
-            userSession.setUser(user);
-            return user;
-        }
-        return null;
-    }
-    
-    public User validateLoginByForm(
-        Form requestForm
-    ) {
-        String username = requestForm.getValueByKey("code");
-        String password = requestForm.getValueByKey("password");
-        try {
-            return validateLogin(username, password);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-    
-    public void logout() {
-        userSession.setUser(new User());
-    }
-    
+
     public FormElement[] getUsersAsFormElements() {
         Iterable<User> users = userRepository.findAll();
         ArrayList<FormElement> elements = new ArrayList<FormElement>();
@@ -192,5 +121,84 @@ public class UserService {
         }
         return elements.toArray(new FormElement[0]);
     }
-    
+
+    public Boolean isLoggedIn() {
+        User user = getUser();
+        if ((user == null) ||
+            (user.getCode() == null)) {
+            return false;
+        }
+        return true;
+    }
+
+    public Boolean isLoggedOut() {
+        return !isLoggedIn();
+    }
+
+    public Boolean isUserAdmin() {
+        User user = getUser();
+        if ((user == null) ||
+            !user.getCode().equals("admin")) {
+            return false;
+        }
+        return true;
+    }
+
+    public void logout() {
+        userSession.setUser(new User());
+    }
+
+    public User saveUser(
+        String username,
+        String name,
+        String email,
+        String password
+    ) throws Exception {
+        User user = userRepository.findByCode(username);
+        user.setName(name);
+        user.setEmail(email);
+        if (password.length() > 0) {
+            user.setPassword(password);
+        }
+        return userRepository.save(user);
+    }
+
+    public String saveUserByForm(
+        Form requestForm
+    ) {
+        try {
+            saveUser(requestForm.getValueByKey("code"), requestForm.getValueByKey("name"), requestForm.getValueByKey("email"), requestForm.getValueByKey(
+                "password"));
+            return null;
+        } catch (Exception e) {
+            return "Unable to save user: " + e.getMessage();
+        }
+    }
+
+    public User validateLogin(
+        String username,
+        String password
+    ) throws Exception {
+        User user = getUser(username);
+        if ((user != null) &&
+            user.getPassword().equals(password)) {
+            userSession.setUser(user);
+            return user;
+        }
+        return null;
+    }
+
+    public User validateLoginByForm(
+        Form requestForm
+    ) {
+        String username = requestForm.getValueByKey("code");
+        String password = requestForm.getValueByKey("password");
+        try {
+            return validateLogin(username, password);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

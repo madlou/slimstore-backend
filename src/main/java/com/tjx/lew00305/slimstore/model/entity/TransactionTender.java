@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TransactionTender {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
@@ -32,5 +32,5 @@ public class TransactionTender {
     private String type;
     private BigDecimal value;
     private String reference;
-    
+
 }

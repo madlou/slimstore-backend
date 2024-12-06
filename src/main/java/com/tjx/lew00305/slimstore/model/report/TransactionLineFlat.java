@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 public class TransactionLineFlat {
-    
+
     private Integer store;
     private String storeName;
     private String date;
@@ -21,5 +21,5 @@ public class TransactionLineFlat {
     private Integer quantity;
     private BigDecimal lineValue;
     private Integer returnedQuantity;
-    
+
 }

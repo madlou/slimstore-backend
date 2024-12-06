@@ -16,8 +16,7 @@
                 <property name="targetView" value="HOME" />
                 <property name="serverProcess" value="ADD_TO_BASKET" />
                 <property name="elements">
-                    <array>
-                    </array>
+                    <array> </array>
                 </property>
             </bean>
         </property>

@@ -1,6 +1,5 @@
 package com.tjx.lew00305.slimstore.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.web.context.annotation.RequestScope;
@@ -13,8 +12,13 @@ import com.tjx.lew00305.slimstore.model.common.View.ViewName;
 @RequestScope
 public class ViewConfig {
     
-    @Autowired
     private View[] views;
+
+    public ViewConfig(
+        View[] views
+    ) {
+        this.views = views;
+    }
     
     public View[] getAll() {
         return views;

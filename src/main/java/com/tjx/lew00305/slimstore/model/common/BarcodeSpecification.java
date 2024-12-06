@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class BarcodeSpecification {
-    
+
     String region;
     String type;
     String banner;
@@ -15,5 +15,5 @@ public class BarcodeSpecification {
     Integer style;
     Integer price;
     Integer week;
-    
+
 }

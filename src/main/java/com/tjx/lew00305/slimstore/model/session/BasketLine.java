@@ -17,20 +17,20 @@ import lombok.NoArgsConstructor;
 @Data
 @SessionScope
 public class BasketLine implements Serializable {
-    
+
     private String code;
     private String name;
     private Type type;
     private Integer quantity;
     private BigDecimal unitValue;
-    
+
+    public BigDecimal getLineValue() {
+        return unitValue.multiply(new BigDecimal(getSignedQuantity()));
+    }
+
     public Integer getSignedQuantity() {
         Integer multiplier = (type == Type.RETURN) ? -1 : 1;
         return quantity * multiplier;
     }
-    
-    public BigDecimal getLineValue() {
-        return unitValue.multiply(new BigDecimal(getSignedQuantity()));
-    }
-    
+
 }

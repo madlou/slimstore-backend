@@ -3,25 +3,42 @@ package com.tjx.lew00305.slimstore.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class TjxComSearchDTO {
-    
-    public Response response;
-    @JsonProperty("category_map")
-    public Object categoryMap;
-    public Stats stats;
-    @JsonProperty("did_you_mean")
-    public String[] didYouMean;
-    public Metadata metadata;
-    
-    public class Response {
+
+    public static class Metadata {
         
-        public int numFound;
-        public int start;
-        public Doc[] docs;
-        @JsonProperty("facet_counts")
-        public FacetCounts facetCounts;
+        public static class Query {
+            
+            public static class Precision {
+                
+                public static class StringValue {
+                    
+                    public String value;
+                    
+                }
+
+                public StringValue configured;
+                public StringValue applied;
+                
+            }
+            
+            public Precision precision;
+            
+        }
+        
+        public Query query;
+        
+    }
+
+    public class Response {
         
         public static class Doc {
             
+            public static class Variant {
+                
+                public String skuid;
+                
+            }
+
             public String description;
             public float price;
             public String url;
@@ -76,26 +93,22 @@ public class TjxComSearchDTO {
             @JsonProperty("mh_dept")
             public String mhDept;
             public String department;
+            
             public Variant[] variants;
             
-            public static class Variant {
-                
-                public String skuid;
-                
-            }
-            
         }
-        
+
         public static class FacetCounts {
-            
-            public FacetFields facetFields;
-            @JsonProperty("facet_queries")
-            public FacetQueries facetQueries;
-            @JsonProperty("facet_ranges")
-            public FacetRanges facetRanges;
             
             public static class FacetFields {
                 
+                public static class NameCount {
+                    
+                    public String name;
+                    public int count;
+                    
+                }
+
                 @JsonProperty("Brand")
                 public NameCount[] brand;
                 @JsonProperty("Department")
@@ -110,26 +123,17 @@ public class TjxComSearchDTO {
                 public NameCount[] colour;
                 @JsonProperty("Material")
                 public NameCount[] material;
+                
                 @JsonProperty("Clearance")
                 public NameCount[] clearance;
                 
-                public static class NameCount {
-                    
-                    public String name;
-                    public int count;
-                    
-                }
-                
             }
-            
+
             public static class FacetQueries {
                 
             }
-            
+
             public static class FacetRanges {
-                
-                @JsonProperty("Price")
-                public Price[] price;
                 
                 public static class Price {
                     
@@ -139,20 +143,34 @@ public class TjxComSearchDTO {
                     
                 }
                 
+                @JsonProperty("Price")
+                public Price[] price;
+                
             }
             
+            public FacetFields facetFields;
+            
+            @JsonProperty("facet_queries")
+            public FacetQueries facetQueries;
+            
+            @JsonProperty("facet_ranges")
+            public FacetRanges facetRanges;
+            
         }
+
+        public int numFound;
+        public int start;
+        
+        public Doc[] docs;
+        
+        @JsonProperty("facet_counts")
+        public FacetCounts facetCounts;
         
     }
-    
+
     public static class Stats {
         
-        @JsonProperty("")
-        public StatFields stats_fields;
-        
         public static class StatFields {
-            
-            public Price price;
             
             public static class Price {
                 
@@ -161,33 +179,24 @@ public class TjxComSearchDTO {
                 
             }
             
+            public Price price;
+            
         }
         
+        @JsonProperty("")
+        public StatFields stats_fields;
+        
     }
+
+    public Response response;
+    @JsonProperty("category_map")
+    public Object categoryMap;
     
-    public static class Metadata {
-        
-        public Query query;
-        
-        public static class Query {
-            
-            public Precision precision;
-            
-            public static class Precision {
-                
-                public StringValue configured;
-                public StringValue applied;
-                
-                public static class StringValue {
-                    
-                    public String value;
-                    
-                }
-                
-            }
-            
-        }
-        
-    }
+    public Stats stats;
+    
+    @JsonProperty("did_you_mean")
+    public String[] didYouMean;
+    
+    public Metadata metadata;
     
 }

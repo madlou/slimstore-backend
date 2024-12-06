@@ -1,6 +1,5 @@
 package com.tjx.lew00305.slimstore.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 
@@ -10,9 +9,14 @@ import com.tjx.lew00305.slimstore.model.common.BarcodeSpecification;
 @ImportResource("classpath:barcode/*.xml")
 public class BarcodeConfig {
     
-    @Autowired
     private BarcodeSpecification[] barcodeSpecifications;
     
+    public BarcodeConfig(
+        BarcodeSpecification[] barcodeSpecifications
+    ) {
+        this.barcodeSpecifications = barcodeSpecifications;
+    }
+
     public BarcodeSpecification[] getBarcodeSpecifications() {
         return barcodeSpecifications;
     }

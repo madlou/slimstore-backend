@@ -7,12 +7,12 @@ import lombok.Data;
 @Data
 @RequestScope
 public class FunctionButton {
-    
+
     private int position = 0;
     private String condition = "";
     private String label = "";
     private Boolean disable = false;
     private Boolean primaryFormSubmit = false;
     private Form form = new Form();
-    
+
 }

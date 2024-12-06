@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @SessionScope
 public class User implements Serializable {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -32,5 +32,5 @@ public class User implements Serializable {
     private String name;
     @JsonIgnore
     private String password;
-    
+
 }

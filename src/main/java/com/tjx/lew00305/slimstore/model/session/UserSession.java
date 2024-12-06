@@ -14,7 +14,7 @@ import lombok.Data;
 @Component
 @SessionScope
 public class UserSession implements Serializable {
-    
+
     private User user;
-    
+
 }

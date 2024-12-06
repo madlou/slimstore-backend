@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Country {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -24,5 +24,5 @@ public class Country {
     private String name;
     @JoinColumn(name = "currency.code")
     private String currencyCode;
-    
+
 }

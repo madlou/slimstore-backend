@@ -13,7 +13,7 @@ public class Barcode {
     Integer style;
     BigDecimal price;
     Integer week;
-    
+
     public String getDepartmentCategory() {
         String output = "";
         if (getDivision() != null) {
@@ -25,13 +25,23 @@ public class Barcode {
         }
         return output;
     }
-    
+
+    public FormElement getFormElement() {
+        FormElement element = new FormElement();
+        element.setType(FormElement.Type.PRODUCT_SCAN);
+        element.setKey(getName());
+        element.setLabel(getDepartmentCategory());
+        element.setQuantity(1);
+        element.setPrice(getPrice());
+        return element;
+    }
+
     public String getName() {
         String output = "";
         output += getStyle();
         return output;
     }
-    
+
     @Override
     public String toString() {
         String output = "";
@@ -44,15 +54,5 @@ public class Barcode {
         }
         output += getStyle();
         return output;
-    }
-    
-    public FormElement getFormElement() {
-        FormElement element = new FormElement();
-        element.setType(FormElement.Type.PRODUCT_SCAN);
-        element.setKey(getName());
-        element.setLabel(getDepartmentCategory());
-        element.setQuantity(1);
-        element.setPrice(getPrice());
-        return element;
     }
 }
