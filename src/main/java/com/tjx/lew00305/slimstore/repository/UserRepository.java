@@ -6,6 +6,8 @@ import com.tjx.lew00305.slimstore.model.entity.User;
 
 public interface UserRepository extends CrudRepository<User, Integer> {
     
-    User findByCode(String code);
-
+    User findByCode(
+        String code
+    );
+    
 }

@@ -14,5 +14,5 @@ public class FunctionButton {
     private Boolean disable = false;
     private Boolean primaryFormSubmit = false;
     private Form form = new Form();
-
+    
 }

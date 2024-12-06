@@ -35,9 +35,10 @@ public class TransactionService {
     private TenderService tenderService;
     @Autowired
     private UserService userService;
-
+    
     public void addTransaction() {
-        Integer txnNumber = locationService.getStoreRegister().getLastTxnNumber() + 1;
+        Integer txnNumber = locationService.getStoreRegister().getLastTxnNumber() +
+            1;
         locationService.setTransactionNumber(locationService.getStoreRegister().getId(), txnNumber);
         Transaction transaction = new Transaction();
         transaction.setStore(locationService.getStore());
@@ -48,14 +49,15 @@ public class TransactionService {
         transaction.setTotal(basketService.getTotal());
         transaction = txnRepo.save(transaction);
         Integer counter = 1;
-        for(BasketLine basketLine : basketService.getBasketArray()) {
+        for (BasketLine basketLine : basketService.getBasketArray()) {
             TransactionLine txnLine = new TransactionLine();
             String code = basketLine.getCode();
-            if(basketLine.getSignedQuantity() < 0) {
+            if (basketLine.getSignedQuantity() < 0) {
                 String[] split = basketLine.getCode().split(":");
                 Integer lineId = Integer.parseInt(split[4]);
                 TransactionLine originalLine = lineRepo.findById(lineId).orElse(null);
-                originalLine.setReturnedQuantity(originalLine.getReturnedQuantity() + basketLine.getQuantity());
+                originalLine.setReturnedQuantity(originalLine.getReturnedQuantity() +
+                    basketLine.getQuantity());
                 lineRepo.save(originalLine);
                 txnLine.setOriginalTransactionLineId(lineId);
                 code = originalLine.getProductCode();
@@ -63,9 +65,7 @@ public class TransactionService {
             txnLine.setTransaction(transaction);
             txnLine.setNumber(counter++);
             txnLine.setProductCode(code);
-            TransactionLineType type = basketLine.getSignedQuantity() < 0
-                ? TransactionLineType.RETURN
-                : TransactionLineType.SALE;
+            TransactionLineType type = basketLine.getSignedQuantity() < 0 ? TransactionLineType.RETURN : TransactionLineType.SALE;
             txnLine.setType(type);
             txnLine.setQuantity(basketLine.getSignedQuantity());
             txnLine.setUnitValue(basketLine.getUnitValue());
@@ -74,18 +74,23 @@ public class TransactionService {
             lineRepo.save(txnLine);
         }
         counter = 1;
-        for(TenderLine tenderLine : tenderService.getTenderArray()) {
+        for (TenderLine tenderLine : tenderService.getTenderArray()) {
             TransactionTender txnTender = new TransactionTender();
             txnTender.setTransaction(transaction);
             txnTender.setNumber(counter++);
             txnTender.setType(tenderLine.getType());
             txnTender.setValue(tenderLine.getValue());
             txnTender.setReference(tenderLine.getReference());
-            tenderRepo.save(txnTender);            
+            tenderRepo.save(txnTender);
         }
     }
-
-    public Transaction getTransaction(Integer storeNumber, Integer regNumber, Integer txnNumber, String date) {
+    
+    public Transaction getTransaction(
+        Integer storeNumber,
+        Integer regNumber,
+        Integer txnNumber,
+        String date
+    ) {
         Store store = locationService.getStore(storeNumber);
         StoreRegister register = store.getRegisterByNumber(regNumber);
         LocalDateTime start = LocalDateTime.parse(date + "T00:00:00");

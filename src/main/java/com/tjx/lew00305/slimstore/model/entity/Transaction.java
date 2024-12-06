@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Transaction {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
@@ -50,18 +50,18 @@ public class Transaction {
     
     public BigDecimal getLineTotal() {
         BigDecimal total = BigDecimal.valueOf(0);
-        for(TransactionLine line : getLines()) {
+        for (TransactionLine line : getLines()) {
             total = total.add(line.getLineValue());
         }
         return total;
     }
-
+    
     public BigDecimal getTenderTotal() {
         BigDecimal total = BigDecimal.valueOf(0);
-        for(TransactionTender line : getTenders()) {
+        for (TransactionTender line : getTenders()) {
             total = total.add(line.getValue());
         }
         return total;
     }
-
+    
 }

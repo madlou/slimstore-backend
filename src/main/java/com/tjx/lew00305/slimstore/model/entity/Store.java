@@ -1,4 +1,5 @@
 package com.tjx.lew00305.slimstore.model.entity;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,13 +33,15 @@ public class Store implements Serializable {
     @JsonIgnore
     private List<StoreRegister> registers = new ArrayList<StoreRegister>();
     
-    public StoreRegister getRegisterByNumber(Integer number) {
-        for(StoreRegister register : registers) {
-            if(register.getNumber() == number) {
+    public StoreRegister getRegisterByNumber(
+        Integer number
+    ) {
+        for (StoreRegister register : registers) {
+            if (register.getNumber() == number) {
                 return register;
             }
         }
         return null;
     }
-
+    
 }

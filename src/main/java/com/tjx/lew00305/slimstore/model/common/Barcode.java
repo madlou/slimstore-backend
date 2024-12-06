@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class Barcode {
-
+    
     Integer division;
     Integer department;
     Integer category;
@@ -16,11 +16,11 @@ public class Barcode {
     
     public String getDepartmentCategory() {
         String output = "";
-        if(getDivision() != null) {
+        if (getDivision() != null) {
             output += getDivision() + "/";
         }
         output += getDepartment() + "/";
-        if(getCategory() != null) {
+        if (getCategory() != null) {
             output += getCategory();
         }
         return output;
@@ -35,17 +35,17 @@ public class Barcode {
     @Override
     public String toString() {
         String output = "";
-        if(getDivision() != null) {
+        if (getDivision() != null) {
             output += getDivision() + "/";
         }
         output += getDepartment() + "/";
-        if(getCategory() != null) {
+        if (getCategory() != null) {
             output += getCategory() + "/";
         }
         output += getStyle();
         return output;
     }
-
+    
     public FormElement getFormElement() {
         FormElement element = new FormElement();
         element.setType(FormElement.Type.PRODUCT_SCAN);

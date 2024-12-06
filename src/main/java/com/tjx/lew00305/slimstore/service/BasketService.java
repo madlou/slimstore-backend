@@ -17,18 +17,24 @@ public class BasketService {
     @Autowired
     private Basket basket;
     
-    public void addBasketByForm(Form requestForm) {
+    public void addBasketByForm(
+        Form requestForm
+    ) {
         addFormElements(requestForm.getElements());
     }
     
-    public void addFormElements(FormElement[] elements) {
-        for(FormElement element : elements) {
+    public void addFormElements(
+        FormElement[] elements
+    ) {
+        for (FormElement element : elements) {
             addFormElement(element);
         }
     }
     
-    public void addFormElement(FormElement element) {
-        if(element == null) {
+    public void addFormElement(
+        FormElement element
+    ) {
+        if (element == null) {
             return;
         }
         BasketLine basketLine = new BasketLine();
@@ -43,11 +49,11 @@ public class BasketService {
     public ArrayList<BasketLine> getBasketArrayList() {
         return basket.getArrayList();
     }
-
+    
     public BasketLine[] getBasketArray() {
         return basket.getArray();
     }
-
+    
     public void empty() {
         basket.empty();
     }
@@ -55,5 +61,5 @@ public class BasketService {
     public BigDecimal getTotal() {
         return basket.getTotal();
     }
-
+    
 }

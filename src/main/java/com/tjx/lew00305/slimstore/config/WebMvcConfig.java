@@ -29,7 +29,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
     
     @Override
-    public void addInterceptors(InterceptorRegistry registry) {
+    public void addInterceptors(
+        InterceptorRegistry registry
+    ) {
         registry.addInterceptor(localeChangeInterceptor());
     }
     
@@ -38,7 +40,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setBasename("classpath:i18n/messages");
         messageSource.setDefaultEncoding("UTF-8");
-        messageSource.setCacheSeconds(3600); //3600
+        messageSource.setCacheSeconds(3600); // 3600
         return messageSource;
     }
     

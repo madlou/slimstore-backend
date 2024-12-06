@@ -1,4 +1,5 @@
 package com.tjx.lew00305.slimstore.model.entity;
+
 import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -26,7 +27,7 @@ public class TransactionLine {
         SALE,
         RETURN
     }
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
@@ -46,5 +47,5 @@ public class TransactionLine {
     private Integer returnedQuantity;
     @Column(name = "linked_id")
     private Integer originalTransactionLineId;
-
+    
 }

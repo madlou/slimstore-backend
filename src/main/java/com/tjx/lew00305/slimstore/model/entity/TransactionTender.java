@@ -1,4 +1,5 @@
 package com.tjx.lew00305.slimstore.model.entity;
+
 import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -18,7 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TransactionTender {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
@@ -31,5 +32,5 @@ public class TransactionTender {
     private String type;
     private BigDecimal value;
     private String reference;
-
+    
 }

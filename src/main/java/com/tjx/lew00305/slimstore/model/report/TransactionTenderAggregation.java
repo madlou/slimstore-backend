@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class TransactionTenderAggregation {
-
+    
     Integer store;
     String storeName;
     Integer register;

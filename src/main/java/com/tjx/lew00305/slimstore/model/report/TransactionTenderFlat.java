@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class TransactionTenderFlat {
-
+    
     private Integer store;
     private String storeName;
     private String date;

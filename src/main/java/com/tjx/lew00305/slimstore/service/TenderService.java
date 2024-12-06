@@ -18,48 +18,58 @@ public class TenderService {
     private BasketService basketService;
     @Autowired
     private Tender tender;
-        
-    public String addTenderByForm(Form requestForm) {
+    
+    public String addTenderByForm(
+        Form requestForm
+    ) {
         try {
             addFormElements(requestForm.getElements());
-            if(isSale() && getRemaining().compareTo(BigDecimal.ZERO) <= 0) {
-                if(getRemaining().compareTo(BigDecimal.ZERO) < 0) {
-                    tender.add(new TenderLine("cash", "Cash Change", getRemaining(), ""));                
+            if (isSale() &&
+                getRemaining().compareTo(BigDecimal.ZERO) <= 0) {
+                if (getRemaining().compareTo(BigDecimal.ZERO) < 0) {
+                    tender.add(new TenderLine("cash", "Cash Change", getRemaining(), ""));
                 }
                 tender.setComplete();
             }
-            if(isRefund() && getRemaining().compareTo(BigDecimal.ZERO) == 0) {
+            if (isRefund() &&
+                getRemaining().compareTo(BigDecimal.ZERO) == 0) {
                 tender.setComplete();
-            }            
+            }
         } catch (Exception e) {
             return e.getMessage();
         }
         return null;
     }
-
-    public void addFormElements(FormElement[] elements) throws Exception {
-        for(FormElement element : elements) {
+    
+    public void addFormElements(
+        FormElement[] elements
+    ) throws Exception {
+        for (FormElement element : elements) {
             addFormElement(element);
         }
     }
     
-    public void addFormElement(FormElement element) throws Exception {
+    public void addFormElement(
+        FormElement element
+    ) throws Exception {
         BigDecimal value;
-        if(element.getValue().equals("full")) {
+        if (element.getValue().equals("full")) {
             value = basketService.getTotal().subtract(tender.getTotal());
         } else {
             value = new BigDecimal(element.getValue());
-            if(isRefund()) {
+            if (isRefund()) {
                 value = value.negate();
             }
         }
-        if(isRefund() && getRemaining().compareTo(value) > 0) {
+        if (isRefund() &&
+            getRemaining().compareTo(value) > 0) {
             throw new Exception("Refund too high.");
         }
-        if(
-            (isSale() && value.compareTo(BigDecimal.ZERO) > 0) ||
-            (isRefund() && value.compareTo(BigDecimal.ZERO) <= 0 && getRemaining().compareTo(value) <= 0)
-        ) {
+        if ((isSale() &&
+            value.compareTo(BigDecimal.ZERO) > 0) ||
+            (isRefund() &&
+                value.compareTo(BigDecimal.ZERO) <= 0 &&
+                getRemaining().compareTo(value) <= 0)) {
             tender.add(new TenderLine(element.getKey(), element.getLabel(), value, ""));
         } else {
             throw new Exception("Value not allowed");
@@ -70,11 +80,11 @@ public class TenderService {
     public ArrayList<TenderLine> getTenderArrayList() {
         return tender.getArrayList();
     }
-
+    
     public TenderLine[] getTenderArray() {
         return tender.getArray();
     }
-
+    
     public void empty() {
         tender.empty();
     }
@@ -92,13 +102,13 @@ public class TenderService {
     public boolean isComplete() {
         return tender.isComplete();
     }
-
+    
     public boolean isSale() {
         return basketService.getTotal().compareTo(BigDecimal.ZERO) >= 0;
     }
-
+    
     public boolean isRefund() {
         return basketService.getTotal().compareTo(BigDecimal.ZERO) < 0;
     }
-
+    
 }

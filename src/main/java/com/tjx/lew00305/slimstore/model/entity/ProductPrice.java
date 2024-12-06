@@ -1,4 +1,5 @@
 package com.tjx.lew00305.slimstore.model.entity;
+
 import java.math.BigDecimal;
 
 import jakarta.persistence.Entity;
@@ -15,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductPrice {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -25,5 +26,5 @@ public class ProductPrice {
     private Integer countryCode;
     private BigDecimal price;
     private Integer taxRate;
-
+    
 }

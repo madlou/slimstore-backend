@@ -20,5 +20,5 @@ public class TenderLine implements Serializable {
     private String label;
     private BigDecimal value;
     private String reference;
-
+    
 }

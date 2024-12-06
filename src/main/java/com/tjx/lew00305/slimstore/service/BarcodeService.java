@@ -20,65 +20,83 @@ public class BarcodeService {
     @Autowired
     private BarcodeConfig barcodeConfig;
     
-    public Barcode getBarcodeByForm(Form requestForm) {
+    public Barcode getBarcodeByForm(
+        Form requestForm
+    ) {
         return getBarcode(requestForm.getValueByKey("search"));
     }
     
-    public Barcode getBarcode(String value) {
+    public Barcode getBarcode(
+        String value
+    ) {
         BarcodeSpecification spec = getSpecifiction(Region.EU, Banner.TKMAXX);
-        if(!barcodeCheck(value)) {
+        if (!barcodeCheck(value)) {
             return null;
         }
         int counter = 0;
         int length = 0;
         Barcode barcode = new Barcode();
         length = spec.getDivision();
-        if(length > 0) {
-            barcode.setDivision(Integer.parseInt(value.substring(counter, counter + length)));
-            counter += length;            
+        if (length > 0) {
+            barcode.setDivision(Integer.parseInt(value.substring(counter, counter +
+                length)));
+            counter += length;
         }
         length = spec.getDepartment();
-        if(length > 0) {
-            barcode.setDepartment(Integer.parseInt(value.substring(counter, counter + length)));
+        if (length > 0) {
+            barcode.setDepartment(Integer.parseInt(value.substring(counter, counter +
+                length)));
             counter += length;
         }
         length = spec.getCategory();
-        if(length > 0) {
-            barcode.setCategory(Integer.parseInt(value.substring(counter, counter + length)));
+        if (length > 0) {
+            barcode.setCategory(Integer.parseInt(value.substring(counter, counter +
+                length)));
             counter += length;
         }
         length = spec.getStyle();
-        if(length > 0) {barcode.setStyle(Integer.parseInt(value.substring(counter, counter + length)));
+        if (length > 0) {
+            barcode.setStyle(Integer.parseInt(value.substring(counter, counter +
+                length)));
             counter += length;
-            BigDecimal price = new BigDecimal(value.substring(counter, counter + length));
+            BigDecimal price = new BigDecimal(value.substring(counter, counter +
+                length));
             price = price.movePointLeft(2);
             barcode.setPrice(price);
         }
         length = spec.getWeek();
-        if(length > 0) {counter += length;
-            barcode.setWeek(Integer.parseInt(value.substring(counter, counter + length)));        
+        if (length > 0) {
+            counter += length;
+            barcode.setWeek(Integer.parseInt(value.substring(counter, counter +
+                length)));
         }
         return barcode;
     }
     
-    private BarcodeSpecification getSpecifiction(Region region, Banner banner) {
-        for(BarcodeSpecification spec : barcodeConfig.getBarcodeSpecifications()) {
-            if(spec.getRegion().equals(region.name()) && spec.getBanner().equals(banner.name())) {
+    private BarcodeSpecification getSpecifiction(
+        Region region,
+        Banner banner
+    ) {
+        for (BarcodeSpecification spec : barcodeConfig.getBarcodeSpecifications()) {
+            if (spec.getRegion().equals(region.name()) &&
+                spec.getBanner().equals(banner.name())) {
                 return spec;
             }
         }
         return null;
     }
     
-    private boolean barcodeCheck(String value) {
+    private boolean barcodeCheck(
+        String value
+    ) {
         BarcodeSpecification spec = getSpecifiction(Region.EU, Banner.TKMAXX);
         String regExpn = "^[0-9]{" + spec.getLength() + "}$";
         Pattern pattern = Pattern.compile(regExpn);
         Matcher matcher = pattern.matcher(value);
-        if(matcher.matches()) {
+        if (matcher.matches()) {
             return true;
         }
         return false;
     }
-
+    
 }

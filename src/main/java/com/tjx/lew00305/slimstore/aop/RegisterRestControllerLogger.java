@@ -14,13 +14,14 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 public class RegisterRestControllerLogger {
-
+    
     @Pointcut("execution(public * com.tjx.lew00305.slimstore.controller.RegisterController.registerQuery(..))")
-    private void registerQueryFromRestController() {
-    }
+    private void registerQueryFromRestController() {}
     
     @Before(value = "registerQueryFromRestController()")
-    public void logBefore(JoinPoint joinPoint) {
+    public void logBefore(
+        JoinPoint joinPoint
+    ) {
         Object[] args = joinPoint.getArgs();
         String methodName = joinPoint.getSignature().getName();
         log.info(">> {}() - {}", methodName, Arrays.toString(args));

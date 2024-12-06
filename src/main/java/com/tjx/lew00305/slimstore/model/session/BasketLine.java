@@ -32,5 +32,5 @@ public class BasketLine implements Serializable {
     public BigDecimal getLineValue() {
         return unitValue.multiply(new BigDecimal(getSignedQuantity()));
     }
-
+    
 }

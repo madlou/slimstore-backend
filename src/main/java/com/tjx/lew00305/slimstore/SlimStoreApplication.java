@@ -5,9 +5,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class SlimStoreApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(SlimStoreApplication.class, args);
-	}
-	 //"9206603710000999"
+    
+    public static void main(
+        String[] args
+    ) {
+        SpringApplication.run(SlimStoreApplication.class, args);
+    }
+    // "9206603710000999"
 }

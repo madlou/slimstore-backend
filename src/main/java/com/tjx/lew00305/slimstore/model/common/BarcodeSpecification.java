@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class BarcodeSpecification {
-
+    
     String region;
     String type;
     String banner;

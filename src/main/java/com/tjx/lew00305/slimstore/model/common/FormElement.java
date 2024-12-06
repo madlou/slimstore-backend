@@ -36,5 +36,5 @@ public class FormElement {
     private BigDecimal price;
     private Integer quantity;
     private FormElementButton button;
-
+    
 }

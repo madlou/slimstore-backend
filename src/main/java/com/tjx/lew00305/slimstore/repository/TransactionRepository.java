@@ -12,12 +12,25 @@ import com.tjx.lew00305.slimstore.model.entity.Transaction;
 import com.tjx.lew00305.slimstore.model.report.TransactionTenderAggregationInterface;
 
 public interface TransactionRepository extends CrudRepository<Transaction, Integer> {
-
-    List<Transaction> findByRegisterAndDateBetweenOrderByDateAsc(StoreRegister register, LocalDateTime start, LocalDateTime stop);
-    List<Transaction> findByStoreAndDateBetweenOrderByDateAsc(Store store, LocalDateTime start, LocalDateTime stop);
-    List<Transaction> findByDateBetweenOrderByDateAsc(LocalDateTime start, LocalDateTime stop);    
-    @Query(value = 
-        "SELECT " + 
+    
+    List<Transaction> findByRegisterAndDateBetweenOrderByDateAsc(
+        StoreRegister register,
+        LocalDateTime start,
+        LocalDateTime stop
+    );
+    
+    List<Transaction> findByStoreAndDateBetweenOrderByDateAsc(
+        Store store,
+        LocalDateTime start,
+        LocalDateTime stop
+    );
+    
+    List<Transaction> findByDateBetweenOrderByDateAsc(
+        LocalDateTime start,
+        LocalDateTime stop
+    );
+    
+    @Query(value = "SELECT " +
         "s.number AS 'store', " +
         "s.name AS 'storeName', " +
         "DATE(x.date) AS 'date', " +
@@ -44,10 +57,21 @@ public interface TransactionRepository extends CrudRepository<Transaction, Integ
         "s.number ASC, " +
         "r.number ASC, " +
         "DATE(x.date) ASC, " +
-        "t.type ASC "
-        , nativeQuery = true)
-    List<TransactionTenderAggregationInterface> aggregateTenders(String reg, String store, LocalDateTime start, LocalDateTime stop);
-    Transaction findByStoreAndRegisterAndNumberAndDateBetween(Store store, StoreRegister regNumber, Integer txnNumber, LocalDateTime start, LocalDateTime stop);
+        "t.type ASC ", nativeQuery = true)
+    List<TransactionTenderAggregationInterface> aggregateTenders(
+        String reg,
+        String store,
+        LocalDateTime start,
+        LocalDateTime stop
+    );
+    
+    Transaction findByStoreAndRegisterAndNumberAndDateBetween(
+        Store store,
+        StoreRegister regNumber,
+        Integer txnNumber,
+        LocalDateTime start,
+        LocalDateTime stop
+    );
 }
 
 //record TransactionsOnly(

@@ -9,10 +9,10 @@ import com.tjx.lew00305.slimstore.model.common.BarcodeSpecification;
 @Configuration
 @ImportResource("classpath:barcode/*.xml")
 public class BarcodeConfig {
-        
-    @Autowired    
+    
+    @Autowired
     private BarcodeSpecification[] barcodeSpecifications;
-        
+    
     public BarcodeSpecification[] getBarcodeSpecifications() {
         return barcodeSpecifications;
     }

@@ -13,12 +13,18 @@ public class GiftCardService {
     
     @Autowired
     private LocationService locationService;
-
-    public void topupQueue(String card, BigDecimal value, Integer transactionNumber) {
+    
+    public void topupQueue(
+        String card,
+        BigDecimal value,
+        Integer transactionNumber
+    ) {
         // TODO Auto-generated method stub
     }
     
-    public FormElement topupByForm(Form requestForm) {
+    public FormElement topupByForm(
+        Form requestForm
+    ) {
         String card = requestForm.getValueByKey("card");
         BigDecimal value = requestForm.getBigDecimalValueByKey("amount");
         topup(card, value);
@@ -31,9 +37,13 @@ public class GiftCardService {
         return element;
     }
     
-    public void topup(String card, BigDecimal value) {
-        Integer transactionNumber = locationService.getStoreRegister().getLastTxnNumber() + 1;
+    public void topup(
+        String card,
+        BigDecimal value
+    ) {
+        Integer transactionNumber = locationService.getStoreRegister().getLastTxnNumber() +
+            1;
         topupQueue(card, value, transactionNumber);
     }
-
+    
 }

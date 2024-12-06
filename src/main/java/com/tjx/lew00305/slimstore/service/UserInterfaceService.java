@@ -14,9 +14,9 @@ public class UserInterfaceService {
     private HttpServletRequest request;
     @Autowired
     private TranslationService translationService;
-
+    
     public UserInterfaceTranslationDTO getUserInterfaceTranslations() {
         return translationService.getUserInterfaceTranslations(request.getLocale());
     }
-
+    
 }

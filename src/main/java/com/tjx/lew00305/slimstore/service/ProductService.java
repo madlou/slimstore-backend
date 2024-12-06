@@ -12,22 +12,27 @@ import com.tjx.lew00305.slimstore.model.common.FormElement;
 
 @Service
 public class ProductService {
-
+    
     @Autowired
     private RestTemplate restTemplate;
-
+    
     @Value("${tjx.online.search}")
     private String onlineSearchUrl;
     
-    public FormElement[] search(String query) {
+    public FormElement[] search(
+        String query
+    ) {
         return onlineSearch(query);
     }
     
-    public FormElement[] onlineSearch(String query) {
-        TjxComSearchDTO search = restTemplate.getForObject(onlineSearchUrl + query, TjxComSearchDTO.class);
+    public FormElement[] onlineSearch(
+        String query
+    ) {
+        TjxComSearchDTO search = restTemplate.getForObject(onlineSearchUrl +
+            query, TjxComSearchDTO.class);
         int productCount = search.response.docs.length;
         FormElement[] products = new FormElement[productCount];
-        for(int i=0; i< productCount; i++) {
+        for (int i = 0; i < productCount; i++) {
             TjxComSearchDTO.Response.Doc doc = search.response.docs[i];
             FormElement element = new FormElement();
             element.setType(FormElement.Type.PRODUCT_WEB);
@@ -41,6 +46,4 @@ public class ProductService {
         return products;
     }
     
-    
-
 }

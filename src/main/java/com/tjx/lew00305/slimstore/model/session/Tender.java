@@ -11,12 +11,14 @@ import org.springframework.web.context.annotation.SessionScope;
 @Component
 @SessionScope
 public class Tender implements Serializable {
-
+    
     private ArrayList<TenderLine> tender = new ArrayList<TenderLine>();
     
     private boolean isComplete = false;
     
-    public void add(TenderLine tenderLine) {
+    public void add(
+        TenderLine tenderLine
+    ) {
         tender.add(tenderLine);
     }
     
@@ -25,7 +27,7 @@ public class Tender implements Serializable {
         isComplete = false;
     }
     
-    public ArrayList<TenderLine> getArrayList(){
+    public ArrayList<TenderLine> getArrayList() {
         return tender;
     }
     
@@ -35,7 +37,7 @@ public class Tender implements Serializable {
     
     public BigDecimal getTotal() {
         BigDecimal total = new BigDecimal(0);
-        for(TenderLine line : tender) {
+        for (TenderLine line : tender) {
             total = total.add(line.getValue());
         }
         return total;
@@ -48,5 +50,5 @@ public class Tender implements Serializable {
     public boolean isComplete() {
         return isComplete;
     }
-
+    
 }

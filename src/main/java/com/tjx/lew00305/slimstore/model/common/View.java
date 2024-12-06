@@ -34,7 +34,7 @@ public class View {
         VOID,
         VOID_POST,
     }
-
+    
     private ViewName name;
     private String title = "";
     private String message = "";
@@ -42,5 +42,5 @@ public class View {
     private FunctionButton[] functionButtons = new FunctionButton[0];
     private Locale locale;
     private String cacheKey;
-        
+    
 }

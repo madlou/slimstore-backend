@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.tjx.lew00305.slimstore.model.common.Form;
-import com.tjx.lew00305.slimstore.model.common.FormElementButton;
-import com.tjx.lew00305.slimstore.model.common.View.ViewName;
 import com.tjx.lew00305.slimstore.model.common.FormElement;
 import com.tjx.lew00305.slimstore.model.common.FormElement.Type;
+import com.tjx.lew00305.slimstore.model.common.FormElementButton;
+import com.tjx.lew00305.slimstore.model.common.View.ViewName;
 import com.tjx.lew00305.slimstore.model.entity.User;
 import com.tjx.lew00305.slimstore.model.session.UserSession;
 import com.tjx.lew00305.slimstore.repository.UserRepository;
@@ -21,66 +21,72 @@ public class UserService {
     @Autowired
     private TranslationService translationService;
     @Autowired
-    private UserRepository userRepository;    
+    private UserRepository userRepository;
     @Autowired
     private UserSession userSession;
-        
+    
     @Value("${tjx.admin.password}")
     private String adminPassword;
-
     
     public User getUserFromSession() {
         User user = userSession.getUser();
-        if(user == null || user.getCode() == null) {
+        if (user == null ||
+            user.getCode() == null) {
             return null;
         }
         return userSession.getUser();
     }
     
-    public User addUser(String username, String name, String email, String password) throws Exception {
-        User user = userRepository.save(new User(null, username, email, name, password));            
+    public User addUser(
+        String username,
+        String name,
+        String email,
+        String password
+    ) throws Exception {
+        User user = userRepository.save(new User(null, username, email, name, password));
         return user;
     }
     
-    public User saveUser(String username, String name, String email, String password) throws Exception {
+    public User saveUser(
+        String username,
+        String name,
+        String email,
+        String password
+    ) throws Exception {
         User user = userRepository.findByCode(username);
         user.setName(name);
         user.setEmail(email);
-        if(password.length() > 0) {
-            user.setPassword(password);            
+        if (password.length() > 0) {
+            user.setPassword(password);
         }
-        return userRepository.save(user);            
+        return userRepository.save(user);
     }
     
-    public String addUserByForm(Form requestForm) {
+    public String addUserByForm(
+        Form requestForm
+    ) {
         try {
-            addUser(
-                requestForm.getValueByKey("code"),
-                requestForm.getValueByKey("name"),
-                requestForm.getValueByKey("email"),
-                requestForm.getValueByKey("password")
-            );
+            addUser(requestForm.getValueByKey("code"), requestForm.getValueByKey("name"), requestForm.getValueByKey("email"), requestForm.getValueByKey(
+                "password"));
             return null;
         } catch (Exception e) {
-            if(e.getMessage().contains("Duplicate entry")) {
-                return "Unable to create user, employee number already being used.";                            
+            if (e.getMessage().contains("Duplicate entry")) {
+                return "Unable to create user, employee number already being used.";
             } else {
-                return "Unable to create user '" +  e.getMessage() + "'";
+                return "Unable to create user '" + e.getMessage() + "'";
             }
         }
     }
     
-    public String saveUserByForm(Form requestForm) {
+    public String saveUserByForm(
+        Form requestForm
+    ) {
         try {
-            saveUser(
-                requestForm.getValueByKey("code"),
-                requestForm.getValueByKey("name"),
-                requestForm.getValueByKey("email"),
-                requestForm.getValueByKey("password")
-            );
+            saveUser(requestForm.getValueByKey("code"), requestForm.getValueByKey("name"), requestForm.getValueByKey("email"), requestForm.getValueByKey(
+                "password"));
             return null;
         } catch (Exception e) {
-            return "Unable to save user: " +  e.getMessage();
+            return "Unable to save user: " + e.getMessage();
         }
     }
     
@@ -91,10 +97,13 @@ public class UserService {
     public User getUser() {
         return userSession.getUser();
     }
-
-    public User getUser(String username) {
+    
+    public User getUser(
+        String username
+    ) {
         User user = userRepository.findByCode(username);
-        if(user == null && username.equals("admin")) {
+        if (user == null &&
+            username.equals("admin")) {
             try {
                 return addUser("admin", "Admin Person", "admin@admin.com", adminPassword);
             } catch (Exception e) {
@@ -106,7 +115,8 @@ public class UserService {
     
     public Boolean isLoggedIn() {
         User user = getUser();
-        if(user == null || user.getCode() == null) {
+        if (user == null ||
+            user.getCode() == null) {
             return false;
         }
         return true;
@@ -118,22 +128,29 @@ public class UserService {
     
     public Boolean isUserAdmin() {
         User user = getUser();
-        if(user == null || !user.getCode().equals("admin")) {
+        if (user == null ||
+            !user.getCode().equals("admin")) {
             return false;
         }
         return true;
     }
-        
-    public User validateLogin(String username, String password) throws Exception {
+    
+    public User validateLogin(
+        String username,
+        String password
+    ) throws Exception {
         User user = getUser(username);
-        if(user != null && user.getPassword().equals(password)) {
+        if (user != null &&
+            user.getPassword().equals(password)) {
             userSession.setUser(user);
             return user;
         }
         return null;
     }
     
-    public User validateLoginByForm(Form requestForm) {
+    public User validateLoginByForm(
+        Form requestForm
+    ) {
         String username = requestForm.getValueByKey("code");
         String password = requestForm.getValueByKey("password");
         try {
@@ -147,13 +164,13 @@ public class UserService {
     public void logout() {
         userSession.setUser(new User());
     }
-
+    
     public FormElement[] getUsersAsFormElements() {
         Iterable<User> users = userRepository.findAll();
         ArrayList<FormElement> elements = new ArrayList<FormElement>();
         String editTranslation = translationService.translate("ui.edit");
-        for(User user: users) {
-            if(!user.getCode().equals("admin")) {
+        for (User user : users) {
+            if (!user.getCode().equals("admin")) {
                 FormElement editFormElement = new FormElement();
                 editFormElement.setKey("code");
                 editFormElement.setValue(user.getCode());
@@ -175,5 +192,5 @@ public class UserService {
         }
         return elements.toArray(new FormElement[0]);
     }
-
+    
 }

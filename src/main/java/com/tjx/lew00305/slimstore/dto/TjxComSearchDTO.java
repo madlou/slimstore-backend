@@ -3,7 +3,7 @@ package com.tjx.lew00305.slimstore.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class TjxComSearchDTO {
-
+    
     public Response response;
     @JsonProperty("category_map")
     public Object categoryMap;
@@ -21,7 +21,7 @@ public class TjxComSearchDTO {
         public FacetCounts facetCounts;
         
         public static class Doc {
-                        
+            
             public String description;
             public float price;
             public String url;
@@ -62,15 +62,15 @@ public class TjxComSearchDTO {
             @JsonProperty("fmt_save_price")
             public String fmtSavePrice;
             @JsonProperty("save_price")
-            public int savePrice; 
-            public int rrp; 
-            public int stock; 
+            public int savePrice;
+            public int rrp;
+            public int stock;
             @JsonProperty("bundle_skuid")
-            public String bundleSkuid; 
+            public String bundleSkuid;
             @JsonProperty("percent_saving")
-            public int percentSaving; 
+            public int percentSaving;
             @JsonProperty("was_price")
-            public int wasPrice; 
+            public int wasPrice;
             @JsonProperty("is_low_stock")
             public String isLowStock;
             @JsonProperty("mh_dept")
@@ -83,7 +83,7 @@ public class TjxComSearchDTO {
                 public String skuid;
                 
             }
-
+            
         }
         
         public static class FacetCounts {
@@ -141,10 +141,7 @@ public class TjxComSearchDTO {
                 
             }
             
-            
-            
         }
-        
         
     }
     
@@ -192,16 +189,5 @@ public class TjxComSearchDTO {
         }
         
     }
-
+    
 }
-
-
-
-
-
-
-
-
-
-
-
