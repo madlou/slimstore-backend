@@ -77,7 +77,7 @@ public class LocationService {
         StoreRegister storeRegister = store.getRegisterByNumber(registerNumber);
         setLocation(store, storeRegister);
     }
-
+    
     public void setLocation(
         Store store,
         StoreRegister register
@@ -87,6 +87,13 @@ public class LocationService {
             locationSession.setStore(store);
             locationSession.setStoreRegister(register);
         }
+    }
+
+    public void setLocation(
+        String storeNumber,
+        String registerNumber
+    ) {
+        setLocation(Integer.parseInt(storeNumber), Integer.parseInt(registerNumber));
     }
 
     public void setTransactionNumber(

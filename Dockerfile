@@ -1,7 +1,7 @@
 #
 # Build stage
 #
-FROM eclipse-temurin:17-jdk-jammy AS build
+FROM eclipse-temurin:21-jdk-jammy AS build
 ENV HOME=/usr/app
 RUN mkdir -p $HOME
 WORKDIR $HOME
@@ -14,7 +14,7 @@ RUN ./mvnw clean package -Dmaven.test.skip=true
 #
 # Package stage
 #
-FROM eclipse-temurin:17-jre-jammy 
+FROM eclipse-temurin:21-jdk-jammy 
 ENV MYSQL_HOST=db
 ENV MYSQL_PORT=3306
 ENV MYSQL_DATABASE=slimstore_prod
