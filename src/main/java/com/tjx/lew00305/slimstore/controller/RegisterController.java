@@ -17,8 +17,6 @@ import com.tjx.lew00305.slimstore.model.entity.Store;
 import com.tjx.lew00305.slimstore.service.UserService;
 import com.tjx.lew00305.slimstore.service.ViewService;
 
-import jakarta.servlet.http.HttpServletRequest;
-
 import com.tjx.lew00305.slimstore.service.BarcodeService;
 import com.tjx.lew00305.slimstore.service.BasketService;
 import com.tjx.lew00305.slimstore.service.GiftCardService;
@@ -26,7 +24,7 @@ import com.tjx.lew00305.slimstore.service.LocationService;
 import com.tjx.lew00305.slimstore.service.TenderService;
 import com.tjx.lew00305.slimstore.service.TransactionReportService;
 import com.tjx.lew00305.slimstore.service.TransactionService;
-import com.tjx.lew00305.slimstore.service.TranslationService;
+import com.tjx.lew00305.slimstore.service.UserInterfaceService;
 
 @RestController
 public class RegisterController {
@@ -42,6 +40,8 @@ public class RegisterController {
     @Autowired
     private BarcodeService barcodeService;
     @Autowired
+    private UserInterfaceService userInterfaceService;
+    @Autowired
     private UserService userService;
     @Autowired
     private ViewService viewService;
@@ -49,15 +49,11 @@ public class RegisterController {
     private TransactionService transactionService;
     @Autowired
     private TransactionReportService transactionReportService;
-    @Autowired
-    private TranslationService translationService;
-    @Autowired
-    private HttpServletRequest request;
 
     @PostMapping(path = "/api/register")
     public @ResponseBody RegisterResponseDTO registerQuery(
-            @RequestBody RegisterRequestDTO requestForm,
-            @CookieValue(name = "store-register", required = false) String storeRegCookie
+        @RequestBody RegisterRequestDTO requestForm,
+        @CookieValue(name = "store-register", required = false) String storeRegCookie
     ) {
         String errorMessage = null;
         RegisterResponseDTO response = new RegisterResponseDTO();
@@ -151,7 +147,7 @@ public class RegisterController {
         response.setBasket(basketService.getBasketArray());
         response.setTender(tenderService.getTenderArray());
         response.setUser(userService.getUser());
-        response.setUiTranslations(translationService.getUserInterfaceTranslations(request.getLocale()));
+        response.setUiTranslations(userInterfaceService.getUserInterfaceTranslations());
         return response;
     }
     

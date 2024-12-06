@@ -59,7 +59,7 @@ public class TranslationService {
         return uiTranslation;
     }
 
-    @Cacheable(value = "view", key="#view.cacheKey")
+    @Cacheable(value = "viewTranslations", key="#view.cacheKey")
     public View translateView(View view) {
         Locale locale = view.getLocale();
         String crumb = "view." + view.getName().toString().toLowerCase() + ".";
