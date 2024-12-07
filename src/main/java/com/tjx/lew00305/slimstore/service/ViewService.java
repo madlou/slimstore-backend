@@ -90,6 +90,13 @@ public class ViewService {
                 break;
             case STORE_SETUP:
                 responseForm.setValueByKey("name", locationService.getStore().getName());
+                responseForm.setValueByKey("countryCode", locationService.getStore().getCountryCode().toString());
+                responseForm.setValueByKey("currencyCode", locationService.getStore().getCurrencyCode().toString());
+                responseForm.setValueByKey("address1", locationService.getStore().getAddress1());
+                responseForm.setValueByKey("address2", locationService.getStore().getAddress2());
+                responseForm.setValueByKey("city", locationService.getStore().getCity());
+                responseForm.setValueByKey("postCode", locationService.getStore().getPostCode());
+                responseForm.setValueByKey("phoneNumber", locationService.getStore().getPhoneNumber());
                 break;
             case USER_EDIT:
                 User editUser = userService.getUser(requestForm.getValueByKey("code"));

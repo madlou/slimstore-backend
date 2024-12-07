@@ -2,6 +2,8 @@ package com.tjx.lew00305.slimstore.service;
 
 import org.springframework.stereotype.Service;
 
+import com.tjx.lew00305.slimstore.enums.Country;
+import com.tjx.lew00305.slimstore.enums.Currency;
 import com.tjx.lew00305.slimstore.model.common.Form;
 import com.tjx.lew00305.slimstore.model.entity.Store;
 import com.tjx.lew00305.slimstore.model.entity.StoreRegister;
@@ -11,12 +13,12 @@ import com.tjx.lew00305.slimstore.repository.StoreRepository;
 
 @Service
 public class LocationService {
-
+    
     private StoreRepository storeRepository;
     private StoreRegisterRepository storeRegisterRepository;
     private LocationSession locationSession;
     private UserService userService;
-
+    
     public LocationService(
         StoreRepository storeRepository,
         StoreRegisterRepository storeRegisterRepository,
@@ -28,7 +30,7 @@ public class LocationService {
         this.locationSession = locationSession;
         this.userService = userService;
     }
-    
+
     private StoreRegister createRegister(
         Store store,
         Integer registerNumber
@@ -41,7 +43,7 @@ public class LocationService {
         storeRegister = storeRegisterRepository.save(storeRegister);
         return storeRegister;
     }
-
+    
     private Store createStore(
         Integer storeNumber,
         Integer registerNumber
@@ -49,26 +51,26 @@ public class LocationService {
         Store store = new Store();
         store.setNumber(storeNumber);
         store.setName("Unset");
-        store.setCountryCode("Unset");
+        store.setCountryCode(Country.UK);
         store = storeRepository.save(store);
         store.getRegisters().add(createRegister(store, registerNumber));
         return store;
     }
-
+    
     public Store getStore() {
         return locationSession.getStore();
     }
-
+    
     public Store getStore(
         Integer number
     ) {
         return storeRepository.findByNumber(number);
     }
-
+    
     public StoreRegister getStoreRegister() {
         return locationSession.getStoreRegister();
     }
-
+    
     public void setLocation(
         Integer storeNumber,
         Integer registerNumber
@@ -77,7 +79,7 @@ public class LocationService {
         StoreRegister storeRegister = store.getRegisterByNumber(registerNumber);
         setLocation(store, storeRegister);
     }
-    
+
     public void setLocation(
         Store store,
         StoreRegister register
@@ -88,14 +90,14 @@ public class LocationService {
             locationSession.setStoreRegister(register);
         }
     }
-
+    
     public void setLocation(
         String storeNumber,
         String registerNumber
     ) {
         setLocation(Integer.parseInt(storeNumber), Integer.parseInt(registerNumber));
     }
-
+    
     public void setTransactionNumber(
         Integer id,
         Integer txnNumber
@@ -105,16 +107,22 @@ public class LocationService {
         storeRegisterRepository.save(reg);
         locationSession.getStoreRegister().setLastTxnNumber(txnNumber);;
     }
-
+    
     public void updateStoreByForm(
         Form requestForm
     ) {
-        String storeName = requestForm.getValueByKey("name");
         Store store = getStore();
-        store.setName(storeName);
+        store.setName(requestForm.getValueByKey("name"));
+        store.setCountryCode(Country.valueOf(requestForm.getValueByKey("countryCode")));
+        store.setCurrencyCode(Currency.valueOf(requestForm.getValueByKey("currencyCode")));
+        store.setAddress1(requestForm.getValueByKey("address1"));
+        store.setAddress2(requestForm.getValueByKey("address2"));
+        store.setCity(requestForm.getValueByKey("city"));
+        store.setPostCode(requestForm.getValueByKey("postCode"));
+        store.setPhoneNumber(requestForm.getValueByKey("phoneNumber"));
         storeRepository.save(store);
     }
-
+    
     public String validateLocationByForm(
         Form requestForm
     ) {
@@ -139,5 +147,5 @@ public class LocationService {
         setLocation(store, storeRegister);
         return null;
     }
-
+    
 }

@@ -23,6 +23,61 @@
                             <property name="label" value="Store Name" />
                         </bean>
                         <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                            <property name="type" value="select" />
+                            <property name="key" value="countryCode" />
+                            <property name="label" value="Country" />
+                            <property name="options">
+                                <array value-type="java.lang.String">
+                                    <value>CA</value>
+                                    <value>DE</value>
+                                    <value>FR</value>
+                                    <value>IE</value>
+                                    <value>UK</value>
+                                    <value>US</value>
+                                </array>
+                            </property>
+                            <property name="value" value="CA" />
+                        </bean>
+                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                            <property name="type" value="select" />
+                            <property name="key" value="currencyCode" />
+                            <property name="label" value="Currency" />
+                            <property name="options">
+                                <array value-type="java.lang.String">
+                                    <value>EUR</value>
+                                    <value>GBP</value>
+                                    <value>PLN</value>
+                                    <value>USD</value>
+                                </array>
+                            </property>
+                            <property name="value" value="EUR" />
+                        </bean>
+                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                            <property name="type" value="text" />
+                            <property name="key" value="address1" />
+                            <property name="label" value="Address 1" />
+                        </bean>
+                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                            <property name="type" value="text" />
+                            <property name="key" value="address2" />
+                            <property name="label" value="Address 2" />
+                        </bean>
+                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                            <property name="type" value="text" />
+                            <property name="key" value="city" />
+                            <property name="label" value="City" />
+                        </bean>
+                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                            <property name="type" value="text" />
+                            <property name="key" value="postCode" />
+                            <property name="label" value="Post Code" />
+                        </bean>
+                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                            <property name="type" value="text" />
+                            <property name="key" value="phoneNumber" />
+                            <property name="label" value="Telephone Number" />
+                        </bean>
+                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                             <property name="type" value="submit" />
                             <property name="key" value="submit" />
                             <property name="label" value="Submit" />
