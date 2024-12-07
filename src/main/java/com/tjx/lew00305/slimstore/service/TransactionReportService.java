@@ -24,10 +24,10 @@ import com.tjx.lew00305.slimstore.repository.TransactionRepository;
 
 @Service
 public class TransactionReportService {
-
+    
     private TransactionRepository txnRepo;
     private LocationService locationService;
-
+    
     public TransactionReportService(
         TransactionRepository txnRepo,
         LocationService locationService
@@ -35,7 +35,7 @@ public class TransactionReportService {
         this.txnRepo = txnRepo;
         this.locationService = locationService;
     }
-    
+
     private List<TransactionAudit> getTransactionAudit(
         List<Transaction> data
     ) {
@@ -63,7 +63,7 @@ public class TransactionReportService {
         }
         return report;
     }
-
+    
     private List<TransactionFlat> getTransactionFlat(
         List<Transaction> data
     ) {
@@ -79,12 +79,13 @@ public class TransactionReportService {
             line.setRegister(txnRow.getRegister().getNumber());
             line.setTransaction(txnRow.getNumber());
             line.setUser(txnRow.getUser().getName());
+            line.setCurrency(txnRow.getCurrencyCode());
             line.setTotal(txnRow.getTotal());
             report.add(line);
         }
         return report;
     }
-
+    
     private List<TransactionLineFlat> getTransactionLineFlat(
         List<Transaction> data
     ) {
@@ -111,11 +112,11 @@ public class TransactionReportService {
         }
         return report;
     }
-
+    
     public Iterable<Transaction> getTransactionReport() {
         return txnRepo.findAll();
     }
-
+    
     private List<TransactionTenderAggregation> getTransactionTenderAggregation(
         List<TransactionTenderAggregationInterface> data
     ) {
@@ -132,7 +133,7 @@ public class TransactionReportService {
         }
         return report;
     }
-
+    
     private List<TransactionTenderFlat> getTransactionTenderFlat(
         List<Transaction> data
     ) {
@@ -157,7 +158,7 @@ public class TransactionReportService {
         }
         return report;
     }
-
+    
     @SuppressWarnings("rawtypes")
     public List runReport(
         String scope,
@@ -165,8 +166,7 @@ public class TransactionReportService {
         Integer days
     ) {
         String reportName = scope + " " + name;
-        LocalDateTime start = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0).minusDays(days -
-            1);
+        LocalDateTime start = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0).minusDays(days - 1);
         LocalDateTime stop = LocalDateTime.now().withHour(23).withMinute(59).withSecond(59).withNano(999_999_999);
         Store store = locationService.getStore();
         String storeNumber = "" + store.getNumber();
@@ -206,12 +206,12 @@ public class TransactionReportService {
         }
         return null;
     }
-
+    
     @SuppressWarnings("rawtypes")
     public List runReportByForm(
         Form requestForm
     ) {
         return runReport(requestForm.getValueByKey("scope"), requestForm.getValueByKey("report"), requestForm.getIntegerValueByKey("days"));
     }
-
+    
 }
