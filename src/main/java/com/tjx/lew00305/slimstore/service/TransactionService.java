@@ -19,7 +19,7 @@ import com.tjx.lew00305.slimstore.repository.TransactionTenderRepository;
 
 @Service
 public class TransactionService {
-    
+
     private TransactionRepository txnRepo;
     private TransactionLineRepository lineRepo;
     private TransactionTenderRepository tenderRepo;
@@ -27,7 +27,7 @@ public class TransactionService {
     private BasketService basketService;
     private TenderService tenderService;
     private UserService userService;
-    
+
     public TransactionService(
         TransactionRepository txnRepo,
         TransactionLineRepository lineRepo,
@@ -45,7 +45,7 @@ public class TransactionService {
         this.tenderService = tenderService;
         this.userService = userService;
     }
-
+    
     public void addTransaction() {
         Integer txnNumber = 1 +
             locationService.getStoreRegister().getLastTxnNumber();
@@ -56,6 +56,7 @@ public class TransactionService {
         transaction.setUser(userService.getUser());
         transaction.setNumber(txnNumber);
         transaction.setDate(new Timestamp(System.currentTimeMillis()));
+        transaction.setCurrencyCode(locationService.getStore().getCurrencyCode());
         transaction.setTotal(basketService.getTotal());
         transaction = txnRepo.save(transaction);
         Integer counter = 1;
@@ -94,7 +95,7 @@ public class TransactionService {
             tenderRepo.save(txnTender);
         }
     }
-    
+
     public Transaction getTransaction(
         Integer storeNumber,
         Integer regNumber,
@@ -107,5 +108,5 @@ public class TransactionService {
         LocalDateTime stop = LocalDateTime.parse(date + "T23:59:59");
         return txnRepo.findByStoreAndRegisterAndNumberAndDateBetween(store, register, txnNumber, start, stop);
     }
-    
+
 }

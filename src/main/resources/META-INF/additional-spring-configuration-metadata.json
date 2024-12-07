@@ -6,6 +6,11 @@
             "description": "Admin Password"
         },
         {
+            "name": "tjx.app.demo",
+            "type": "boolean",
+            "description": "Demo setting"
+        },
+        {
             "name": "tjx.online.search",
             "type": "java.lang.String",
             "description": "Product API URL"

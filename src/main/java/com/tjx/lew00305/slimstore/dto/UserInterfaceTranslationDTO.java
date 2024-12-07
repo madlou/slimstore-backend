@@ -4,14 +4,16 @@ import lombok.Data;
 
 @Data
 public class UserInterfaceTranslationDTO {
-
+    
     private String administrator;
+    private String associate;
     private String check;
     private String currencySymbol;
     private String date;
     private String devmessage1;
     private String devmessage2;
     private String devmessage3;
+    private String devmessage4;
     private String difference;
     private String edit;
     private String header;
@@ -20,6 +22,7 @@ public class UserInterfaceTranslationDTO {
     private String lineTotal;
     private String lineValue;
     private String logo;
+    private String manager;
     private String number;
     private String password;
     private String product;
@@ -41,5 +44,5 @@ public class UserInterfaceTranslationDTO {
     private String type;
     private String user;
     private String value;
-    
+
 }

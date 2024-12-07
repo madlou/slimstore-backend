@@ -5,8 +5,11 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tjx.lew00305.slimstore.enums.Currency;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,7 +26,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Transaction {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
@@ -42,12 +45,14 @@ public class Transaction {
     private User user;
     private Integer number;
     private Timestamp date;
+    @Enumerated(EnumType.STRING)
+    private Currency currencyCode;
     private BigDecimal total;
     @OneToMany(mappedBy = "transaction", fetch = FetchType.EAGER)
     private List<TransactionLine> lines;
     @OneToMany(mappedBy = "transaction", fetch = FetchType.EAGER)
     private List<TransactionTender> tenders;
-
+    
     public BigDecimal getLineTotal() {
         BigDecimal total = BigDecimal.valueOf(0);
         for (TransactionLine line : getLines()) {
@@ -55,7 +60,7 @@ public class Transaction {
         }
         return total;
     }
-
+    
     public BigDecimal getTenderTotal() {
         BigDecimal total = BigDecimal.valueOf(0);
         for (TransactionTender line : getTenders()) {
@@ -63,5 +68,5 @@ public class Transaction {
         }
         return total;
     }
-
+    
 }

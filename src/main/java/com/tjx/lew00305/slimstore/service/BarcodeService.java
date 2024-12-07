@@ -15,18 +15,21 @@ import com.tjx.lew00305.slimstore.model.common.Form;
 
 @Service
 public class BarcodeService {
-    
+
     private BarcodeConfig barcodeConfig;
-    
+
     public BarcodeService(
         BarcodeConfig barcodeConfig
     ) {
         this.barcodeConfig = barcodeConfig;
     }
-
+    
     private boolean barcodeCheck(
         String value
     ) {
+        if (value == null) {
+            return false;
+        }
         BarcodeSpecification spec = getSpecifiction(Region.EU, Banner.TKMAXX);
         String regExpn = "^[0-9]{" + spec.getLength() + "}$";
         Pattern pattern = Pattern.compile(regExpn);
@@ -36,7 +39,7 @@ public class BarcodeService {
         }
         return false;
     }
-    
+
     public Barcode getBarcode(
         String value
     ) {
@@ -83,13 +86,13 @@ public class BarcodeService {
         }
         return barcode;
     }
-    
+
     public Barcode getBarcodeByForm(
         Form requestForm
     ) {
         return getBarcode(requestForm.getValueByKey("search"));
     }
-    
+
     private BarcodeSpecification getSpecifiction(
         Region region,
         Banner banner
@@ -102,5 +105,5 @@ public class BarcodeService {
         }
         return null;
     }
-    
+
 }

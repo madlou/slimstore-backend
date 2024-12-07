@@ -5,9 +5,12 @@ import java.io.Serializable;
 import org.springframework.web.context.annotation.SessionScope;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tjx.lew00305.slimstore.enums.UserRole;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,7 +25,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @SessionScope
 public class User implements Serializable {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -32,5 +35,7 @@ public class User implements Serializable {
     private String name;
     @JsonIgnore
     private String password;
-
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
+    
 }

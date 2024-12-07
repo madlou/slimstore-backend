@@ -38,6 +38,18 @@
                             <property name="label" value="Password" />
                         </bean>
                         <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                            <property name="type" value="select" />
+                            <property name="key" value="role" />
+                            <property name="label" value="Role" />
+                            <property name="options">
+                                <array value-type="java.lang.String">
+                                    <value>ASSOCIATE</value>
+                                    <value>MANAGER</value>
+                                </array>
+                            </property>
+                            <property name="value" value="ASSOCIATE" />
+                        </bean>
+                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                             <property name="type" value="submit" />
                             <property name="label" value="Create" />
                         </bean>

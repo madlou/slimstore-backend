@@ -38,6 +38,7 @@
                             <property name="targetView" value="USER_LIST" />
                         </bean>
                     </property>
+                    <property name="condition" value="user.role != ASSOCIATE" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="3" />
@@ -47,6 +48,7 @@
                             <property name="targetView" value="REPORTS" />
                         </bean>
                     </property>
+                    <property name="condition" value="user.role != ASSOCIATE" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="6" />
@@ -56,6 +58,7 @@
                             <property name="targetView" value="REGISTER_CHANGE" />
                         </bean>
                     </property>
+                    <property name="condition" value="user.role != ASSOCIATE" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="7" />
@@ -65,6 +68,7 @@
                             <property name="targetView" value="STORE_SETUP" />
                         </bean>
                     </property>
+                    <property name="condition" value="user.role != ASSOCIATE" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="8" />

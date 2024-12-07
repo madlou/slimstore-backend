@@ -3,6 +3,7 @@ package com.tjx.lew00305.slimstore.service;
 import org.springframework.stereotype.Service;
 
 import com.tjx.lew00305.slimstore.config.ViewConfig;
+import com.tjx.lew00305.slimstore.enums.UserRole;
 import com.tjx.lew00305.slimstore.model.common.Form;
 import com.tjx.lew00305.slimstore.model.common.FormElement;
 import com.tjx.lew00305.slimstore.model.common.FormElement.Type;
@@ -75,9 +76,7 @@ public class ViewService {
                     FormElement element = new FormElement();
                     element.setType(Type.RETURN);
                     element.setKey(key);
-                    element.setValue("" +
-                        (line.getQuantity() -
-                            line.getReturnedQuantity()));
+                    element.setValue("" + (line.getQuantity() - line.getReturnedQuantity()));
                     element.setQuantity(0);
                     element.setPrice(line.getUnitValue());
                     element.setLabel(line.getProductCode());
@@ -104,6 +103,17 @@ public class ViewService {
                 responseForm.setValueByKey("name", editUser.getName());
                 responseForm.setValueByKey("email", editUser.getEmail());
                 responseForm.setValueByKey("password", "");
+                String[] options = responseForm.getElements()[4].getOptions();
+                String[] newOptions = new String[3];
+                for (int i = 0; i < 2; i++) {
+                    newOptions[i] = options[i];
+                }
+                if (userService.getUser().getRole().equals(UserRole.ADMIN)) {
+                    String adminTranslation = translationService.translate("ui.administrator");
+                    newOptions[2] = UserRole.ADMIN.toString() + "|" + adminTranslation;
+                }
+                responseForm.getElements()[4].setOptions(newOptions);
+                responseForm.setValueByKey("role", editUser.getRole().toString());
                 break;
             case USER_LIST:
                 responseForm.setElements(userService.getUsersAsFormElements());
@@ -113,7 +123,7 @@ public class ViewService {
         }
         return view;
     }
-
+    
     public View getViewByForm(
         Form requestForm
     ) {
@@ -121,7 +131,7 @@ public class ViewService {
         View view = getViewByName(viewName);
         return enrichView(view, requestForm);
     }
-
+    
     public View getViewByName(
         ViewName viewName
     ) {

@@ -11,10 +11,10 @@ import com.tjx.lew00305.slimstore.model.common.FormElement;
 
 @Service
 public class ProductService {
-    
+
     private RestTemplate restTemplate;
     private String onlineSearchUrl;
-
+    
     public ProductService(
         RestTemplate restTemplate,
         @Value("${tjx.online.search}")
@@ -23,7 +23,7 @@ public class ProductService {
         this.restTemplate = restTemplate;
         this.onlineSearchUrl = onlineSearchUrl;
     }
-
+    
     public FormElement[] onlineSearch(
         String query
     ) {
@@ -44,11 +44,15 @@ public class ProductService {
         }
         return products;
     }
-    
+
     public FormElement[] search(
         String query
     ) {
+        if ((query == null) ||
+            query.isEmpty()) {
+            return null;
+        }
         return onlineSearch(query);
     }
-    
+
 }
