@@ -7,7 +7,7 @@
         },
         {
             "name": "tjx.app.demo",
-            "type": "boolean",
+            "type": "java.lang.Boolean",
             "description": "Demo setting"
         },
         {

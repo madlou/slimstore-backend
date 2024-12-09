@@ -23,7 +23,7 @@ public class UserService {
     private UserSession userSession;
     
     private String adminPassword;
-    private Boolean isAppDemoMode;
+    private Boolean demoMode;
     
     public UserService(
         TranslationService translationService,
@@ -32,12 +32,13 @@ public class UserService {
         @Value("${tjx.admin.password}")
         String adminPassword,
         @Value("${tjx.app.demo}")
-        Boolean isAppDemoMode
+        Boolean demoMode
     ) {
         this.translationService = translationService;
         this.userRepository = userRepository;
         this.userSession = userSession;
         this.adminPassword = adminPassword;
+        this.demoMode = demoMode;
     }
     
     public String addUserByForm(
@@ -128,6 +129,10 @@ public class UserService {
         return elements.toArray(new FormElement[0]);
     }
     
+    private Boolean isDemoMode() {
+        return demoMode == null ? false : demoMode;
+    }
+    
     public Boolean isLoggedIn() {
         User user = getUser();
         if ((user == null) ||
@@ -158,7 +163,7 @@ public class UserService {
         Form requestForm
     ) {
         User user = userRepository.findByCode(requestForm.getValueByKey("code"));
-        if (isAppDemoMode &&
+        if (isDemoMode() &&
             (user.getCode().equals("1111") ||
                 user.getCode().equals("2222") ||
                 user.getCode().equals("3333"))) {
