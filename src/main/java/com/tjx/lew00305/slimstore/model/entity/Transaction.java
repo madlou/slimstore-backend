@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Transaction {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
@@ -52,7 +52,7 @@ public class Transaction {
     private List<TransactionLine> lines;
     @OneToMany(mappedBy = "transaction", fetch = FetchType.EAGER)
     private List<TransactionTender> tenders;
-    
+
     public BigDecimal getLineTotal() {
         BigDecimal total = BigDecimal.valueOf(0);
         for (TransactionLine line : getLines()) {
@@ -60,13 +60,13 @@ public class Transaction {
         }
         return total;
     }
-    
+
     public BigDecimal getTenderTotal() {
-        BigDecimal total = BigDecimal.valueOf(0);
+        BigDecimal total = BigDecimal.ZERO;
         for (TransactionTender line : getTenders()) {
             total = total.add(line.getValue());
         }
         return total;
     }
-    
+
 }

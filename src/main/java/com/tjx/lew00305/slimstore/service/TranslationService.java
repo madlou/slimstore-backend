@@ -26,16 +26,16 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class TranslationService {
-    
+
     private MessageSource messageSource;
     private ViewConfig viewConfig;
-    
+
     private HttpServletRequest request;
-
-    private List<String> uiTranslationList = new ArrayList<String>();
-
-    private String translationFile = "messages_%s.properties";
     
+    private List<String> uiTranslationList = new ArrayList<String>();
+    
+    private String translationFile = "messages_%s.properties";
+
     public TranslationService(
         MessageSource messageSource,
         ViewConfig viewConfig,
@@ -52,13 +52,13 @@ public class TranslationService {
             }
         }
     }
-    
+
     private String camelToSnake(
         String text
     ) {
         return text.replaceAll("([^_A-Z])([A-Z])", "$1_$2").toLowerCase();
     }
-    
+
     public List<LanguageTranslationDTO> generateTranslations() {
         List<LanguageTranslationDTO> languages = new ArrayList<LanguageTranslationDTO>();
         LanguageTranslationDTO base = new LanguageTranslationDTO();
@@ -144,7 +144,7 @@ public class TranslationService {
         }
         return languages;
     }
-
+    
     public List<String> getMissingTranslations() {
         List<String> output = new ArrayList<String>();
         List<LanguageTranslationDTO> languages = generateTranslations();
@@ -167,7 +167,7 @@ public class TranslationService {
         }
         return output;
     }
-    
+
     @Cacheable("uiTranslations")
     public UserInterfaceTranslationDTO getUserInterfaceTranslations(
         Locale locale
@@ -184,7 +184,7 @@ public class TranslationService {
         }
         return uiTranslation;
     }
-    
+
     private void saveToFile(
         String language,
         List<String> lines
@@ -199,7 +199,7 @@ public class TranslationService {
             e.printStackTrace();
         }
     }
-    
+
     private String snakeToCamel(
         String text
     ) {
@@ -208,13 +208,13 @@ public class TranslationService {
         }
         return text;
     }
-    
+
     public String translate(
         String code
     ) {
         return messageSource.getMessage(code, null, null, request.getLocale());
     }
-
+    
     @Cacheable(value = "viewTranslations", key = "#view.cacheKey")
     public View translateView(
         View view
@@ -244,5 +244,5 @@ public class TranslationService {
         }
         return view;
     }
-
+    
 }

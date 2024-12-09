@@ -3,6 +3,7 @@ package com.tjx.lew00305.slimstore.dto;
 import java.util.Collections;
 import java.util.List;
 
+import com.tjx.lew00305.slimstore.enums.Language;
 import com.tjx.lew00305.slimstore.model.common.View;
 import com.tjx.lew00305.slimstore.model.entity.Store;
 import com.tjx.lew00305.slimstore.model.entity.StoreRegister;
@@ -25,5 +26,6 @@ public class RegisterResponseDTO {
     @SuppressWarnings("rawtypes")
     private List report = Collections.emptyList();
     private UserInterfaceTranslationDTO uiTranslations;
+    private Language[] languages = Language.values();
 
 }
