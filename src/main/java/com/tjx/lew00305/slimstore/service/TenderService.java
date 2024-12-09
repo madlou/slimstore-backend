@@ -12,10 +12,10 @@ import com.tjx.lew00305.slimstore.model.session.TenderLine;
 
 @Service
 public class TenderService {
-
+    
     private BasketService basketService;
     private Tender tender;
-
+    
     public TenderService(
         BasketService basketService,
         Tender tender
@@ -23,7 +23,7 @@ public class TenderService {
         this.basketService = basketService;
         this.tender = tender;
     }
-    
+
     public void addFormElement(
         FormElement element
     ) throws Exception {
@@ -49,9 +49,9 @@ public class TenderService {
         } else {
             throw new Exception("Value not allowed");
         }
-
+        
     }
-
+    
     public void addFormElements(
         FormElement[] elements
     ) throws Exception {
@@ -59,7 +59,7 @@ public class TenderService {
             addFormElement(element);
         }
     }
-
+    
     public String addTenderByForm(
         Form requestForm
     ) {
@@ -81,39 +81,34 @@ public class TenderService {
         }
         return null;
     }
-
+    
     public void empty() {
         tender.empty();
     }
-
+    
     public BigDecimal getRemaining() {
-        System.out.println(isSale());
-        System.out.println(isRefund());
-        System.out.println(basketService.getTotal());
-        System.out.println(tender.getTotal());
-        System.out.println(basketService.getTotal().subtract(tender.getTotal()));
         BigDecimal remaining = basketService.getTotal().subtract(tender.getTotal());
         return remaining;
     }
-
+    
     public TenderLine[] getTenderArray() {
         return tender.getArray();
     }
-
+    
     public ArrayList<TenderLine> getTenderArrayList() {
         return tender.getArrayList();
     }
-
+    
     public boolean isComplete() {
         return tender.isComplete();
     }
-
+    
     public boolean isRefund() {
         return basketService.getTotal().compareTo(BigDecimal.ZERO) < 0;
     }
-
+    
     public boolean isSale() {
         return basketService.getTotal().compareTo(BigDecimal.ZERO) >= 0;
     }
-
+    
 }

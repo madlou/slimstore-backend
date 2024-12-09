@@ -51,6 +51,7 @@
                         </bean>
                         <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                             <property name="type" value="submit" />
+                            <property name="key" value="submit" />
                             <property name="label" value="Create" />
                         </bean>
                     </array>
