@@ -25,13 +25,13 @@ import lombok.extern.slf4j.Slf4j;
 @Aspect
 @Component
 @Slf4j
-public class RegisterRestControllerLogger {
+public class RegisterControllerSecurity {
 
     private LocationService locationService;
     private TranslationService translationService;
     private UserService userService;
 
-    public RegisterRestControllerLogger(
+    public RegisterControllerSecurity(
         LocationService locationService,
         TranslationService translationService,
         UserService userService
@@ -42,9 +42,9 @@ public class RegisterRestControllerLogger {
     }
     
     @Pointcut("execution(public * com.tjx.lew00305.slimstore.controller.RegisterController.registerQuery(..))")
-    private void aPointCutFromRestController() {}
+    private void aPointCutFromRegisterController() {}
     
-    @Before(value = "aPointCutFromRestController()")
+    @Before(value = "aPointCutFromRegisterController()")
     public void logBefore(
         JoinPoint joinPoint
     ) {
@@ -53,7 +53,7 @@ public class RegisterRestControllerLogger {
         log.info(">> {}() - {}", methodName, Arrays.toString(args));
     }
     
-    @Around(value = "aPointCutFromRestController()")
+    @Around(value = "aPointCutFromRegisterController()")
     public Object validateQueryAround(
         ProceedingJoinPoint joinPoint
     ) throws Throwable {
