@@ -17,15 +17,15 @@ import com.tjx.lew00305.slimstore.repository.UserRepository;
 
 @Service
 public class UserService {
-
+    
     private LocationService locationService;
     private TranslationService translationService;
     private UserRepository userRepository;
     private UserSession userSession;
-
+    
     private String adminPassword;
     private Boolean demoMode;
-
+    
     public UserService(
         LocationService locationService,
         TranslationService translationService,
@@ -43,7 +43,7 @@ public class UserService {
         this.adminPassword = adminPassword;
         this.demoMode = demoMode;
     }
-
+    
     public String addUserByForm(
         Form requestForm
     ) {
@@ -54,6 +54,7 @@ public class UserService {
             user.setName(requestForm.getValueByKey("name"));
             user.setPassword(requestForm.getValueByKey("password"));
             user.setRole(UserRole.valueOf(requestForm.getValueByKey("role")));
+            user.setStore(locationService.getStore());
             userRepository.save(user);
             return null;
         } catch (Exception e) {
@@ -64,15 +65,15 @@ public class UserService {
             }
         }
     }
-
+    
     public Iterable<User> getAllUsers() {
         return userRepository.findAll();
     }
-
+    
     public User getUser() {
         return userSession.getUser();
     }
-
+    
     public User getUser(
         String username
     ) {
@@ -96,7 +97,7 @@ public class UserService {
         }
         return user;
     }
-
+    
     public FormElement[] getUsersAsFormElements(
         Integer storeNumber
     ) {
@@ -131,11 +132,11 @@ public class UserService {
         }
         return elements.toArray(new FormElement[0]);
     }
-
+    
     private Boolean isDemoMode() {
         return demoMode == null ? false : demoMode;
     }
-
+    
     public Boolean isLoggedIn() {
         User user = getUser();
         if ((user == null) ||
@@ -144,11 +145,11 @@ public class UserService {
         }
         return true;
     }
-
+    
     public Boolean isLoggedOut() {
         return !isLoggedIn();
     }
-
+    
     public Boolean isUserAdmin() {
         User user = getUser();
         if ((user != null) &&
@@ -157,7 +158,7 @@ public class UserService {
         }
         return false;
     }
-    
+
     public Boolean isUserManagerOrAdmin() {
         User user = getUser();
         if ((user != null) &&
@@ -166,11 +167,11 @@ public class UserService {
         }
         return false;
     }
-
+    
     public void logout() {
         userSession.setUser(new User());
     }
-
+    
     public String saveUserByForm(
         Form requestForm
     ) {
@@ -197,7 +198,7 @@ public class UserService {
             return translationService.translate("error.user_unable_to_save", e.getMessage());
         }
     }
-
+    
     public User validateLogin(
         String username,
         String password
@@ -210,7 +211,7 @@ public class UserService {
         }
         return null;
     }
-
+    
     public User validateLoginByForm(
         Form requestForm
     ) {
@@ -223,5 +224,5 @@ public class UserService {
         }
         return null;
     }
-
+    
 }

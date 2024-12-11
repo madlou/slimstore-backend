@@ -20,7 +20,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class ViewService {
-    
+
     private ViewConfig viewConfig;
     private ProductService productService;
     private UserService userService;
@@ -28,7 +28,7 @@ public class ViewService {
     private TransactionService transactionService;
     private TranslationService translationService;
     private HttpServletRequest request;
-    
+
     public ViewService(
         ViewConfig viewConfig,
         ProductService productService,
@@ -46,7 +46,7 @@ public class ViewService {
         this.translationService = translationService;
         this.request = request;
     }
-
+    
     private View enrichView(
         View view,
         Form requestForm
@@ -123,7 +123,7 @@ public class ViewService {
                 responseForm.setValueByKey("name", editUser.getName());
                 responseForm.setValueByKey("email", editUser.getEmail());
                 responseForm.setValueByKey("password", "");
-                FormElement roleElement = responseForm.findByKey("store");
+                FormElement roleElement = responseForm.findByKey("role");
                 String[] roleOptions = roleElement.getOptions();
                 ArrayList<String> newRoleOptions = new ArrayList<String>();
                 for (String roleOption : roleOptions) {
@@ -144,12 +144,12 @@ public class ViewService {
                     String[] stores = getStoreOptions(false);
                     responseForm.findByKey("stores").setOptions(stores);
                     if (stores.length > 0) {
-                        String[] storeSplit = stores[0].split("|");
-                        responseForm.findByKey("stores").setValue(storeSplit[0]);
+                        String[] storeSplit = stores[0].split("\\|");
+                        responseForm.setValueByKey("stores", storeSplit[0]);
                     }
                     Integer storeNumber = requestForm.getIntegerValueByKey("stores");
                     if (storeNumber != null) {
-                        responseForm.findByKey("stores").setValue(storeNumber.toString());
+                        responseForm.setValueByKey("stores", storeNumber.toString());
                         for (FormElement element : userService.getUsersAsFormElements(storeNumber)) {
                             responseForm.addElement(element);
                         }
@@ -167,7 +167,7 @@ public class ViewService {
         }
         return view;
     }
-
+    
     private String[] getStoreOptions(
         Boolean showNoStoreOption
     ) {
@@ -181,7 +181,7 @@ public class ViewService {
         }
         return storeOptions.toArray(new String[0]);
     }
-
+    
     public View getViewByForm(
         Form requestForm
     ) {
@@ -189,7 +189,7 @@ public class ViewService {
         View view = getViewByName(viewName);
         return enrichView(view, requestForm);
     }
-    
+
     public View getViewByName(
         ViewName viewName
     ) {
@@ -199,5 +199,5 @@ public class ViewService {
         view = translationService.translateView(view);
         return view;
     }
-    
+
 }
