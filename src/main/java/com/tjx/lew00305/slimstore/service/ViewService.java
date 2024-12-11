@@ -1,5 +1,7 @@
 package com.tjx.lew00305.slimstore.service;
 
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Service;
 
 import com.tjx.lew00305.slimstore.config.ViewConfig;
@@ -9,6 +11,7 @@ import com.tjx.lew00305.slimstore.model.common.FormElement;
 import com.tjx.lew00305.slimstore.model.common.FormElement.Type;
 import com.tjx.lew00305.slimstore.model.common.View;
 import com.tjx.lew00305.slimstore.model.common.View.ViewName;
+import com.tjx.lew00305.slimstore.model.entity.Store;
 import com.tjx.lew00305.slimstore.model.entity.Transaction;
 import com.tjx.lew00305.slimstore.model.entity.TransactionLine;
 import com.tjx.lew00305.slimstore.model.entity.User;
@@ -17,7 +20,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class ViewService {
-
+    
     private ViewConfig viewConfig;
     private ProductService productService;
     private UserService userService;
@@ -25,7 +28,7 @@ public class ViewService {
     private TransactionService transactionService;
     private TranslationService translationService;
     private HttpServletRequest request;
-
+    
     public ViewService(
         ViewConfig viewConfig,
         ProductService productService,
@@ -43,26 +46,36 @@ public class ViewService {
         this.translationService = translationService;
         this.request = request;
     }
-    
+
     private View enrichView(
         View view,
         Form requestForm
     ) {
         Form responseForm = view.getForm();
+        Store store;
         switch (view.getName()) {
             case REGISTER_CHANGE:
-                String storeNumber = (locationService.getStore() != null) ? locationService.getStore().getNumber().toString() : "";
+                store = userService.getUser().getStore();
+                if (locationService.getStore() != null) {
+                    store = locationService.getStore();
+                }
                 String registerNumber = (locationService.getStoreRegister() != null) ? locationService.getStoreRegister().getNumber().toString() : "";
-                responseForm.setValueByKey("storeNumber", storeNumber);
+                responseForm.setValueByKey("storeNumber", store != null ? store.getNumber().toString() : "");
                 responseForm.setValueByKey("registerNumber", registerNumber);
+                if (userService.isUserManagerOrAdmin()) {
+                    responseForm.findByKey("storeNumber").setDisabled(false);;
+                }
                 break;
             case RETURN:
                 responseForm.setValueByKey("store", locationService.getStore().getNumber());
                 break;
             case RETURN_VIEW:
-                responseForm.setElements(new FormElement[0]);
-                Transaction txn = transactionService.getTransaction(requestForm.getIntegerValueByKey("store"), requestForm.getIntegerValueByKey("register"),
-                    requestForm.getIntegerValueByKey("transactionNumber"), requestForm.getValueByKey("date"));
+                responseForm.deleteElements();
+                Integer strNumber = requestForm.getIntegerValueByKey("store");
+                Integer regNumber = requestForm.getIntegerValueByKey("register");
+                Integer txnNumber = requestForm.getIntegerValueByKey("transactionNumber");
+                String date = requestForm.getValueByKey("date");
+                Transaction txn = transactionService.getTransaction(strNumber, regNumber, txnNumber, date);
                 for (TransactionLine line : txn.getLines()) {
                     String key = txn.getStore().getNumber().toString() +
                         ":" +
@@ -100,30 +113,75 @@ public class ViewService {
             case USER_EDIT:
                 User editUser = userService.getUser(requestForm.getValueByKey("code"));
                 responseForm.setValueByKey("code", editUser.getCode());
+                FormElement storeElement = responseForm.findByKey("store");
+                if (userService.isUserAdmin()) {
+                    storeElement.setDisabled(false);
+                }
+                store = userService.getUser(editUser.getCode()).getStore();
+                storeElement.setValue(store == null ? "0" : store.getNumber().toString());
+                storeElement.setOptions(getStoreOptions(true));
                 responseForm.setValueByKey("name", editUser.getName());
                 responseForm.setValueByKey("email", editUser.getEmail());
                 responseForm.setValueByKey("password", "");
-                String[] options = responseForm.getElements()[4].getOptions();
-                String[] newOptions = new String[3];
-                for (int i = 0; i < 2; i++) {
-                    newOptions[i] = options[i];
+                FormElement roleElement = responseForm.findByKey("store");
+                String[] roleOptions = roleElement.getOptions();
+                ArrayList<String> newRoleOptions = new ArrayList<String>();
+                for (String roleOption : roleOptions) {
+                    newRoleOptions.add(roleOption);
                 }
-                if (userService.getUser().getRole().equals(UserRole.ADMIN)) {
+                if (userService.isUserAdmin()) {
                     String adminTranslation = translationService.translate("ui.administrator");
-                    newOptions[2] = UserRole.ADMIN.toString() + "|" + adminTranslation;
+                    newRoleOptions.add(UserRole.ADMIN.toString() + "|" + adminTranslation);
                 }
-                responseForm.getElements()[4].setOptions(newOptions);
+                roleElement.setOptions(newRoleOptions.toArray(new String[0]));
                 responseForm.setValueByKey("role", editUser.getRole().toString());
                 break;
             case USER_LIST:
-                responseForm.setElements(userService.getUsersAsFormElements());
+                responseForm.deleteElementsAfter(1);
+                if (userService.isUserAdmin()) {
+                    responseForm.findByKey("stores").setHidden(false);
+                    responseForm.findByKey("submit").setHidden(false);
+                    String[] stores = getStoreOptions(false);
+                    responseForm.findByKey("stores").setOptions(stores);
+                    if (stores.length > 0) {
+                        String[] storeSplit = stores[0].split("|");
+                        responseForm.findByKey("stores").setValue(storeSplit[0]);
+                    }
+                    Integer storeNumber = requestForm.getIntegerValueByKey("stores");
+                    if (storeNumber != null) {
+                        responseForm.findByKey("stores").setValue(storeNumber.toString());
+                        for (FormElement element : userService.getUsersAsFormElements(storeNumber)) {
+                            responseForm.addElement(element);
+                        }
+                    }
+                } else {
+                    responseForm.findByKey("stores").setHidden(true);
+                    responseForm.findByKey("submit").setHidden(true);
+                    for (FormElement element : userService.getUsersAsFormElements(null)) {
+                        responseForm.addElement(element);
+                    }
+                }
                 break;
             default:
                 break;
         }
         return view;
     }
-    
+
+    private String[] getStoreOptions(
+        Boolean showNoStoreOption
+    ) {
+        Iterable<Store> stores = locationService.getStores();
+        ArrayList<String> storeOptions = new ArrayList<String>();
+        if (showNoStoreOption) {
+            storeOptions.add("0|No Store");
+        }
+        for (Store str : stores) {
+            storeOptions.add(str.getNumber() + "|" + str.getNumber() + ": " + str.getName());
+        }
+        return storeOptions.toArray(new String[0]);
+    }
+
     public View getViewByForm(
         Form requestForm
     ) {
@@ -141,5 +199,5 @@ public class ViewService {
         view = translationService.translateView(view);
         return view;
     }
-
+    
 }

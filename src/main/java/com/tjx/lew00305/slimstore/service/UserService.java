@@ -18,6 +18,7 @@ import com.tjx.lew00305.slimstore.repository.UserRepository;
 @Service
 public class UserService {
 
+    private LocationService locationService;
     private TranslationService translationService;
     private UserRepository userRepository;
     private UserSession userSession;
@@ -26,6 +27,7 @@ public class UserService {
     private Boolean demoMode;
 
     public UserService(
+        LocationService locationService,
         TranslationService translationService,
         UserRepository userRepository,
         UserSession userSession,
@@ -34,6 +36,7 @@ public class UserService {
         @Value("${tjx.app.demo}")
         Boolean demoMode
     ) {
+        this.locationService = locationService;
         this.translationService = translationService;
         this.userRepository = userRepository;
         this.userSession = userSession;
@@ -84,6 +87,7 @@ public class UserService {
                 user.setName("Admin Person");
                 user.setPassword(adminPassword);
                 user.setRole(UserRole.ADMIN);
+                user.setStore(null);
                 userRepository.save(user);
                 return user;
             } catch (Exception e) {
@@ -93,17 +97,15 @@ public class UserService {
         return user;
     }
 
-    public User getUserFromSession() {
-        User user = userSession.getUser();
-        if ((user == null) ||
-            (user.getCode() == null)) {
-            return null;
+    public FormElement[] getUsersAsFormElements(
+        Integer storeNumber
+    ) {
+        Iterable<User> users;
+        if (storeNumber != null) {
+            users = userRepository.findByStore(locationService.getStore(storeNumber));
+        } else {
+            users = userRepository.findByStore(getUser().getStore());
         }
-        return userSession.getUser();
-    }
-
-    public FormElement[] getUsersAsFormElements() {
-        Iterable<User> users = userRepository.findAll();
         ArrayList<FormElement> elements = new ArrayList<FormElement>();
         String editTranslation = translationService.translate("ui.edit");
         for (User user : users) {
@@ -149,11 +151,20 @@ public class UserService {
 
     public Boolean isUserAdmin() {
         User user = getUser();
-        if ((user == null) ||
-            !user.getRole().equals(UserRole.ADMIN)) {
-            return false;
+        if ((user != null) &&
+            user.isAdmin()) {
+            return true;
         }
-        return true;
+        return false;
+    }
+    
+    public Boolean isUserManagerOrAdmin() {
+        User user = getUser();
+        if ((user != null) &&
+            user.isManagerOrAdmin()) {
+            return true;
+        }
+        return false;
     }
 
     public void logout() {
@@ -170,6 +181,8 @@ public class UserService {
                 user.getCode().equals("3333"))) {
             return "Unable to change demo users (1111/2222/3333) in demo mode.";
         }
+        Integer storeNumber = requestForm.getIntegerValueByKey("store");
+        user.setStore(locationService.getStore(storeNumber == 0 ? null : storeNumber));
         user.setName(requestForm.getValueByKey("name"));
         user.setEmail(requestForm.getValueByKey("email"));
         user.setRole(UserRole.valueOf(requestForm.getValueByKey("role")));

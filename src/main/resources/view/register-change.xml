@@ -21,6 +21,7 @@
                             <property name="type" value="number" />
                             <property name="key" value="storeNumber" />
                             <property name="label" value="Store Number" />
+                            <property name="disabled" value="true" />
                         </bean>
                         <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                             <property name="type" value="number" />

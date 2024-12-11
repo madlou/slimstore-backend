@@ -12,7 +12,23 @@
         <property name="title" value="Users" />
         <property name="message" value="User List:" />
         <property name="form">
-            <bean class="com.tjx.lew00305.slimstore.model.common.Form"> </bean>
+            <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                <property name="targetView" value="USER_LIST" />
+                <property name="elements">
+                    <array>
+                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                            <property name="type" value="SELECT" />
+                            <property name="key" value="stores" />
+                        </bean>
+                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                            <property name="type" value="SUBMIT" />
+                            <property name="key" value="submit" />
+                            <property name="label" value="Search" />
+                        </bean>
+                    </array>
+                </property>
+
+            </bean>
         </property>
         <property name="functionButtons">
             <array>

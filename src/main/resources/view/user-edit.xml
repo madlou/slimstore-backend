@@ -24,6 +24,17 @@
                             <property name="disabled" value="true" />
                         </bean>
                         <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                            <property name="type" value="select" />
+                            <property name="key" value="store" />
+                            <property name="label" value="Store" />
+                            <property name="disabled" value="true" />
+                            <property name="options">
+                                <array value-type="java.lang.String">
+                                </array>
+                            </property>
+                            <property name="value" value="" />
+                        </bean>
+                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                             <property name="type" value="text" />
                             <property name="key" value="name" />
                             <property name="label" value="Name" />

@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class FormElement {
-
+    
     public enum Type {
         BUTTON,
         DATE,
@@ -25,16 +25,17 @@ public class FormElement {
         SUBMIT,
         TEXT,
     }
-
+    
     private Type type;
     private String key;
     private String label;
     private String value;
     private String[] options;
     private Boolean disabled = false;
+    private Boolean hidden = false;
     private String image;
     private BigDecimal price;
     private Integer quantity;
     private FormElementButton button;
-
+    
 }

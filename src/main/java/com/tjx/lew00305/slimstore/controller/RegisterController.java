@@ -78,7 +78,7 @@ public class RegisterController {
                 basketService.addBasketByForm(requestForm);
                 break;
             case CHANGE_REGISTER:
-                errorMessage = locationService.validateLocationByForm(requestForm);
+                errorMessage = locationService.validateLocationByForm(requestForm, userService.isUserAdmin());
                 if (errorMessage != null) {
                     response.setError("Invalid location details.");
                     requestForm.setTargetView(ViewName.REGISTER_CHANGE);
@@ -91,13 +91,18 @@ public class RegisterController {
             case LOGIN:
                 userService.validateLoginByForm(requestForm);
                 if (userService.isLoggedOut()) {
+                    requestForm.setTargetView(ViewName.LOGIN);
                     response.setError("Invalid login attempt.");
-                    return updateDTO(response, viewService.getViewByName(ViewName.LOGIN));
+                }
+                if (locationService.getStore() == null) {
+                    requestForm.setTargetView(ViewName.REGISTER_CHANGE);
+                    response.setError("Please enter the register details.");
                 }
                 break;
             case LOGOUT:
+                requestForm.setTargetView(ViewName.LOGIN);
                 userService.logout();
-                return updateDTO(response, viewService.getViewByName(ViewName.LOGIN));
+                break;
             case NEW_USER:
                 errorMessage = userService.addUserByForm(requestForm);
                 break;
@@ -123,8 +128,8 @@ public class RegisterController {
             case TENDER:
                 errorMessage = tenderService.addTenderByForm(requestForm);
                 if (tenderService.isComplete()) {
+                    requestForm.setTargetView(ViewName.COMPLETE);
                     transactionService.addTransaction();
-                    return updateDTO(response, viewService.getViewByName(ViewName.COMPLETE));
                 }
                 break;
             case TRANSACTION_COMPLETE:

@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 public class Form {
-
+    
     public enum ServerProcess {
         ADD_TO_BASKET,
         CHANGE_REGISTER,
@@ -24,17 +24,16 @@ public class Form {
         TENDER,
         TRANSACTION_COMPLETE,
     }
-
+    
     private ViewName targetView;
     private ServerProcess serverProcess;
     private FormElement[] elements = new FormElement[0];
-
+    
     public void addElement(
         FormElement newElement
     ) {
         Integer size = elements.length;
-        FormElement[] newElements = new FormElement[size +
-            1];
+        FormElement[] newElements = new FormElement[size + 1];
         Integer counter = 0;
         for (FormElement element : elements) {
             newElements[counter++] = element;
@@ -42,10 +41,43 @@ public class Form {
         newElements[size] = newElement;
         elements = newElements;
     }
+
+    public void addElementBeginning(
+        FormElement newElement
+    ) {
+        Integer size = elements.length;
+        FormElement[] newElements = new FormElement[size + 1];
+        newElements[0] = newElement;
+        Integer counter = 1;
+        for (FormElement element : elements) {
+            newElements[counter++] = element;
+        }
+        elements = newElements;
+    }
+    
+    public void deleteElements() {
+        elements = new FormElement[0];
+    }
+
+    public void deleteElementsAfter(
+        Integer after
+    ) {
+        if (after > elements.length) {
+            after = elements.length;
+        }
+        FormElement[] newElements = new FormElement[after + 1];
+        for (Integer counter = 0; counter <= after; counter++) {
+            newElements[counter] = elements[counter];
+        }
+        elements = newElements;
+    }
     
     public FormElement findByKey(
         String key
     ) {
+        if (elements == null) {
+            return null;
+        }
         for (FormElement element : elements) {
             if (element.getKey().equals(key)) {
                 return element;
@@ -53,7 +85,7 @@ public class Form {
         }
         return null;
     }
-
+    
     public BigDecimal getBigDecimalValueByKey(
         String key
     ) {
@@ -63,7 +95,7 @@ public class Form {
         }
         return new BigDecimal(element.getValue());
     }
-
+    
     public Float getFloatValueByKey(
         String key
     ) {
@@ -73,7 +105,7 @@ public class Form {
         }
         return Float.parseFloat(element.getValue());
     }
-
+    
     public Integer getIntegerValueByKey(
         String key
     ) {
@@ -83,7 +115,7 @@ public class Form {
         }
         return Integer.parseInt(element.getValue());
     }
-
+    
     public String getValueByKey(
         String key
     ) {
@@ -93,7 +125,7 @@ public class Form {
         }
         return element.getValue();
     }
-
+    
     public void setValueByKey(
         String key,
         BigDecimal value
@@ -101,7 +133,7 @@ public class Form {
         FormElement element = findByKey(key);
         element.setValue(value.toString());
     }
-
+    
     public void setValueByKey(
         String key,
         Float value
@@ -109,7 +141,7 @@ public class Form {
         FormElement element = findByKey(key);
         element.setValue(value.toString());
     }
-
+    
     public void setValueByKey(
         String key,
         Integer value
@@ -117,7 +149,7 @@ public class Form {
         FormElement element = findByKey(key);
         element.setValue(value.toString());
     }
-
+    
     public void setValueByKey(
         String key,
         String value
@@ -125,5 +157,5 @@ public class Form {
         FormElement element = findByKey(key);
         element.setValue(value);
     }
-
+    
 }
