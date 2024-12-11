@@ -17,6 +17,7 @@ import com.tjx.lew00305.slimstore.model.common.View.ViewName;
 import com.tjx.lew00305.slimstore.model.entity.Store;
 import com.tjx.lew00305.slimstore.model.entity.User;
 import com.tjx.lew00305.slimstore.service.LocationService;
+import com.tjx.lew00305.slimstore.service.TranslationService;
 import com.tjx.lew00305.slimstore.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -25,21 +26,24 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 public class RegisterRestControllerLogger {
-    
+
     private LocationService locationService;
+    private TranslationService translationService;
     private UserService userService;
-    
+
     public RegisterRestControllerLogger(
         LocationService locationService,
+        TranslationService translationService,
         UserService userService
     ) {
         this.locationService = locationService;
+        this.translationService = translationService;
         this.userService = userService;
     }
-
+    
     @Pointcut("execution(public * com.tjx.lew00305.slimstore.controller.RegisterController.registerQuery(..))")
     private void aPointCutFromRestController() {}
-
+    
     @Before(value = "aPointCutFromRestController()")
     public void logBefore(
         JoinPoint joinPoint
@@ -48,7 +52,7 @@ public class RegisterRestControllerLogger {
         String methodName = joinPoint.getSignature().getName();
         log.info(">> {}() - {}", methodName, Arrays.toString(args));
     }
-
+    
     @Around(value = "aPointCutFromRestController()")
     public Object validateQueryAround(
         ProceedingJoinPoint joinPoint
@@ -80,7 +84,7 @@ public class RegisterRestControllerLogger {
             }
             User user = userService.getUser(requestForm.getValueByKey("code"));
             if (user == null) {
-                errorMessage = "User not found.";
+                errorMessage = translationService.translate("error.security_user_not_found");
                 requestForm.setTargetView(ViewName.LOGIN);
                 requestForm.setServerProcess(null);
                 return joinPoint.proceed(new Object[] {
@@ -91,7 +95,7 @@ public class RegisterRestControllerLogger {
                 Store userStore = user.getStore();
                 if ((userStore == null) &&
                     !user.isAdmin()) {
-                    errorMessage = "User not assigned to store.";
+                    errorMessage = translationService.translate("error.security_user_not_found");
                     requestForm.setTargetView(ViewName.LOGIN);
                     requestForm.setServerProcess(null);
                     return joinPoint.proceed(new Object[] {
@@ -99,10 +103,10 @@ public class RegisterRestControllerLogger {
                     });
                 }
                 if (!user.isAdmin()) {
-                    Integer userStoreNumber = userStore.getNumber();
-                    Integer registerStoreNumber = locationService.getStore().getNumber();
-                    if (!registerStoreNumber.equals(userStoreNumber)) {
-                        errorMessage = "User doesn't belong to this store.  User Store=" + userStoreNumber + ", Register Store=" + registerStoreNumber + ".";
+                    String usrStoreNum = userStore.getNumber().toString();
+                    String regStoreNum = locationService.getStore().getNumber().toString();
+                    if (!usrStoreNum.equals(regStoreNum)) {
+                        errorMessage = translationService.translate("error.security_user_wrong_store", usrStoreNum, regStoreNum);
                         requestForm.setTargetView(ViewName.LOGIN);
                         requestForm.setServerProcess(null);
                         return joinPoint.proceed(new Object[] {
@@ -115,7 +119,7 @@ public class RegisterRestControllerLogger {
             (requestForm.getServerProcess() != ServerProcess.CHANGE_REGISTER)) {
             requestForm.setTargetView(ViewName.REGISTER_CHANGE);
             requestForm.setServerProcess(null);
-            errorMessage = "Store and register setup required.";
+            errorMessage = translationService.translate("error.location_setup_required");
             return joinPoint.proceed(new Object[] {
                 requestForm, storeRegCookie, errorMessage
             });
@@ -125,5 +129,5 @@ public class RegisterRestControllerLogger {
         });
         return result;
     }
-
+    
 }

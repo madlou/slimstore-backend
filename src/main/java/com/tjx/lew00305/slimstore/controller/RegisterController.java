@@ -18,6 +18,7 @@ import com.tjx.lew00305.slimstore.service.LocationService;
 import com.tjx.lew00305.slimstore.service.TenderService;
 import com.tjx.lew00305.slimstore.service.TransactionReportService;
 import com.tjx.lew00305.slimstore.service.TransactionService;
+import com.tjx.lew00305.slimstore.service.TranslationService;
 import com.tjx.lew00305.slimstore.service.UserInterfaceService;
 import com.tjx.lew00305.slimstore.service.UserService;
 import com.tjx.lew00305.slimstore.service.ViewService;
@@ -35,6 +36,7 @@ public class RegisterController {
     private ViewService viewService;
     private TransactionService transactionService;
     private TransactionReportService transactionReportService;
+    private TranslationService translationService;
 
     public RegisterController(
         BasketService basketService,
@@ -46,7 +48,8 @@ public class RegisterController {
         UserService userService,
         ViewService viewService,
         TransactionService transactionService,
-        TransactionReportService transactionReportService
+        TransactionReportService transactionReportService,
+        TranslationService translationService
     ) {
         this.basketService = basketService;
         this.giftCardService = giftCardService;
@@ -58,6 +61,7 @@ public class RegisterController {
         this.viewService = viewService;
         this.transactionService = transactionService;
         this.transactionReportService = transactionReportService;
+        this.translationService = translationService;
     }
 
     @PostMapping(path = "/api/register")
@@ -80,7 +84,7 @@ public class RegisterController {
             case CHANGE_REGISTER:
                 errorMessage = locationService.validateLocationByForm(requestForm, userService.isUserAdmin());
                 if (errorMessage != null) {
-                    response.setError("Invalid location details.");
+                    response.setError(translationService.translate("error.location_invalid"));
                     requestForm.setTargetView(ViewName.REGISTER_CHANGE);
                 }
                 break;
@@ -92,11 +96,11 @@ public class RegisterController {
                 userService.validateLoginByForm(requestForm);
                 if (userService.isLoggedOut()) {
                     requestForm.setTargetView(ViewName.LOGIN);
-                    response.setError("Invalid login attempt.");
+                    response.setError(translationService.translate("error.security_invalid_login"));
                 }
                 if (locationService.getStore() == null) {
                     requestForm.setTargetView(ViewName.REGISTER_CHANGE);
-                    response.setError("Please enter the register details.");
+                    response.setError(translationService.translate("error.location_enter_register"));
                 }
                 break;
             case LOGOUT:
@@ -138,7 +142,7 @@ public class RegisterController {
                 break;
         }
         if (errorMessage != null) {
-            response.setError("ERROR: " + errorMessage);
+            response.setError(translationService.translate("error.error") + ": " + errorMessage);
         }
         return updateDTO(response, viewService.getViewByForm(requestForm));
     }

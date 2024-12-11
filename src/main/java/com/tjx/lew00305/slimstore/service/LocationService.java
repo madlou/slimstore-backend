@@ -14,18 +14,21 @@ import com.tjx.lew00305.slimstore.repository.StoreRepository;
 @Service
 public class LocationService {
 
+    private LocationSession locationSession;
     private StoreRepository storeRepository;
     private StoreRegisterRepository storeRegisterRepository;
-    private LocationSession locationSession;
+    private TranslationService translationService;
 
     public LocationService(
+        LocationSession locationSession,
         StoreRepository storeRepository,
         StoreRegisterRepository storeRegisterRepository,
-        LocationSession locationSession // ,
+        TranslationService translationService
     ) {
+        this.locationSession = locationSession;
         this.storeRepository = storeRepository;
         this.storeRegisterRepository = storeRegisterRepository;
-        this.locationSession = locationSession;
+        this.translationService = translationService;
     }
     
     private StoreRegister createRegister(
@@ -136,7 +139,7 @@ public class LocationService {
             if (isAdmin) {
                 store = createStore(storeNumber, registerNumber);
             } else {
-                return "Invalid store number.";
+                return translationService.translate("location_invalid_store");
             }
         }
         StoreRegister storeRegister = store.getRegisterByNumber(registerNumber);
@@ -144,7 +147,7 @@ public class LocationService {
             if (isAdmin) {
                 storeRegister = createRegister(store, registerNumber);
             } else {
-                return "Invalid register number.";
+                return translationService.translate("location_invalid_register");
             }
         }
         setLocation(store, storeRegister);

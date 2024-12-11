@@ -7,9 +7,12 @@ public class UserInterfaceTranslationDTO {
     
     private String administrator;
     private String associate;
+    private String cash;
+    private String cashChange;
     private String check;
     private String currencySymbol;
     private String date;
+    private String dateFormat;
     private String devmessage1;
     private String devmessage2;
     private String devmessage3;
@@ -23,6 +26,7 @@ public class UserInterfaceTranslationDTO {
     private String lineValue;
     private String logo;
     private String manager;
+    private String noStore;
     private String number;
     private String password;
     private String product;
@@ -37,6 +41,7 @@ public class UserInterfaceTranslationDTO {
     private String subtotal;
     private String tenderTotal;
     private String time;
+    private String timeFormat;
     private String total;
     private String transaction;
     private String transactionLines;

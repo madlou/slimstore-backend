@@ -174,7 +174,7 @@ public class ViewService {
         Iterable<Store> stores = locationService.getStores();
         ArrayList<String> storeOptions = new ArrayList<String>();
         if (showNoStoreOption) {
-            storeOptions.add("0|No Store");
+            storeOptions.add("0|" + translationService.translate("ui.no_store"));
         }
         for (Store str : stores) {
             storeOptions.add(str.getNumber() + "|" + str.getNumber() + ": " + str.getName());

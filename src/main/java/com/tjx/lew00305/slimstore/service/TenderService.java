@@ -15,13 +15,16 @@ public class TenderService {
     
     private BasketService basketService;
     private Tender tender;
+    private TranslationService translationService;
     
     public TenderService(
         BasketService basketService,
-        Tender tender
+        Tender tender,
+        TranslationService translationService
     ) {
         this.basketService = basketService;
         this.tender = tender;
+        this.translationService = translationService;
     }
 
     public void addFormElement(
@@ -38,7 +41,7 @@ public class TenderService {
         }
         if (isRefund() &&
             (getRemaining().compareTo(value) > 0)) {
-            throw new Exception("Refund too high.");
+            throw new Exception(translationService.translate("error.tender_refund_too_high"));
         }
         if ((isSale() &&
             (value.compareTo(BigDecimal.ZERO) > 0)) ||
@@ -47,7 +50,7 @@ public class TenderService {
                 (getRemaining().compareTo(value) <= 0))) {
             tender.add(new TenderLine(element.getKey(), element.getLabel(), value, ""));
         } else {
-            throw new Exception("Value not allowed");
+            throw new Exception(translationService.translate("error.tender_value_not_allowed"));
         }
         
     }

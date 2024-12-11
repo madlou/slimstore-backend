@@ -18,6 +18,7 @@ import com.tjx.lew00305.slimstore.config.ViewConfig;
 import com.tjx.lew00305.slimstore.dto.LanguageTranslationDTO;
 import com.tjx.lew00305.slimstore.dto.UserInterfaceTranslationDTO;
 import com.tjx.lew00305.slimstore.enums.Language;
+import com.tjx.lew00305.slimstore.model.common.ErrorTranslation;
 import com.tjx.lew00305.slimstore.model.common.FormElement;
 import com.tjx.lew00305.slimstore.model.common.FunctionButton;
 import com.tjx.lew00305.slimstore.model.common.View;
@@ -26,16 +27,17 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class TranslationService {
-
+    
     private MessageSource messageSource;
     private ViewConfig viewConfig;
-
-    private HttpServletRequest request;
     
+    private HttpServletRequest request;
+
+    private List<String> errorTranslationList = new ArrayList<String>();
     private List<String> uiTranslationList = new ArrayList<String>();
     
     private String translationFile = "messages_%s.properties";
-
+    
     public TranslationService(
         MessageSource messageSource,
         ViewConfig viewConfig,
@@ -44,21 +46,28 @@ public class TranslationService {
         this.messageSource = messageSource;
         this.viewConfig = viewConfig;
         this.request = request;
-        Method[] methods = new UserInterfaceTranslationDTO().getClass().getMethods();
-        for (Method method : methods) {
+        Method[] errorMethods = new ErrorTranslation().getClass().getMethods();
+        for (Method method : errorMethods) {
+            if (method.getName().substring(0, 3).equals("get") &&
+                !method.getName().equals("getClass")) {
+                errorTranslationList.add("error." + camelToSnake(method.getName().substring(3)));
+            }
+        }
+        Method[] uiMethods = new UserInterfaceTranslationDTO().getClass().getMethods();
+        for (Method method : uiMethods) {
             if (method.getName().substring(0, 3).equals("get") &&
                 !method.getName().equals("getClass")) {
                 uiTranslationList.add("ui." + camelToSnake(method.getName().substring(3)));
             }
         }
     }
-
+    
     private String camelToSnake(
         String text
     ) {
         return text.replaceAll("([^_A-Z])([A-Z])", "$1_$2").toLowerCase();
     }
-
+    
     public List<LanguageTranslationDTO> generateTranslations() {
         List<LanguageTranslationDTO> languages = new ArrayList<LanguageTranslationDTO>();
         LanguageTranslationDTO base = new LanguageTranslationDTO();
@@ -74,6 +83,13 @@ public class TranslationService {
         }
         String key;
         String value;
+        for (String line : errorTranslationList) {
+            key = line;
+            for (LanguageTranslationDTO language : languages) {
+                value = messageSource.getMessage(key, null, null, language.getLocale());
+                language.getTranslations().add(key + "=" + value);
+            }
+        }
         for (String line : uiTranslationList) {
             key = line;
             for (LanguageTranslationDTO language : languages) {
@@ -144,7 +160,7 @@ public class TranslationService {
         }
         return languages;
     }
-    
+
     public List<String> getMissingTranslations() {
         List<String> output = new ArrayList<String>();
         List<LanguageTranslationDTO> languages = generateTranslations();
@@ -159,7 +175,9 @@ public class TranslationService {
                 output.add(language.getLanguage() + ":");
                 for (String line : language.getTranslations()) {
                     String[] split = line.split("=");
-                    if (split[1].equals("null")) {
+                    if (split[1].equals("null") ||
+                        (!language.getLanguage().equals("en") &&
+                            split[1].equals(baseLookup.get(split[0])))) {
                         output.add(split[0] + "=" + baseLookup.get(split[0]));
                     }
                 }
@@ -167,7 +185,7 @@ public class TranslationService {
         }
         return output;
     }
-
+    
     @Cacheable("uiTranslations")
     public UserInterfaceTranslationDTO getUserInterfaceTranslations(
         Locale locale
@@ -184,7 +202,7 @@ public class TranslationService {
         }
         return uiTranslation;
     }
-
+    
     private void saveToFile(
         String language,
         List<String> lines
@@ -199,7 +217,7 @@ public class TranslationService {
             e.printStackTrace();
         }
     }
-
+    
     private String snakeToCamel(
         String text
     ) {
@@ -208,13 +226,14 @@ public class TranslationService {
         }
         return text;
     }
-
-    public String translate(
-        String code
-    ) {
-        return messageSource.getMessage(code, null, null, request.getLocale());
-    }
     
+    public String translate(
+        String code,
+        Object... args
+    ) {
+        return messageSource.getMessage(code, null, code, request.getLocale()).formatted(args);
+    }
+
     @Cacheable(value = "viewTranslations", key = "#view.cacheKey")
     public View translateView(
         View view
@@ -244,5 +263,5 @@ public class TranslationService {
         }
         return view;
     }
-    
+
 }

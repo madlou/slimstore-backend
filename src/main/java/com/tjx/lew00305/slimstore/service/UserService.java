@@ -58,9 +58,9 @@ public class UserService {
             return null;
         } catch (Exception e) {
             if (e.getMessage().contains("Duplicate entry")) {
-                return "Unable to create user, employee number already being used.";
+                return translationService.translate("error.user_duplicate_entry");
             } else {
-                return "Unable to create user '" + e.getMessage() + "'";
+                return translationService.translate("error.user_creation_error", e.getMessage());
             }
         }
     }
@@ -179,7 +179,7 @@ public class UserService {
             (user.getCode().equals("1111") ||
                 user.getCode().equals("2222") ||
                 user.getCode().equals("3333"))) {
-            return "Unable to change demo users (1111/2222/3333) in demo mode.";
+            return translationService.translate("error.user_demo_edit_error");
         }
         Integer storeNumber = requestForm.getIntegerValueByKey("store");
         user.setStore(locationService.getStore(storeNumber == 0 ? null : storeNumber));
@@ -194,7 +194,7 @@ public class UserService {
             userRepository.save(user);
             return null;
         } catch (Exception e) {
-            return "Unable to save user: " + e.getMessage();
+            return translationService.translate("error.user_unable_to_save", e.getMessage());
         }
     }
 
