@@ -66,6 +66,17 @@ public class ViewService {
                     responseForm.findByKey("storeNumber").setDisabled(false);;
                 }
                 break;
+            case REPORTS:
+                if (requestForm.findByKey("scope") != null) {
+                    responseForm.setValueByKey("scope", requestForm.getValueByKey("scope"));
+                    responseForm.setValueByKey("report", requestForm.getValueByKey("report"));
+                    responseForm.setValueByKey("days", requestForm.getValueByKey("days"));
+                } else {
+                    responseForm.setValueByKey("scope", "Register");
+                    responseForm.setValueByKey("report", "Transactions");
+                    responseForm.setValueByKey("days", "1");
+                }
+                break;
             case RETURN:
                 responseForm.setValueByKey("store", locationService.getStore().getNumber());
                 break;
