@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @SessionScope
 public class User implements Serializable {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -42,8 +42,9 @@ public class User implements Serializable {
     private UserRole role;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "store_id")
+    @JsonIgnore
     private Store store;
-
+    
     public Boolean isAdmin() {
         if ((role != null) &&
             role.equals(UserRole.ADMIN)) {
@@ -51,7 +52,7 @@ public class User implements Serializable {
         }
         return false;
     }
-    
+
     public Boolean isManagerOrAdmin() {
         if ((role != null) &&
             (role.equals(UserRole.ADMIN) ||
@@ -60,5 +61,5 @@ public class User implements Serializable {
         }
         return false;
     }
-
+    
 }

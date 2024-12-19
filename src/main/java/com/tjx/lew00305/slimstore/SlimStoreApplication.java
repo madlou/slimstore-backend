@@ -9,11 +9,11 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
 @EnableJpaRepositories("com.tjx.lew00305.slimstore.repository")
 @EnableRedisRepositories("none")
 public class SlimStoreApplication {
-    
+
     public static void main(
         String[] args
     ) {
         SpringApplication.run(SlimStoreApplication.class, args);
     }
-    // "9206603710000999"
+    
 }

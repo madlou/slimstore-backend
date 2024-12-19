@@ -26,11 +26,11 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 public class RegisterControllerSecurity {
-
+    
     private LocationService locationService;
     private TranslationService translationService;
     private UserService userService;
-
+    
     public RegisterControllerSecurity(
         LocationService locationService,
         TranslationService translationService,
@@ -40,10 +40,10 @@ public class RegisterControllerSecurity {
         this.translationService = translationService;
         this.userService = userService;
     }
-    
+
     @Pointcut("execution(public * com.tjx.lew00305.slimstore.controller.RegisterController.registerQuery(..))")
     private void aPointCutFromRegisterController() {}
-    
+
     @Before(value = "aPointCutFromRegisterController()")
     public void logBefore(
         JoinPoint joinPoint
@@ -52,7 +52,7 @@ public class RegisterControllerSecurity {
         String methodName = joinPoint.getSignature().getName();
         log.info(">> {}() - {}", methodName, Arrays.toString(args));
     }
-    
+
     @Around(value = "aPointCutFromRegisterController()")
     public Object validateQueryAround(
         ProceedingJoinPoint joinPoint
@@ -75,6 +75,11 @@ public class RegisterControllerSecurity {
             }
         }
         if (userService.isLoggedOut()) {
+            if (requestForm.getTargetView() == ViewName.ABOUT) {
+                return joinPoint.proceed(new Object[] {
+                    requestForm, storeRegCookie, errorMessage
+                });
+            }
             if (requestForm.getServerProcess() != ServerProcess.LOGIN) {
                 requestForm.setTargetView(ViewName.LOGIN);
                 requestForm.setServerProcess(null);
@@ -129,5 +134,5 @@ public class RegisterControllerSecurity {
         });
         return result;
     }
-    
+
 }

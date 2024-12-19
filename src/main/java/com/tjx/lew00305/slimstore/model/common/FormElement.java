@@ -2,15 +2,19 @@ package com.tjx.lew00305.slimstore.model.common;
 
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import lombok.Data;
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class FormElement {
     
     public enum Type {
         BUTTON,
         DATE,
         DECIMAL,
+        ERROR,
         EMAIL,
         IMAGE,
         NUMBER,

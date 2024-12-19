@@ -15,15 +15,16 @@ import com.tjx.lew00305.slimstore.model.common.Form;
 
 @Service
 public class BarcodeService {
-
+    
     private BarcodeConfig barcodeConfig;
-
+    
     public BarcodeService(
         BarcodeConfig barcodeConfig
     ) {
         this.barcodeConfig = barcodeConfig;
     }
-    
+
+    // "9206603710000999"
     private boolean barcodeCheck(
         String value
     ) {
@@ -39,7 +40,7 @@ public class BarcodeService {
         }
         return false;
     }
-
+    
     public Barcode getBarcode(
         String value
     ) {
@@ -52,47 +53,41 @@ public class BarcodeService {
         Barcode barcode = new Barcode();
         length = spec.getDivision();
         if (length > 0) {
-            barcode.setDivision(Integer.parseInt(value.substring(counter, counter +
-                length)));
+            barcode.setDivision(Integer.parseInt(value.substring(counter, counter + length)));
             counter += length;
         }
         length = spec.getDepartment();
         if (length > 0) {
-            barcode.setDepartment(Integer.parseInt(value.substring(counter, counter +
-                length)));
+            barcode.setDepartment(Integer.parseInt(value.substring(counter, counter + length)));
             counter += length;
         }
         length = spec.getCategory();
         if (length > 0) {
-            barcode.setCategory(Integer.parseInt(value.substring(counter, counter +
-                length)));
+            barcode.setCategory(Integer.parseInt(value.substring(counter, counter + length)));
             counter += length;
         }
         length = spec.getStyle();
         if (length > 0) {
-            barcode.setStyle(Integer.parseInt(value.substring(counter, counter +
-                length)));
+            barcode.setStyle(Integer.parseInt(value.substring(counter, counter + length)));
             counter += length;
-            BigDecimal price = new BigDecimal(value.substring(counter, counter +
-                length));
+            BigDecimal price = new BigDecimal(value.substring(counter, counter + length));
             price = price.movePointLeft(2);
             barcode.setPrice(price);
         }
         length = spec.getWeek();
         if (length > 0) {
             counter += length;
-            barcode.setWeek(Integer.parseInt(value.substring(counter, counter +
-                length)));
+            barcode.setWeek(Integer.parseInt(value.substring(counter, counter + length)));
         }
         return barcode;
     }
-
+    
     public Barcode getBarcodeByForm(
         Form requestForm
     ) {
         return getBarcode(requestForm.getValueByKey("search"));
     }
-
+    
     private BarcodeSpecification getSpecifiction(
         Region region,
         Banner banner
@@ -105,5 +100,5 @@ public class BarcodeService {
         }
         return null;
     }
-
+    
 }

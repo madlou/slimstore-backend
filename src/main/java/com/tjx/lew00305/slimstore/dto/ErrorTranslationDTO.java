@@ -1,10 +1,10 @@
-package com.tjx.lew00305.slimstore.model.common;
+package com.tjx.lew00305.slimstore.dto;
 
 import lombok.Data;
 
 @Data
-public class ErrorTranslation {
-
+public class ErrorTranslationDTO {
+    
     String error;
     String locationInvalid;
     String locationInvalidStore;
@@ -13,6 +13,7 @@ public class ErrorTranslation {
     String locationSetupRequired;
     String tenderValueNotAllowed;
     String tenderRefundTooHigh;
+    String transactionNotFound;
     String userCreationError;
     String userDemoEditError;
     String userDuplicateEntry;
@@ -21,5 +22,5 @@ public class ErrorTranslation {
     String securityUserNotFound;
     String securityUserNoStore;
     String securityUserWrongStore;
-
+    
 }

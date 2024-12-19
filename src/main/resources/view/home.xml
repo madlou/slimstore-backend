@@ -25,7 +25,7 @@
                         <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                             <property name="type" value="submit" />
                             <property name="key" value="submit" />
-                            <property name="label" value="Go" />
+                            <property name="label" value="Search" />
                         </bean>
                     </array>
                 </property>

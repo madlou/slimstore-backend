@@ -28,15 +28,16 @@
                             <property name="label" value="Country" />
                             <property name="options">
                                 <array value-type="java.lang.String">
-                                    <value>CA</value>
                                     <value>DE</value>
+                                    <value>ES</value>
                                     <value>FR</value>
                                     <value>IE</value>
+                                    <value>PL</value>
                                     <value>UK</value>
                                     <value>US</value>
                                 </array>
                             </property>
-                            <property name="value" value="CA" />
+                            <property name="value" value="DE" />
                         </bean>
                         <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                             <property name="type" value="select" />
@@ -81,6 +82,7 @@
                             <property name="type" value="submit" />
                             <property name="key" value="submit" />
                             <property name="label" value="Submit" />
+                            <property name="hidden" value="true"></property>
                         </bean>
                     </array>
                 </property>
@@ -88,6 +90,11 @@
         </property>
         <property name="functionButtons">
             <array>
+                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                    <property name="position" value="1" />
+                    <property name="label" value="Update" />
+                    <property name="primaryFormSubmit" value="true" />
+                </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="Back" />

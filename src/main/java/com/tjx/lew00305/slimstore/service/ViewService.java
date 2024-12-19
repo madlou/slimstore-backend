@@ -20,7 +20,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class ViewService {
-
+    
     private ViewConfig viewConfig;
     private ProductService productService;
     private UserService userService;
@@ -28,7 +28,7 @@ public class ViewService {
     private TransactionService transactionService;
     private TranslationService translationService;
     private HttpServletRequest request;
-
+    
     public ViewService(
         ViewConfig viewConfig,
         ProductService productService,
@@ -46,7 +46,7 @@ public class ViewService {
         this.translationService = translationService;
         this.request = request;
     }
-    
+
     private View enrichView(
         View view,
         Form requestForm
@@ -87,6 +87,13 @@ public class ViewService {
                 Integer txnNumber = requestForm.getIntegerValueByKey("transactionNumber");
                 String date = requestForm.getValueByKey("date");
                 Transaction txn = transactionService.getTransaction(strNumber, regNumber, txnNumber, date);
+                if (txn == null) {
+                    FormElement error = new FormElement();
+                    error.setType(Type.ERROR);
+                    error.setLabel(translationService.translate("error.txn_not_found"));
+                    responseForm.addElement(error);
+                    break;
+                }
                 for (TransactionLine line : txn.getLines()) {
                     String key = txn.getStore().getNumber().toString() +
                         ":" +
@@ -137,13 +144,14 @@ public class ViewService {
                 FormElement roleElement = responseForm.findByKey("role");
                 String[] roleOptions = roleElement.getOptions();
                 ArrayList<String> newRoleOptions = new ArrayList<String>();
-                for (String roleOption : roleOptions) {
-                    newRoleOptions.add(roleOption);
+                for (int i = 0; i < 2; i++) {
+                    newRoleOptions.add(roleOptions[i]);
                 }
                 if (userService.isUserAdmin()) {
                     String adminTranslation = translationService.translate("ui.administrator");
                     newRoleOptions.add(UserRole.ADMIN.toString() + "|" + adminTranslation);
                 }
+                roleElement.setOptions(new String[0]);
                 roleElement.setOptions(newRoleOptions.toArray(new String[0]));
                 responseForm.setValueByKey("role", editUser.getRole().toString());
                 break;
@@ -178,7 +186,7 @@ public class ViewService {
         }
         return view;
     }
-    
+
     private String[] getStoreOptions(
         Boolean showNoStoreOption
     ) {
@@ -192,7 +200,7 @@ public class ViewService {
         }
         return storeOptions.toArray(new String[0]);
     }
-    
+
     public View getViewByForm(
         Form requestForm
     ) {
@@ -200,7 +208,7 @@ public class ViewService {
         View view = getViewByName(viewName);
         return enrichView(view, requestForm);
     }
-
+    
     public View getViewByName(
         ViewName viewName
     ) {
@@ -210,5 +218,5 @@ public class ViewService {
         view = translationService.translateView(view);
         return view;
     }
-
+    
 }

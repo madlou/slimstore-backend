@@ -15,17 +15,19 @@ import lombok.Data;
 
 @Data
 public class RegisterResponseDTO {
-
-    private Store store = new Store();
-    private StoreRegister register = new StoreRegister();
-    private View view = new View();
+    
     private BasketLine[] basket = new BasketLine[0];
-    private TenderLine[] tender = new TenderLine[0];
-    private User user = new User();
     private String error = new String();
+    private Language[] languages = Language.values();
+    private StoreRegister register = new StoreRegister();
     @SuppressWarnings("rawtypes")
     private List report = Collections.emptyList();
+    private Store store = new Store();
+    private TenderLine[] tender = new TenderLine[0];
     private UserInterfaceTranslationDTO uiTranslations;
-    private Language[] languages = Language.values();
-
+    private User user = new User();
+    private View view = new View();
+    // TODO: Pull out initial data from view
+    // Private ArrayList<FormElement> viewValues = new ArrayList<FormElement>();
+    
 }
