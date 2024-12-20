@@ -93,7 +93,7 @@ public class RegisterController {
                 tenderService.empty();
                 break;
             case LOGIN:
-                userService.validateLoginByForm(request);
+                userService.loginByForm(request);
                 if (userService.isLoggedOut()) {
                     request.setTargetView(ViewName.LOGIN);
                     response.setError(translationService.translate("error.security_invalid_login"));
