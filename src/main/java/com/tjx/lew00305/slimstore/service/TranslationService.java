@@ -27,17 +27,17 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class TranslationService {
-
+    
     private MessageSource messageSource;
     private ViewConfig viewConfig;
-
-    private HttpServletRequest request;
     
+    private HttpServletRequest request;
+
     private List<String> errorTranslationList = new ArrayList<String>();
     private List<String> uiTranslationList = new ArrayList<String>();
-
+    
     private String translationFile = "messages_%s.properties";
-
+    
     public TranslationService(
         MessageSource messageSource,
         ViewConfig viewConfig,
@@ -61,14 +61,41 @@ public class TranslationService {
             }
         }
     }
-
+    
     private String camelToSnake(
         String text
     ) {
         return text.replaceAll("([^_A-Z])([A-Z])", "$1_$2").toLowerCase();
     }
+    
+    public List<String> getMissingTranslations() {
+        List<String> output = new ArrayList<String>();
+        List<LanguageTranslationDTO> languages = getTranslations();
+        HashMap<String, String> baseLookup = new HashMap<String, String>();
+        for (LanguageTranslationDTO language : languages) {
+            if (language.getIsBase()) {
+                for (String line : language.getTranslations()) {
+                    if (line.length() > 0) {
+                        String[] split = line.split("=");
+                        baseLookup.put(split[0], split.length > 1 ? split[1] : "null");
+                    }
+                }
+            } else {
+                output.add(language.getLanguage() + ":");
+                for (String line : language.getTranslations()) {
+                    String[] split = line.split("=");
+                    if (split[1].equals("null") ||
+                        (!language.getLanguage().equals("en") &&
+                            split[1].equals(baseLookup.get(split[0])))) {
+                        output.add(split[0] + "=" + baseLookup.get(split[0]));
+                    }
+                }
+            }
+        }
+        return output;
+    }
 
-    public List<LanguageTranslationDTO> generateTranslations() {
+    public List<LanguageTranslationDTO> getTranslations() {
         List<LanguageTranslationDTO> languages = new ArrayList<LanguageTranslationDTO>();
         LanguageTranslationDTO base = new LanguageTranslationDTO();
         base.setLanguage("en");
@@ -88,6 +115,7 @@ public class TranslationService {
             for (LanguageTranslationDTO language : languages) {
                 value = messageSource.getMessage(key, null, null, language.getLocale());
                 language.getTranslations().add(key + "=" + value);
+
             }
         }
         for (String line : uiTranslationList) {
@@ -161,33 +189,6 @@ public class TranslationService {
         return languages;
     }
     
-    public List<String> getMissingTranslations() {
-        List<String> output = new ArrayList<String>();
-        List<LanguageTranslationDTO> languages = generateTranslations();
-        HashMap<String, String> baseLookup = new HashMap<String, String>();
-        for (LanguageTranslationDTO language : languages) {
-            if (language.getIsBase()) {
-                for (String line : language.getTranslations()) {
-                    if (line.length() > 0) {
-                        String[] split = line.split("=");
-                        baseLookup.put(split[0], split.length > 1 ? split[1] : "null");
-                    }
-                }
-            } else {
-                output.add(language.getLanguage() + ":");
-                for (String line : language.getTranslations()) {
-                    String[] split = line.split("=");
-                    if (split[1].equals("null") ||
-                        (!language.getLanguage().equals("en") &&
-                            split[1].equals(baseLookup.get(split[0])))) {
-                        output.add(split[0] + "=" + baseLookup.get(split[0]));
-                    }
-                }
-            }
-        }
-        return output;
-    }
-
     @Cacheable("uiTranslations")
     public UserInterfaceTranslationDTO getUserInterfaceTranslations(
         Locale locale
@@ -204,7 +205,7 @@ public class TranslationService {
         }
         return uiTranslation;
     }
-
+    
     private void saveToFile(
         String language,
         List<String> lines
@@ -219,7 +220,7 @@ public class TranslationService {
             e.printStackTrace();
         }
     }
-
+    
     private String snakeToCamel(
         String text
     ) {
@@ -228,14 +229,14 @@ public class TranslationService {
         }
         return text;
     }
-
+    
     public String translate(
         String code,
         Object... args
     ) {
         return messageSource.getMessage(code, null, code, request.getLocale()).formatted(args);
     }
-    
+
     @Cacheable(value = "viewTranslations", key = "#view.cacheKey")
     public View translateView(
         View view
@@ -265,5 +266,5 @@ public class TranslationService {
         }
         return view;
     }
-    
+
 }

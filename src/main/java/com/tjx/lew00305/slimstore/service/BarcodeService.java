@@ -25,7 +25,7 @@ public class BarcodeService {
     }
 
     // "9206603710000999"
-    private boolean barcodeCheck(
+    private boolean isBarcode(
         String value
     ) {
         if (value == null) {
@@ -45,7 +45,7 @@ public class BarcodeService {
         String value
     ) {
         BarcodeSpecification spec = getSpecifiction(Region.EU, Banner.TKMAXX);
-        if (!barcodeCheck(value)) {
+        if (!isBarcode(value)) {
             return null;
         }
         int counter = 0;

@@ -13,12 +13,12 @@ import com.tjx.lew00305.slimstore.repository.StoreRepository;
 
 @Service
 public class LocationService {
-
+    
     private LocationSession locationSession;
     private StoreRepository storeRepository;
     private StoreRegisterRepository storeRegisterRepository;
     private TranslationService translationService;
-
+    
     public LocationService(
         LocationSession locationSession,
         StoreRepository storeRepository,
@@ -31,7 +31,7 @@ public class LocationService {
         this.translationService = translationService;
     }
     
-    private StoreRegister createRegister(
+    private StoreRegister addRegister(
         Store store,
         Integer registerNumber
     ) {
@@ -43,8 +43,8 @@ public class LocationService {
         storeRegister = storeRegisterRepository.save(storeRegister);
         return storeRegister;
     }
-
-    private Store createStore(
+    
+    private Store addStore(
         Integer storeNumber,
         Integer registerNumber
     ) {
@@ -54,66 +54,29 @@ public class LocationService {
         store.setCountryCode(Country.UK);
         store.setCurrencyCode(Currency.GBP);
         store = storeRepository.save(store);
-        store.getRegisters().add(createRegister(store, registerNumber));
+        store.getRegisters().add(addRegister(store, registerNumber));
         return store;
     }
-
+    
     public Store getStore() {
         return locationSession.getStore();
     }
-
+    
     public Store getStore(
         Integer number
     ) {
         return storeRepository.findByNumber(number);
     }
-
+    
     public StoreRegister getStoreRegister() {
         return locationSession.getStoreRegister();
     }
-
+    
     public Iterable<Store> getStores() {
         return storeRepository.findAll();
     }
     
-    public void setLocation(
-        Integer storeNumber,
-        Integer registerNumber
-    ) {
-        Store store = storeRepository.findByNumber(storeNumber);
-        StoreRegister storeRegister = store.getRegisterByNumber(registerNumber);
-        setLocation(store, storeRegister);
-    }
-
-    public void setLocation(
-        Store store,
-        StoreRegister register
-    ) {
-        if ((store != null) &&
-            (register != null)) {
-            locationSession.setStore(store);
-            locationSession.setStoreRegister(register);
-        }
-    }
-
-    public void setLocation(
-        String storeNumber,
-        String registerNumber
-    ) {
-        setLocation(Integer.parseInt(storeNumber), Integer.parseInt(registerNumber));
-    }
-
-    public void setTransactionNumber(
-        Integer id,
-        Integer txnNumber
-    ) {
-        StoreRegister reg = storeRegisterRepository.findById(id).orElse(null);
-        reg.setLastTxnNumber(txnNumber);
-        storeRegisterRepository.save(reg);
-        locationSession.getStoreRegister().setLastTxnNumber(txnNumber);;
-    }
-
-    public void updateStoreByForm(
+    public void saveStoreByForm(
         Form requestForm
     ) {
         Store store = getStore();
@@ -128,7 +91,34 @@ public class LocationService {
         storeRepository.save(store);
     }
     
-    public String validateLocationByForm(
+    public void setLocation(
+        Integer storeNumber,
+        Integer registerNumber
+    ) {
+        Store store = storeRepository.findByNumber(storeNumber);
+        StoreRegister storeRegister = store.getRegisterByNumber(registerNumber);
+        setLocation(store, storeRegister);
+    }
+    
+    public void setLocation(
+        Store store,
+        StoreRegister register
+    ) {
+        if ((store != null) &&
+            (register != null)) {
+            locationSession.setStore(store);
+            locationSession.setStoreRegister(register);
+        }
+    }
+    
+    public void setLocation(
+        String storeNumber,
+        String registerNumber
+    ) {
+        setLocation(Integer.parseInt(storeNumber), Integer.parseInt(registerNumber));
+    }
+    
+    public String setLocationByForm(
         Form requestForm,
         Boolean isAdmin
     ) {
@@ -137,7 +127,7 @@ public class LocationService {
         Store store = storeRepository.findByNumber(storeNumber);
         if (store == null) {
             if (isAdmin) {
-                store = createStore(storeNumber, registerNumber);
+                store = addStore(storeNumber, registerNumber);
             } else {
                 return translationService.translate("location_invalid_store");
             }
@@ -145,13 +135,23 @@ public class LocationService {
         StoreRegister storeRegister = store.getRegisterByNumber(registerNumber);
         if (storeRegister == null) {
             if (isAdmin) {
-                storeRegister = createRegister(store, registerNumber);
+                storeRegister = addRegister(store, registerNumber);
             } else {
                 return translationService.translate("location_invalid_register");
             }
         }
         setLocation(store, storeRegister);
         return null;
+    }
+    
+    public void setTransactionNumber(
+        Integer id,
+        Integer txnNumber
+    ) {
+        StoreRegister reg = storeRegisterRepository.findById(id).orElse(null);
+        reg.setLastTxnNumber(txnNumber);
+        storeRegisterRepository.save(reg);
+        locationSession.getStoreRegister().setLastTxnNumber(txnNumber);;
     }
     
 }

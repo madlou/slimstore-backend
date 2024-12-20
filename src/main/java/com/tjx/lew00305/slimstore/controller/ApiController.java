@@ -31,7 +31,7 @@ public class ApiController {
     
     @GetMapping(path = "/api/translations/generate")
     public List<LanguageTranslationDTO> generateTranslations() {
-        List<LanguageTranslationDTO> translations = translationService.generateTranslations();
+        List<LanguageTranslationDTO> translations = translationService.getTranslations();
         return translations;
     }
 
