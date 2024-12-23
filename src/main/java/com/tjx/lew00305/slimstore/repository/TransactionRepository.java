@@ -12,13 +12,13 @@ import com.tjx.lew00305.slimstore.model.entity.Transaction;
 import com.tjx.lew00305.slimstore.model.report.TransactionTenderAggregationInterface;
 
 public interface TransactionRepository extends CrudRepository<Transaction, Integer> {
-
+    
     @Query(value = """
             SELECT
             s.number AS 'store',
             s.name AS 'storeName',
             DATE(x.date) AS 'date',
-            r.number AS 'reg',
+            r.number AS 'register',
             t.type AS 'type',
             ROUND(SUM(t.value), 2) AS 'value'
             FROM store s
@@ -49,24 +49,24 @@ public interface TransactionRepository extends CrudRepository<Transaction, Integ
         LocalDateTime start,
         LocalDateTime stop
     );
-
+    
     List<Transaction> findByDateBetweenOrderByDateAsc(
         LocalDateTime start,
         LocalDateTime stop
     );
-
+    
     List<Transaction> findByRegisterAndDateBetweenOrderByDateAsc(
         StoreRegister register,
         LocalDateTime start,
         LocalDateTime stop
     );
-    
+
     List<Transaction> findByStoreAndDateBetweenOrderByDateAsc(
         Store store,
         LocalDateTime start,
         LocalDateTime stop
     );
-
+    
     Transaction findByStoreAndRegisterAndNumberAndDateBetween(
         Store store,
         StoreRegister regNumber,
