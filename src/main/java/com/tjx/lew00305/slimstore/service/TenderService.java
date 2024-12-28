@@ -10,23 +10,16 @@ import com.tjx.lew00305.slimstore.model.common.FormElement;
 import com.tjx.lew00305.slimstore.model.session.Tender;
 import com.tjx.lew00305.slimstore.model.session.TenderLine;
 
-@Service
-public class TenderService {
-    
-    private BasketService basketService;
-    private Tender tender;
-    private TranslationService translationService;
-    
-    public TenderService(
-        BasketService basketService,
-        Tender tender,
-        TranslationService translationService
-    ) {
-        this.basketService = basketService;
-        this.tender = tender;
-        this.translationService = translationService;
-    }
+import lombok.RequiredArgsConstructor;
 
+@Service
+@RequiredArgsConstructor
+public class TenderService {
+
+    private final BasketService basketService;
+    private final Tender tender;
+    private final TranslationService translationService;
+    
     public void addFormElement(
         FormElement element
     ) throws Exception {
@@ -52,9 +45,9 @@ public class TenderService {
         } else {
             throw new Exception(translationService.translate("error.tender_value_not_allowed"));
         }
-        
+
     }
-    
+
     public void addFormElements(
         FormElement[] elements
     ) throws Exception {
@@ -62,7 +55,7 @@ public class TenderService {
             addFormElement(element);
         }
     }
-    
+
     public String addTenderByForm(
         Form requestForm
     ) {
@@ -84,34 +77,34 @@ public class TenderService {
         }
         return null;
     }
-    
+
     public void empty() {
         tender.empty();
     }
-    
+
     public BigDecimal getRemaining() {
         BigDecimal remaining = basketService.getTotal().subtract(tender.getTotal());
         return remaining;
     }
-    
+
     public TenderLine[] getTenderArray() {
         return tender.getArray();
     }
-    
+
     public ArrayList<TenderLine> getTenderArrayList() {
         return tender.getArrayList();
     }
-    
+
     public boolean isComplete() {
         return tender.isComplete();
     }
-    
+
     public boolean isRefund() {
         return basketService.getTotal().compareTo(BigDecimal.ZERO) < 0;
     }
-    
+
     public boolean isSale() {
         return basketService.getTotal().compareTo(BigDecimal.ZERO) >= 0;
     }
-    
+
 }

@@ -9,26 +9,20 @@ import org.springframework.web.client.RestTemplate;
 import com.tjx.lew00305.slimstore.dto.TjxComSearchDTO;
 import com.tjx.lew00305.slimstore.model.common.FormElement;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class ProductService {
 
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
+    @Value("${tjx.online.search}")
     private String onlineSearchUrl;
-    
-    public ProductService(
-        RestTemplate restTemplate,
-        @Value("${tjx.online.search}")
-        String onlineSearchUrl
-    ) {
-        this.restTemplate = restTemplate;
-        this.onlineSearchUrl = onlineSearchUrl;
-    }
     
     public FormElement[] onlineSearch(
         String query
     ) {
-        TjxComSearchDTO search = restTemplate.getForObject(onlineSearchUrl +
-            query, TjxComSearchDTO.class);
+        TjxComSearchDTO search = restTemplate.getForObject(onlineSearchUrl + query, TjxComSearchDTO.class);
         int productCount = search.response.docs.length;
         FormElement[] products = new FormElement[productCount];
         for (int i = 0; i < productCount; i++) {

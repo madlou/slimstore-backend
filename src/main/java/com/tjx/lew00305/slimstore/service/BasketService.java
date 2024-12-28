@@ -10,17 +10,14 @@ import com.tjx.lew00305.slimstore.model.common.FormElement;
 import com.tjx.lew00305.slimstore.model.session.Basket;
 import com.tjx.lew00305.slimstore.model.session.BasketLine;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class BasketService {
 
-    private Basket basket;
+    private final Basket basket;
 
-    public BasketService(
-        Basket basket
-    ) {
-        this.basket = basket;
-    }
-    
     public void addBasketByForm(
         Form requestForm
     ) {

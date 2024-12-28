@@ -7,23 +7,20 @@ import org.springframework.web.context.annotation.RequestScope;
 import com.tjx.lew00305.slimstore.model.common.View;
 import com.tjx.lew00305.slimstore.model.common.View.ViewName;
 
+import lombok.RequiredArgsConstructor;
+
 @Configuration
 @ImportResource("classpath:view/**/*.xml")
 @RequestScope
+@RequiredArgsConstructor
 public class ViewConfig {
-    
-    private View[] views;
 
-    public ViewConfig(
-        View[] views
-    ) {
-        this.views = views;
-    }
-    
+    private final View[] views;
+
     public View[] getAll() {
         return views;
     }
-    
+
     public View getView(
         ViewName viewName
     ) {
@@ -38,5 +35,5 @@ public class ViewConfig {
         }
         return pageNotFound;
     }
-    
+
 }

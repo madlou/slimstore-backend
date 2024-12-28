@@ -11,25 +11,18 @@ import com.tjx.lew00305.slimstore.model.session.LocationSession;
 import com.tjx.lew00305.slimstore.repository.StoreRegisterRepository;
 import com.tjx.lew00305.slimstore.repository.StoreRepository;
 
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class LocationService {
     
-    private LocationSession locationSession;
-    private StoreRepository storeRepository;
-    private StoreRegisterRepository storeRegisterRepository;
-    private TranslationService translationService;
-    
-    public LocationService(
-        LocationSession locationSession,
-        StoreRepository storeRepository,
-        StoreRegisterRepository storeRegisterRepository,
-        TranslationService translationService
-    ) {
-        this.locationSession = locationSession;
-        this.storeRepository = storeRepository;
-        this.storeRegisterRepository = storeRegisterRepository;
-        this.translationService = translationService;
-    }
+    private final LocationSession locationSession;
+    private final StoreRepository storeRepository;
+    private final StoreRegisterRepository storeRegisterRepository;
+    private final TranslationService translationService;
+    private final HttpServletRequest httpServletRequest;
     
     private StoreRegister addRegister(
         Store store,
@@ -76,6 +69,18 @@ public class LocationService {
         return storeRepository.findAll();
     }
     
+    public void saveRegisterSessionId() {
+        StoreRegister register = getStoreRegister();
+        String sessionId = httpServletRequest.getRequestedSessionId();
+        // TODO: Remove below println
+        System.out.println("Session ID set: " + sessionId);
+        if ((register != null) &&
+            (sessionId != null)) {
+            register.setSessionId(httpServletRequest.getRequestedSessionId());
+            storeRegisterRepository.save(register);
+        }
+    }
+
     public void saveStoreByForm(
         Form requestForm
     ) {
@@ -141,6 +146,7 @@ public class LocationService {
             }
         }
         setLocation(store, storeRegister);
+        saveRegisterSessionId();
         return null;
     }
     

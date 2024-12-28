@@ -13,33 +13,13 @@ import com.tjx.lew00305.slimstore.model.common.Barcode;
 import com.tjx.lew00305.slimstore.model.common.BarcodeSpecification;
 import com.tjx.lew00305.slimstore.model.common.Form;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class BarcodeService {
     
-    private BarcodeConfig barcodeConfig;
-    
-    public BarcodeService(
-        BarcodeConfig barcodeConfig
-    ) {
-        this.barcodeConfig = barcodeConfig;
-    }
-
-    // "9206603710000999"
-    private boolean isBarcode(
-        String value
-    ) {
-        if (value == null) {
-            return false;
-        }
-        BarcodeSpecification spec = getSpecifiction(Region.EU, Banner.TKMAXX);
-        String regExpn = "^[0-9]{" + spec.getLength() + "}$";
-        Pattern pattern = Pattern.compile(regExpn);
-        Matcher matcher = pattern.matcher(value);
-        if (matcher.matches()) {
-            return true;
-        }
-        return false;
-    }
+    private final BarcodeConfig barcodeConfig;
     
     public Barcode getBarcode(
         String value
@@ -99,6 +79,23 @@ public class BarcodeService {
             }
         }
         return null;
+    }
+    
+    // "9206603710000999"
+    private boolean isBarcode(
+        String value
+    ) {
+        if (value == null) {
+            return false;
+        }
+        BarcodeSpecification spec = getSpecifiction(Region.EU, Banner.TKMAXX);
+        String regExpn = "^[0-9]{" + spec.getLength() + "}$";
+        Pattern pattern = Pattern.compile(regExpn);
+        Matcher matcher = pattern.matcher(value);
+        if (matcher.matches()) {
+            return true;
+        }
+        return false;
     }
     
 }

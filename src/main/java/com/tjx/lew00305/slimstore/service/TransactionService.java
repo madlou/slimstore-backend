@@ -17,38 +17,22 @@ import com.tjx.lew00305.slimstore.repository.TransactionLineRepository;
 import com.tjx.lew00305.slimstore.repository.TransactionRepository;
 import com.tjx.lew00305.slimstore.repository.TransactionTenderRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class TransactionService {
-
-    private TransactionRepository txnRepo;
-    private TransactionLineRepository lineRepo;
-    private TransactionTenderRepository tenderRepo;
-    private LocationService locationService;
-    private BasketService basketService;
-    private TenderService tenderService;
-    private UserService userService;
-
-    public TransactionService(
-        TransactionRepository txnRepo,
-        TransactionLineRepository lineRepo,
-        TransactionTenderRepository tenderRepo,
-        LocationService locationService,
-        BasketService basketService,
-        TenderService tenderService,
-        UserService userService
-    ) {
-        this.txnRepo = txnRepo;
-        this.lineRepo = lineRepo;
-        this.tenderRepo = tenderRepo;
-        this.locationService = locationService;
-        this.basketService = basketService;
-        this.tenderService = tenderService;
-        this.userService = userService;
-    }
     
+    private final TransactionRepository txnRepo;
+    private final TransactionLineRepository lineRepo;
+    private final TransactionTenderRepository tenderRepo;
+    private final LocationService locationService;
+    private final BasketService basketService;
+    private final TenderService tenderService;
+    private final UserService userService;
+
     public void addTransaction() {
-        Integer txnNumber = 1 +
-            locationService.getStoreRegister().getLastTxnNumber();
+        Integer txnNumber = 1 + locationService.getStoreRegister().getLastTxnNumber();
         locationService.setTransactionNumber(locationService.getStoreRegister().getId(), txnNumber);
         Transaction transaction = new Transaction();
         transaction.setStore(locationService.getStore());
@@ -67,8 +51,7 @@ public class TransactionService {
                 String[] split = basketLine.getCode().split(":");
                 Integer lineId = Integer.parseInt(split[4]);
                 TransactionLine originalLine = lineRepo.findById(lineId).orElse(null);
-                originalLine.setReturnedQuantity(originalLine.getReturnedQuantity() +
-                    basketLine.getQuantity());
+                originalLine.setReturnedQuantity(originalLine.getReturnedQuantity() + basketLine.getQuantity());
                 lineRepo.save(originalLine);
                 txnLine.setOriginalTransactionLineId(lineId);
                 code = originalLine.getProductCode();
@@ -95,7 +78,7 @@ public class TransactionService {
             tenderRepo.save(txnTender);
         }
     }
-
+    
     public Transaction getTransaction(
         Integer storeNumber,
         Integer regNumber,
@@ -108,5 +91,5 @@ public class TransactionService {
         LocalDateTime stop = LocalDateTime.parse(date + "T23:59:59");
         return txnRepo.findByStoreAndRegisterAndNumberAndDateBetween(store, register, txnNumber, start, stop);
     }
-
+    
 }

@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @SessionScope
 public class StoreRegister implements Serializable {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
@@ -41,5 +41,7 @@ public class StoreRegister implements Serializable {
     @OneToMany(mappedBy = "register", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Transaction> transactions;
-
+    @JsonIgnore
+    private String sessionId;
+    
 }

@@ -15,34 +15,21 @@ import com.tjx.lew00305.slimstore.model.entity.User;
 import com.tjx.lew00305.slimstore.model.session.UserSession;
 import com.tjx.lew00305.slimstore.repository.UserRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
-    private LocationService locationService;
-    private TranslationService translationService;
-    private UserRepository userRepository;
-    private UserSession userSession;
+    private final LocationService locationService;
+    private final TranslationService translationService;
+    private final UserRepository userRepository;
+    private final UserSession userSession;
 
+    @Value("${tjx.admin.password}")
     private String adminPassword;
+    @Value("${tjx.app.demo}")
     private Boolean demoMode;
-
-    public UserService(
-        LocationService locationService,
-        TranslationService translationService,
-        UserRepository userRepository,
-        UserSession userSession,
-        @Value("${tjx.admin.password}")
-        String adminPassword,
-        @Value("${tjx.app.demo}")
-        Boolean demoMode
-    ) {
-        this.locationService = locationService;
-        this.translationService = translationService;
-        this.userRepository = userRepository;
-        this.userSession = userSession;
-        this.adminPassword = adminPassword;
-        this.demoMode = demoMode;
-    }
 
     public String addUserByForm(
         Form requestForm
@@ -176,6 +163,7 @@ public class UserService {
         if ((user != null) &&
             user.getPassword().equals(password)) {
             userSession.setUser(user);
+            locationService.saveRegisterSessionId();
             return user;
         }
         return null;

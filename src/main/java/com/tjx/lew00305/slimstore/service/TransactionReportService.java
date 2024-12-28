@@ -22,20 +22,15 @@ import com.tjx.lew00305.slimstore.model.report.TransactionTenderAggregationInter
 import com.tjx.lew00305.slimstore.model.report.TransactionTenderFlat;
 import com.tjx.lew00305.slimstore.repository.TransactionRepository;
 
-@Service
-public class TransactionReportService {
-    
-    private TransactionRepository txnRepo;
-    private LocationService locationService;
-    
-    public TransactionReportService(
-        TransactionRepository txnRepo,
-        LocationService locationService
-    ) {
-        this.txnRepo = txnRepo;
-        this.locationService = locationService;
-    }
+import lombok.RequiredArgsConstructor;
 
+@Service
+@RequiredArgsConstructor
+public class TransactionReportService {
+
+    private final TransactionRepository txnRepo;
+    private final LocationService locationService;
+    
     private List<TransactionAudit> getTransactionAudit(
         List<Transaction> data
     ) {
@@ -63,7 +58,7 @@ public class TransactionReportService {
         }
         return report;
     }
-    
+
     private List<TransactionFlat> getTransactionFlat(
         List<Transaction> data
     ) {
@@ -85,7 +80,7 @@ public class TransactionReportService {
         }
         return report;
     }
-    
+
     private List<TransactionLineFlat> getTransactionLineFlat(
         List<Transaction> data
     ) {
@@ -112,11 +107,11 @@ public class TransactionReportService {
         }
         return report;
     }
-    
+
     public Iterable<Transaction> getTransactionReport() {
         return txnRepo.findAll();
     }
-    
+
     private List<TransactionTenderAggregation> getTransactionTenderAggregation(
         List<TransactionTenderAggregationInterface> data
     ) {
@@ -133,7 +128,7 @@ public class TransactionReportService {
         }
         return report;
     }
-    
+
     private List<TransactionTenderFlat> getTransactionTenderFlat(
         List<Transaction> data
     ) {
@@ -158,7 +153,7 @@ public class TransactionReportService {
         }
         return report;
     }
-    
+
     @SuppressWarnings("rawtypes")
     public List runReport(
         String scope,
@@ -206,12 +201,12 @@ public class TransactionReportService {
         }
         return null;
     }
-    
+
     @SuppressWarnings("rawtypes")
     public List runReportByForm(
         Form requestForm
     ) {
         return runReport(requestForm.getValueByKey("scope"), requestForm.getValueByKey("report"), requestForm.getIntegerValueByKey("days"));
     }
-    
+
 }

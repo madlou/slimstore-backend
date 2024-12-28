@@ -17,36 +17,20 @@ import com.tjx.lew00305.slimstore.model.entity.TransactionLine;
 import com.tjx.lew00305.slimstore.model.entity.User;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class ViewService {
-    
-    private ViewConfig viewConfig;
-    private ProductService productService;
-    private UserService userService;
-    private LocationService locationService;
-    private TransactionService transactionService;
-    private TranslationService translationService;
-    private HttpServletRequest request;
-    
-    public ViewService(
-        ViewConfig viewConfig,
-        ProductService productService,
-        UserService userService,
-        LocationService locationService,
-        TransactionService transactionService,
-        TranslationService translationService,
-        HttpServletRequest request
-    ) {
-        this.viewConfig = viewConfig;
-        this.productService = productService;
-        this.userService = userService;
-        this.locationService = locationService;
-        this.transactionService = transactionService;
-        this.translationService = translationService;
-        this.request = request;
-    }
 
+    private final LocationService locationService;
+    private final ProductService productService;
+    private final HttpServletRequest request;
+    private final TransactionService transactionService;
+    private final TranslationService translationService;
+    private final UserService userService;
+    private final ViewConfig viewConfig;
+    
     private View enrichView(
         View view,
         Form requestForm
@@ -186,7 +170,7 @@ public class ViewService {
         }
         return view;
     }
-
+    
     private String[] getStoreOptions(
         Boolean showNoStoreOption
     ) {
@@ -200,7 +184,7 @@ public class ViewService {
         }
         return storeOptions.toArray(new String[0]);
     }
-
+    
     public View getViewByForm(
         Form requestForm
     ) {
@@ -208,7 +192,7 @@ public class ViewService {
         View view = getViewByName(viewName);
         return enrichView(view, requestForm);
     }
-    
+
     public View getViewByName(
         ViewName viewName
     ) {
@@ -218,5 +202,5 @@ public class ViewService {
         view = translationService.translateView(view);
         return view;
     }
-    
+
 }

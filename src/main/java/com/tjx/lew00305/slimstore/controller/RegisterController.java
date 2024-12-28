@@ -23,47 +23,24 @@ import com.tjx.lew00305.slimstore.service.UserInterfaceService;
 import com.tjx.lew00305.slimstore.service.UserService;
 import com.tjx.lew00305.slimstore.service.ViewService;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
+@RequiredArgsConstructor
 public class RegisterController {
-    
-    private BasketService basketService;
-    private GiftCardService giftCardService;
-    private LocationService locationService;
-    private TenderService tenderService;
-    private BarcodeService barcodeService;
-    private UserInterfaceService userInterfaceService;
-    private UserService userService;
-    private ViewService viewService;
-    private TransactionService transactionService;
-    private TransactionReportService transactionReportService;
-    private TranslationService translationService;
-    
-    public RegisterController(
-        BasketService basketService,
-        GiftCardService giftCardService,
-        LocationService locationService,
-        TenderService tenderService,
-        BarcodeService barcodeService,
-        UserInterfaceService userInterfaceService,
-        UserService userService,
-        ViewService viewService,
-        TransactionService transactionService,
-        TransactionReportService transactionReportService,
-        TranslationService translationService
-    ) {
-        this.basketService = basketService;
-        this.giftCardService = giftCardService;
-        this.locationService = locationService;
-        this.tenderService = tenderService;
-        this.barcodeService = barcodeService;
-        this.userInterfaceService = userInterfaceService;
-        this.userService = userService;
-        this.viewService = viewService;
-        this.transactionService = transactionService;
-        this.transactionReportService = transactionReportService;
-        this.translationService = translationService;
-    }
-    
+
+    private final BasketService basketService;
+    private final GiftCardService giftCardService;
+    private final LocationService locationService;
+    private final TenderService tenderService;
+    private final BarcodeService barcodeService;
+    private final UserInterfaceService userInterfaceService;
+    private final UserService userService;
+    private final ViewService viewService;
+    private final TransactionService transactionService;
+    private final TransactionReportService transactionReportService;
+    private final TranslationService translationService;
+
     @PostMapping(path = "/api/register")
     public @ResponseBody
     RegisterResponseDTO registerQuery(
@@ -146,7 +123,7 @@ public class RegisterController {
         }
         return updateDTO(response, viewService.getViewByForm(request));
     }
-    
+
     private RegisterResponseDTO updateDTO(
         RegisterResponseDTO response,
         View view
@@ -160,5 +137,5 @@ public class RegisterController {
         response.setUiTranslations(userInterfaceService.getUserInterfaceTranslations());
         return response;
     }
-    
+
 }

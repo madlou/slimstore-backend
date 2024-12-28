@@ -7,26 +7,22 @@ import org.springframework.stereotype.Service;
 import com.tjx.lew00305.slimstore.model.common.Form;
 import com.tjx.lew00305.slimstore.model.common.FormElement;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class GiftCardService {
-
-    private LocationService locationService;
-
-    public GiftCardService(
-        LocationService locationService
-    ) {
-        this.locationService = locationService;
-    }
     
+    private final LocationService locationService;
+
     public void topup(
         String card,
         BigDecimal value
     ) {
-        Integer transactionNumber = locationService.getStoreRegister().getLastTxnNumber() +
-            1;
+        Integer transactionNumber = locationService.getStoreRegister().getLastTxnNumber() + 1;
         topupQueue(card, value, transactionNumber);
     }
-
+    
     public FormElement topupByForm(
         Form requestForm
     ) {
@@ -41,7 +37,7 @@ public class GiftCardService {
         element.setPrice(value);
         return element;
     }
-
+    
     public void topupQueue(
         String card,
         BigDecimal value,
@@ -49,5 +45,5 @@ public class GiftCardService {
     ) {
         // TODO Auto-generated method stub
     }
-
+    
 }
