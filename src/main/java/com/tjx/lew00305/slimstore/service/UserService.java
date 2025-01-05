@@ -20,17 +20,17 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-
+    
     private final LocationService locationService;
     private final TranslationService translationService;
     private final UserRepository userRepository;
     private final UserSession userSession;
-
+    
     @Value("${tjx.admin.password}")
     private String adminPassword;
     @Value("${tjx.app.demo}")
     private Boolean demoMode;
-
+    
     public String addUserByForm(
         Form requestForm
     ) {
@@ -52,15 +52,15 @@ public class UserService {
             }
         }
     }
-
+    
     public Iterable<User> getAllUsers() {
         return userRepository.findAll();
     }
-
+    
     public User getUser() {
         return userSession.getUser();
     }
-
+    
     public User getUser(
         String username
     ) {
@@ -84,7 +84,7 @@ public class UserService {
         }
         return user;
     }
-
+    
     public FormElement[] getUsersAsFormElements(
         Integer storeNumber
     ) {
@@ -119,11 +119,11 @@ public class UserService {
         }
         return elements.toArray(new FormElement[0]);
     }
-
+    
     private Boolean isDemoMode() {
         return demoMode == null ? false : demoMode;
     }
-
+    
     public Boolean isLoggedIn() {
         User user = getUser();
         if ((user == null) ||
@@ -132,11 +132,11 @@ public class UserService {
         }
         return true;
     }
-
+    
     public Boolean isLoggedOut() {
         return !isLoggedIn();
     }
-
+    
     public Boolean isUserAdmin() {
         User user = getUser();
         if ((user != null) &&
@@ -145,7 +145,7 @@ public class UserService {
         }
         return false;
     }
-    
+
     public Boolean isUserManagerOrAdmin() {
         User user = getUser();
         if ((user != null) &&
@@ -154,7 +154,7 @@ public class UserService {
         }
         return false;
     }
-
+    
     public User login(
         String username,
         String password
@@ -163,12 +163,12 @@ public class UserService {
         if ((user != null) &&
             user.getPassword().equals(password)) {
             userSession.setUser(user);
-            locationService.saveRegisterSessionId();
+            locationService.updateRegisterWithOpen(user);
             return user;
         }
         return null;
     }
-
+    
     public User loginByForm(
         Form requestForm
     ) {
@@ -181,11 +181,12 @@ public class UserService {
         }
         return null;
     }
-    
+
     public void logout() {
+        locationService.updateRegisterWithClose();
         userSession.setUser(new User());
     }
-
+    
     public String saveUserByForm(
         Form requestForm
     ) {
@@ -212,5 +213,5 @@ public class UserService {
             return translationService.translate("error.user_unable_to_save", e.getMessage());
         }
     }
-    
+
 }

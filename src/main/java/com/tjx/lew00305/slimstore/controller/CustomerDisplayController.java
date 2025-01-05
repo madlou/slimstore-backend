@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import com.tjx.lew00305.slimstore.dto.CustomerDisplayRequestDTO;
 import com.tjx.lew00305.slimstore.dto.CustomerDisplayResponseDTO;
+import com.tjx.lew00305.slimstore.model.entity.StoreRegister.RegisterStatus;
 import com.tjx.lew00305.slimstore.model.session.Basket;
 import com.tjx.lew00305.slimstore.model.session.Tender;
 import com.tjx.lew00305.slimstore.service.LocationService;
@@ -17,10 +18,10 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 public class CustomerDisplayController {
-    
+
     private final SimpMessagingTemplate messagingTemplate;
     private final LocationService locationService;
-
+    
     @MessageMapping("/connect")
     @SendTo("/topic/connected")
     public CustomerDisplayResponseDTO connect(
@@ -33,7 +34,7 @@ public class CustomerDisplayController {
         System.out.println("Connected: " + response);
         return response;
     }
-
+    
     @MessageMapping("/disconnect")
     @SendTo("/topic/disconnected")
     public CustomerDisplayResponseDTO disconnect(
@@ -46,12 +47,23 @@ public class CustomerDisplayController {
         System.out.println("Disconnected: " + response);
         return response;
     }
-
+    
     public void sendBasket(
         Basket basket
     ) {
         CustomerDisplayResponseDTO response = new CustomerDisplayResponseDTO();
         response.setBasket(basket.getArrayList());
+        Integer storeNumber = locationService.getStore().getNumber();
+        Integer registerNumber = locationService.getStoreRegister().getNumber();
+        String topic = "/topic/" + storeNumber + "/" + registerNumber;
+        messagingTemplate.convertAndSend(topic, response);
+    }
+
+    public void sendRegisterStatus(
+        RegisterStatus status
+    ) {
+        CustomerDisplayResponseDTO response = new CustomerDisplayResponseDTO();
+        response.setStatus(status);
         Integer storeNumber = locationService.getStore().getNumber();
         Integer registerNumber = locationService.getStoreRegister().getNumber();
         String topic = "/topic/" + storeNumber + "/" + registerNumber;

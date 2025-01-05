@@ -16,26 +16,25 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 public class TenderMonitor {
-    
-    private final CustomerDisplayController customerDisplayController;
 
+    private final CustomerDisplayController customerDisplayController;
+    
     @Pointcut("execution(public * com.tjx.lew00305.slimstore.service.TenderService.addTenderByForm(..))")
     private void aPointCutFromAddTender() {}
-
+    
     @Pointcut("execution(public * com.tjx.lew00305.slimstore.service.TenderService.empty(..))")
     private void aPointCutFromEmptyTender() {}
-    
+
     @AfterReturning(pointcut = "aPointCutFromEmptyTender()")
     public void sendEmptyTenderToWebsocket() {
         customerDisplayController.sendTender(new Tender());
     }
-
+    
     @AfterReturning(pointcut = "aPointCutFromAddTender()", returning = "tender")
     public void sendTenderToWebsocket(
         Tender tender
     ) {
-        System.out.println(tender.getArrayList().size());
         customerDisplayController.sendTender(tender);
     }
-
+    
 }
