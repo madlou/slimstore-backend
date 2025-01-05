@@ -29,12 +29,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @SessionScope
 public class StoreRegister implements Serializable {
-
+    
     public enum RegisterStatus {
         OPEN,
         CLOSED
     }
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
@@ -53,9 +53,9 @@ public class StoreRegister implements Serializable {
     @JsonIgnore
     private String sessionId;
     @JsonIgnore
-    @JoinColumn(name = "last_user_id")
+    @JoinColumn(name = "user_id")
     @ManyToOne()
     private User user;
     private Timestamp lastTxnTime;
-
+    
 }

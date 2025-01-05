@@ -23,14 +23,14 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class LocationService {
-    
+
     private final LocationSession locationSession;
     private final StoreRepository storeRepository;
     private final StoreRegisterRepository storeRegisterRepository;
     private final TranslationService translationService;
     private final HttpServletRequest httpServletRequest;
     private final RedisSessionRepository redisRepo;
-    
+
     private StoreRegister addRegister(
         Store store,
         Integer registerNumber
@@ -43,7 +43,7 @@ public class LocationService {
         storeRegister = storeRegisterRepository.save(storeRegister);
         return storeRegister;
     }
-    
+
     private Store addStore(
         Integer storeNumber,
         Integer registerNumber
@@ -57,7 +57,7 @@ public class LocationService {
         store.getRegisters().add(addRegister(store, registerNumber));
         return store;
     }
-    
+
     public Session getSessionByStoreRegister(
         Integer storeNumber,
         Integer registerNumber
@@ -69,25 +69,25 @@ public class LocationService {
         StoreRegister register = store.getRegisterByNumber(registerNumber);
         return redisRepo.findById(register.getSessionId());
     }
-    
+
     public Store getStore() {
         return locationSession.getStore();
     }
-    
+
     public Store getStore(
         Integer number
     ) {
         return storeRepository.findByNumber(number);
     }
-    
+
     public StoreRegister getStoreRegister() {
         return locationSession.getStoreRegister();
     }
-    
+
     public Iterable<Store> getStores() {
         return storeRepository.findAll();
     }
-    
+
     public void saveStoreByForm(
         Form requestForm
     ) {
@@ -102,7 +102,7 @@ public class LocationService {
         store.setPhoneNumber(requestForm.getValueByKey("phoneNumber"));
         storeRepository.save(store);
     }
-    
+
     public void setLocation(
         Integer storeNumber,
         Integer registerNumber
@@ -111,7 +111,7 @@ public class LocationService {
         StoreRegister storeRegister = store.getRegisterByNumber(registerNumber);
         setLocation(store, storeRegister);
     }
-    
+
     public void setLocation(
         Store store,
         StoreRegister register
@@ -122,14 +122,14 @@ public class LocationService {
             locationSession.setStoreRegister(register);
         }
     }
-    
+
     public void setLocation(
         String storeNumber,
         String registerNumber
     ) {
         setLocation(Integer.parseInt(storeNumber), Integer.parseInt(registerNumber));
     }
-    
+
     public String setLocationByForm(
         Form requestForm,
         Boolean isAdmin
@@ -158,14 +158,15 @@ public class LocationService {
         updateRegisterWithOpen(user);
         return null;
     }
-    
+
     public void updateRegisterWithClose() {
         StoreRegister register = getStoreRegister();
         register.setStatus(RegisterStatus.CLOSED);
+        register.setUser(null);
         storeRegisterRepository.save(register);
         locationSession.setStoreRegister(register);
     }
-
+    
     public void updateRegisterWithOpen(
         User user
     ) {
@@ -176,7 +177,7 @@ public class LocationService {
         storeRegisterRepository.save(register);
         locationSession.setStoreRegister(register);
     }
-    
+
     public Integer updateRegisterWithTransaction(
         Timestamp time
     ) {
@@ -188,5 +189,5 @@ public class LocationService {
         locationSession.setStoreRegister(register);
         return txnNumber;
     }
-    
+
 }
