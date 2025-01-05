@@ -3,6 +3,7 @@ package com.tjx.lew00305.slimstore.service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import org.springframework.session.Session;
 import org.springframework.stereotype.Service;
 
 import com.tjx.lew00305.slimstore.model.common.Form;
@@ -15,11 +16,11 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class TenderService {
-
+    
     private final BasketService basketService;
     private final Tender tender;
     private final TranslationService translationService;
-    
+
     public void addFormElement(
         FormElement element
     ) throws Exception {
@@ -45,9 +46,9 @@ public class TenderService {
         } else {
             throw new Exception(translationService.translate("error.tender_value_not_allowed"));
         }
-
+        
     }
-
+    
     public void addFormElements(
         FormElement[] elements
     ) throws Exception {
@@ -55,8 +56,8 @@ public class TenderService {
             addFormElement(element);
         }
     }
-
-    public String addTenderByForm(
+    
+    public Tender addTenderByForm(
         Form requestForm
     ) {
         try {
@@ -73,38 +74,48 @@ public class TenderService {
                 tender.setComplete();
             }
         } catch (Exception e) {
-            return e.getMessage();
+            return null;
         }
-        return null;
+        return tender;
     }
-
+    
     public void empty() {
         tender.empty();
     }
-
+    
     public BigDecimal getRemaining() {
         BigDecimal remaining = basketService.getTotal().subtract(tender.getTotal());
         return remaining;
     }
-
+    
     public TenderLine[] getTenderArray() {
         return tender.getArray();
     }
-
+    
+    public TenderLine[] getTenderArray(
+        Session session
+    ) {
+        if (session == null) {
+            return new TenderLine[0];
+        }
+        Tender sessionTender = (Tender) session.getAttribute("scopedTarget.tender");
+        return sessionTender.getArray();
+    }
+    
     public ArrayList<TenderLine> getTenderArrayList() {
         return tender.getArrayList();
     }
-
+    
     public boolean isComplete() {
         return tender.isComplete();
     }
-
+    
     public boolean isRefund() {
         return basketService.getTotal().compareTo(BigDecimal.ZERO) < 0;
     }
-
+    
     public boolean isSale() {
         return basketService.getTotal().compareTo(BigDecimal.ZERO) >= 0;
     }
-
+    
 }

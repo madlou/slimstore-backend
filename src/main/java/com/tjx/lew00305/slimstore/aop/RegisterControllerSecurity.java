@@ -20,30 +20,22 @@ import com.tjx.lew00305.slimstore.service.LocationService;
 import com.tjx.lew00305.slimstore.service.TranslationService;
 import com.tjx.lew00305.slimstore.service.UserService;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Aspect
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class RegisterControllerSecurity {
-
-    private LocationService locationService;
-    private TranslationService translationService;
-    private UserService userService;
-
-    public RegisterControllerSecurity(
-        LocationService locationService,
-        TranslationService translationService,
-        UserService userService
-    ) {
-        this.locationService = locationService;
-        this.translationService = translationService;
-        this.userService = userService;
-    }
     
+    private final LocationService locationService;
+    private final TranslationService translationService;
+    private final UserService userService;
+
     @Pointcut("execution(public * com.tjx.lew00305.slimstore.controller.RegisterController.registerQuery(..))")
     private void aPointCutFromRegisterController() {}
-    
+
     @Before(value = "aPointCutFromRegisterController()")
     public void logBefore(
         JoinPoint joinPoint
@@ -52,7 +44,7 @@ public class RegisterControllerSecurity {
         String methodName = joinPoint.getSignature().getName();
         log.info(">> {}() - {}", methodName, Arrays.toString(args));
     }
-    
+
     @Around(value = "aPointCutFromRegisterController()")
     public Object validateQueryAround(
         ProceedingJoinPoint joinPoint
@@ -134,5 +126,5 @@ public class RegisterControllerSecurity {
         });
         return result;
     }
-    
+
 }

@@ -27,15 +27,7 @@
                             <property name="key" value="countryCode" />
                             <property name="label" value="Country" />
                             <property name="options">
-                                <array value-type="java.lang.String">
-                                    <value>DE</value>
-                                    <value>ES</value>
-                                    <value>FR</value>
-                                    <value>IE</value>
-                                    <value>PL</value>
-                                    <value>UK</value>
-                                    <value>US</value>
-                                </array>
+                                <bean class="com.tjx.lew00305.slimstore.enums.Country" factory-method="values"/>
                             </property>
                             <property name="value" value="DE" />
                         </bean>
@@ -44,12 +36,16 @@
                             <property name="key" value="currencyCode" />
                             <property name="label" value="Currency" />
                             <property name="options">
-                                <array value-type="java.lang.String">
-                                    <value>EUR</value>
-                                    <value>GBP</value>
-                                    <value>PLN</value>
-                                    <value>USD</value>
-                                </array>
+                                <bean class="com.tjx.lew00305.slimstore.enums.Currency" factory-method="values"/>
+                            </property>
+                            <property name="value" value="EUR" />
+                        </bean>
+                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                            <property name="type" value="select" />
+                            <property name="key" value="languageCode" />
+                            <property name="label" value="Default Language" />
+                            <property name="options">
+                                <bean class="com.tjx.lew00305.slimstore.enums.Language" factory-method="values"/>
                             </property>
                             <property name="value" value="EUR" />
                         </bean>

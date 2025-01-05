@@ -1,5 +1,7 @@
 package com.tjx.lew00305.slimstore.service;
 
+import org.springframework.session.Session;
+import org.springframework.session.data.redis.RedisSessionRepository;
 import org.springframework.stereotype.Service;
 
 import com.tjx.lew00305.slimstore.enums.Country;
@@ -17,13 +19,14 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class LocationService {
-    
+
     private final LocationSession locationSession;
     private final StoreRepository storeRepository;
     private final StoreRegisterRepository storeRegisterRepository;
     private final TranslationService translationService;
     private final HttpServletRequest httpServletRequest;
-    
+    private final RedisSessionRepository redisRepo;
+
     private StoreRegister addRegister(
         Store store,
         Integer registerNumber
@@ -36,7 +39,7 @@ public class LocationService {
         storeRegister = storeRegisterRepository.save(storeRegister);
         return storeRegister;
     }
-    
+
     private Store addStore(
         Integer storeNumber,
         Integer registerNumber
@@ -50,25 +53,37 @@ public class LocationService {
         store.getRegisters().add(addRegister(store, registerNumber));
         return store;
     }
-    
+
+    public Session getSessionByStoreRegister(
+        Integer storeNumber,
+        Integer registerNumber
+    ) {
+        Store store = getStore(storeNumber);
+        if (store == null) {
+            return null;
+        }
+        StoreRegister register = store.getRegisterByNumber(registerNumber);
+        return redisRepo.findById(register.getSessionId());
+    }
+
     public Store getStore() {
         return locationSession.getStore();
     }
-    
+
     public Store getStore(
         Integer number
     ) {
         return storeRepository.findByNumber(number);
     }
-    
+
     public StoreRegister getStoreRegister() {
         return locationSession.getStoreRegister();
     }
-    
+
     public Iterable<Store> getStores() {
         return storeRepository.findAll();
     }
-    
+
     public void saveRegisterSessionId() {
         StoreRegister register = getStoreRegister();
         String sessionId = httpServletRequest.getRequestedSessionId();
@@ -80,7 +95,7 @@ public class LocationService {
             storeRegisterRepository.save(register);
         }
     }
-
+    
     public void saveStoreByForm(
         Form requestForm
     ) {
@@ -95,7 +110,7 @@ public class LocationService {
         store.setPhoneNumber(requestForm.getValueByKey("phoneNumber"));
         storeRepository.save(store);
     }
-    
+
     public void setLocation(
         Integer storeNumber,
         Integer registerNumber
@@ -104,7 +119,7 @@ public class LocationService {
         StoreRegister storeRegister = store.getRegisterByNumber(registerNumber);
         setLocation(store, storeRegister);
     }
-    
+
     public void setLocation(
         Store store,
         StoreRegister register
@@ -115,14 +130,14 @@ public class LocationService {
             locationSession.setStoreRegister(register);
         }
     }
-    
+
     public void setLocation(
         String storeNumber,
         String registerNumber
     ) {
         setLocation(Integer.parseInt(storeNumber), Integer.parseInt(registerNumber));
     }
-    
+
     public String setLocationByForm(
         Form requestForm,
         Boolean isAdmin
@@ -149,7 +164,7 @@ public class LocationService {
         saveRegisterSessionId();
         return null;
     }
-    
+
     public void setTransactionNumber(
         Integer id,
         Integer txnNumber
@@ -159,5 +174,5 @@ public class LocationService {
         storeRegisterRepository.save(reg);
         locationSession.getStoreRegister().setLastTxnNumber(txnNumber);;
     }
-    
+
 }

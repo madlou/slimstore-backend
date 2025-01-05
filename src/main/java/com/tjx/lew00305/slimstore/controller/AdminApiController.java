@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-public class ApiController {
+public class AdminApiController {
     
     private final UserService userService;
     private final TransactionReportService transactionReportService;

@@ -7,9 +7,12 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
+import lombok.Data;
+
 @SuppressWarnings("serial")
 @Component
 @SessionScope
+@Data
 public class Basket implements Serializable {
 
     private ArrayList<BasketLine> basket = new ArrayList<BasketLine>();

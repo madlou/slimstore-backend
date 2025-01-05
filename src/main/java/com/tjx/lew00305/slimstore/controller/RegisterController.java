@@ -28,7 +28,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 public class RegisterController {
-
+    
     private final BasketService basketService;
     private final GiftCardService giftCardService;
     private final LocationService locationService;
@@ -40,7 +40,7 @@ public class RegisterController {
     private final TransactionService transactionService;
     private final TransactionReportService transactionReportService;
     private final TranslationService translationService;
-
+    
     @PostMapping(path = "/api/register")
     public @ResponseBody
     RegisterResponseDTO registerQuery(
@@ -88,7 +88,7 @@ public class RegisterController {
                 errorMessage = userService.addUserByForm(request);
                 break;
             case PROCESS_GIFTCARD:
-                basketService.addFormElement(giftCardService.topupByForm(request));
+                basketService.addBasketByForm(giftCardService.topupByForm(request));
                 break;
             case RUN_REPORT:
                 response.setReport(transactionReportService.runReportByForm(request));
@@ -107,7 +107,9 @@ public class RegisterController {
                 locationService.saveStoreByForm(request);
                 break;
             case TENDER:
-                errorMessage = tenderService.addTenderByForm(request);
+                // todo: fix error message
+                // errorMessage = tenderService.addTenderByForm(request);
+                tenderService.addTenderByForm(request);
                 if (tenderService.isComplete()) {
                     request.setTargetView(ViewName.COMPLETE);
                     transactionService.addTransaction();
@@ -123,7 +125,7 @@ public class RegisterController {
         }
         return updateDTO(response, viewService.getViewByForm(request));
     }
-
+    
     private RegisterResponseDTO updateDTO(
         RegisterResponseDTO response,
         View view
@@ -137,5 +139,5 @@ public class RegisterController {
         response.setUiTranslations(userInterfaceService.getUserInterfaceTranslations());
         return response;
     }
-
+    
 }

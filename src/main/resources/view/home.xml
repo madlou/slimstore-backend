@@ -85,7 +85,7 @@
                     <property name="form">
                         <bean class="com.tjx.lew00305.slimstore.model.common.Form">
                             <property name="targetView" value="TENDER" />
-                            <property name="serverProcess" value="TENDER" />
+                            
                         </bean>
                     </property>
                     <property name="condition" value="basket.length > 0" />

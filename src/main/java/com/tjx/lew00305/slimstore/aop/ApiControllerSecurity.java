@@ -12,25 +12,21 @@ import org.springframework.stereotype.Component;
 
 import com.tjx.lew00305.slimstore.service.UserService;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Aspect
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class ApiControllerSecurity {
 
-    private UserService userService;
-
-    public ApiControllerSecurity(
-        UserService userService
-    ) {
-        this.userService = userService;
-    }
+    private final UserService userService;
     
-    @Pointcut("execution(public * com.tjx.lew00305.slimstore.controller.ApiController.*(..))")
-    private void aPointCutFromApiController() {}
+    @Pointcut("execution(public * com.tjx.lew00305.slimstore.controller.AdminApiController.*(..))")
+    private void aPointCutFromAdminApiController() {}
     
-    @Before(value = "aPointCutFromApiController()")
+    @Before(value = "aPointCutFromAdminApiController()")
     public void logBefore(
         JoinPoint joinPoint
     ) {
@@ -39,7 +35,7 @@ public class ApiControllerSecurity {
         log.info(">> {}() - {}", methodName, Arrays.toString(args));
     }
     
-    @Around(value = "aPointCutFromApiController()")
+    @Around(value = "aPointCutFromAdminApiController()")
     public Object validateQueryAround(
         ProceedingJoinPoint joinPoint
     ) throws Throwable {

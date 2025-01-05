@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class ViewService {
-
+    
     private final LocationService locationService;
     private final ProductService productService;
     private final HttpServletRequest request;
@@ -30,7 +30,7 @@ public class ViewService {
     private final TranslationService translationService;
     private final UserService userService;
     private final ViewConfig viewConfig;
-    
+
     private View enrichView(
         View view,
         Form requestForm
@@ -106,6 +106,7 @@ public class ViewService {
                 responseForm.setValueByKey("name", locationService.getStore().getName());
                 responseForm.setValueByKey("countryCode", locationService.getStore().getCountryCode().toString());
                 responseForm.setValueByKey("currencyCode", locationService.getStore().getCurrencyCode().toString());
+                responseForm.setValueByKey("languageCode", locationService.getStore().getLanguageCode().toString());
                 responseForm.setValueByKey("address1", locationService.getStore().getAddress1());
                 responseForm.setValueByKey("address2", locationService.getStore().getAddress2());
                 responseForm.setValueByKey("city", locationService.getStore().getCity());
@@ -170,7 +171,7 @@ public class ViewService {
         }
         return view;
     }
-    
+
     private String[] getStoreOptions(
         Boolean showNoStoreOption
     ) {
@@ -184,7 +185,7 @@ public class ViewService {
         }
         return storeOptions.toArray(new String[0]);
     }
-    
+
     public View getViewByForm(
         Form requestForm
     ) {
@@ -192,7 +193,7 @@ public class ViewService {
         View view = getViewByName(viewName);
         return enrichView(view, requestForm);
     }
-
+    
     public View getViewByName(
         ViewName viewName
     ) {
@@ -202,5 +203,5 @@ public class ViewService {
         view = translationService.translateView(view);
         return view;
     }
-
+    
 }

@@ -11,9 +11,9 @@ import lombok.RequiredArgsConstructor;
 @ImportResource("classpath:barcode/*.xml")
 @RequiredArgsConstructor
 public class BarcodeConfig {
-
-    private BarcodeSpecification[] barcodeSpecifications;
     
+    private final BarcodeSpecification[] barcodeSpecifications;
+
     public BarcodeSpecification[] getBarcodeSpecifications() {
         return barcodeSpecifications;
     }

@@ -12,9 +12,9 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class GiftCardService {
-    
-    private final LocationService locationService;
 
+    private final LocationService locationService;
+    
     public void topup(
         String card,
         BigDecimal value
@@ -22,22 +22,24 @@ public class GiftCardService {
         Integer transactionNumber = locationService.getStoreRegister().getLastTxnNumber() + 1;
         topupQueue(card, value, transactionNumber);
     }
-    
-    public FormElement topupByForm(
+
+    public Form topupByForm(
         Form requestForm
     ) {
         String card = requestForm.getValueByKey("card");
         BigDecimal value = requestForm.getBigDecimalValueByKey("amount");
         topup(card, value);
+        requestForm.deleteElements();
         FormElement element = new FormElement();
         element.setType(FormElement.Type.PRODUCT_GIFTCARD);
         element.setKey("TJXGC");
         element.setLabel("Gift Card (" + card + ")");
         element.setQuantity(1);
         element.setPrice(value);
-        return element;
+        requestForm.addElement(element);
+        return requestForm;
     }
-    
+
     public void topupQueue(
         String card,
         BigDecimal value,
@@ -45,5 +47,5 @@ public class GiftCardService {
     ) {
         // TODO Auto-generated method stub
     }
-    
+
 }

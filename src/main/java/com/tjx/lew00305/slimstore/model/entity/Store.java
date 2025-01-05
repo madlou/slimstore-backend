@@ -9,6 +9,7 @@ import org.springframework.web.context.annotation.SessionScope;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tjx.lew00305.slimstore.enums.Country;
 import com.tjx.lew00305.slimstore.enums.Currency;
+import com.tjx.lew00305.slimstore.enums.Language;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -41,6 +42,8 @@ public class Store implements Serializable {
     private String city;
     private String postCode;
     private String phoneNumber;
+    @Enumerated(EnumType.STRING)
+    private Language languageCode;
     @OneToMany(mappedBy = "store")
     @JsonIgnore
     private List<StoreRegister> registers = new ArrayList<StoreRegister>();
