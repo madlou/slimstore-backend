@@ -14,17 +14,18 @@
         <property name="form">
             <bean class="com.tjx.lew00305.slimstore.model.common.Form">
                 <property name="targetView" value="TENDER" />
+                <property name="serverProcess" value="TENDER" />
                 <property name="elements">
                     <array>
                         <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                             <property name="type" value="decimal" />
-                            <property name="key" value="amount" />
-                            <property name="label" value="Amount" />
+                            <property name="key" value="CARD" />
+                            <property name="label" value="Card" />
                         </bean>
                         <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                             <property name="type" value="submit" />
                             <property name="key" value="submit" />
-                            <property name="label" value="Card" />
+                            <property name="label" value="Submit" />
                         </bean>
                     </array>
                 </property>
@@ -38,6 +39,17 @@
                     <property name="form">
                         <bean class="com.tjx.lew00305.slimstore.model.common.Form">
                             <property name="targetView" value="TENDER" />
+                            <property name="serverProcess" value="TENDER" />
+                            <property name="elements">
+                                <array>
+                                    <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                                        <property name="type" value="decimal" />
+                                        <property name="key" value="CARD" />
+                                        <property name="label" value="Card" />
+                                        <property name="value" value="full" />
+                                    </bean>
+                                </array>
+                            </property>
                         </bean>
                     </property>
                 </bean>

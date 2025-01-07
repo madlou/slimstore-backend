@@ -8,12 +8,14 @@ public class UserInterfaceTranslationDTO {
     private String administrator;
     private String associate;
     private String cancel;
+    private String card;
     private String cash;
     private String cashChange;
     private String check;
     private String connectingToServer;
     private String currencySymbol;
     private String customerDisplay;
+    private String damageDiscount;
     private String date;
     private String dateFormat;
     private String devmessage1;
@@ -23,6 +25,7 @@ public class UserInterfaceTranslationDTO {
     private String devmessage5;
     private String difference;
     private String edit;
+    private String giftcard;
     private String header;
     private String items;
     private String keyboard;
@@ -41,6 +44,7 @@ public class UserInterfaceTranslationDTO {
     private String returnedQuantity;
     private String role;
     private String sourceCode;
+    private String staffDiscount;
     private String status;
     private String store;
     private String storeName;
@@ -57,6 +61,7 @@ public class UserInterfaceTranslationDTO {
     private String update;
     private String user;
     private String value;
+    private String voucher;
     private String welcome;
 
 }

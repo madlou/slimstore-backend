@@ -53,13 +53,14 @@
                     </property>
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
-                    <property name="position" value="5" />
+                    <property name="position" value="7" />
                     <property name="label" value="Discount" />
                     <property name="form">
                         <bean class="com.tjx.lew00305.slimstore.model.common.Form">
                             <property name="targetView" value="TENDER_DISCOUNT" />
                         </bean>
                     </property>
+                    <property name="condition" value="tender.length = 0" />
                 </bean>
                 <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
                     <property name="position" value="8" />

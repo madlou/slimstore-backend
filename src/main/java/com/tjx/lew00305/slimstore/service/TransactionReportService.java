@@ -27,10 +27,10 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class TransactionReportService {
-
+    
     private final TransactionRepository txnRepo;
     private final LocationService locationService;
-    
+
     private List<TransactionAudit> getTransactionAudit(
         List<Transaction> data
     ) {
@@ -58,7 +58,7 @@ public class TransactionReportService {
         }
         return report;
     }
-
+    
     private List<TransactionFlat> getTransactionFlat(
         List<Transaction> data
     ) {
@@ -80,7 +80,7 @@ public class TransactionReportService {
         }
         return report;
     }
-
+    
     private List<TransactionLineFlat> getTransactionLineFlat(
         List<Transaction> data
     ) {
@@ -107,11 +107,11 @@ public class TransactionReportService {
         }
         return report;
     }
-
+    
     public Iterable<Transaction> getTransactionReport() {
         return txnRepo.findAll();
     }
-
+    
     private List<TransactionTenderAggregation> getTransactionTenderAggregation(
         List<TransactionTenderAggregationInterface> data
     ) {
@@ -128,7 +128,7 @@ public class TransactionReportService {
         }
         return report;
     }
-
+    
     private List<TransactionTenderFlat> getTransactionTenderFlat(
         List<Transaction> data
     ) {
@@ -145,7 +145,7 @@ public class TransactionReportService {
                 line.setRegister(txnRow.getRegister().getNumber());
                 line.setTransaction(txnRow.getNumber());
                 line.setNumber(tenderRow.getNumber());
-                line.setType(tenderRow.getType());
+                line.setType(tenderRow.getType().toString());
                 line.setValue(tenderRow.getValue());
                 line.setReference(tenderRow.getReference());
                 report.add(line);
@@ -153,7 +153,7 @@ public class TransactionReportService {
         }
         return report;
     }
-
+    
     @SuppressWarnings("rawtypes")
     public List runReport(
         String scope,
@@ -201,12 +201,12 @@ public class TransactionReportService {
         }
         return null;
     }
-
+    
     @SuppressWarnings("rawtypes")
     public List runReportByForm(
         Form requestForm
     ) {
         return runReport(requestForm.getValueByKey("scope"), requestForm.getValueByKey("report"), requestForm.getIntegerValueByKey("days"));
     }
-
+    
 }

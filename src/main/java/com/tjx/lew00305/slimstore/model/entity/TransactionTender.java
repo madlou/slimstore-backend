@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,6 +22,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TransactionTender {
 
+    public enum TenderType {
+        CARD,
+        CASH,
+        GIFTCARD,
+        VOUCHER,
+    }
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
@@ -29,8 +38,9 @@ public class TransactionTender {
     @JsonIgnore
     private Transaction transaction;
     private Integer number;
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private TenderType type;
     private BigDecimal value;
     private String reference;
-
+    
 }

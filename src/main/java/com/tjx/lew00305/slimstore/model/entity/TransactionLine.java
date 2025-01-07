@@ -23,6 +23,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TransactionLine {
 
+    public enum DiscountType {
+        STAFF,
+        DAMAGE,
+        PROMOTION,
+    }
+    
     public enum TransactionLineType {
         SALE,
         RETURN
@@ -47,5 +53,8 @@ public class TransactionLine {
     private Integer returnedQuantity;
     @Column(name = "linked_id")
     private Integer originalTransactionLineId;
+    private DiscountType discountType;
+    private BigDecimal discountValue;
+    private String discountReference;
 
 }

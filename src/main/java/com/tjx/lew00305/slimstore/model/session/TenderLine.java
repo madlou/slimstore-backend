@@ -5,6 +5,10 @@ import java.math.BigDecimal;
 
 import org.springframework.web.context.annotation.SessionScope;
 
+import com.tjx.lew00305.slimstore.model.entity.TransactionTender.TenderType;
+
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,8 +19,9 @@ import lombok.NoArgsConstructor;
 @Data
 @SessionScope
 public class TenderLine implements Serializable {
-
-    private String type;
+    
+    @Enumerated(EnumType.STRING)
+    private TenderType type;
     private String label;
     private BigDecimal value;
     private String reference;

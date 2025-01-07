@@ -19,7 +19,7 @@
                     <array>
                         <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                             <property name="type" value="decimal" />
-                            <property name="key" value="cash" />
+                            <property name="key" value="CASH" />
                             <property name="label" value="Cash" />
                         </bean>
                         <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
@@ -44,7 +44,7 @@
                                 <array>
                                     <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                                         <property name="type" value="decimal" />
-                                        <property name="key" value="cash" />
+                                        <property name="key" value="CASH" />
                                         <property name="label" value="Cash" />
                                         <property name="value" value="full" />
                                     </bean>
@@ -64,7 +64,7 @@
                                 <array>
                                     <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                                         <property name="type" value="decimal" />
-                                        <property name="key" value="cash" />
+                                        <property name="key" value="CASH" />
                                         <property name="label" value="Cash" />
                                         <property name="value" value="5" />
                                     </bean>
@@ -85,7 +85,7 @@
                                 <array>
                                     <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                                         <property name="type" value="decimal" />
-                                        <property name="key" value="cash" />
+                                        <property name="key" value="CASH" />
                                         <property name="label" value="Cash" />
                                         <property name="value" value="10" />
                                     </bean>
@@ -106,7 +106,7 @@
                                 <array>
                                     <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                                         <property name="type" value="decimal" />
-                                        <property name="key" value="cash" />
+                                        <property name="key" value="CASH" />
                                         <property name="label" value="Cash" />
                                         <property name="value" value="20" />
                                     </bean>
@@ -127,7 +127,7 @@
                                 <array>
                                     <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
                                         <property name="type" value="decimal" />
-                                        <property name="key" value="cash" />
+                                        <property name="key" value="CASH" />
                                         <property name="label" value="Cash" />
                                         <property name="value" value="50" />
                                     </bean>
