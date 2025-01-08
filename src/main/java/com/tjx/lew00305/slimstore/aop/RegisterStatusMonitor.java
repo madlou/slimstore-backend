@@ -16,23 +16,23 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 public class RegisterStatusMonitor {
-
-    private final CustomerDisplayController customerDisplayController;
     
+    private final CustomerDisplayController customerDisplayController;
+
     @Pointcut("execution(public * com.tjx.lew00305.slimstore.service.LocationService.updateRegisterWithClose(..))")
     private void aPointCutFromRegisterClose() {}
-    
+
     @Pointcut("execution(public * com.tjx.lew00305.slimstore.service.LocationService.updateRegisterWithOpen(..))")
     private void aPointCutFromRegisterOpen() {}
-
+    
     @AfterReturning(pointcut = "aPointCutFromRegisterClose()")
     public void sendRegisterCloseToWebsocket() {
         customerDisplayController.sendRegisterStatus(RegisterStatus.CLOSED);
     }
-    
-    @AfterReturning(pointcut = "aPointCutFromRegisterOpen()", returning = "tender")
+
+    @AfterReturning(pointcut = "aPointCutFromRegisterOpen()")
     public void sendRegisterOpenToWebsocket() {
         customerDisplayController.sendRegisterStatus(RegisterStatus.OPEN);
     }
-    
+
 }
