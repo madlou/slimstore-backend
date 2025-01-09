@@ -1,4 +1,4 @@
-package com.tjx.lew00305.slimstore.view;
+package com.tjx.lew00305.slimstore.register.view;
 
 import java.util.ArrayList;
 
@@ -7,9 +7,10 @@ import org.springframework.stereotype.Service;
 import com.tjx.lew00305.slimstore.location.LocationService;
 import com.tjx.lew00305.slimstore.location.Store;
 import com.tjx.lew00305.slimstore.product.ProductService;
-import com.tjx.lew00305.slimstore.register.Form;
-import com.tjx.lew00305.slimstore.register.FormElement;
-import com.tjx.lew00305.slimstore.register.FormElement.Type;
+import com.tjx.lew00305.slimstore.register.form.Form;
+import com.tjx.lew00305.slimstore.register.form.FormElement;
+import com.tjx.lew00305.slimstore.register.form.FormElement.Type;
+import com.tjx.lew00305.slimstore.register.view.View.ViewName;
 import com.tjx.lew00305.slimstore.transaction.Transaction;
 import com.tjx.lew00305.slimstore.transaction.TransactionLine;
 import com.tjx.lew00305.slimstore.transaction.TransactionService;
@@ -17,7 +18,6 @@ import com.tjx.lew00305.slimstore.translation.TranslationService;
 import com.tjx.lew00305.slimstore.user.User;
 import com.tjx.lew00305.slimstore.user.UserRole;
 import com.tjx.lew00305.slimstore.user.UserService;
-import com.tjx.lew00305.slimstore.view.View.ViewName;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;

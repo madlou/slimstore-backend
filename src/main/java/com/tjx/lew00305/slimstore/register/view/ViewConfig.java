@@ -1,10 +1,10 @@
-package com.tjx.lew00305.slimstore.view;
+package com.tjx.lew00305.slimstore.register.view;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.web.context.annotation.RequestScope;
 
-import com.tjx.lew00305.slimstore.view.View.ViewName;
+import com.tjx.lew00305.slimstore.register.view.View.ViewName;
 
 import lombok.RequiredArgsConstructor;
 

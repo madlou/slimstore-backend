@@ -12,11 +12,11 @@ import org.springframework.stereotype.Component;
 
 import com.tjx.lew00305.slimstore.location.LocationService;
 import com.tjx.lew00305.slimstore.location.Store;
-import com.tjx.lew00305.slimstore.register.Form.ServerProcess;
+import com.tjx.lew00305.slimstore.register.form.Form.ServerProcess;
+import com.tjx.lew00305.slimstore.register.view.View.ViewName;
 import com.tjx.lew00305.slimstore.translation.TranslationService;
 import com.tjx.lew00305.slimstore.user.User;
 import com.tjx.lew00305.slimstore.user.UserService;
-import com.tjx.lew00305.slimstore.view.View.ViewName;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

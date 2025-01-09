@@ -1,12 +1,14 @@
-package com.tjx.lew00305.slimstore.register;
+package com.tjx.lew00305.slimstore.register.view;
 
 import org.springframework.web.context.annotation.RequestScope;
+
+import com.tjx.lew00305.slimstore.register.form.Form;
 
 import lombok.Data;
 
 @Data
 @RequestScope
-public class FunctionButton {
+public class ViewFunctionButton {
 
     private int position = 0;
     private String condition = "";

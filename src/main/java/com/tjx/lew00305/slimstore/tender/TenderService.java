@@ -8,8 +8,8 @@ import org.springframework.session.Session;
 import org.springframework.stereotype.Service;
 
 import com.tjx.lew00305.slimstore.basket.BasketService;
-import com.tjx.lew00305.slimstore.register.Form;
-import com.tjx.lew00305.slimstore.register.FormElement;
+import com.tjx.lew00305.slimstore.register.form.Form;
+import com.tjx.lew00305.slimstore.register.form.FormElement;
 import com.tjx.lew00305.slimstore.transaction.TransactionTender.TenderType;
 import com.tjx.lew00305.slimstore.translation.TranslationService;
 

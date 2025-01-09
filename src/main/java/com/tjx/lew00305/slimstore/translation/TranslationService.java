@@ -14,10 +14,10 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
-import com.tjx.lew00305.slimstore.register.FormElement;
-import com.tjx.lew00305.slimstore.register.FunctionButton;
-import com.tjx.lew00305.slimstore.view.View;
-import com.tjx.lew00305.slimstore.view.ViewConfig;
+import com.tjx.lew00305.slimstore.register.form.FormElement;
+import com.tjx.lew00305.slimstore.register.view.ViewFunctionButton;
+import com.tjx.lew00305.slimstore.register.view.View;
+import com.tjx.lew00305.slimstore.register.view.ViewConfig;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -166,7 +166,7 @@ public class TranslationService {
                     }
                 }
             }
-            for (FunctionButton button : view.getFunctionButtons()) {
+            for (ViewFunctionButton button : view.getFunctionButtons()) {
                 key = crumb + "button." + button.getPosition();
                 for (LanguageTranslationDTO language : languages) {
                     if (language.getIsBase() == true) {
@@ -257,7 +257,7 @@ public class TranslationService {
                 element.setOptions(translatedOptions);
             }
         }
-        for (FunctionButton button : view.getFunctionButtons()) {
+        for (ViewFunctionButton button : view.getFunctionButtons()) {
             button.setLabel(messageSource.getMessage(crumb + "button." + button.getPosition(), null, button.getLabel(), locale));
         }
         return view;

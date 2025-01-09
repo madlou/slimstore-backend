@@ -1,4 +1,4 @@
-package com.tjx.lew00305.slimstore.register;
+package com.tjx.lew00305.slimstore.register.form;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.tjx.lew00305.slimstore.location.LocationService;
-import com.tjx.lew00305.slimstore.register.Form;
-import com.tjx.lew00305.slimstore.register.FormElement;
-import com.tjx.lew00305.slimstore.register.FormElementButton;
-import com.tjx.lew00305.slimstore.register.FormElement.Type;
+import com.tjx.lew00305.slimstore.register.form.Form;
+import com.tjx.lew00305.slimstore.register.form.FormElement;
+import com.tjx.lew00305.slimstore.register.form.FormElementButton;
+import com.tjx.lew00305.slimstore.register.form.FormElement.Type;
+import com.tjx.lew00305.slimstore.register.view.View.ViewName;
 import com.tjx.lew00305.slimstore.translation.TranslationService;
-import com.tjx.lew00305.slimstore.view.View.ViewName;
 
 import lombok.RequiredArgsConstructor;
 

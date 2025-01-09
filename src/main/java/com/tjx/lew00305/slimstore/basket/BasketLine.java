@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 
 import org.springframework.web.context.annotation.SessionScope;
 
-import com.tjx.lew00305.slimstore.register.FormElement.Type;
+import com.tjx.lew00305.slimstore.register.form.FormElement.Type;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

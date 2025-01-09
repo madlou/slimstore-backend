@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.tjx.lew00305.slimstore.location.Store;
 import com.tjx.lew00305.slimstore.location.StoreRegister;
-import com.tjx.lew00305.slimstore.report.TransactionTenderAggregationInterface;
+import com.tjx.lew00305.slimstore.report.transaction.TransactionTenderAggregationInterface;
 
 public interface TransactionRepository extends CrudRepository<Transaction, Integer> {
     

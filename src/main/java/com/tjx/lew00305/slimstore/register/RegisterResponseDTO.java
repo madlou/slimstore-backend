@@ -6,11 +6,11 @@ import java.util.List;
 import com.tjx.lew00305.slimstore.basket.BasketLine;
 import com.tjx.lew00305.slimstore.location.Store;
 import com.tjx.lew00305.slimstore.location.StoreRegister;
+import com.tjx.lew00305.slimstore.register.view.View;
 import com.tjx.lew00305.slimstore.tender.TenderLine;
 import com.tjx.lew00305.slimstore.translation.Language;
 import com.tjx.lew00305.slimstore.translation.UserInterfaceTranslationDTO;
 import com.tjx.lew00305.slimstore.user.User;
-import com.tjx.lew00305.slimstore.view.View;
 
 import lombok.Data;
 

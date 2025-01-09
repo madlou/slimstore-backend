@@ -2,7 +2,7 @@ package com.tjx.lew00305.slimstore.barcode;
 
 import java.math.BigDecimal;
 
-import com.tjx.lew00305.slimstore.register.FormElement;
+import com.tjx.lew00305.slimstore.register.form.FormElement;
 
 import lombok.Data;
 

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.tjx.lew00305.slimstore.location.Store.Banner;
 import com.tjx.lew00305.slimstore.location.Store.Region;
-import com.tjx.lew00305.slimstore.register.Form;
+import com.tjx.lew00305.slimstore.register.form.Form;
 
 import lombok.RequiredArgsConstructor;
 

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.tjx.lew00305.slimstore.location.Store.Country;
 import com.tjx.lew00305.slimstore.location.StoreRegister.RegisterStatus;
 import com.tjx.lew00305.slimstore.product.Currency;
-import com.tjx.lew00305.slimstore.register.Form;
+import com.tjx.lew00305.slimstore.register.form.Form;
 import com.tjx.lew00305.slimstore.translation.TranslationService;
 import com.tjx.lew00305.slimstore.user.User;
 

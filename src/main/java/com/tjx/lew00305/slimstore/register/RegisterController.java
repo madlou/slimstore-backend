@@ -11,15 +11,15 @@ import com.tjx.lew00305.slimstore.barcode.BarcodeService;
 import com.tjx.lew00305.slimstore.basket.BasketService;
 import com.tjx.lew00305.slimstore.giftcard.GiftCardService;
 import com.tjx.lew00305.slimstore.location.LocationService;
+import com.tjx.lew00305.slimstore.register.view.View;
+import com.tjx.lew00305.slimstore.register.view.ViewService;
+import com.tjx.lew00305.slimstore.register.view.View.ViewName;
 import com.tjx.lew00305.slimstore.report.ReportService;
 import com.tjx.lew00305.slimstore.tender.TenderService;
 import com.tjx.lew00305.slimstore.transaction.TransactionService;
 import com.tjx.lew00305.slimstore.translation.TranslationService;
 import com.tjx.lew00305.slimstore.translation.UserInterfaceService;
 import com.tjx.lew00305.slimstore.user.UserService;
-import com.tjx.lew00305.slimstore.view.View;
-import com.tjx.lew00305.slimstore.view.ViewService;
-import com.tjx.lew00305.slimstore.view.View.ViewName;
 
 import lombok.RequiredArgsConstructor;
 

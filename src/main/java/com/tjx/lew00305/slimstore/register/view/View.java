@@ -1,10 +1,9 @@
-package com.tjx.lew00305.slimstore.view;
+package com.tjx.lew00305.slimstore.register.view;
 
 import java.util.Locale;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.tjx.lew00305.slimstore.register.Form;
-import com.tjx.lew00305.slimstore.register.FunctionButton;
+import com.tjx.lew00305.slimstore.register.form.Form;
 
 import lombok.Data;
 
@@ -44,7 +43,7 @@ public class View {
     private String title = "";
     private String message = "";
     private Form form = new Form();
-    private FunctionButton[] functionButtons = new FunctionButton[0];
+    private ViewFunctionButton[] functionButtons = new ViewFunctionButton[0];
     @JsonIgnore
     private Locale locale;
     @JsonIgnore
