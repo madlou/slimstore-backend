@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 
 import org.springframework.web.context.annotation.SessionScope;
 
-import com.tjx.lew00305.slimstore.register.form.FormElement.Type;
+import com.tjx.lew00305.slimstore.register.form.FormElement.FormElementType;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,7 +20,7 @@ public class BasketLine implements Serializable {
 
     private String code;
     private String name;
-    private Type type;
+    private FormElementType type;
     private Integer quantity;
     private BigDecimal unitValue;
 
@@ -29,7 +29,7 @@ public class BasketLine implements Serializable {
     }
 
     public Integer getSignedQuantity() {
-        Integer multiplier = (type == Type.RETURN) ? -1 : 1;
+        Integer multiplier = (type == FormElementType.RETURN) ? -1 : 1;
         return quantity * multiplier;
     }
 

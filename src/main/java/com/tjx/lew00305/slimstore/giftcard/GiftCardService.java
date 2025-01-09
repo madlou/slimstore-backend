@@ -32,7 +32,7 @@ public class GiftCardService {
         topup(card, value);
         requestForm.deleteElements();
         FormElement element = new FormElement();
-        element.setType(FormElement.Type.PRODUCT_GIFTCARD);
+        element.setType(FormElement.FormElementType.PRODUCT_GIFTCARD);
         element.setKey("TJXGC");
         element.setLabel("Gift Card (" + card + ")");
         element.setQuantity(1);

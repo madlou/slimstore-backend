@@ -30,7 +30,7 @@ public class Barcode {
     
     public FormElement getFormElement() {
         FormElement element = new FormElement();
-        element.setType(FormElement.Type.PRODUCT_SCAN);
+        element.setType(FormElement.FormElementType.PRODUCT_SCAN);
         element.setKey(getName());
         element.setLabel(getDepartmentCategory());
         element.setQuantity(1);

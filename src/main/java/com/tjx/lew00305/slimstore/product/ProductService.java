@@ -27,7 +27,7 @@ public class ProductService {
         for (int i = 0; i < productCount; i++) {
             TjxComSearchDTO.Response.Doc doc = search.response.docs[i];
             FormElement element = new FormElement();
-            element.setType(FormElement.Type.PRODUCT_WEB);
+            element.setType(FormElement.FormElementType.PRODUCT_WEB);
             element.setKey(doc.pid);
             element.setLabel(doc.title);
             element.setQuantity(0);

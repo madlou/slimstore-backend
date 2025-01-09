@@ -9,7 +9,7 @@ import com.tjx.lew00305.slimstore.location.LocationService;
 import com.tjx.lew00305.slimstore.register.form.Form;
 import com.tjx.lew00305.slimstore.register.form.FormElement;
 import com.tjx.lew00305.slimstore.register.form.FormElementButton;
-import com.tjx.lew00305.slimstore.register.form.FormElement.Type;
+import com.tjx.lew00305.slimstore.register.form.FormElement.FormElementType;
 import com.tjx.lew00305.slimstore.register.view.View.ViewName;
 import com.tjx.lew00305.slimstore.translation.TranslationService;
 
@@ -99,7 +99,7 @@ public class UserService {
                 FormElement editFormElement = new FormElement();
                 editFormElement.setKey("code");
                 editFormElement.setValue(user.getCode());
-                editFormElement.setType(Type.TEXT);
+                editFormElement.setType(FormElementType.TEXT);
                 Form editForm = new Form();
                 editForm.setTargetView(ViewName.USER_EDIT);
                 editForm.addElement(editFormElement);
@@ -107,7 +107,7 @@ public class UserService {
                 button.setLabel(editTranslation);
                 button.setForm(editForm);
                 FormElement userRow = new FormElement();
-                userRow.setType(FormElement.Type.BUTTON);
+                userRow.setType(FormElement.FormElementType.BUTTON);
                 userRow.setKey(user.getCode());
                 userRow.setLabel(editTranslation);
                 userRow.setValue(user.getName());

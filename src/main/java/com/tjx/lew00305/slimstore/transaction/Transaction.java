@@ -7,7 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tjx.lew00305.slimstore.location.register.Register;
 import com.tjx.lew00305.slimstore.location.store.Store;
-import com.tjx.lew00305.slimstore.product.Currency;
+import com.tjx.lew00305.slimstore.location.store.Store.Currency;
 import com.tjx.lew00305.slimstore.user.User;
 
 import jakarta.persistence.Entity;
@@ -29,7 +29,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Transaction {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
@@ -55,7 +55,7 @@ public class Transaction {
     private List<TransactionLine> lines;
     @OneToMany(mappedBy = "transaction", fetch = FetchType.EAGER)
     private List<TransactionTender> tenders;
-
+    
     public BigDecimal getLineTotal() {
         BigDecimal total = BigDecimal.valueOf(0);
         for (TransactionLine line : getLines()) {
@@ -63,7 +63,7 @@ public class Transaction {
         }
         return total;
     }
-
+    
     public BigDecimal getTenderTotal() {
         BigDecimal total = BigDecimal.ZERO;
         for (TransactionTender line : getTenders()) {
@@ -71,5 +71,5 @@ public class Transaction {
         }
         return total;
     }
-
+    
 }

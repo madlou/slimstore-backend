@@ -10,7 +10,7 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FormElement {
     
-    public enum Type {
+    public enum FormElementType {
         BUTTON,
         DATE,
         DECIMAL,
@@ -30,7 +30,7 @@ public class FormElement {
         TEXT,
     }
     
-    private Type type;
+    private FormElementType type;
     private String key;
     private String label;
     private String value;

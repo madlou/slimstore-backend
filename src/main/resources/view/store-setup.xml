@@ -36,7 +36,7 @@
                             <property name="key" value="currencyCode" />
                             <property name="label" value="Currency" />
                             <property name="options">
-                                <bean class="com.tjx.lew00305.slimstore.product.Currency" factory-method="values"/>
+                                <bean class="com.tjx.lew00305.slimstore.location.store.Store.Currency" factory-method="values"/>
                             </property>
                             <property name="value" value="EUR" />
                         </bean>

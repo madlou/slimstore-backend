@@ -9,7 +9,7 @@ import com.tjx.lew00305.slimstore.location.store.Store;
 import com.tjx.lew00305.slimstore.product.ProductService;
 import com.tjx.lew00305.slimstore.register.form.Form;
 import com.tjx.lew00305.slimstore.register.form.FormElement;
-import com.tjx.lew00305.slimstore.register.form.FormElement.Type;
+import com.tjx.lew00305.slimstore.register.form.FormElement.FormElementType;
 import com.tjx.lew00305.slimstore.register.view.View.ViewName;
 import com.tjx.lew00305.slimstore.transaction.Transaction;
 import com.tjx.lew00305.slimstore.transaction.TransactionLine;
@@ -76,7 +76,7 @@ public class ViewService {
                 Transaction txn = transactionService.getTransaction(strNumber, regNumber, txnNumber, date);
                 if (txn == null) {
                     FormElement error = new FormElement();
-                    error.setType(Type.ERROR);
+                    error.setType(FormElementType.ERROR);
                     error.setLabel(translationService.translate("error.txn_not_found"));
                     responseForm.addElement(error);
                     break;
@@ -92,7 +92,7 @@ public class ViewService {
                         ":" +
                         line.getId().toString();
                     FormElement element = new FormElement();
-                    element.setType(Type.RETURN);
+                    element.setType(FormElementType.RETURN);
                     element.setKey(key);
                     element.setValue("" + (line.getQuantity() - line.getReturnedQuantity()));
                     element.setQuantity(0);
