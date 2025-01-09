@@ -1,4 +1,4 @@
-package com.tjx.lew00305.slimstore.barcode;
+package com.tjx.lew00305.slimstore.product.barcode;
 
 import java.math.BigDecimal;
 import java.util.regex.Matcher;

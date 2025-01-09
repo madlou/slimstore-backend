@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tjx.lew00305.slimstore.barcode.Barcode;
-import com.tjx.lew00305.slimstore.barcode.BarcodeService;
 import com.tjx.lew00305.slimstore.basket.BasketService;
 import com.tjx.lew00305.slimstore.giftcard.GiftCardService;
 import com.tjx.lew00305.slimstore.location.LocationService;
+import com.tjx.lew00305.slimstore.product.barcode.Barcode;
+import com.tjx.lew00305.slimstore.product.barcode.BarcodeService;
 import com.tjx.lew00305.slimstore.register.view.View;
 import com.tjx.lew00305.slimstore.register.view.ViewService;
 import com.tjx.lew00305.slimstore.register.view.View.ViewName;

@@ -7,7 +7,7 @@
                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
                         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
-    <bean class="com.tjx.lew00305.slimstore.barcode.BarcodeSpecification">
+    <bean class="com.tjx.lew00305.slimstore.product.barcode.BarcodeSpecification">
         <property name="region" value="EU" />
         <property name="banner" value="TKMAXX" />
         <property name="type" value="STORE" />
@@ -20,7 +20,7 @@
         <property name="week" value="0" />
     </bean>
 
-    <bean class="com.tjx.lew00305.slimstore.barcode.BarcodeSpecification">
+    <bean class="com.tjx.lew00305.slimstore.product.barcode.BarcodeSpecification">
         <property name="region" value="EU" />
         <property name="banner" value="HOMESENSE" />
         <property name="type" value="STORE" />

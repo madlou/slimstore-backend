@@ -1,4 +1,4 @@
-package com.tjx.lew00305.slimstore.barcode;
+package com.tjx.lew00305.slimstore.product.barcode;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
