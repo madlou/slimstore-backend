@@ -7,27 +7,27 @@
                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
                         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
-    <bean class="com.tjx.lew00305.slimstore.model.common.View" scope="prototype">
+    <bean class="com.tjx.lew00305.slimstore.register.view.View" scope="prototype">
         <property name="name" value="LOGIN" />
         <property name="title" value="Login" />
         <property name="message" value="Please login to continue." />
         <property name="form">
-            <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+            <bean class="com.tjx.lew00305.slimstore.register.form.Form">
                 <property name="targetView" value="HOME" />
                 <property name="serverProcess" value="LOGIN" />
                 <property name="elements">
                     <array>
-                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                        <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
                             <property name="type" value="text" />
                             <property name="key" value="code" />
                             <property name="label" value="Employee Number" />
                         </bean>
-                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                        <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
                             <property name="type" value="password" />
                             <property name="key" value="password" />
                             <property name="label" value="Password" />
                         </bean>
-                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                        <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
                             <property name="type" value="submit" />
                             <property name="key" value="submit" />
                             <property name="label" value="Login" />
@@ -39,16 +39,16 @@
         </property>
         <property name="functionButtons">
             <array>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.register.view.ViewFunctionButton">
                     <property name="position" value="1" />
                     <property name="label" value="Login" />
                     <property name="primaryFormSubmit" value="true" />
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.register.view.ViewFunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="About" />
                     <property name="form">
-                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                        <bean class="com.tjx.lew00305.slimstore.register.form.Form">
                             <property name="targetView" value="ABOUT" />
                         </bean>
                     </property>

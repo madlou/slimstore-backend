@@ -7,66 +7,66 @@
                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
                         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
-    <bean class="com.tjx.lew00305.slimstore.model.common.View" scope="request">
+    <bean class="com.tjx.lew00305.slimstore.register.view.View" scope="request">
         <property name="name" value="TENDER" />
         <property name="title" value="Tender" />
         <property name="message" value="Please select a tender." />
         <property name="form">
-            <bean class="com.tjx.lew00305.slimstore.model.common.Form"> </bean>
+            <bean class="com.tjx.lew00305.slimstore.register.form.Form"> </bean>
         </property>
         <property name="functionButtons">
             <array>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.register.view.ViewFunctionButton">
                     <property name="position" value="1" />
                     <property name="label" value="Cash" />
                     <property name="form">
-                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                        <bean class="com.tjx.lew00305.slimstore.register.form.Form">
                             <property name="targetView" value="TENDER_CASH" />
                         </bean>
                     </property>
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.register.view.ViewFunctionButton">
                     <property name="position" value="2" />
                     <property name="label" value="Card" />
                     <property name="form">
-                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                        <bean class="com.tjx.lew00305.slimstore.register.form.Form">
                             <property name="targetView" value="TENDER_CARD" />
                         </bean>
                     </property>
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.register.view.ViewFunctionButton">
                     <property name="position" value="3" />
                     <property name="label" value="Gift Card" />
                     <property name="form">
-                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                        <bean class="com.tjx.lew00305.slimstore.register.form.Form">
                             <property name="targetView" value="TENDER_GIFTCARD" />
                         </bean>
                     </property>
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.register.view.ViewFunctionButton">
                     <property name="position" value="4" />
                     <property name="label" value="Voucher" />
                     <property name="form">
-                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                        <bean class="com.tjx.lew00305.slimstore.register.form.Form">
                             <property name="targetView" value="TENDER_VOUCHER" />
                         </bean>
                     </property>
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.register.view.ViewFunctionButton">
                     <property name="position" value="7" />
                     <property name="label" value="Discount" />
                     <property name="form">
-                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                        <bean class="com.tjx.lew00305.slimstore.register.form.Form">
                             <property name="targetView" value="TENDER_DISCOUNT" />
                         </bean>
                     </property>
                     <property name="condition" value="tender.length = 0" />
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.register.view.ViewFunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="Back" />
                     <property name="form">
-                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                        <bean class="com.tjx.lew00305.slimstore.register.form.Form">
                             <property name="targetView" value="HOME" />
                         </bean>
                     </property>

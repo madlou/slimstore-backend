@@ -7,36 +7,36 @@
                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
                         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
-    <bean class="com.tjx.lew00305.slimstore.model.common.View" scope="request">
+    <bean class="com.tjx.lew00305.slimstore.register.view.View" scope="request">
         <property name="name" value="RETURN" />
         <property name="title" value="Returns" />
         <property name="message" value="Please type in original receipt details below." />
         <property name="form">
-            <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+            <bean class="com.tjx.lew00305.slimstore.register.form.Form">
                 <property name="targetView" value="RETURN_VIEW" />
                 <property name="elements">
                     <array>
-                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                        <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
                             <property name="type" value="number" />
                             <property name="key" value="store" />
                             <property name="label" value="Store" />
                         </bean>
-                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                        <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
                             <property name="type" value="number" />
                             <property name="key" value="register" />
                             <property name="label" value="Register" />
                         </bean>
-                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                        <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
                             <property name="type" value="number" />
                             <property name="key" value="transactionNumber" />
                             <property name="label" value="Transaction Number" />
                         </bean>
-                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                        <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
                             <property name="type" value="date" />
                             <property name="key" value="date" />
                             <property name="label" value="Date" />
                         </bean>
-                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                        <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
                             <property name="type" value="submit" />
                             <property name="key" value="submit" />
                             <property name="label" value="Search" />
@@ -47,20 +47,20 @@
         </property>
         <property name="functionButtons">
             <array>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.register.view.ViewFunctionButton">
                     <property name="position" value="1" />
                     <property name="label" value="Manual Return" />
                     <property name="form">
-                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                        <bean class="com.tjx.lew00305.slimstore.register.form.Form">
                             <property name="targetView" value="RETURN_MANUAL" />
                         </bean>
                     </property>
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.register.view.ViewFunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="Back" />
                     <property name="form">
-                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                        <bean class="com.tjx.lew00305.slimstore.register.form.Form">
                             <property name="targetView" value="HOME" />
                         </bean>
                     </property>
