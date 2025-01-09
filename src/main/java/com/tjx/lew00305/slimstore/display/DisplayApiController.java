@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tjx.lew00305.slimstore.basket.BasketLine;
 import com.tjx.lew00305.slimstore.basket.BasketService;
 import com.tjx.lew00305.slimstore.location.LocationService;
-import com.tjx.lew00305.slimstore.location.Store;
-import com.tjx.lew00305.slimstore.location.StoreRegister;
+import com.tjx.lew00305.slimstore.location.register.Register;
+import com.tjx.lew00305.slimstore.location.store.Store;
 import com.tjx.lew00305.slimstore.tender.TenderLine;
 import com.tjx.lew00305.slimstore.tender.TenderService;
 import com.tjx.lew00305.slimstore.translation.Language;
@@ -38,7 +38,7 @@ public class DisplayApiController {
     }
 
     @GetMapping(path = "/api/location/{storeNumber}/{registerNumber}")
-    public StoreRegister getAllUsers(
+    public Register getAllUsers(
         @PathVariable("storeNumber")
         Integer storeNumber,
         @PathVariable("registerNumber")

@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import com.tjx.lew00305.slimstore.basket.BasketLine;
 import com.tjx.lew00305.slimstore.basket.BasketService;
 import com.tjx.lew00305.slimstore.location.LocationService;
-import com.tjx.lew00305.slimstore.location.Store;
-import com.tjx.lew00305.slimstore.location.StoreRegister;
+import com.tjx.lew00305.slimstore.location.register.Register;
+import com.tjx.lew00305.slimstore.location.store.Store;
 import com.tjx.lew00305.slimstore.tender.TenderLine;
 import com.tjx.lew00305.slimstore.tender.TenderService;
 import com.tjx.lew00305.slimstore.transaction.TransactionLine.TransactionLineType;
@@ -84,7 +84,7 @@ public class TransactionService {
         String date
     ) {
         Store store = locationService.getStore(storeNumber);
-        StoreRegister register = store.getRegisterByNumber(regNumber);
+        Register register = store.getRegisterByNumber(regNumber);
         LocalDateTime start = LocalDateTime.parse(date + "T00:00:00");
         LocalDateTime stop = LocalDateTime.parse(date + "T23:59:59");
         return txnRepo.findByStoreAndRegisterAndNumberAndDateBetween(store, register, txnNumber, start, stop);

@@ -1,4 +1,4 @@
-package com.tjx.lew00305.slimstore.report;
+package com.tjx.lew00305.slimstore.transaction.report;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -9,15 +9,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.tjx.lew00305.slimstore.location.LocationService;
-import com.tjx.lew00305.slimstore.location.Store;
-import com.tjx.lew00305.slimstore.location.StoreRegister;
+import com.tjx.lew00305.slimstore.location.register.Register;
+import com.tjx.lew00305.slimstore.location.store.Store;
 import com.tjx.lew00305.slimstore.register.form.Form;
-import com.tjx.lew00305.slimstore.report.transaction.TransactionAudit;
-import com.tjx.lew00305.slimstore.report.transaction.TransactionFlat;
-import com.tjx.lew00305.slimstore.report.transaction.TransactionLineFlat;
-import com.tjx.lew00305.slimstore.report.transaction.TransactionTenderAggregation;
-import com.tjx.lew00305.slimstore.report.transaction.TransactionTenderAggregationInterface;
-import com.tjx.lew00305.slimstore.report.transaction.TransactionTenderFlat;
 import com.tjx.lew00305.slimstore.transaction.Transaction;
 import com.tjx.lew00305.slimstore.transaction.TransactionLine;
 import com.tjx.lew00305.slimstore.transaction.TransactionRepository;
@@ -27,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class ReportService {
+public class TransactionReportService {
     
     private final TransactionRepository txnRepo;
     private final LocationService locationService;
@@ -166,7 +160,7 @@ public class ReportService {
         LocalDateTime stop = LocalDateTime.now().withHour(23).withMinute(59).withSecond(59).withNano(999_999_999);
         Store store = locationService.getStore();
         String storeNumber = "" + store.getNumber();
-        StoreRegister register = locationService.getStoreRegister();
+        Register register = locationService.getStoreRegister();
         String regNumber = "" + register.getNumber();
         switch (reportName) {
             case "Register Transactions":

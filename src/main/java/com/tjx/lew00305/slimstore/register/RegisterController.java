@@ -14,9 +14,9 @@ import com.tjx.lew00305.slimstore.location.LocationService;
 import com.tjx.lew00305.slimstore.register.view.View;
 import com.tjx.lew00305.slimstore.register.view.ViewService;
 import com.tjx.lew00305.slimstore.register.view.View.ViewName;
-import com.tjx.lew00305.slimstore.report.ReportService;
 import com.tjx.lew00305.slimstore.tender.TenderService;
 import com.tjx.lew00305.slimstore.transaction.TransactionService;
+import com.tjx.lew00305.slimstore.transaction.report.TransactionReportService;
 import com.tjx.lew00305.slimstore.translation.TranslationService;
 import com.tjx.lew00305.slimstore.translation.UserInterfaceService;
 import com.tjx.lew00305.slimstore.user.UserService;
@@ -36,7 +36,7 @@ public class RegisterController {
     private final UserService userService;
     private final ViewService viewService;
     private final TransactionService transactionService;
-    private final ReportService transactionReportService;
+    private final TransactionReportService transactionReportService;
     private final TranslationService translationService;
     
     @PostMapping(path = "/api/register")

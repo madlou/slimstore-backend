@@ -1,4 +1,4 @@
-package com.tjx.lew00305.slimstore.report.transaction;
+package com.tjx.lew00305.slimstore.transaction.report;
 
 import java.math.BigDecimal;
 

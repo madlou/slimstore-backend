@@ -5,7 +5,7 @@ import java.io.Serializable;
 import org.springframework.web.context.annotation.SessionScope;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.tjx.lew00305.slimstore.location.Store;
+import com.tjx.lew00305.slimstore.location.store.Store;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

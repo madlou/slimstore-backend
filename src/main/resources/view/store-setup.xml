@@ -27,7 +27,7 @@
                             <property name="key" value="countryCode" />
                             <property name="label" value="Country" />
                             <property name="options">
-                                <bean class="com.tjx.lew00305.slimstore.location.Store.Country" factory-method="values"/>
+                                <bean class="com.tjx.lew00305.slimstore.location.store.Store.Country" factory-method="values"/>
                             </property>
                             <property name="value" value="DE" />
                         </bean>

@@ -6,8 +6,8 @@ import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Service;
 
-import com.tjx.lew00305.slimstore.location.Store.Banner;
-import com.tjx.lew00305.slimstore.location.Store.Region;
+import com.tjx.lew00305.slimstore.location.store.Store.Banner;
+import com.tjx.lew00305.slimstore.location.store.Store.Region;
 import com.tjx.lew00305.slimstore.register.form.Form;
 
 import lombok.RequiredArgsConstructor;

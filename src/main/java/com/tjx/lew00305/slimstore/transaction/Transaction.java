@@ -5,8 +5,8 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.tjx.lew00305.slimstore.location.Store;
-import com.tjx.lew00305.slimstore.location.StoreRegister;
+import com.tjx.lew00305.slimstore.location.register.Register;
+import com.tjx.lew00305.slimstore.location.store.Store;
 import com.tjx.lew00305.slimstore.product.Currency;
 import com.tjx.lew00305.slimstore.user.User;
 
@@ -41,7 +41,7 @@ public class Transaction {
     @ManyToOne
     @JoinColumn(name = "register_id")
     @JsonIgnore
-    private StoreRegister register;
+    private Register register;
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnore

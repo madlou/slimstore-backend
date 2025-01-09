@@ -1,12 +1,11 @@
-package com.tjx.lew00305.slimstore.location;
+package com.tjx.lew00305.slimstore.display;
 
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
-import com.tjx.lew00305.slimstore.display.DisplayWebsocketController;
-import com.tjx.lew00305.slimstore.location.StoreRegister.RegisterStatus;
+import com.tjx.lew00305.slimstore.location.register.Register.RegisterStatus;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class LocationMonitor {
+public class DisplayLocationMonitor {
 
     private final DisplayWebsocketController customerDisplayController;
     

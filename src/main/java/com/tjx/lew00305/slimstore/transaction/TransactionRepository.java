@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import com.tjx.lew00305.slimstore.location.Store;
-import com.tjx.lew00305.slimstore.location.StoreRegister;
-import com.tjx.lew00305.slimstore.report.transaction.TransactionTenderAggregationInterface;
+import com.tjx.lew00305.slimstore.location.register.Register;
+import com.tjx.lew00305.slimstore.location.store.Store;
+import com.tjx.lew00305.slimstore.transaction.report.TransactionTenderAggregationInterface;
 
 public interface TransactionRepository extends CrudRepository<Transaction, Integer> {
     
@@ -55,7 +55,7 @@ public interface TransactionRepository extends CrudRepository<Transaction, Integ
     );
     
     List<Transaction> findByRegisterAndDateBetweenOrderByDateAsc(
-        StoreRegister register,
+        Register register,
         LocalDateTime start,
         LocalDateTime stop
     );
@@ -68,7 +68,7 @@ public interface TransactionRepository extends CrudRepository<Transaction, Integ
     
     Transaction findByStoreAndRegisterAndNumberAndDateBetween(
         Store store,
-        StoreRegister regNumber,
+        Register regNumber,
         Integer txnNumber,
         LocalDateTime start,
         LocalDateTime stop

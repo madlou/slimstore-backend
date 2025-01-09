@@ -6,8 +6,12 @@ import org.springframework.session.Session;
 import org.springframework.session.data.redis.RedisSessionRepository;
 import org.springframework.stereotype.Service;
 
-import com.tjx.lew00305.slimstore.location.Store.Country;
-import com.tjx.lew00305.slimstore.location.StoreRegister.RegisterStatus;
+import com.tjx.lew00305.slimstore.location.register.Register;
+import com.tjx.lew00305.slimstore.location.register.RegisterRepository;
+import com.tjx.lew00305.slimstore.location.register.Register.RegisterStatus;
+import com.tjx.lew00305.slimstore.location.store.Store;
+import com.tjx.lew00305.slimstore.location.store.StoreRepository;
+import com.tjx.lew00305.slimstore.location.store.Store.Country;
 import com.tjx.lew00305.slimstore.product.Currency;
 import com.tjx.lew00305.slimstore.register.form.Form;
 import com.tjx.lew00305.slimstore.translation.TranslationService;
@@ -22,16 +26,16 @@ public class LocationService {
 
     private final LocationSession locationSession;
     private final StoreRepository storeRepository;
-    private final StoreRegisterRepository storeRegisterRepository;
+    private final RegisterRepository storeRegisterRepository;
     private final TranslationService translationService;
     private final HttpServletRequest httpServletRequest;
     private final RedisSessionRepository redisRepo;
 
-    private StoreRegister addRegister(
+    private Register addRegister(
         Store store,
         Integer registerNumber
     ) {
-        StoreRegister storeRegister = new StoreRegister();
+        Register storeRegister = new Register();
         storeRegister.setStore(store);
         storeRegister.setNumber(registerNumber);
         storeRegister.setStatus(RegisterStatus.CLOSED);
@@ -62,7 +66,7 @@ public class LocationService {
         if (store == null) {
             return null;
         }
-        StoreRegister register = store.getRegisterByNumber(registerNumber);
+        Register register = store.getRegisterByNumber(registerNumber);
         return redisRepo.findById(register.getSessionId());
     }
 
@@ -76,7 +80,7 @@ public class LocationService {
         return storeRepository.findByNumber(number);
     }
 
-    public StoreRegister getStoreRegister() {
+    public Register getStoreRegister() {
         return locationSession.getStoreRegister();
     }
 
@@ -104,13 +108,13 @@ public class LocationService {
         Integer registerNumber
     ) {
         Store store = storeRepository.findByNumber(storeNumber);
-        StoreRegister storeRegister = store.getRegisterByNumber(registerNumber);
+        Register storeRegister = store.getRegisterByNumber(registerNumber);
         setLocation(store, storeRegister);
     }
 
     public void setLocation(
         Store store,
-        StoreRegister register
+        Register register
     ) {
         if ((store != null) &&
             (register != null)) {
@@ -140,7 +144,7 @@ public class LocationService {
                 return translationService.translate("location_invalid_store");
             }
         }
-        StoreRegister storeRegister = store.getRegisterByNumber(registerNumber);
+        Register storeRegister = store.getRegisterByNumber(registerNumber);
         if (storeRegister == null) {
             if (isAdmin) {
                 storeRegister = addRegister(store, registerNumber);
@@ -156,7 +160,7 @@ public class LocationService {
     }
 
     public void updateRegisterWithClose() {
-        StoreRegister register = getStoreRegister();
+        Register register = getStoreRegister();
         if (register != null) {
             register.setStatus(RegisterStatus.CLOSED);
             register.setUser(null);
@@ -168,7 +172,7 @@ public class LocationService {
     public void updateRegisterWithOpen(
         User user
     ) {
-        StoreRegister register = getStoreRegister();
+        Register register = getStoreRegister();
         register.setSessionId(httpServletRequest.getRequestedSessionId());
         register.setStatus(RegisterStatus.OPEN);
         register.setUser(user);
@@ -179,7 +183,7 @@ public class LocationService {
     public Integer updateRegisterWithTransaction(
         Timestamp time
     ) {
-        StoreRegister register = getStoreRegister();
+        Register register = getStoreRegister();
         Integer txnNumber = 1 + register.getLastTxnNumber();
         register.setLastTxnNumber(txnNumber);
         register.setLastTxnTime(time);

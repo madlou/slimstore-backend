@@ -1,4 +1,4 @@
-package com.tjx.lew00305.slimstore.location;
+package com.tjx.lew00305.slimstore.location.register;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.web.context.annotation.SessionScope;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tjx.lew00305.slimstore.location.store.Store;
 import com.tjx.lew00305.slimstore.transaction.Transaction;
 import com.tjx.lew00305.slimstore.user.User;
 
@@ -20,6 +21,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,7 +32,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @SessionScope
-public class StoreRegister implements Serializable {
+@Table(name = "store_register")
+public class Register implements Serializable {
 
     public enum RegisterStatus {
         OPEN,

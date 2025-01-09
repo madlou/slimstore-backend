@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tjx.lew00305.slimstore.report.ReportService;
 import com.tjx.lew00305.slimstore.transaction.Transaction;
+import com.tjx.lew00305.slimstore.transaction.report.TransactionReportService;
 import com.tjx.lew00305.slimstore.translation.LanguageTranslationDTO;
 import com.tjx.lew00305.slimstore.translation.TranslationService;
 import com.tjx.lew00305.slimstore.user.User;
@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class AdminApiController {
     
     private final UserService userService;
-    private final ReportService transactionReportService;
+    private final TransactionReportService transactionReportService;
     private final TranslationService translationService;
 
     @GetMapping(path = "/api/translations/generate")

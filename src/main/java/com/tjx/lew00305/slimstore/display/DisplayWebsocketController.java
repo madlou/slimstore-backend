@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import com.tjx.lew00305.slimstore.basket.Basket;
 import com.tjx.lew00305.slimstore.location.LocationService;
-import com.tjx.lew00305.slimstore.location.StoreRegister.RegisterStatus;
+import com.tjx.lew00305.slimstore.location.register.Register.RegisterStatus;
 import com.tjx.lew00305.slimstore.tender.Tender;
 
 import lombok.RequiredArgsConstructor;
