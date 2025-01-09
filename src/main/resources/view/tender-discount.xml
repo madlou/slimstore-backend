@@ -7,40 +7,40 @@
                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
                         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
-    <bean class="com.tjx.lew00305.slimstore.model.common.View" scope="request">
+    <bean class="com.tjx.lew00305.slimstore.view.View" scope="request">
         <property name="name" value="TENDER_DISCOUNT" />
         <property name="title" value="Tender Discount" />
         <property name="message" value="Please select a discount option." />
         <property name="form">
-            <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+            <bean class="com.tjx.lew00305.slimstore.register.Form">
                 <property name="targetView" value="TENDER" />
             </bean>
         </property>
         <property name="functionButtons">
             <array>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.register.FunctionButton">
                     <property name="position" value="1" />
                     <property name="label" value="Staff Discount" />
                     <property name="form">
-                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                        <bean class="com.tjx.lew00305.slimstore.register.Form">
                             <property name="targetView" value="TENDER" />
                         </bean>
                     </property>
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.register.FunctionButton">
                     <property name="position" value="2" />
                     <property name="label" value="Damaged Discount" />
                     <property name="form">
-                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                        <bean class="com.tjx.lew00305.slimstore.register.Form">
                             <property name="targetView" value="TENDER" />
                         </bean>
                     </property>
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.register.FunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="Back" />
                     <property name="form">
-                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                        <bean class="com.tjx.lew00305.slimstore.register.Form">
                             <property name="targetView" value="TENDER" />
                         </bean>
                     </property>

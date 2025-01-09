@@ -7,32 +7,32 @@
                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
                         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
-    <bean class="com.tjx.lew00305.slimstore.model.common.View" scope="request">
+    <bean class="com.tjx.lew00305.slimstore.view.View" scope="request">
         <property name="name" value="TENDER_GIFTCARD" />
         <property name="title" value="Tender Gift Card" />
         <property name="message" value="Please swipe/scan Gift Card." />
         <property name="form">
-            <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+            <bean class="com.tjx.lew00305.slimstore.register.Form">
                 <property name="targetView" value="TENDER" />
                 <property name="serverProcess" value="PROCESS_GIFTCARD" />
                 <property name="elements">
                     <array>
-                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                        <bean class="com.tjx.lew00305.slimstore.register.FormElement">
                             <property name="type" value="number" />
                             <property name="key" value="card" />
                             <property name="label" value="Card Number" />
                         </bean>
-                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                        <bean class="com.tjx.lew00305.slimstore.register.FormElement">
                             <property name="type" value="number" />
                             <property name="key" value="pin" />
                             <property name="label" value="PIN Number" />
                         </bean>
-                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                        <bean class="com.tjx.lew00305.slimstore.register.FormElement">
                             <property name="type" value="decimal" />
                             <property name="key" value="amount" />
                             <property name="label" value="Amount" />
                         </bean>
-                        <bean class="com.tjx.lew00305.slimstore.model.common.FormElement">
+                        <bean class="com.tjx.lew00305.slimstore.register.FormElement">
                             <property name="type" value="submit" />
                             <property name="key" value="submit" />
                             <property name="label" value="Redeem Gift Card" />
@@ -43,11 +43,11 @@
         </property>
         <property name="functionButtons">
             <array>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.register.FunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="Back" />
                     <property name="form">
-                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                        <bean class="com.tjx.lew00305.slimstore.register.Form">
                             <property name="targetView" value="TENDER" />
                         </bean>
                     </property>

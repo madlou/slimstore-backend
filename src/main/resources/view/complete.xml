@@ -7,17 +7,17 @@
                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
                         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
-    <bean class="com.tjx.lew00305.slimstore.model.common.View" scope="request">
+    <bean class="com.tjx.lew00305.slimstore.view.View" scope="request">
         <property name="name" value="COMPLETE" />
         <property name="title" value="Transaction Complete" />
         <property name="message" value="The transaction has completed." />
         <property name="functionButtons">
             <array>
-                <bean class="com.tjx.lew00305.slimstore.model.common.FunctionButton">
+                <bean class="com.tjx.lew00305.slimstore.register.FunctionButton">
                     <property name="position" value="1" />
                     <property name="label" value="Complete" />
                     <property name="form">
-                        <bean class="com.tjx.lew00305.slimstore.model.common.Form">
+                        <bean class="com.tjx.lew00305.slimstore.register.Form">
                             <property name="targetView" value="HOME" />
                             <property name="serverProcess" value="TRANSACTION_COMPLETE" />
                         </bean>
