@@ -26,14 +26,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 public class RegisterSecurity {
-
+    
     private final LocationService locationService;
     private final TranslationService translationService;
     private final UserService userService;
-    
+
     @Pointcut("execution(public * com.tjx.lew00305.slimstore.register.RegisterController.registerQuery(..))")
     private void aPointCutFromRegisterController() {}
-    
+
     @Before(value = "aPointCutFromRegisterController()")
     public void logBefore(
         JoinPoint joinPoint
@@ -42,7 +42,7 @@ public class RegisterSecurity {
         String methodName = joinPoint.getSignature().getName();
         log.info(">> {}() - {}", methodName, Arrays.toString(args));
     }
-    
+
     @Around(value = "aPointCutFromRegisterController()")
     public Object validateQueryAround(
         ProceedingJoinPoint joinPoint
@@ -67,14 +67,14 @@ public class RegisterSecurity {
         if (userService.isLoggedOut()) {
             if (requestForm.getTargetView() == ViewName.ABOUT) {
                 return joinPoint.proceed(new Object[] {
-                    requestForm, storeRegCookie, errorMessage
+                    requestForm, errorMessage
                 });
             }
             if (requestForm.getServerProcess() != ServerProcess.LOGIN) {
                 requestForm.setTargetView(ViewName.LOGIN);
                 requestForm.setServerProcess(null);
                 return joinPoint.proceed(new Object[] {
-                    requestForm, storeRegCookie, errorMessage
+                    requestForm, errorMessage
                 });
             }
             User user = userService.getUser(requestForm.getValueByKey("code"));
@@ -83,7 +83,7 @@ public class RegisterSecurity {
                 requestForm.setTargetView(ViewName.LOGIN);
                 requestForm.setServerProcess(null);
                 return joinPoint.proceed(new Object[] {
-                    requestForm, storeRegCookie, errorMessage
+                    requestForm, errorMessage
                 });
             }
             if (store != null) {
@@ -94,7 +94,7 @@ public class RegisterSecurity {
                     requestForm.setTargetView(ViewName.LOGIN);
                     requestForm.setServerProcess(null);
                     return joinPoint.proceed(new Object[] {
-                        requestForm, storeRegCookie, errorMessage
+                        requestForm, errorMessage
                     });
                 }
                 if (!user.isAdmin()) {
@@ -105,7 +105,7 @@ public class RegisterSecurity {
                         requestForm.setTargetView(ViewName.LOGIN);
                         requestForm.setServerProcess(null);
                         return joinPoint.proceed(new Object[] {
-                            requestForm, storeRegCookie, errorMessage
+                            requestForm, errorMessage
                         });
                     }
                 }
@@ -116,13 +116,13 @@ public class RegisterSecurity {
             requestForm.setServerProcess(null);
             errorMessage = translationService.translate("error.location_setup_required");
             return joinPoint.proceed(new Object[] {
-                requestForm, storeRegCookie, errorMessage
+                requestForm, errorMessage
             });
         }
         RegisterResponseDTO result = (RegisterResponseDTO) joinPoint.proceed(new Object[] {
-            requestForm, storeRegCookie, errorMessage
+            requestForm, errorMessage
         });
         return result;
     }
-    
+
 }
