@@ -19,11 +19,11 @@ import lombok.NoArgsConstructor;
 @Data
 @SessionScope
 public class TenderLine implements Serializable {
-    
+
     @Enumerated(EnumType.STRING)
     private TenderType type;
     private String label;
     private BigDecimal value;
     private String reference;
-
+    
 }

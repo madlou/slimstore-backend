@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 public class RegisterController {
-    
+
     private final RegisterService registerService;
     private final BasketService basketService;
     private final LocationService locationService;
@@ -25,7 +25,7 @@ public class RegisterController {
     private final UserInterfaceService userInterfaceService;
     private final UserService userService;
     private final ViewService viewService;
-    
+
     @PostMapping(path = "/api/register")
     public @ResponseBody
     RegisterResponseDTO registerQuery(
@@ -33,10 +33,16 @@ public class RegisterController {
         RegisterRequestDTO request,
         String errorMessage
     ) {
-        RegisterResponseDTO response = registerService.process(request, errorMessage);
+        RegisterResponseDTO response;
+        if (errorMessage != null) {
+            response = new RegisterResponseDTO();
+            response.setError(errorMessage);
+        } else {
+            response = registerService.process(request);
+        }
         return updateDTO(request, response);
     }
-    
+
     private RegisterResponseDTO updateDTO(
         RegisterRequestDTO request,
         RegisterResponseDTO response
@@ -50,5 +56,5 @@ public class RegisterController {
         response.setUiTranslations(userInterfaceService.getUserInterfaceTranslations());
         return response;
     }
-
+    
 }

@@ -23,14 +23,14 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class LocationService {
-    
+
     private final LocationSession locationSession;
     private final StoreRepository storeRepository;
     private final RegisterRepository storeRegisterRepository;
     private final TranslationService translationService;
     private final HttpServletRequest httpServletRequest;
     private final RedisSessionRepository redisRepo;
-    
+
     private Register addRegister(
         Store store,
         Integer registerNumber
@@ -43,7 +43,7 @@ public class LocationService {
         storeRegister = storeRegisterRepository.save(storeRegister);
         return storeRegister;
     }
-    
+
     private Store addStore(
         Integer storeNumber,
         Integer registerNumber
@@ -57,7 +57,7 @@ public class LocationService {
         store.getRegisters().add(addRegister(store, registerNumber));
         return store;
     }
-    
+
     public Session getSessionByStoreRegister(
         Integer storeNumber,
         Integer registerNumber
@@ -69,25 +69,25 @@ public class LocationService {
         Register register = store.getRegisterByNumber(registerNumber);
         return redisRepo.findById(register.getSessionId());
     }
-    
+
     public Store getStore() {
         return locationSession.getStore();
     }
-    
+
     public Store getStore(
         Integer number
     ) {
         return storeRepository.findByNumber(number);
     }
-    
+
     public Register getStoreRegister() {
         return locationSession.getStoreRegister();
     }
-    
+
     public Iterable<Store> getStores() {
         return storeRepository.findAll();
     }
-    
+
     public void saveStoreByForm(
         Form requestForm
     ) {
@@ -102,7 +102,7 @@ public class LocationService {
         store.setPhoneNumber(requestForm.getValueByKey("phoneNumber"));
         storeRepository.save(store);
     }
-    
+
     public void setLocation(
         Integer storeNumber,
         Integer registerNumber
@@ -111,7 +111,7 @@ public class LocationService {
         Register storeRegister = store.getRegisterByNumber(registerNumber);
         setLocation(store, storeRegister);
     }
-    
+
     public void setLocation(
         Store store,
         Register register
@@ -122,18 +122,18 @@ public class LocationService {
             locationSession.setStoreRegister(register);
         }
     }
-    
+
     public void setLocation(
         String storeNumber,
         String registerNumber
     ) {
         setLocation(Integer.parseInt(storeNumber), Integer.parseInt(registerNumber));
     }
-    
-    public String setLocationByForm(
+
+    public void setLocationByForm(
         Form requestForm,
         Boolean isAdmin
-    ) {
+    ) throws Exception {
         Integer storeNumber = requestForm.getIntegerValueByKey("storeNumber");
         Integer registerNumber = requestForm.getIntegerValueByKey("registerNumber");
         Store store = storeRepository.findByNumber(storeNumber);
@@ -141,7 +141,7 @@ public class LocationService {
             if (isAdmin) {
                 store = addStore(storeNumber, registerNumber);
             } else {
-                return translationService.translate("location_invalid_store");
+                throw new Exception(translationService.translate("location_invalid_store"));
             }
         }
         Register storeRegister = store.getRegisterByNumber(registerNumber);
@@ -149,16 +149,15 @@ public class LocationService {
             if (isAdmin) {
                 storeRegister = addRegister(store, registerNumber);
             } else {
-                return translationService.translate("location_invalid_register");
+                throw new Exception(translationService.translate("location_invalid_register"));
             }
         }
         User user = storeRegister.getUser();
         updateRegisterWithClose();
         setLocation(store, storeRegister);
         updateRegisterWithOpen(user);
-        return null;
     }
-    
+
     public void updateRegisterWithClose() {
         Register register = getStoreRegister();
         if (register != null) {
@@ -168,7 +167,7 @@ public class LocationService {
             locationSession.setStoreRegister(register);
         }
     }
-
+    
     public void updateRegisterWithOpen(
         User user
     ) {
@@ -179,7 +178,7 @@ public class LocationService {
         storeRegisterRepository.save(register);
         locationSession.setStoreRegister(register);
     }
-    
+
     public Integer updateRegisterWithTransaction(
         Timestamp time
     ) {
@@ -191,5 +190,5 @@ public class LocationService {
         locationSession.setStoreRegister(register);
         return txnNumber;
     }
-    
+
 }

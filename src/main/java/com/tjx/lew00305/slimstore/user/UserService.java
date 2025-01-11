@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import com.tjx.lew00305.slimstore.location.LocationService;
 import com.tjx.lew00305.slimstore.register.form.Form;
 import com.tjx.lew00305.slimstore.register.form.FormElement;
-import com.tjx.lew00305.slimstore.register.form.FormElementButton;
 import com.tjx.lew00305.slimstore.register.form.FormElement.FormElementType;
+import com.tjx.lew00305.slimstore.register.form.FormElementButton;
 import com.tjx.lew00305.slimstore.register.view.View.ViewName;
 import com.tjx.lew00305.slimstore.translation.TranslationService;
 
@@ -29,9 +29,9 @@ public class UserService {
     @Value("${tjx.app.demo}")
     private Boolean demoMode;
     
-    public String addUserByForm(
+    public void addUserByForm(
         Form requestForm
-    ) {
+    ) throws Exception {
         try {
             User user = new User();
             user.setCode(requestForm.getValueByKey("code"));
@@ -41,12 +41,11 @@ public class UserService {
             user.setRole(UserRole.valueOf(requestForm.getValueByKey("role")));
             user.setStore(locationService.getStore());
             userRepository.save(user);
-            return null;
         } catch (Exception e) {
             if (e.getMessage().contains("Duplicate entry")) {
-                return translationService.translate("error.user_duplicate_entry");
+                throw new Exception(translationService.translate("error.user_duplicate_entry"));
             } else {
-                return translationService.translate("error.user_creation_error", e.getMessage());
+                throw new Exception(translationService.translate("error.user_creation_error", e.getMessage()));
             }
         }
     }
@@ -185,15 +184,15 @@ public class UserService {
         userSession.setUser(new User());
     }
     
-    public String saveUserByForm(
+    public void saveUserByForm(
         Form requestForm
-    ) {
+    ) throws Exception {
         User user = userRepository.findByCode(requestForm.getValueByKey("code"));
         if (isDemoMode() &&
             (user.getCode().equals("1111") ||
                 user.getCode().equals("2222") ||
                 user.getCode().equals("3333"))) {
-            return translationService.translate("error.user_demo_edit_error");
+            throw new Exception(translationService.translate("error.user_demo_edit_error"));
         }
         Integer storeNumber = requestForm.getIntegerValueByKey("store");
         user.setStore(locationService.getStore(storeNumber == 0 ? null : storeNumber));
@@ -206,9 +205,8 @@ public class UserService {
         }
         try {
             userRepository.save(user);
-            return null;
         } catch (Exception e) {
-            return translationService.translate("error.user_unable_to_save", e.getMessage());
+            throw new Exception(translationService.translate("error.user_unable_to_save", e.getMessage()));
         }
     }
 

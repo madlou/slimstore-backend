@@ -2,7 +2,6 @@ package com.tjx.lew00305.slimstore.tender;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.session.Session;
 import org.springframework.stereotype.Service;
@@ -27,31 +26,36 @@ public class TenderService {
         FormElement element
     ) throws Exception {
         BigDecimal value;
+        TenderType type = TenderType.valueOf(element.getKey());
         if (element.getValue().equals("full")) {
             value = basketService.getTotal().subtract(tender.getTotal());
         } else {
             value = new BigDecimal(element.getValue());
-            if (isRefund()) {
+            if (isRefundTxn()) {
                 value = value.negate();
             }
         }
-        if (isRefund()) {
+        if (isSaleTxn()) {
+            if (value.compareTo(BigDecimal.ZERO) > 0) {
+                if (!allowOverTender(type) &&
+                    (getRemaining().compareTo(value) < 0)) {
+                    throw new Exception(translationService.translate("error.tender_value_not_allowed"));
+                }
+                tender.add(new TenderLine(type, element.getLabel(), value, ""));
+            } else {
+                throw new Exception(translationService.translate("error.tender_value_not_allowed"));
+            }
+        }
+        if (isRefundTxn()) {
             if (getRemaining().compareTo(value) > 0) {
                 throw new Exception(translationService.translate("error.tender_refund_too_high"));
             }
             if (value.compareTo(BigDecimal.ZERO) <= 0) {
                 if (getRemaining().compareTo(value) <= 0) {
-                    tender.add(new TenderLine(TenderType.valueOf(element.getKey()), element.getLabel(), value, ""));
+                    tender.add(new TenderLine(type, element.getLabel(), value, ""));
                 } else {
                     throw new Exception(translationService.translate("error.tender_value_not_allowed"));
                 }
-            } else {
-                throw new Exception(translationService.translate("error.tender_value_not_allowed"));
-            }
-        }
-        if (isSale()) {
-            if (value.compareTo(BigDecimal.ZERO) > 0) {
-                tender.add(new TenderLine(TenderType.valueOf(element.getKey()), element.getLabel(), value, ""));
             } else {
                 throw new Exception(translationService.translate("error.tender_value_not_allowed"));
             }
@@ -68,32 +72,32 @@ public class TenderService {
     
     public Tender addTenderByForm(
         Form requestForm
-    ) {
-        try {
-            addFormElements(requestForm.getElements());
-            if (isSale() &&
-                (getRemaining().compareTo(BigDecimal.ZERO) <= 0)) {
-                if (getRemaining().compareTo(BigDecimal.ZERO) < 0) {
-                    tender.add(new TenderLine(TenderType.CASH, "Cash Change", getRemaining(), ""));
-                }
-                tender.setComplete();
+    ) throws Exception {
+        addFormElements(requestForm.getElements());
+        if (isSaleTxn() &&
+            (getRemaining().compareTo(BigDecimal.ZERO) <= 0)) {
+            if (getRemaining().compareTo(BigDecimal.ZERO) < 0) {
+                tender.add(new TenderLine(TenderType.CASH, "Cash Change", getRemaining(), ""));
             }
-            if (isRefund() &&
-                (getRemaining().compareTo(BigDecimal.ZERO) == 0)) {
-                tender.setComplete();
-            }
-        } catch (Exception e) {
-            return null;
+            tender.setComplete();
+        }
+        if (isRefundTxn() &&
+            (getRemaining().compareTo(BigDecimal.ZERO) == 0)) {
+            tender.setComplete();
         }
         return tender;
     }
     
-    public boolean allowOverTender(
-        TenderType tenderType
+    public Boolean allowOverTender(
+        TenderType type
     ) {
-        List<TenderType> allowedOverTenders = new ArrayList<TenderType>();
-        allowedOverTenders.add(TenderType.CASH);
-        return allowedOverTenders.contains(tenderType);
+        switch (type) {
+            default:
+                return false;
+            case TenderType.CASH:
+            case TenderType.VOUCHER:
+                return true;
+        }
     }
     
     public void empty() {
@@ -127,11 +131,11 @@ public class TenderService {
         return tender.isComplete();
     }
     
-    public boolean isRefund() {
+    public boolean isRefundTxn() {
         return basketService.getTotal().compareTo(BigDecimal.ZERO) < 0;
     }
-    
-    public boolean isSale() {
+
+    public boolean isSaleTxn() {
         return basketService.getTotal().compareTo(BigDecimal.ZERO) >= 0;
     }
     
