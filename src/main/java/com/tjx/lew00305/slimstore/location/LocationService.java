@@ -23,14 +23,14 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class LocationService {
-
+    
     private final LocationSession locationSession;
     private final StoreRepository storeRepository;
     private final RegisterRepository storeRegisterRepository;
     private final TranslationService translationService;
     private final HttpServletRequest httpServletRequest;
     private final RedisSessionRepository redisRepo;
-
+    
     private Register addRegister(
         Store store,
         Integer registerNumber
@@ -43,7 +43,7 @@ public class LocationService {
         storeRegister = storeRegisterRepository.save(storeRegister);
         return storeRegister;
     }
-
+    
     private Store addStore(
         Integer storeNumber,
         Integer registerNumber
@@ -57,7 +57,7 @@ public class LocationService {
         store.getRegisters().add(addRegister(store, registerNumber));
         return store;
     }
-
+    
     public Session getSessionByStoreRegister(
         Integer storeNumber,
         Integer registerNumber
@@ -69,25 +69,25 @@ public class LocationService {
         Register register = store.getRegisterByNumber(registerNumber);
         return redisRepo.findById(register.getSessionId());
     }
-
+    
     public Store getStore() {
         return locationSession.getStore();
     }
-
+    
     public Store getStore(
         Integer number
     ) {
         return storeRepository.findByNumber(number);
     }
-
+    
     public Register getStoreRegister() {
         return locationSession.getStoreRegister();
     }
-
+    
     public Iterable<Store> getStores() {
         return storeRepository.findAll();
     }
-
+    
     public void saveStoreByForm(
         Form requestForm
     ) {
@@ -102,7 +102,7 @@ public class LocationService {
         store.setPhoneNumber(requestForm.getValueByKey("phoneNumber"));
         storeRepository.save(store);
     }
-
+    
     public void setLocation(
         Integer storeNumber,
         Integer registerNumber
@@ -111,7 +111,7 @@ public class LocationService {
         Register storeRegister = store.getRegisterByNumber(registerNumber);
         setLocation(store, storeRegister);
     }
-
+    
     public void setLocation(
         Store store,
         Register register
@@ -122,14 +122,14 @@ public class LocationService {
             locationSession.setStoreRegister(register);
         }
     }
-
+    
     public void setLocation(
         String storeNumber,
         String registerNumber
     ) {
         setLocation(Integer.parseInt(storeNumber), Integer.parseInt(registerNumber));
     }
-
+    
     public void setLocationByForm(
         Form requestForm,
         Boolean isAdmin
@@ -157,7 +157,7 @@ public class LocationService {
         setLocation(store, storeRegister);
         updateRegisterWithOpen(user);
     }
-
+    
     public void updateRegisterWithClose() {
         Register register = getStoreRegister();
         if (register != null) {
@@ -167,18 +167,20 @@ public class LocationService {
             locationSession.setStoreRegister(register);
         }
     }
-    
+
     public void updateRegisterWithOpen(
         User user
     ) {
         Register register = getStoreRegister();
-        register.setSessionId(httpServletRequest.getRequestedSessionId());
-        register.setStatus(RegisterStatus.OPEN);
-        register.setUser(user);
-        storeRegisterRepository.save(register);
-        locationSession.setStoreRegister(register);
+        if (register != null) {
+            register.setSessionId(httpServletRequest.getRequestedSessionId());
+            register.setStatus(RegisterStatus.OPEN);
+            register.setUser(user);
+            storeRegisterRepository.save(register);
+            locationSession.setStoreRegister(register);
+        }
     }
-
+    
     public Integer updateRegisterWithTransaction(
         Timestamp time
     ) {
@@ -190,5 +192,5 @@ public class LocationService {
         locationSession.setStoreRegister(register);
         return txnNumber;
     }
-
+    
 }
