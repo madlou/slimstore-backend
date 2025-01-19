@@ -5,7 +5,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
-import com.tjx.lew00305.slimstore.location.register.Register.RegisterStatus;
+import com.tjx.lew00305.slimstore.register.Register.RegisterStatus;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,23 +15,23 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 public class DisplayLocationMonitor {
-
+    
     private final DisplayWebsocketController customerDisplayController;
-    
-    @Pointcut("execution(public * com.tjx.lew00305.slimstore.location.LocationService.updateRegisterWithClose(..))")
-    private void aPointCutFromRegisterClose() {}
-    
-    @Pointcut("execution(public * com.tjx.lew00305.slimstore.location.LocationService.updateRegisterWithOpen(..))")
-    private void aPointCutFromRegisterOpen() {}
 
+    @Pointcut("execution(public * com.tjx.lew00305.slimstore.register.RegisterService.updateRegisterWithClose(..))")
+    private void aPointCutFromRegisterClose() {}
+
+    @Pointcut("execution(public * com.tjx.lew00305.slimstore.register.RegisterService.updateRegisterWithOpen(..))")
+    private void aPointCutFromRegisterOpen() {}
+    
     @AfterReturning(pointcut = "aPointCutFromRegisterClose()")
     public void sendRegisterCloseToWebsocket() {
         customerDisplayController.sendRegisterStatus(RegisterStatus.CLOSED);
     }
-    
+
     @AfterReturning(pointcut = "aPointCutFromRegisterOpen()")
     public void sendRegisterOpenToWebsocket() {
         customerDisplayController.sendRegisterStatus(RegisterStatus.OPEN);
     }
-    
+
 }

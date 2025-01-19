@@ -8,16 +8,16 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class BasketRepository {
-    
+
     private final RedisSessionRepository redisRepository;
     private final HttpServletRequest request;
-    
+
     public Object getAttribute(
         String attribute // e.g. basket
     ) {
         return getAttribute(request.getRequestedSessionId(), attribute);
     }
-
+    
     public Object getAttribute(
         String sessionId,
         String attribute
@@ -26,7 +26,6 @@ public class BasketRepository {
         if (session == null) {
             return null;
         }
-        System.out.println(session.getAttributeNames());
         Object obj = session.getAttribute("scopedTarget." + attribute);
         if (obj == null) {
             return null;

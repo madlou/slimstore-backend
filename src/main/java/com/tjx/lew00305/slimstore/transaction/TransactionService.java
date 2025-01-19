@@ -7,9 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.tjx.lew00305.slimstore.basket.BasketLine;
 import com.tjx.lew00305.slimstore.basket.BasketService;
-import com.tjx.lew00305.slimstore.location.LocationService;
-import com.tjx.lew00305.slimstore.location.register.Register;
-import com.tjx.lew00305.slimstore.location.store.Store;
+import com.tjx.lew00305.slimstore.register.Register;
+import com.tjx.lew00305.slimstore.register.RegisterService;
+import com.tjx.lew00305.slimstore.store.Store;
+import com.tjx.lew00305.slimstore.store.StoreService;
 import com.tjx.lew00305.slimstore.tender.TenderLine;
 import com.tjx.lew00305.slimstore.tender.TenderService;
 import com.tjx.lew00305.slimstore.transaction.TransactionLine.TransactionLineType;
@@ -20,25 +21,26 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class TransactionService {
-
+    
     private final TransactionRepository txnRepo;
     private final TransactionLineRepository lineRepo;
     private final TransactionTenderRepository tenderRepo;
-    private final LocationService locationService;
+    private final RegisterService registerService;
+    private final StoreService storeService;
     private final BasketService basketService;
     private final TenderService tenderService;
     private final UserService userService;
-    
+
     public void addTransaction() {
         Timestamp time = new Timestamp(System.currentTimeMillis());
-        Integer txnNumber = locationService.updateRegisterWithTransaction(time);
+        Integer txnNumber = registerService.updateRegisterWithTransaction(time);
         Transaction transaction = new Transaction();
-        transaction.setStore(locationService.getStore());
-        transaction.setRegister(locationService.getStoreRegister());
-        transaction.setUser(userService.getUser());
+        transaction.setStore(storeService.getStoreReference());
+        transaction.setRegister(registerService.getRegisterReference());
+        transaction.setUser(userService.getUserReference());
         transaction.setNumber(txnNumber);
         transaction.setDate(time);
-        transaction.setCurrencyCode(locationService.getStore().getCurrencyCode());
+        transaction.setCurrencyCode(storeService.getStore().getCurrencyCode());
         transaction.setTotal(basketService.getTotal());
         transaction = txnRepo.save(transaction);
         Integer counter = 1;
@@ -76,18 +78,18 @@ public class TransactionService {
             tenderRepo.save(txnTender);
         }
     }
-
+    
     public Transaction getTransaction(
         Integer storeNumber,
         Integer regNumber,
         Integer txnNumber,
         String date
     ) {
-        Store store = locationService.getStore(storeNumber);
-        Register register = store.getRegisterByNumber(regNumber);
+        Store store = storeService.getStore(storeNumber);
+        Register register = registerService.getRegister(store, regNumber);
         LocalDateTime start = LocalDateTime.parse(date + "T00:00:00");
         LocalDateTime stop = LocalDateTime.parse(date + "T23:59:59");
         return txnRepo.findByStoreAndRegisterAndNumberAndDateBetween(store, register, txnNumber, start, stop);
     }
-
+    
 }

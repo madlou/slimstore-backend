@@ -14,8 +14,8 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
-import com.tjx.lew00305.slimstore.register.form.FormElement;
 import com.tjx.lew00305.slimstore.register.view.ViewFunctionButton;
+import com.tjx.lew00305.slimstore.register.form.FormElement;
 import com.tjx.lew00305.slimstore.register.view.View;
 import com.tjx.lew00305.slimstore.register.view.ViewConfig;
 

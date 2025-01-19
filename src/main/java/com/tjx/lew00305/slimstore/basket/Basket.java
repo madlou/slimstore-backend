@@ -7,12 +7,27 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @SuppressWarnings("serial")
-@Component
-@SessionScope
 @Data
+@Component
+@NoArgsConstructor
+@AllArgsConstructor
+@SessionScope
+@JsonSerialize
+@JsonDeserialize(as = Basket.class)
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = As.PROPERTY)
 public class Basket implements Serializable {
 
     private ArrayList<BasketLine> basket = new ArrayList<BasketLine>();
@@ -27,14 +42,17 @@ public class Basket implements Serializable {
         basket = new ArrayList<BasketLine>();
     }
 
+    @JsonIgnore
     public BasketLine[] getArray() {
         return basket.toArray(new BasketLine[0]);
     }
 
+    @JsonIgnore
     public ArrayList<BasketLine> getArrayList() {
         return basket;
     }
 
+    @JsonIgnore
     public BigDecimal getTotal() {
         BigDecimal total = new BigDecimal(0);
         for (BasketLine line : basket) {

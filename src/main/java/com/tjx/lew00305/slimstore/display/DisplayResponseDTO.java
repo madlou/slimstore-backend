@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.tjx.lew00305.slimstore.basket.BasketLine;
-import com.tjx.lew00305.slimstore.location.register.Register.RegisterStatus;
+import com.tjx.lew00305.slimstore.register.Register.RegisterStatus;
 import com.tjx.lew00305.slimstore.tender.TenderLine;
 
 import jakarta.persistence.EnumType;

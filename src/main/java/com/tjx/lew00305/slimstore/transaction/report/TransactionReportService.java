@@ -8,10 +8,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.tjx.lew00305.slimstore.location.LocationService;
-import com.tjx.lew00305.slimstore.location.register.Register;
-import com.tjx.lew00305.slimstore.location.store.Store;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tjx.lew00305.slimstore.register.Register;
+import com.tjx.lew00305.slimstore.register.RegisterService;
 import com.tjx.lew00305.slimstore.register.form.Form;
+import com.tjx.lew00305.slimstore.store.Store;
+import com.tjx.lew00305.slimstore.store.StoreService;
 import com.tjx.lew00305.slimstore.transaction.Transaction;
 import com.tjx.lew00305.slimstore.transaction.TransactionLine;
 import com.tjx.lew00305.slimstore.transaction.TransactionRepository;
@@ -22,13 +25,15 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class TransactionReportService {
-    
-    private final TransactionRepository txnRepo;
-    private final LocationService locationService;
 
-    private List<TransactionAudit> getTransactionAudit(
+    private final TransactionRepository txnRepo;
+    private final RegisterService registerService;
+    private final StoreService storeService;
+    private final ObjectMapper mapper;
+
+    private ArrayList<TransactionAudit> getTransactionAudit(
         List<Transaction> data
-    ) {
+    ) throws JsonProcessingException {
         DateTimeFormatter dateFormater = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter timeFormater = DateTimeFormatter.ofPattern("HH:mm:ss");
         ArrayList<TransactionAudit> report = new ArrayList<TransactionAudit>();
@@ -53,10 +58,10 @@ public class TransactionReportService {
         }
         return report;
     }
-    
-    private List<TransactionFlat> getTransactionFlat(
+
+    private ArrayList<TransactionFlat> getTransactionFlat(
         List<Transaction> data
-    ) {
+    ) throws JsonProcessingException {
         ArrayList<TransactionFlat> report = new ArrayList<TransactionFlat>();
         SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
@@ -75,10 +80,10 @@ public class TransactionReportService {
         }
         return report;
     }
-    
-    private List<TransactionLineFlat> getTransactionLineFlat(
+
+    private ArrayList<TransactionLineFlat> getTransactionLineFlat(
         List<Transaction> data
-    ) {
+    ) throws JsonProcessingException {
         ArrayList<TransactionLineFlat> report = new ArrayList<TransactionLineFlat>();
         SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
@@ -102,14 +107,14 @@ public class TransactionReportService {
         }
         return report;
     }
-    
+
     public Iterable<Transaction> getTransactionReport() {
         return txnRepo.findAll();
     }
-    
-    private List<TransactionTenderAggregation> getTransactionTenderAggregation(
+
+    private ArrayList<TransactionTenderAggregation> getTransactionTenderAggregation(
         List<TransactionTenderAggregationInterface> data
-    ) {
+    ) throws JsonProcessingException {
         ArrayList<TransactionTenderAggregation> report = new ArrayList<TransactionTenderAggregation>();
         for (TransactionTenderAggregationInterface row : data) {
             TransactionTenderAggregation line = new TransactionTenderAggregation();
@@ -123,10 +128,10 @@ public class TransactionReportService {
         }
         return report;
     }
-    
-    private List<TransactionTenderFlat> getTransactionTenderFlat(
+
+    private ArrayList<TransactionTenderFlat> getTransactionTenderFlat(
         List<Transaction> data
-    ) {
+    ) throws JsonProcessingException {
         ArrayList<TransactionTenderFlat> report = new ArrayList<TransactionTenderFlat>();
         SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
@@ -148,60 +153,79 @@ public class TransactionReportService {
         }
         return report;
     }
-    
-    @SuppressWarnings("rawtypes")
-    public List runReport(
+
+    public String runReport(
         String scope,
         String name,
         Integer days
-    ) {
+    ) throws JsonProcessingException {
         String reportName = scope + " " + name;
         LocalDateTime start = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0).minusDays(days - 1);
         LocalDateTime stop = LocalDateTime.now().withHour(23).withMinute(59).withSecond(59).withNano(999_999_999);
-        Store store = locationService.getStore();
+        Store store = storeService.getStoreReference();
         String storeNumber = "" + store.getNumber();
-        Register register = locationService.getStoreRegister();
+        Register register = registerService.getRegisterReference();
         String regNumber = "" + register.getNumber();
+        ArrayList<TransactionAudit> transactionAudits;
+        ArrayList<TransactionFlat> transactionFlats;
+        ArrayList<TransactionLineFlat> transactionLineFlats;
+        ArrayList<TransactionTenderAggregation> transactionTenderAggregations;
+        ArrayList<TransactionTenderFlat> transactionTenderFlats;
         switch (reportName) {
             case "Register Transactions":
-                return getTransactionFlat(txnRepo.findByRegisterAndDateBetweenOrderByDateAsc(register, start, stop));
+                transactionFlats = getTransactionFlat(txnRepo.findByRegisterAndDateBetweenOrderByDateAsc(register, start, stop));
+                return mapper.writeValueAsString(transactionFlats);
             case "Store Transactions":
-                return getTransactionFlat(txnRepo.findByStoreAndDateBetweenOrderByDateAsc(store, start, stop));
+                transactionFlats = getTransactionFlat(txnRepo.findByStoreAndDateBetweenOrderByDateAsc(store, start, stop));
+                return mapper.writeValueAsString(transactionFlats);
             case "Company Transactions":
-                return getTransactionFlat(txnRepo.findByDateBetweenOrderByDateAsc(start, stop));
+                transactionFlats = getTransactionFlat(txnRepo.findByDateBetweenOrderByDateAsc(start, stop));
+                return mapper.writeValueAsString(transactionFlats);
             case "Register Transaction Lines":
-                return getTransactionLineFlat(txnRepo.findByRegisterAndDateBetweenOrderByDateAsc(register, start, stop));
+                transactionLineFlats = getTransactionLineFlat(txnRepo.findByRegisterAndDateBetweenOrderByDateAsc(register, start, stop));
+                return mapper.writeValueAsString(transactionLineFlats);
             case "Store Transaction Lines":
-                return getTransactionLineFlat(txnRepo.findByStoreAndDateBetweenOrderByDateAsc(store, start, stop));
+                transactionLineFlats = getTransactionLineFlat(txnRepo.findByStoreAndDateBetweenOrderByDateAsc(store, start, stop));
+                return mapper.writeValueAsString(transactionLineFlats);
             case "Company Transaction Lines":
-                return getTransactionLineFlat(txnRepo.findByDateBetweenOrderByDateAsc(start, stop));
+                transactionLineFlats = getTransactionLineFlat(txnRepo.findByDateBetweenOrderByDateAsc(start, stop));
+                return mapper.writeValueAsString(transactionLineFlats);
             case "Register Transaction Tenders":
-                return getTransactionTenderFlat(txnRepo.findByRegisterAndDateBetweenOrderByDateAsc(register, start, stop));
+                transactionTenderFlats = getTransactionTenderFlat(txnRepo.findByRegisterAndDateBetweenOrderByDateAsc(register, start, stop));
+                return mapper.writeValueAsString(transactionTenderFlats);
             case "Store Transaction Tenders":
-                return getTransactionTenderFlat(txnRepo.findByStoreAndDateBetweenOrderByDateAsc(store, start, stop));
+                transactionTenderFlats = getTransactionTenderFlat(txnRepo.findByStoreAndDateBetweenOrderByDateAsc(store, start, stop));
+                return mapper.writeValueAsString(transactionTenderFlats);
             case "Company Transaction Tenders":
-                return getTransactionTenderFlat(txnRepo.findByDateBetweenOrderByDateAsc(start, stop));
+                transactionTenderFlats = getTransactionTenderFlat(txnRepo.findByDateBetweenOrderByDateAsc(start, stop));
+                return mapper.writeValueAsString(transactionTenderFlats);
             case "Register Aggregate Tenders":
-                return getTransactionTenderAggregation(txnRepo.aggregateTenders(regNumber, storeNumber, start, stop));
+                transactionTenderAggregations = getTransactionTenderAggregation(txnRepo.aggregateTenders(regNumber, storeNumber, start, stop));
+                return mapper.writeValueAsString(transactionTenderAggregations);
             case "Store Aggregate Tenders":
-                return getTransactionTenderAggregation(txnRepo.aggregateTenders("%", storeNumber, start, stop));
+                transactionTenderAggregations = getTransactionTenderAggregation(txnRepo.aggregateTenders("%", storeNumber, start, stop));
+                return mapper.writeValueAsString(transactionTenderAggregations);
             case "Company Aggregate Tenders":
-                return getTransactionTenderAggregation(txnRepo.aggregateTenders("%", "%", start, stop));
+                transactionTenderAggregations = getTransactionTenderAggregation(txnRepo.aggregateTenders("%", "%", start, stop));
+                return mapper.writeValueAsString(transactionTenderAggregations);
             case "Register Audit Transactions":
-                return getTransactionAudit(txnRepo.findByRegisterAndDateBetweenOrderByDateAsc(register, start, stop));
+                transactionAudits = getTransactionAudit(txnRepo.findByRegisterAndDateBetweenOrderByDateAsc(register, start, stop));
+                return mapper.writeValueAsString(transactionAudits);
             case "Store Audit Transactions":
-                return getTransactionAudit(txnRepo.findByStoreAndDateBetweenOrderByDateAsc(store, start, stop));
+                transactionAudits = getTransactionAudit(txnRepo.findByStoreAndDateBetweenOrderByDateAsc(store, start, stop));
+                return mapper.writeValueAsString(transactionAudits);
             case "Company Audit Transactions":
-                return getTransactionAudit(txnRepo.findByDateBetweenOrderByDateAsc(start, stop));
+                transactionAudits = getTransactionAudit(txnRepo.findByDateBetweenOrderByDateAsc(start, stop));
+                return mapper.writeValueAsString(transactionAudits);
+            default:
+                return "[]";
         }
-        return null;
     }
-    
-    @SuppressWarnings("rawtypes")
-    public List runReportByForm(
+
+    public String runReportByForm(
         Form requestForm
-    ) {
+    ) throws JsonProcessingException {
         return runReport(requestForm.getValueByKey("scope"), requestForm.getValueByKey("report"), requestForm.getIntegerValueByKey("days"));
     }
-    
+
 }

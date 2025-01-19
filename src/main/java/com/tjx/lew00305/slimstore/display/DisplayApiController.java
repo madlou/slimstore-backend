@@ -9,9 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tjx.lew00305.slimstore.basket.BasketLine;
 import com.tjx.lew00305.slimstore.basket.BasketService;
-import com.tjx.lew00305.slimstore.location.LocationService;
-import com.tjx.lew00305.slimstore.location.register.Register;
-import com.tjx.lew00305.slimstore.location.store.Store;
+import com.tjx.lew00305.slimstore.register.Register;
+import com.tjx.lew00305.slimstore.register.RegisterService;
+import com.tjx.lew00305.slimstore.store.Store;
+import com.tjx.lew00305.slimstore.store.StoreService;
 import com.tjx.lew00305.slimstore.tender.TenderLine;
 import com.tjx.lew00305.slimstore.tender.TenderService;
 import com.tjx.lew00305.slimstore.translation.Language;
@@ -23,20 +24,21 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 public class DisplayApiController {
-    
+
     private final BasketService basketService;
-    private final LocationService locationService;
+    private final RegisterService registerService;
+    private final StoreService storeService;
     private final TenderService tenderService;
     private final UserInterfaceService userInterfaceService;
-    
+
     @GetMapping(path = "/api/location/{storeNumber}")
     public Store getAllUsers(
         @PathVariable("storeNumber")
         Integer storeNumber
     ) {
-        return locationService.getStore(storeNumber);
+        return storeService.getStore(storeNumber);
     }
-
+    
     @GetMapping(path = "/api/location/{storeNumber}/{registerNumber}")
     public Register getAllUsers(
         @PathVariable("storeNumber")
@@ -44,13 +46,9 @@ public class DisplayApiController {
         @PathVariable("registerNumber")
         Integer registerNumber
     ) {
-        Store store = locationService.getStore(storeNumber);
-        if (store == null) {
-            return null;
-        }
-        return store.getRegisterByNumber(registerNumber);
+        return registerService.getRegister(storeNumber, registerNumber);
     }
-
+    
     @GetMapping(path = "/api/basket/{storeNumber}/{registerNumber}")
     public BasketLine[] getBasket(
         @PathVariable("storeNumber")
@@ -58,15 +56,15 @@ public class DisplayApiController {
         @PathVariable("registerNumber")
         Integer registerNumber
     ) {
-        Session session = locationService.getSessionByStoreRegister(storeNumber, registerNumber);
+        Session session = registerService.getSessionByRegister(storeNumber, registerNumber);
         return basketService.getBasketArray(session);
     }
-
+    
     @GetMapping(path = "/api/languages")
     public Language[] getLanguages() {
         return Language.values();
     }
-
+    
     @GetMapping(path = "/api/tender/{storeNumber}/{registerNumber}")
     public TenderLine[] getTender(
         @PathVariable("storeNumber")
@@ -74,10 +72,10 @@ public class DisplayApiController {
         @PathVariable("registerNumber")
         Integer registerNumber
     ) {
-        Session session = locationService.getSessionByStoreRegister(storeNumber, registerNumber);
+        Session session = registerService.getSessionByRegister(storeNumber, registerNumber);
         return tenderService.getTenderArray(session);
     }
-    
+
     @GetMapping(path = "/api/ui/translations/{languageCode}")
     public UserInterfaceTranslationDTO getUiTranslations(
         @PathVariable("languageCode")
@@ -85,5 +83,5 @@ public class DisplayApiController {
     ) {
         return userInterfaceService.getUserInterfaceTranslations(Locale.of(languageCode));
     }
-    
+
 }

@@ -1,13 +1,16 @@
-package com.tjx.lew00305.slimstore.location.store;
+package com.tjx.lew00305.slimstore.store;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.tjx.lew00305.slimstore.location.register.Register;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.tjx.lew00305.slimstore.translation.Language;
 
 import jakarta.persistence.Entity;
@@ -15,7 +18,6 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,9 +25,14 @@ import lombok.NoArgsConstructor;
 @SuppressWarnings("serial")
 @Data
 @Entity
+@Component
 @NoArgsConstructor
 @AllArgsConstructor
 @SessionScope
+@JsonSerialize
+@JsonDeserialize(as = Store.class)
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = As.PROPERTY)
 public class Store implements Serializable {
 
     public enum Banner {
@@ -75,19 +82,10 @@ public class Store implements Serializable {
     private String phoneNumber;
     @Enumerated(EnumType.STRING)
     private Language languageCode;
-    @OneToMany(mappedBy = "store")
+
     @JsonIgnore
-    private List<Register> registers = new ArrayList<Register>();
-    
-    public Register getRegisterByNumber(
-        Integer number
-    ) {
-        for (Register register : registers) {
-            if (register.getNumber() == number) {
-                return register;
-            }
-        }
-        return null;
+    public Boolean isSet() {
+        return number == null ? false : true;
     }
     
 }

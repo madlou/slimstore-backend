@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 import org.springframework.stereotype.Service;
 
-import com.tjx.lew00305.slimstore.location.LocationService;
+import com.tjx.lew00305.slimstore.register.RegisterService;
 import com.tjx.lew00305.slimstore.register.form.Form;
 import com.tjx.lew00305.slimstore.register.form.FormElement;
 
@@ -13,17 +13,17 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class GiftCardService {
-
-    private final LocationService locationService;
     
+    private final RegisterService registerService;
+
     public void topup(
         String card,
         BigDecimal value
     ) {
-        Integer transactionNumber = locationService.getStoreRegister().getLastTxnNumber() + 1;
+        Integer transactionNumber = registerService.getRegister().getLastTxnNumber() + 1;
         topupQueue(card, value, transactionNumber);
     }
-
+    
     public Form topupByForm(
         Form requestForm
     ) {
@@ -40,7 +40,7 @@ public class GiftCardService {
         requestForm.addElement(element);
         return requestForm;
     }
-
+    
     public void topupQueue(
         String card,
         BigDecimal value,
@@ -48,5 +48,5 @@ public class GiftCardService {
     ) {
         // TODO Auto-generated method stub
     }
-
+    
 }
