@@ -21,6 +21,7 @@
                             <property name="type" value="text" />
                             <property name="key" value="name" />
                             <property name="label" value="Store Name" />
+                            <property name="required" value="true" />
                         </bean>
                         <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
                             <property name="type" value="select" />
@@ -30,6 +31,7 @@
                                 <bean class="com.tjx.lew00305.slimstore.store.Store.Country" factory-method="values"/>
                             </property>
                             <property name="value" value="DE" />
+                            <property name="required" value="true" />
                         </bean>
                         <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
                             <property name="type" value="select" />
@@ -39,6 +41,7 @@
                                 <bean class="com.tjx.lew00305.slimstore.store.Store.Currency" factory-method="values"/>
                             </property>
                             <property name="value" value="EUR" />
+                            <property name="required" value="true" />
                         </bean>
                         <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
                             <property name="type" value="select" />
@@ -48,6 +51,7 @@
                                 <bean class="com.tjx.lew00305.slimstore.translation.Language" factory-method="values"/>
                             </property>
                             <property name="value" value="EUR" />
+                            <property name="required" value="true" />
                         </bean>
                         <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
                             <property name="type" value="text" />

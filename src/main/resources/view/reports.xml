@@ -50,6 +50,7 @@
                             <property name="key" value="days" />
                             <property name="label" value="Days" />
                             <property name="value" value="1" />
+                            <property name="required" value="true" />
                         </bean>
                         <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
                             <property name="type" value="submit" />

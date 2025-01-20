@@ -21,6 +21,7 @@
                             <property name="type" value="text" />
                             <property name="key" value="search" />
                             <property name="label" value="Search" />
+                            <property name="required" value="true" />
                         </bean>
                         <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
                             <property name="type" value="submit" />

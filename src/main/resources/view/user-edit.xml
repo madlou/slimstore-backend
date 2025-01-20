@@ -22,6 +22,7 @@
                             <property name="key" value="code" />
                             <property name="label" value="Employee Number" />
                             <property name="disabled" value="true" />
+                            <property name="required" value="true" />
                         </bean>
                         <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
                             <property name="type" value="select" />
@@ -33,11 +34,13 @@
                                 </array>
                             </property>
                             <property name="value" value="" />
+                            <property name="required" value="true" />
                         </bean>
                         <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
                             <property name="type" value="text" />
                             <property name="key" value="name" />
                             <property name="label" value="Name" />
+                            <property name="required" value="true" />
                         </bean>
                         <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
                             <property name="type" value="email" />
@@ -60,6 +63,7 @@
                                 </array>
                             </property>
                             <property name="value" value="ASSOCIATE" />
+                            <property name="required" value="true" />
                         </bean>
                         <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
                             <property name="type" value="submit" />

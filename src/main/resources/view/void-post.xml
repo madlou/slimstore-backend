@@ -19,21 +19,25 @@
                             <property name="type" value="number" />
                             <property name="key" value="store" />
                             <property name="label" value="Store" />
+                            <property name="required" value="true" />
                         </bean>
                         <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
                             <property name="type" value="number" />
                             <property name="key" value="register" />
                             <property name="label" value="Register" />
+                            <property name="required" value="true" />
                         </bean>
                         <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
                             <property name="type" value="number" />
                             <property name="key" value="transactionNumber" />
                             <property name="label" value="Transaction Number" />
+                            <property name="required" value="true" />
                         </bean>
                         <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
                             <property name="type" value="date" />
                             <property name="key" value="date" />
                             <property name="label" value="Date" />
+                            <property name="required" value="true" />
                         </bean>
                         <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
                             <property name="type" value="submit" />

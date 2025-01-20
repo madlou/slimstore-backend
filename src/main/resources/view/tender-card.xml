@@ -20,7 +20,8 @@
                         <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
                             <property name="type" value="decimal" />
                             <property name="key" value="CARD" />
-                            <property name="label" value="Card" />
+                            <property name="label" value="Card Value" />
+                            <property name="required" value="true" />
                         </bean>
                         <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
                             <property name="type" value="submit" />
