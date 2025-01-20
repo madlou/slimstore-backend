@@ -37,6 +37,7 @@ public class FormElement {
     private String[] options;
     private Boolean disabled = false;
     private Boolean hidden = false;
+    private Boolean required = false;
     private String image;
     private BigDecimal price;
     private Integer quantity;
