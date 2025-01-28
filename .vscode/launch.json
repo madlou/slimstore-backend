@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Slimstore Backend",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.tjx.lew00305.slimstore.SlimStoreApplication",
+            "projectName": "slimstore",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ],
+}
