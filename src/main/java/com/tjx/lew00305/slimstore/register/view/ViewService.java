@@ -4,11 +4,15 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 
+import com.tjx.lew00305.slimstore.basket.BasketLine;
+import com.tjx.lew00305.slimstore.basket.BasketService;
 import com.tjx.lew00305.slimstore.product.ProductService;
 import com.tjx.lew00305.slimstore.register.RegisterService;
 import com.tjx.lew00305.slimstore.register.form.Form;
+import com.tjx.lew00305.slimstore.register.form.Form.ServerProcess;
 import com.tjx.lew00305.slimstore.register.form.FormElement;
 import com.tjx.lew00305.slimstore.register.form.FormElement.FormElementType;
+import com.tjx.lew00305.slimstore.register.form.FormElementButton;
 import com.tjx.lew00305.slimstore.register.view.View.ViewName;
 import com.tjx.lew00305.slimstore.store.Store;
 import com.tjx.lew00305.slimstore.store.StoreService;
@@ -28,6 +32,7 @@ import lombok.RequiredArgsConstructor;
 public class ViewService {
 
     private final RegisterService registerService;
+    private final BasketService basketService;
     private final StoreService storeService;
     private final ProductService productService;
     private final HttpServletRequest request;
@@ -169,6 +174,30 @@ public class ViewService {
                     for (FormElement element : userService.getUsersAsFormElements(null)) {
                         responseForm.addElement(element);
                     }
+                }
+                break;
+            case VOID:
+                responseForm.deleteElements();
+                Integer index = 0;
+                for(BasketLine line : basketService.getBasketArray()){
+                    FormElement voidLine = new FormElement();
+                    voidLine.setKey("void");
+                    voidLine.setValue(index.toString());
+                    Form voidForm = new Form();
+                    voidForm.setTargetView(ViewName.VOID);
+                    voidForm.setServerProcess(ServerProcess.VOID_LINE);
+                    voidForm.addElement(voidLine);
+                    FormElementButton voidButton = new FormElementButton();
+                    voidButton.setLabel("Void Line");
+                    voidButton.setForm(voidForm);
+                    FormElement element = new FormElement();
+                    element.setType(FormElementType.BUTTON);
+                    element.setButton(voidButton);
+                    element.setKey(line.getCode());
+                    element.setLabel(line.getName());
+                    element.setValue(line.getLineValue().toString());
+                    index++;
+                    responseForm.addElement(element);
                 }
                 break;
             default:

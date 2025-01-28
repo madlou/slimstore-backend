@@ -114,8 +114,8 @@ public class UserService {
                 FormElement userRow = new FormElement();
                 userRow.setType(FormElement.FormElementType.BUTTON);
                 userRow.setKey(user.getCode());
-                userRow.setLabel(editTranslation);
                 userRow.setValue(user.getName());
+                userRow.setLabel(user.getRole().toString());
                 userRow.setButton(button);
                 elements.add(userRow);
             }

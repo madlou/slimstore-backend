@@ -198,6 +198,9 @@ public class RegisterController {
                 basketService.empty();
                 tenderService.empty();
                 break;
+            case VOID_LINE:
+                basketService.voidLineByForm(request);
+                break;
         }
         return response;
     }

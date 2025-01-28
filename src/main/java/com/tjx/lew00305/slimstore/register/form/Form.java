@@ -23,7 +23,8 @@ public class Form {
         SEARCH,
         STORE_SETUP,
         TENDER,
-        TRANSACTION_COMPLETE,
+        TRANSACTION_COMPLETE, 
+        VOID_LINE,
     }
     
     private ViewName targetView;

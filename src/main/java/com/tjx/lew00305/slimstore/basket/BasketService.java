@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.springframework.session.Session;
 import org.springframework.stereotype.Service;
 
+import com.tjx.lew00305.slimstore.register.RegisterRequestDTO;
 import com.tjx.lew00305.slimstore.register.form.Form;
 import com.tjx.lew00305.slimstore.register.form.FormElement;
 import com.tjx.lew00305.slimstore.register.form.FormElement.FormElementType;
@@ -87,6 +88,13 @@ public class BasketService {
 
     public BigDecimal getTotal() {
         return basket.getTotal();
+    }
+
+    public void voidLineByForm(RegisterRequestDTO request) {
+        ArrayList<BasketLine> tempBasket = basket.getArrayList();
+        BasketLine line = tempBasket.get(request.getIntegerValueByKey("void"));
+        tempBasket.remove(line);
+        basket.setBasket(tempBasket);
     }
 
 }
