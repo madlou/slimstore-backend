@@ -15,9 +15,9 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class BasketService {
-    
+
     private final Basket basket;
-    
+
     public void addFormElement(
         FormElement element
     ) {
@@ -34,7 +34,7 @@ public class BasketService {
         basketLine.setUnitValue(element.getPrice());
         basket.add(basketLine);
     }
-    
+
     public void addFormElements(
         FormElement[] elements
     ) {
@@ -42,8 +42,8 @@ public class BasketService {
             addFormElement(element);
         }
     }
-    
-    public void addManualReturnToBasketByForm(
+
+    public Basket addManualReturnToBasketByForm(
         Form requestForm
     ) {
         BasketLine basketLine = new BasketLine();
@@ -53,23 +53,24 @@ public class BasketService {
         basketLine.setQuantity(requestForm.getIntegerValueByKey("quantity"));
         basketLine.setUnitValue(new BigDecimal(requestForm.getValueByKey("price")));
         basket.add(basketLine);
+        return basket;
     }
-    
+
     public Basket addToBasketByForm(
         Form requestForm
     ) {
         addFormElements(requestForm.getElements());
         return basket;
     }
-    
+
     public void empty() {
         basket.empty();
     }
-
+    
     public BasketLine[] getBasketArray() {
         return basket.getArray();
     }
-    
+
     public BasketLine[] getBasketArray(
         Session session
     ) {
@@ -79,13 +80,13 @@ public class BasketService {
         Basket sessionBasket = (Basket) session.getAttribute("scopedTarget.basket");
         return sessionBasket.getArray();
     }
-    
+
     public ArrayList<BasketLine> getBasketArrayList() {
         return basket.getArrayList();
     }
-    
+
     public BigDecimal getTotal() {
         return basket.getTotal();
     }
-    
+
 }
