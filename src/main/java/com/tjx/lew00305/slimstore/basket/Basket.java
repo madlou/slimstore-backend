@@ -28,29 +28,30 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = As.PROPERTY)
 public class Basket implements Serializable {
-
+    
+    private static final long serialVersionUID = -233420559502189484L;
     private ArrayList<BasketLine> basket = new ArrayList<BasketLine>();
-
+    
     public void add(
         BasketLine basketLine
     ) {
         basket.add(basketLine);
     }
-
+    
     public void empty() {
         basket = new ArrayList<BasketLine>();
     }
-
+    
     @JsonIgnore
     public BasketLine[] getArray() {
         return basket.toArray(new BasketLine[0]);
     }
-
+    
     @JsonIgnore
     public ArrayList<BasketLine> getArrayList() {
         return basket;
     }
-
+    
     @JsonIgnore
     public BigDecimal getTotal() {
         BigDecimal total = new BigDecimal(0);
@@ -59,5 +60,5 @@ public class Basket implements Serializable {
         }
         return total;
     }
-
+    
 }

@@ -5,13 +5,15 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import com.tjx.lew00305.slimstore.register.Register;
 import com.tjx.lew00305.slimstore.store.Store;
 import com.tjx.lew00305.slimstore.transaction.report.TransactionTenderAggregationInterface;
 
+@Repository
 public interface TransactionRepository extends CrudRepository<Transaction, Integer> {
-    
+
     @Query(value = """
             SELECT
             s.number AS 'store',
@@ -48,24 +50,24 @@ public interface TransactionRepository extends CrudRepository<Transaction, Integ
         LocalDateTime start,
         LocalDateTime stop
     );
-    
+
     List<Transaction> findByDateBetweenOrderByDateAsc(
         LocalDateTime start,
         LocalDateTime stop
     );
-    
+
     List<Transaction> findByRegisterAndDateBetweenOrderByDateAsc(
         Register register,
         LocalDateTime start,
         LocalDateTime stop
     );
-
+    
     List<Transaction> findByStoreAndDateBetweenOrderByDateAsc(
         Store store,
         LocalDateTime start,
         LocalDateTime stop
     );
-    
+
     Transaction findByStoreAndRegisterAndNumberAndDateBetween(
         Store store,
         Register regNumber,

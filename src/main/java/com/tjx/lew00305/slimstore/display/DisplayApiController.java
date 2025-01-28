@@ -24,13 +24,13 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 public class DisplayApiController {
-
+    
     private final BasketService basketService;
     private final RegisterService registerService;
     private final StoreService storeService;
     private final TenderService tenderService;
     private final UserInterfaceService userInterfaceService;
-
+    
     @GetMapping(path = "/api/location/{storeNumber}")
     public Store getAllUsers(
         @PathVariable("storeNumber")
@@ -38,7 +38,7 @@ public class DisplayApiController {
     ) {
         return storeService.getStore(storeNumber);
     }
-    
+
     @GetMapping(path = "/api/location/{storeNumber}/{registerNumber}")
     public Register getAllUsers(
         @PathVariable("storeNumber")
@@ -48,7 +48,7 @@ public class DisplayApiController {
     ) {
         return registerService.getRegister(storeNumber, registerNumber);
     }
-    
+
     @GetMapping(path = "/api/basket/{storeNumber}/{registerNumber}")
     public BasketLine[] getBasket(
         @PathVariable("storeNumber")
@@ -59,12 +59,12 @@ public class DisplayApiController {
         Session session = registerService.getSessionByRegister(storeNumber, registerNumber);
         return basketService.getBasketArray(session);
     }
-    
+
     @GetMapping(path = "/api/languages")
     public Language[] getLanguages() {
         return Language.values();
     }
-    
+
     @GetMapping(path = "/api/tender/{storeNumber}/{registerNumber}")
     public TenderLine[] getTender(
         @PathVariable("storeNumber")
@@ -75,7 +75,7 @@ public class DisplayApiController {
         Session session = registerService.getSessionByRegister(storeNumber, registerNumber);
         return tenderService.getTenderArray(session);
     }
-
+    
     @GetMapping(path = "/api/ui/translations/{languageCode}")
     public UserInterfaceTranslationDTO getUiTranslations(
         @PathVariable("languageCode")
@@ -83,5 +83,5 @@ public class DisplayApiController {
     ) {
         return userInterfaceService.getUserInterfaceTranslations(Locale.of(languageCode));
     }
-
+    
 }

@@ -14,12 +14,12 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class StoreService {
-
+    
     private final StoreRepository storeRepository;
     private final TranslationService translationService;
-    
+
     private final Store store;
-    
+
     private Store addStore(
         Integer storeNumber
     ) {
@@ -31,29 +31,29 @@ public class StoreService {
         store = storeRepository.save(store);
         return store;
     }
-
+    
     public Store getStore() {
         return store;
     }
-
+    
     public Store getStore(
         Integer number
     ) {
         return storeRepository.findByNumber(number);
     }
-
+    
     public Store getStoreFromDb() {
         return storeRepository.findById(store.getNumber()).orElse(null);
     }
-
+    
     public Store getStoreReference() {
         return storeRepository.getReferenceById(store.getNumber());
     }
-
+    
     public Iterable<Store> getStores() {
         return storeRepository.findAll();
     }
-
+    
     public void saveStoreByForm(
         Form requestForm
     ) {
@@ -70,7 +70,7 @@ public class StoreService {
         dbStore = storeRepository.save(dbStore);
         updateStore(dbStore);
     }
-    
+
     public Store setStore(
         Integer storeNumber
     ) throws Exception {
@@ -81,7 +81,7 @@ public class StoreService {
         updateStore(dbStore);
         return store;
     }
-
+    
     public void setStoreByForm(
         Form form,
         Boolean isUserAdmin
@@ -97,7 +97,7 @@ public class StoreService {
             }
         }
     }
-    
+
     public void updateStore(
         Store store
     ) {
@@ -112,5 +112,5 @@ public class StoreService {
         this.store.setPhoneNumber(store.getPhoneNumber());
         this.store.setPostCode(store.getPostCode());
     }
-    
+
 }
