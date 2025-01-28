@@ -8,28 +8,24 @@ import org.springframework.stereotype.Service;
 
 import com.tjx.lew00305.slimstore.register.form.Form;
 import com.tjx.lew00305.slimstore.register.form.FormElement;
+import com.tjx.lew00305.slimstore.register.form.FormElement.FormElementType;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class BasketService {
-
+    
     private final Basket basket;
-
-    public Basket addBasketByForm(
-        Form requestForm
-    ) {
-        addFormElements(requestForm.getElements());
-        return basket;
-    }
-
+    
     public void addFormElement(
         FormElement element
     ) {
         if (element == null) {
             return;
         }
+        // TODO: will refactor manual returns to use this
+        // if(element.getType().equals(FormElementType.RETURN_MANUAL)) {}
         BasketLine basketLine = new BasketLine();
         basketLine.setCode(element.getKey());
         basketLine.setName(element.getLabel());
@@ -38,7 +34,7 @@ public class BasketService {
         basketLine.setUnitValue(element.getPrice());
         basket.add(basketLine);
     }
-
+    
     public void addFormElements(
         FormElement[] elements
     ) {
@@ -46,7 +42,26 @@ public class BasketService {
             addFormElement(element);
         }
     }
-
+    
+    public void addManualReturnToBasketByForm(
+        Form requestForm
+    ) {
+        BasketLine basketLine = new BasketLine();
+        basketLine.setCode(requestForm.getValueByKey("sku"));
+        basketLine.setName(requestForm.getValueByKey("sku"));
+        basketLine.setType(FormElementType.RETURN_MANUAL);
+        basketLine.setQuantity(requestForm.getIntegerValueByKey("quantity"));
+        basketLine.setUnitValue(new BigDecimal(requestForm.getValueByKey("price")));
+        basket.add(basketLine);
+    }
+    
+    public Basket addToBasketByForm(
+        Form requestForm
+    ) {
+        addFormElements(requestForm.getElements());
+        return basket;
+    }
+    
     public void empty() {
         basket.empty();
     }
@@ -64,13 +79,13 @@ public class BasketService {
         Basket sessionBasket = (Basket) session.getAttribute("scopedTarget.basket");
         return sessionBasket.getArray();
     }
-
+    
     public ArrayList<BasketLine> getBasketArrayList() {
         return basket.getArrayList();
     }
-
+    
     public BigDecimal getTotal() {
         return basket.getTotal();
     }
-
+    
 }

@@ -40,7 +40,7 @@ public class BasketServiceTest {
     @Test
     public void addFormToBasket() throws JsonMappingException, JsonProcessingException {
         assertThat(basketService.getBasketArrayList()).hasSize(0);
-        basketService.addBasketByForm(getForm());
+        basketService.addToBasketByForm(getForm());
         assertThat(basketService.getBasketArrayList()).hasSize(5);
         assertThat(basketService.getTotal()).isEqualByComparingTo(new BigDecimal("-44.48").setScale(2, RoundingMode.CEILING));
         assertThat(basketService.getBasketArray().length).isEqualTo(5);

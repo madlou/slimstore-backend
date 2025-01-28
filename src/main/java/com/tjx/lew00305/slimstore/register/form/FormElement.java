@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FormElement {
-    
+
     public enum FormElementType {
         BUTTON,
         DATE,
@@ -25,11 +25,12 @@ public class FormElement {
         PRODUCT_SCAN,
         PRODUCT_GIFTCARD,
         RETURN,
+        RETURN_MANUAL,
         SELECT,
         SUBMIT,
         TEXT,
     }
-    
+
     private FormElementType type;
     private String key;
     private String label;
@@ -42,5 +43,5 @@ public class FormElement {
     private BigDecimal price;
     private Integer quantity;
     private FormElementButton button;
-    
+
 }

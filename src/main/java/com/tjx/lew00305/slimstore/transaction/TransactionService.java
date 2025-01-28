@@ -9,6 +9,7 @@ import com.tjx.lew00305.slimstore.basket.BasketLine;
 import com.tjx.lew00305.slimstore.basket.BasketService;
 import com.tjx.lew00305.slimstore.register.Register;
 import com.tjx.lew00305.slimstore.register.RegisterService;
+import com.tjx.lew00305.slimstore.register.form.FormElement.FormElementType;
 import com.tjx.lew00305.slimstore.store.Store;
 import com.tjx.lew00305.slimstore.store.StoreService;
 import com.tjx.lew00305.slimstore.tender.TenderLine;
@@ -21,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class TransactionService {
-    
+
     private final TransactionRepository txnRepo;
     private final TransactionLineRepository lineRepo;
     private final TransactionTenderRepository tenderRepo;
@@ -30,7 +31,7 @@ public class TransactionService {
     private final BasketService basketService;
     private final TenderService tenderService;
     private final UserService userService;
-
+    
     public void addTransaction() {
         Timestamp time = new Timestamp(System.currentTimeMillis());
         Integer txnNumber = registerService.updateRegisterWithTransaction(time);
@@ -47,7 +48,7 @@ public class TransactionService {
         for (BasketLine basketLine : basketService.getBasketArray()) {
             TransactionLine txnLine = new TransactionLine();
             String code = basketLine.getCode();
-            if (basketLine.getSignedQuantity() < 0) {
+            if (basketLine.getType().equals(FormElementType.RETURN)) {
                 String[] split = basketLine.getCode().split(":");
                 Integer lineId = Integer.parseInt(split[4]);
                 TransactionLine originalLine = lineRepo.findById(lineId).orElse(null);
@@ -78,7 +79,7 @@ public class TransactionService {
             tenderRepo.save(txnTender);
         }
     }
-    
+
     public Transaction getTransaction(
         Integer storeNumber,
         Integer regNumber,
@@ -91,5 +92,5 @@ public class TransactionService {
         LocalDateTime stop = LocalDateTime.parse(date + "T23:59:59");
         return txnRepo.findByStoreAndRegisterAndNumberAndDateBetween(store, register, txnNumber, start, stop);
     }
-    
+
 }

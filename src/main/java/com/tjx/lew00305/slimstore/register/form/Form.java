@@ -8,9 +8,10 @@ import lombok.Data;
 
 @Data
 public class Form {
-
+    
     public enum ServerProcess {
         ADD_TO_BASKET,
+        ADD_MANUAL_RETURN_TO_BASKET,
         CHANGE_REGISTER,
         EMPTY_BASKET,
         LOGIN,
@@ -24,11 +25,11 @@ public class Form {
         TENDER,
         TRANSACTION_COMPLETE,
     }
-
+    
     private ViewName targetView;
     private ServerProcess serverProcess;
     private FormElement[] elements = new FormElement[0];
-
+    
     public void addElement(
         FormElement newElement
     ) {
@@ -41,7 +42,7 @@ public class Form {
         newElements[size] = newElement;
         elements = newElements;
     }
-    
+
     public void addElementBeginning(
         FormElement newElement
     ) {
@@ -54,11 +55,11 @@ public class Form {
         }
         elements = newElements;
     }
-
+    
     public void deleteElements() {
         elements = new FormElement[0];
     }
-    
+
     public void deleteElementsAfter(
         Integer after
     ) {
@@ -71,7 +72,7 @@ public class Form {
         }
         elements = newElements;
     }
-
+    
     public FormElement findByKey(
         String key
     ) {
@@ -85,7 +86,7 @@ public class Form {
         }
         return null;
     }
-
+    
     public BigDecimal getBigDecimalValueByKey(
         String key
     ) {
@@ -95,7 +96,7 @@ public class Form {
         }
         return new BigDecimal(element.getValue());
     }
-
+    
     public Float getFloatValueByKey(
         String key
     ) {
@@ -105,7 +106,7 @@ public class Form {
         }
         return Float.parseFloat(element.getValue());
     }
-
+    
     public Integer getIntegerValueByKey(
         String key
     ) {
@@ -115,7 +116,7 @@ public class Form {
         }
         return Integer.parseInt(element.getValue());
     }
-
+    
     public String getValueByKey(
         String key
     ) {
@@ -125,7 +126,7 @@ public class Form {
         }
         return element.getValue();
     }
-
+    
     public void setValueByKey(
         String key,
         BigDecimal value
@@ -133,7 +134,7 @@ public class Form {
         FormElement element = findByKey(key);
         element.setValue(value.toString());
     }
-
+    
     public void setValueByKey(
         String key,
         Float value
@@ -141,7 +142,7 @@ public class Form {
         FormElement element = findByKey(key);
         element.setValue(value.toString());
     }
-
+    
     public void setValueByKey(
         String key,
         Integer value
@@ -149,7 +150,7 @@ public class Form {
         FormElement element = findByKey(key);
         element.setValue(value.toString());
     }
-
+    
     public void setValueByKey(
         String key,
         String value
@@ -157,5 +158,5 @@ public class Form {
         FormElement element = findByKey(key);
         element.setValue(value);
     }
-
+    
 }

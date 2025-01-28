@@ -13,6 +13,8 @@
         <property name="message" value="Please type information below." />
         <property name="form">
             <bean class="com.tjx.lew00305.slimstore.register.form.Form">
+                <property name="targetView" value="HOME" />
+                <property name="serverProcess" value="ADD_MANUAL_RETURN_TO_BASKET" />
                 <property name="elements">
                     <array>
                         <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
@@ -24,7 +26,13 @@
                         <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
                             <property name="type" value="number" />
                             <property name="key" value="price" />
-                            <property name="label" value="Price" />
+                            <property name="label" value="Unit Price" />
+                            <property name="required" value="true" />
+                        </bean>
+                        <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
+                            <property name="type" value="number" />
+                            <property name="key" value="quantity" />
+                            <property name="label" value="Quantity" />
                             <property name="required" value="true" />
                         </bean>
                         <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">

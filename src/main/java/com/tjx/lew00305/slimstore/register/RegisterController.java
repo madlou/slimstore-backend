@@ -142,7 +142,10 @@ public class RegisterController {
             default:
                 break;
             case ADD_TO_BASKET:
-                basketService.addBasketByForm(request);
+                basketService.addToBasketByForm(request);
+                break;
+            case ADD_MANUAL_RETURN_TO_BASKET:
+                basketService.addManualReturnToBasketByForm(request);
                 break;
             case CHANGE_REGISTER:
                 Boolean isUserAdmin = userService.isUserAdmin();
@@ -165,7 +168,7 @@ public class RegisterController {
                 userService.addUserByForm(request);
                 break;
             case PROCESS_GIFTCARD:
-                basketService.addBasketByForm(giftCardService.topupByForm(request));
+                basketService.addToBasketByForm(giftCardService.topupByForm(request));
                 break;
             case RUN_REPORT:
                 response.setReport(transactionReportService.runReportByForm(request));
@@ -220,9 +223,11 @@ public class RegisterController {
         }
         response.setStore(storeDTO);
         response.setRegister(registerDTO);
-        response.setBasket(basketService.getBasketArray());
-        response.setTender(tenderService.getTenderArray());
-        response.setUser(modelMapper.map(userService.getUser(), UserDTO.class));
+        if (userService.isLoggedIn()) {
+            response.setBasket(basketService.getBasketArray());
+            response.setTender(tenderService.getTenderArray());
+            response.setUser(modelMapper.map(userService.getUser(), UserDTO.class));
+        }
         response.setUiTranslations(userInterfaceService.getUserInterfaceTranslations());
         return response;
     }
