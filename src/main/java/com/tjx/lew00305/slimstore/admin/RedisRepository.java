@@ -1,4 +1,4 @@
-package com.tjx.lew00305.slimstore.basket;
+package com.tjx.lew00305.slimstore.admin;
 
 import org.springframework.session.Session;
 import org.springframework.session.data.redis.RedisSessionRepository;
@@ -7,20 +7,20 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class BasketRepository {
-
+class RedisRepository {
+    
     private final RedisSessionRepository redisRepository;
     private final HttpServletRequest request;
-
+    
     public Object getAttribute(
-        String attribute // e.g. basket
+        String attribute
     ) {
         return getAttribute(request.getRequestedSessionId(), attribute);
     }
-    
+
     public Object getAttribute(
-        String sessionId,
-        String attribute
+        String attribute,
+        String sessionId
     ) {
         Session session = redisRepository.findById(sessionId);
         if (session == null) {
