@@ -73,7 +73,8 @@ public class RegisterService {
         Integer registerNumber
     ) {
         Store store = storeService.getStore(storeNumber);
-        if (store.isSet()) {
+        if ((store == null) ||
+            store.isSet()) {
             return null;
         }
         Register dbRegister = registerRepository.findByStoreAndNumber(store, registerNumber);

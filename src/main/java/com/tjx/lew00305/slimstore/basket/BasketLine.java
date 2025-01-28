@@ -2,6 +2,7 @@ package com.tjx.lew00305.slimstore.basket;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tjx.lew00305.slimstore.register.form.FormElement.FormElementType;
@@ -21,16 +22,23 @@ public class BasketLine implements Serializable {
     private FormElementType type;
     private Integer quantity;
     private BigDecimal unitValue;
-
+    
     @JsonIgnore
     public BigDecimal getLineValue() {
-        return unitValue.multiply(new BigDecimal(getSignedQuantity()));
+        return unitValue.multiply(new BigDecimal(getSignedQuantity())).setScale(2, RoundingMode.CEILING);
     }
 
     @JsonIgnore
     public Integer getSignedQuantity() {
         Integer multiplier = (type == FormElementType.RETURN) ? -1 : 1;
         return quantity * multiplier;
+    }
+
+    public BigDecimal getUnitValue() {
+        if (unitValue == null) {
+            return null;
+        }
+        return unitValue.setScale(2, RoundingMode.CEILING);
     }
 
 }
