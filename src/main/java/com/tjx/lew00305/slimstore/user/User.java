@@ -38,7 +38,9 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = As.PROPERTY)
 public class User implements Serializable {
-    
+
+    private static final long serialVersionUID = -206300311073222854L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
@@ -52,7 +54,7 @@ public class User implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "store_id")
     public Store store;
-    
+
     @JsonIgnore
     public Boolean isAdmin() {
         if ((role != null) &&
@@ -61,7 +63,7 @@ public class User implements Serializable {
         }
         return false;
     }
-
+    
     @JsonIgnore
     public Boolean isManagerOrAdmin() {
         if ((role != null) &&
@@ -71,10 +73,10 @@ public class User implements Serializable {
         }
         return false;
     }
-    
+
     @JsonIgnore
     public Boolean isSet() {
         return code == null ? false : true;
     }
-
+    
 }

@@ -33,7 +33,7 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = As.PROPERTY)
 public class Store implements Serializable {
-
+    
     public enum Banner {
         TJMAXX,
         TKMAXX,
@@ -58,7 +58,7 @@ public class Store implements Serializable {
         PLN,
         USD,
     }
-
+    
     public enum Region {
         EU,
         US,
@@ -66,6 +66,8 @@ public class Store implements Serializable {
         AU,
     }
     
+    private static final long serialVersionUID = -9132029389854122276L;
+
     @Id
     private Integer number;
     private String name;
@@ -81,10 +83,10 @@ public class Store implements Serializable {
     private String phoneNumber;
     @Enumerated(EnumType.STRING)
     private Language languageCode;
-
+    
     @JsonIgnore
     public Boolean isSet() {
         return number == null ? false : true;
     }
-    
+
 }

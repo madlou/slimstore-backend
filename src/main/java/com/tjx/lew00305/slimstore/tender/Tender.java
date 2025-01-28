@@ -28,33 +28,35 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = As.PROPERTY)
 public class Tender implements Serializable {
-
+    
+    private static final long serialVersionUID = -5544623814081086407L;
+    
     private ArrayList<TenderLine> tender = new ArrayList<TenderLine>();
-
+    
     @JsonIgnore
     private boolean isComplete = false;
-
+    
     public void add(
         TenderLine tenderLine
     ) {
         tender.add(tenderLine);
     }
-
+    
     public void empty() {
         tender = new ArrayList<TenderLine>();
         isComplete = false;
     }
-
+    
     @JsonIgnore
     public TenderLine[] getArray() {
         return tender.toArray(new TenderLine[0]);
     }
-
+    
     @JsonIgnore
     public ArrayList<TenderLine> getArrayList() {
         return tender;
     }
-
+    
     @JsonIgnore
     public BigDecimal getTotal() {
         BigDecimal total = new BigDecimal(0);
@@ -63,14 +65,14 @@ public class Tender implements Serializable {
         }
         return total;
     }
-
+    
     @JsonIgnore
     public boolean isComplete() {
         return isComplete;
     }
-
+    
     public void setComplete() {
         isComplete = true;
     }
-    
+
 }

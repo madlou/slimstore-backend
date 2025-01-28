@@ -15,11 +15,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class TenderLine implements Serializable {
-    
+
+    private static final long serialVersionUID = -1657317204848951935L;
+
     @Enumerated(EnumType.STRING)
     private TenderType type;
     private String label;
     private BigDecimal value;
     private String reference;
-
+    
 }

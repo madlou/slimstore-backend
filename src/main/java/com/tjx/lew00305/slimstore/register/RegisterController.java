@@ -33,7 +33,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 public class RegisterController {
-
+    
     private final RegisterService registerService;
     private final BasketService basketService;
     private final TenderService tenderService;
@@ -44,16 +44,16 @@ public class RegisterController {
     private final StoreService storeService;
     private final BarcodeService barcodeService;
     private final TransactionService transactionService;
-    
+
     private final TransactionReportService transactionReportService;
-
-    private final TranslationService translationService;
-
-    private final ModelMapper modelMapper;
     
+    private final TranslationService translationService;
+    
+    private final ModelMapper modelMapper;
+
     @Value("${app.debug}")
     private Boolean appDebug;
-
+    
     @PostMapping(path = "/api/register")
     public @ResponseBody
     RegisterResponseDTO apiRegister(
@@ -91,7 +91,7 @@ public class RegisterController {
         }
         return updateDTO(request, response);
     }
-
+    
     private RegisterRequestDTO checks(
         RegisterRequestDTO request,
         String storeRegCookie
@@ -118,7 +118,8 @@ public class RegisterController {
                     !user.isAdmin()) {
                     throw new UserLoginException(translationService.translate("error.security_user_not_found"));
                 }
-                if (!user.isAdmin()) {
+                if (!user.isAdmin() &&
+                    (userStore != null)) {
                     String usrStoreNum = userStore.getNumber().toString();
                     String regStoreNum = storeService.getStore().getNumber().toString();
                     if (!usrStoreNum.equals(regStoreNum)) {
@@ -132,7 +133,7 @@ public class RegisterController {
         }
         return request;
     }
-    
+
     public RegisterResponseDTO process(
         RegisterRequestDTO request
     ) throws Exception {
@@ -200,7 +201,7 @@ public class RegisterController {
         }
         return response;
     }
-
+    
     private RegisterResponseDTO updateDTO(
         RegisterRequestDTO request,
         RegisterResponseDTO response
@@ -231,5 +232,5 @@ public class RegisterController {
         response.setUiTranslations(userInterfaceService.getUserInterfaceTranslations());
         return response;
     }
-    
+
 }

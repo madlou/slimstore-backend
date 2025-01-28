@@ -40,12 +40,14 @@ import lombok.NoArgsConstructor;
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = As.PROPERTY)
 @Table(name = "store_register")
 public class Register implements Serializable {
-
+    
     public enum RegisterStatus {
         OPEN,
         CLOSED
     }
-
+    
+    private static final long serialVersionUID = 6945284200219381757L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -59,10 +61,10 @@ public class Register implements Serializable {
     private String sessionId;
     private String userName;
     private Timestamp lastTxnTime;
-
+    
     @JsonIgnore
     public Boolean isSet() {
         return number == null ? false : true;
     }
-    
+
 }
