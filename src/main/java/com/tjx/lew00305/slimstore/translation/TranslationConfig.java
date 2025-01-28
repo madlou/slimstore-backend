@@ -14,6 +14,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 @Configuration
 public class TranslationConfig implements WebMvcConfigurer {
     
+    @SuppressWarnings("null")
     @Override
     public void addInterceptors(
         InterceptorRegistry registry

@@ -22,6 +22,9 @@ public class ProductService {
         String query
     ) {
         TjxComSearchDTO search = restTemplate.getForObject(onlineSearchUrl + query, TjxComSearchDTO.class);
+        if(search == null){
+            return new FormElement[0];
+        }
         int productCount = search.response.docs.length;
         FormElement[] products = new FormElement[productCount];
         for (int i = 0; i < productCount; i++) {

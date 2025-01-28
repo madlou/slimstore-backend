@@ -10,12 +10,12 @@
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.tjx.lew00305</groupId>
-    <artifactId>playground</artifactId>
+    <artifactId>slimstore</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>playground</name>
-    <description>Lewis Spring Playground</description>
+    <name>slimstore</name>
+    <description>slimstore</description>
     <properties>
-        <java.version>21</java.version>
+        <java.version>23</java.version>
     </properties>
     <dependencies>
         <dependency>
