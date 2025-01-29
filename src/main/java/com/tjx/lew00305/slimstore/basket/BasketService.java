@@ -90,11 +90,12 @@ public class BasketService {
         return basket.getTotal();
     }
 
-    public void voidLineByForm(RegisterRequestDTO request) {
+    public Basket voidLineByForm(RegisterRequestDTO request) {
         ArrayList<BasketLine> tempBasket = basket.getArrayList();
         BasketLine line = tempBasket.get(request.getIntegerValueByKey("void"));
         tempBasket.remove(line);
         basket.setBasket(tempBasket);
+        return basket;
     }
 
 }

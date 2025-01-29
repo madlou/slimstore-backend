@@ -18,7 +18,7 @@ public class DisplayBasketMonitor {
 
     private final DisplayWebsocketController customerDisplayController;
     
-    @Pointcut("execution(public * com.tjx.lew00305.slimstore.basket.BasketService.add*ToBasketByForm(..))")
+    @Pointcut("execution(public * com.tjx.lew00305.slimstore.basket.BasketService.*ByForm(..))")
     private void aPointCutFromAddBasket() {}
     
     @Pointcut("execution(public * com.tjx.lew00305.slimstore.basket.BasketService.empty(..))")
