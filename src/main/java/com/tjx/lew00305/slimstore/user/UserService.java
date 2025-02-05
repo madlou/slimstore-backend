@@ -186,6 +186,12 @@ public class UserService {
         updateUser(new User());
     }
 
+    public void managerCheck() throws Exception{
+        if(!isUserManagerOrAdmin()){
+            throw new Exception("Not authorised.");
+        }
+    }
+
     public void saveUserByForm(
         Form requestForm
     ) throws Exception {

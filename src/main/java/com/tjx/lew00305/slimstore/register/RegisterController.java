@@ -166,12 +166,14 @@ public class RegisterController {
                 userService.logout();
                 break;
             case NEW_USER:
+                userService.managerCheck();
                 userService.addUserByForm(request);
                 break;
             case PROCESS_GIFTCARD:
                 basketService.addToBasketByForm(giftCardService.topupByForm(request));
                 break;
             case RUN_REPORT:
+                userService.managerCheck();
                 response.setReport(transactionReportService.runReportByForm(request));
                 break;
             case SEARCH:
@@ -182,9 +184,11 @@ public class RegisterController {
                 }
                 break;
             case SAVE_USER:
+                userService.managerCheck();
                 userService.saveUserByForm(request);
                 break;
             case STORE_SETUP:
+                userService.managerCheck();
                 storeService.saveStoreByForm(request);
                 break;
             case TENDER:
@@ -220,6 +224,7 @@ public class RegisterController {
         try {
             response.setView(viewService.getViewByForm(request));
         } catch (Exception e) {
+            response.setView(viewService.getViewByName(ViewName.HOME));
             response.setError(e.getMessage());
             if (appDebug.equals(Boolean.TRUE)) {
                 throw new Exception(e.getMessage());

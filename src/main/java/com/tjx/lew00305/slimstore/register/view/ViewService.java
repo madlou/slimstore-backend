@@ -61,6 +61,7 @@ public class ViewService {
                 }
                 break;
             case REPORTS:
+                userService.managerCheck();
                 if (requestForm.findByKey("scope") != null) {
                     responseForm.setValueByKey("scope", requestForm.getValueByKey("scope"));
                     responseForm.setValueByKey("report", requestForm.getValueByKey("report"));
@@ -113,6 +114,7 @@ public class ViewService {
                 responseForm.setElements(productService.search(searchQuery));
                 break;
             case STORE_SETUP:
+                userService.managerCheck();
                 responseForm.setValueByKey("name", storeService.getStore().getName());
                 responseForm.setValueByKey("countryCode", storeService.getStore().getCountryCode().toString());
                 responseForm.setValueByKey("currencyCode", storeService.getStore().getCurrencyCode().toString());
@@ -124,6 +126,7 @@ public class ViewService {
                 responseForm.setValueByKey("phoneNumber", storeService.getStore().getPhoneNumber());
                 break;
             case USER_EDIT:
+                userService.managerCheck();
                 User editUser = userService.getUser(requestForm.getValueByKey("code"));
                 responseForm.setValueByKey("code", editUser.getCode());
                 FormElement storeElement = responseForm.findByKey("store");
@@ -151,6 +154,7 @@ public class ViewService {
                 responseForm.setValueByKey("role", editUser.getRole().toString());
                 break;
             case USER_LIST:
+                userService.managerCheck();
                 responseForm.deleteElementsAfter(1);
                 if (userService.isUserAdmin()) {
                     responseForm.findByKey("stores").setHidden(false);
