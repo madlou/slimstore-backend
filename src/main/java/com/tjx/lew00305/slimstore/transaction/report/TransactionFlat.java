@@ -22,5 +22,6 @@ public class TransactionFlat {
     private String user;
     private Currency currency;
     private BigDecimal total;
+    private Integer review;
 
 }

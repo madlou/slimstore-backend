@@ -15,6 +15,7 @@ import com.tjx.lew00305.slimstore.store.Store;
 import com.tjx.lew00305.slimstore.store.StoreService;
 import com.tjx.lew00305.slimstore.tender.TenderLine;
 import com.tjx.lew00305.slimstore.tender.TenderService;
+import com.tjx.lew00305.slimstore.transaction.TransactionService;
 import com.tjx.lew00305.slimstore.translation.Language;
 import com.tjx.lew00305.slimstore.translation.UserInterfaceService;
 import com.tjx.lew00305.slimstore.translation.UserInterfaceTranslationDTO;
@@ -29,6 +30,7 @@ public class DisplayApiController {
     private final RegisterService registerService;
     private final StoreService storeService;
     private final TenderService tenderService;
+    private final TransactionService transactionService;
     private final UserInterfaceService userInterfaceService;
     
     @GetMapping(path = "/api/location/{storeNumber}")
@@ -84,4 +86,18 @@ public class DisplayApiController {
         return userInterfaceService.getUserInterfaceTranslations(Locale.of(languageCode));
     }
     
+    @GetMapping(path = "/api/review/add/{storeNumber}/{registerNumber}/{transactionNumber}/{score}")
+    public void updateReviewScore(
+        @PathVariable("storeNumber")
+        Integer storeNumber,
+        @PathVariable("registerNumber")
+        Integer registerNumber,
+        @PathVariable("transactionNumber")
+        Integer transactionNumber,
+        @PathVariable("score")
+        Integer score
+    ) {
+        transactionService.addReview(storeNumber, registerNumber, transactionNumber, score);
+    }
+
 }

@@ -58,10 +58,12 @@ public class DisplayWebsocketController {
     }
     
     public void sendRegisterStatus(
-        RegisterStatus status
+        RegisterStatus status,
+        Integer transactionNumber
     ) {
         DisplayResponseDTO response = new DisplayResponseDTO();
         response.setStatus(status);
+        response.setTransactionNumber(transactionNumber);
         Integer storeNumber = storeService.getStore().getNumber();
         Integer registerNumber = registerService.getRegister().getNumber();
         String topic = "/topic/" + storeNumber + "/" + registerNumber;

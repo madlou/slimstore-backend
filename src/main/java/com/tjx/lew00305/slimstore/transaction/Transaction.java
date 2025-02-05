@@ -56,6 +56,7 @@ public class Transaction {
     private List<TransactionLine> lines;
     @OneToMany(mappedBy = "transaction", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<TransactionTender> tenders;
+    private Integer reviewScore;
 
     public BigDecimal getLineTotal() {
         BigDecimal total = BigDecimal.valueOf(0);

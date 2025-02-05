@@ -19,6 +19,7 @@ public class DisplayResponseDTO {
     private Integer register;
     @Enumerated(EnumType.STRING)
     private RegisterStatus status;
+    private Integer transactionNumber;
     private ArrayList<BasketLine> basket;
     private ArrayList<TenderLine> tender;
 

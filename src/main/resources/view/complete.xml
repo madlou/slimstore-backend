@@ -10,7 +10,7 @@
     <bean class="com.tjx.lew00305.slimstore.register.view.View" scope="request">
         <property name="name" value="COMPLETE" />
         <property name="title" value="Transaction Complete" />
-        <property name="message" value="The transaction has completed." />
+        <property name="message" value="The transaction has completed. Please ask the customer to complete review." />
         <property name="functionButtons">
             <array>
                 <bean class="com.tjx.lew00305.slimstore.register.view.ViewFunctionButton">

@@ -76,6 +76,7 @@ public class TransactionReportService {
             line.setUser(txnRow.getUser().getName());
             line.setCurrency(txnRow.getCurrencyCode());
             line.setTotal(txnRow.getTotal());
+            line.setReview(txnRow.getReviewScore());
             report.add(line);
         }
         return report;

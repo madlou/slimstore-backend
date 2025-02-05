@@ -32,6 +32,15 @@ public class TransactionService {
     private final TenderService tenderService;
     private final UserService userService;
     
+    public void addReview(
+        Integer storeNumber, 
+        Integer registerNumber, 
+        Integer transactionNumber,
+        Integer score
+    ) {
+        txnRepo.setReviewScore(storeNumber, registerNumber, transactionNumber, score);
+    }
+
     public void addTransaction() {
         Timestamp time = new Timestamp(System.currentTimeMillis());
         Integer txnNumber = registerService.updateRegisterWithTransaction(time);
@@ -92,5 +101,6 @@ public class TransactionService {
         LocalDateTime stop = LocalDateTime.parse(date + "T23:59:59");
         return txnRepo.findByStoreAndRegisterAndNumberAndDateBetween(store, register, txnNumber, start, stop);
     }
+
 
 }

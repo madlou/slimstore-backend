@@ -3,9 +3,11 @@ package com.tjx.lew00305.slimstore.transaction;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tjx.lew00305.slimstore.register.Register;
 import com.tjx.lew00305.slimstore.store.Store;
@@ -75,6 +77,19 @@ public interface TransactionRepository extends CrudRepository<Transaction, Integ
         LocalDateTime start,
         LocalDateTime stop
     );
+
+    @Modifying
+    @Transactional
+    @Query(value = """
+        UPDATE transaction t
+        LEFT JOIN store_register r ON (r.store_id = t.store_id)
+        SET t.review_score = ?4
+        WHERE
+        t.store_id = ?1 AND
+        r.number = ?2 AND
+        t.number = ?3
+    """, nativeQuery = true)
+    int setReviewScore(Integer storeNumber, Integer registerNumber, Integer transactionNumber, Integer score);
 }
 
 //record TransactionsOnly(
