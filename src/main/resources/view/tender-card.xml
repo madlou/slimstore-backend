@@ -7,23 +7,23 @@
                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
                         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
-    <bean class="com.tjx.lew00305.slimstore.register.view.View" scope="request">
+    <bean class="cloud.matthews.slimstore.register.view.View" scope="request">
         <property name="name" value="TENDER_CARD" />
         <property name="title" value="Tender Card" />
         <property name="message" value="Please enter or select a card value." />
         <property name="form">
-            <bean class="com.tjx.lew00305.slimstore.register.form.Form">
+            <bean class="cloud.matthews.slimstore.register.form.Form">
                 <property name="targetView" value="TENDER" />
                 <property name="serverProcess" value="TENDER" />
                 <property name="elements">
                     <array>
-                        <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
+                        <bean class="cloud.matthews.slimstore.register.form.FormElement">
                             <property name="type" value="decimal" />
                             <property name="key" value="CARD" />
                             <property name="label" value="Card Value" />
                             <property name="required" value="true" />
                         </bean>
-                        <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
+                        <bean class="cloud.matthews.slimstore.register.form.FormElement">
                             <property name="type" value="submit" />
                             <property name="key" value="submit" />
                             <property name="label" value="Submit" />
@@ -34,16 +34,16 @@
         </property>
         <property name="functionButtons">
             <array>
-                <bean class="com.tjx.lew00305.slimstore.register.view.ViewFunctionButton">
+                <bean class="cloud.matthews.slimstore.register.view.ViewFunctionButton">
                     <property name="position" value="1" />
                     <property name="label" value="Full Amount" />
                     <property name="form">
-                        <bean class="com.tjx.lew00305.slimstore.register.form.Form">
+                        <bean class="cloud.matthews.slimstore.register.form.Form">
                             <property name="targetView" value="TENDER" />
                             <property name="serverProcess" value="TENDER" />
                             <property name="elements">
                                 <array>
-                                    <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
+                                    <bean class="cloud.matthews.slimstore.register.form.FormElement">
                                         <property name="type" value="decimal" />
                                         <property name="key" value="CARD" />
                                         <property name="label" value="Card" />
@@ -54,11 +54,11 @@
                         </bean>
                     </property>
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.register.view.ViewFunctionButton">
+                <bean class="cloud.matthews.slimstore.register.view.ViewFunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="Back" />
                     <property name="form">
-                        <bean class="com.tjx.lew00305.slimstore.register.form.Form">
+                        <bean class="cloud.matthews.slimstore.register.form.Form">
                             <property name="targetView" value="TENDER" />
                         </bean>
                     </property>

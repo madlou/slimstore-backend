@@ -6,7 +6,7 @@
             "name": "Slimstore Backend",
             "request": "launch",
             "cwd": "${workspaceFolder}",
-            "mainClass": "com.tjx.lew00305.slimstore.SlimStoreApplication",
+            "mainClass": "cloud.matthews.slimstore.SlimStoreApplication",
             "projectName": "slimstore",
             "args": "",
             "envFile": "${workspaceFolder}/.env"

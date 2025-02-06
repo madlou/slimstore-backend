@@ -7,23 +7,23 @@
                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
                         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
-    <bean class="com.tjx.lew00305.slimstore.register.view.View" scope="request">
+    <bean class="cloud.matthews.slimstore.register.view.View" scope="request">
         <property name="name" value="TENDER_CASH" />
         <property name="title" value="Tender Cash" />
         <property name="message" value="Please enter or select a cash value." />
         <property name="form">
-            <bean class="com.tjx.lew00305.slimstore.register.form.Form">
+            <bean class="cloud.matthews.slimstore.register.form.Form">
                 <property name="targetView" value="TENDER" />
                 <property name="serverProcess" value="TENDER" />
                 <property name="elements">
                     <array>
-                        <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
+                        <bean class="cloud.matthews.slimstore.register.form.FormElement">
                             <property name="type" value="decimal" />
                             <property name="key" value="CASH" />
                             <property name="label" value="Cash Value" />
                             <property name="required" value="true" />
                         </bean>
-                        <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
+                        <bean class="cloud.matthews.slimstore.register.form.FormElement">
                             <property name="type" value="submit" />
                             <property name="key" value="submit" />
                             <property name="label" value="Submit" />
@@ -34,16 +34,16 @@
         </property>
         <property name="functionButtons">
             <array>
-                <bean class="com.tjx.lew00305.slimstore.register.view.ViewFunctionButton">
+                <bean class="cloud.matthews.slimstore.register.view.ViewFunctionButton">
                     <property name="position" value="1" />
                     <property name="label" value="Full Amount" />
                     <property name="form">
-                        <bean class="com.tjx.lew00305.slimstore.register.form.Form">
+                        <bean class="cloud.matthews.slimstore.register.form.Form">
                             <property name="targetView" value="TENDER" />
                             <property name="serverProcess" value="TENDER" />
                             <property name="elements">
                                 <array>
-                                    <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
+                                    <bean class="cloud.matthews.slimstore.register.form.FormElement">
                                         <property name="type" value="decimal" />
                                         <property name="key" value="CASH" />
                                         <property name="label" value="Cash" />
@@ -54,16 +54,16 @@
                         </bean>
                     </property>
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.register.view.ViewFunctionButton">
+                <bean class="cloud.matthews.slimstore.register.view.ViewFunctionButton">
                     <property name="position" value="2" />
                     <property name="label" value="5" />
                     <property name="form">
-                        <bean class="com.tjx.lew00305.slimstore.register.form.Form">
+                        <bean class="cloud.matthews.slimstore.register.form.Form">
                             <property name="targetView" value="TENDER" />
                             <property name="serverProcess" value="TENDER" />
                             <property name="elements">
                                 <array>
-                                    <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
+                                    <bean class="cloud.matthews.slimstore.register.form.FormElement">
                                         <property name="type" value="decimal" />
                                         <property name="key" value="CASH" />
                                         <property name="label" value="Cash" />
@@ -75,16 +75,16 @@
                     </property>
                     <property name="condition" value="basket.total > 0" />
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.register.view.ViewFunctionButton">
+                <bean class="cloud.matthews.slimstore.register.view.ViewFunctionButton">
                     <property name="position" value="3" />
                     <property name="label" value="10" />
                     <property name="form">
-                        <bean class="com.tjx.lew00305.slimstore.register.form.Form">
+                        <bean class="cloud.matthews.slimstore.register.form.Form">
                             <property name="targetView" value="TENDER" />
                             <property name="serverProcess" value="TENDER" />
                             <property name="elements">
                                 <array>
-                                    <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
+                                    <bean class="cloud.matthews.slimstore.register.form.FormElement">
                                         <property name="type" value="decimal" />
                                         <property name="key" value="CASH" />
                                         <property name="label" value="Cash" />
@@ -96,16 +96,16 @@
                     </property>
                     <property name="condition" value="basket.total > 0" />
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.register.view.ViewFunctionButton">
+                <bean class="cloud.matthews.slimstore.register.view.ViewFunctionButton">
                     <property name="position" value="4" />
                     <property name="label" value="20" />
                     <property name="form">
-                        <bean class="com.tjx.lew00305.slimstore.register.form.Form">
+                        <bean class="cloud.matthews.slimstore.register.form.Form">
                             <property name="targetView" value="TENDER" />
                             <property name="serverProcess" value="TENDER" />
                             <property name="elements">
                                 <array>
-                                    <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
+                                    <bean class="cloud.matthews.slimstore.register.form.FormElement">
                                         <property name="type" value="decimal" />
                                         <property name="key" value="CASH" />
                                         <property name="label" value="Cash" />
@@ -117,16 +117,16 @@
                     </property>
                     <property name="condition" value="basket.total > 0" />
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.register.view.ViewFunctionButton">
+                <bean class="cloud.matthews.slimstore.register.view.ViewFunctionButton">
                     <property name="position" value="5" />
                     <property name="label" value="50" />
                     <property name="form">
-                        <bean class="com.tjx.lew00305.slimstore.register.form.Form">
+                        <bean class="cloud.matthews.slimstore.register.form.Form">
                             <property name="targetView" value="TENDER" />
                             <property name="serverProcess" value="TENDER" />
                             <property name="elements">
                                 <array>
-                                    <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
+                                    <bean class="cloud.matthews.slimstore.register.form.FormElement">
                                         <property name="type" value="decimal" />
                                         <property name="key" value="CASH" />
                                         <property name="label" value="Cash" />
@@ -138,11 +138,11 @@
                     </property>
                     <property name="condition" value="basket.total > 0" />
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.register.view.ViewFunctionButton">
+                <bean class="cloud.matthews.slimstore.register.view.ViewFunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="Back" />
                     <property name="form">
-                        <bean class="com.tjx.lew00305.slimstore.register.form.Form">
+                        <bean class="cloud.matthews.slimstore.register.form.Form">
                             <property name="targetView" value="TENDER" />
                         </bean>
                     </property>

@@ -7,39 +7,39 @@
                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
                         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
-    <bean class="com.tjx.lew00305.slimstore.register.view.View" scope="request">
+    <bean class="cloud.matthews.slimstore.register.view.View" scope="request">
         <property name="name" value="VOID_POST" />
         <property name="title" value="Void Post" />
         <property name="message" value="Please scan receipt barcode or type in details below." />
         <property name="form">
-            <bean class="com.tjx.lew00305.slimstore.register.form.Form">
+            <bean class="cloud.matthews.slimstore.register.form.Form">
                 <property name="elements">
                     <array>
-                        <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
+                        <bean class="cloud.matthews.slimstore.register.form.FormElement">
                             <property name="type" value="number" />
                             <property name="key" value="store" />
                             <property name="label" value="Store" />
                             <property name="required" value="true" />
                         </bean>
-                        <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
+                        <bean class="cloud.matthews.slimstore.register.form.FormElement">
                             <property name="type" value="number" />
                             <property name="key" value="register" />
                             <property name="label" value="Register" />
                             <property name="required" value="true" />
                         </bean>
-                        <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
+                        <bean class="cloud.matthews.slimstore.register.form.FormElement">
                             <property name="type" value="number" />
                             <property name="key" value="transactionNumber" />
                             <property name="label" value="Transaction Number" />
                             <property name="required" value="true" />
                         </bean>
-                        <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
+                        <bean class="cloud.matthews.slimstore.register.form.FormElement">
                             <property name="type" value="date" />
                             <property name="key" value="date" />
                             <property name="label" value="Date" />
                             <property name="required" value="true" />
                         </bean>
-                        <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
+                        <bean class="cloud.matthews.slimstore.register.form.FormElement">
                             <property name="type" value="submit" />
                             <property name="key" value="submit" />
                             <property name="label" value="Search" />
@@ -50,11 +50,11 @@
         </property>
         <property name="functionButtons">
             <array>
-                <bean class="com.tjx.lew00305.slimstore.register.view.ViewFunctionButton">
+                <bean class="cloud.matthews.slimstore.register.view.ViewFunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="Back" />
                     <property name="form">
-                        <bean class="com.tjx.lew00305.slimstore.register.form.Form">
+                        <bean class="cloud.matthews.slimstore.register.form.Form">
                             <property name="targetView" value="VOID" />
                         </bean>
                     </property>

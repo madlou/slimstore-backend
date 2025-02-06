@@ -7,78 +7,78 @@
                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
                         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
-    <bean class="com.tjx.lew00305.slimstore.register.view.View" scope="request">
+    <bean class="cloud.matthews.slimstore.register.view.View" scope="request">
         <property name="name" value="STORE_SETUP" />
         <property name="title" value="Store Setup" />
         <property name="message" value="You can change the store setup below." />
         <property name="form">
-            <bean class="com.tjx.lew00305.slimstore.register.form.Form">
+            <bean class="cloud.matthews.slimstore.register.form.Form">
                 <property name="targetView" value="HOME" />
                 <property name="serverProcess" value="STORE_SETUP" />
                 <property name="elements">
                     <array>
-                        <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
+                        <bean class="cloud.matthews.slimstore.register.form.FormElement">
                             <property name="type" value="text" />
                             <property name="key" value="name" />
                             <property name="label" value="Store Name" />
                             <property name="required" value="true" />
                         </bean>
-                        <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
+                        <bean class="cloud.matthews.slimstore.register.form.FormElement">
                             <property name="type" value="select" />
                             <property name="key" value="countryCode" />
                             <property name="label" value="Country" />
                             <property name="options">
-                                <bean class="com.tjx.lew00305.slimstore.store.Store.Country" factory-method="values"/>
+                                <bean class="cloud.matthews.slimstore.store.Store.Country" factory-method="values"/>
                             </property>
                             <property name="value" value="DE" />
                             <property name="required" value="true" />
                         </bean>
-                        <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
+                        <bean class="cloud.matthews.slimstore.register.form.FormElement">
                             <property name="type" value="select" />
                             <property name="key" value="currencyCode" />
                             <property name="label" value="Currency" />
                             <property name="options">
-                                <bean class="com.tjx.lew00305.slimstore.store.Store.Currency" factory-method="values"/>
+                                <bean class="cloud.matthews.slimstore.store.Store.Currency" factory-method="values"/>
                             </property>
                             <property name="value" value="EUR" />
                             <property name="required" value="true" />
                         </bean>
-                        <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
+                        <bean class="cloud.matthews.slimstore.register.form.FormElement">
                             <property name="type" value="select" />
                             <property name="key" value="languageCode" />
                             <property name="label" value="Default Language" />
                             <property name="options">
-                                <bean class="com.tjx.lew00305.slimstore.translation.Language" factory-method="values"/>
+                                <bean class="cloud.matthews.slimstore.translation.Language" factory-method="values"/>
                             </property>
                             <property name="value" value="EUR" />
                             <property name="required" value="true" />
                         </bean>
-                        <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
+                        <bean class="cloud.matthews.slimstore.register.form.FormElement">
                             <property name="type" value="text" />
                             <property name="key" value="address1" />
                             <property name="label" value="Address 1" />
                         </bean>
-                        <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
+                        <bean class="cloud.matthews.slimstore.register.form.FormElement">
                             <property name="type" value="text" />
                             <property name="key" value="address2" />
                             <property name="label" value="Address 2" />
                         </bean>
-                        <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
+                        <bean class="cloud.matthews.slimstore.register.form.FormElement">
                             <property name="type" value="text" />
                             <property name="key" value="city" />
                             <property name="label" value="City" />
                         </bean>
-                        <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
+                        <bean class="cloud.matthews.slimstore.register.form.FormElement">
                             <property name="type" value="text" />
                             <property name="key" value="postCode" />
                             <property name="label" value="Post Code" />
                         </bean>
-                        <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
+                        <bean class="cloud.matthews.slimstore.register.form.FormElement">
                             <property name="type" value="text" />
                             <property name="key" value="phoneNumber" />
                             <property name="label" value="Telephone Number" />
                         </bean>
-                        <bean class="com.tjx.lew00305.slimstore.register.form.FormElement">
+                        <bean class="cloud.matthews.slimstore.register.form.FormElement">
                             <property name="type" value="submit" />
                             <property name="key" value="submit" />
                             <property name="label" value="Submit" />
@@ -90,16 +90,16 @@
         </property>
         <property name="functionButtons">
             <array>
-                <bean class="com.tjx.lew00305.slimstore.register.view.ViewFunctionButton">
+                <bean class="cloud.matthews.slimstore.register.view.ViewFunctionButton">
                     <property name="position" value="1" />
                     <property name="label" value="Update" />
                     <property name="primaryFormSubmit" value="true" />
                 </bean>
-                <bean class="com.tjx.lew00305.slimstore.register.view.ViewFunctionButton">
+                <bean class="cloud.matthews.slimstore.register.view.ViewFunctionButton">
                     <property name="position" value="8" />
                     <property name="label" value="Back" />
                     <property name="form">
-                        <bean class="com.tjx.lew00305.slimstore.register.form.Form">
+                        <bean class="cloud.matthews.slimstore.register.form.Form">
                             <property name="targetView" value="SYSTEM" />
                         </bean>
                     </property>
