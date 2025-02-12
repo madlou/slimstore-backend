@@ -46,6 +46,9 @@ public class UserInterfaceTranslationDTO {
     private String registerClosed;
     private String registerNumber;
     private String returnedQuantity;
+    private String reviewMessageTop;
+    private String reviewMessageBottom;
+    private String reviewMessageThankyou;
     private String role;
     private String sourceCode;
     private String staffDiscount;
