@@ -1,4 +1,4 @@
-package cloud.matthews.slimstore.admin;
+package cloud.matthews.slimstore;
 
 import org.springframework.session.Session;
 import org.springframework.session.data.redis.RedisSessionRepository;

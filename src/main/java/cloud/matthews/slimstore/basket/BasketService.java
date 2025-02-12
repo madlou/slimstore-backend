@@ -10,7 +10,6 @@ import cloud.matthews.slimstore.register.RegisterRequestDTO;
 import cloud.matthews.slimstore.register.form.Form;
 import cloud.matthews.slimstore.register.form.FormElement;
 import cloud.matthews.slimstore.register.form.FormElement.FormElementType;
-
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -79,6 +78,9 @@ public class BasketService {
             return new BasketLine[0];
         }
         Basket sessionBasket = (Basket) session.getAttribute("scopedTarget.basket");
+        if(sessionBasket == null) {
+            return new BasketLine[0];
+        }
         return sessionBasket.getArray();
     }
 

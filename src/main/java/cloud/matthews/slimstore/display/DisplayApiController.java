@@ -19,7 +19,6 @@ import cloud.matthews.slimstore.transaction.TransactionService;
 import cloud.matthews.slimstore.translation.Language;
 import cloud.matthews.slimstore.translation.UserInterfaceService;
 import cloud.matthews.slimstore.translation.UserInterfaceTranslationDTO;
-
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -32,7 +31,34 @@ public class DisplayApiController {
     private final TenderService tenderService;
     private final TransactionService transactionService;
     private final UserInterfaceService userInterfaceService;
+
+    private final DisplaySession displaySession;
     
+    @GetMapping(path = "/api/public/display/authentication/{storeNumber}/{registerNumber}/{pin}")
+    public DisplayResponseDTO authenticate(
+        @PathVariable("storeNumber")
+        Integer storeNumber,
+        @PathVariable("registerNumber")
+        Integer registerNumber,
+        @PathVariable("pin")
+        Integer pin
+    ) {
+        DisplayResponseDTO response = new DisplayResponseDTO();
+        response.setStore(storeNumber);
+        response.setRegister(registerNumber);
+        Register register = registerService.getRegister(storeNumber, registerNumber);
+        if(register !=null && register.getCustomerDisplayPin().equals(pin)){
+            displaySession.setStoreNumber(storeNumber);
+            displaySession.setRegisterNumber(registerNumber);
+            displaySession.setRegisterSessionId(register.getSessionId());
+            displaySession.setAuthenticated(true);
+            response.setToken(registerService.generateDisplayToken(storeNumber, registerNumber));
+            return response;
+        }
+        response.setError("Authentication Failed.");
+        return response;
+    }
+
     @GetMapping(path = "/api/location/{storeNumber}")
     public Store getAllUsers(
         @PathVariable("storeNumber")
@@ -62,7 +88,7 @@ public class DisplayApiController {
         return basketService.getBasketArray(session);
     }
 
-    @GetMapping(path = "/api/languages")
+    @GetMapping(path = "/api/public/languages")
     public Language[] getLanguages() {
         return Language.values();
     }
@@ -78,7 +104,7 @@ public class DisplayApiController {
         return tenderService.getTenderArray(session);
     }
     
-    @GetMapping(path = "/api/ui/translations/{languageCode}")
+    @GetMapping(path = "/api/public/translations/{languageCode}")
     public UserInterfaceTranslationDTO getUiTranslations(
         @PathVariable("languageCode")
         String languageCode

@@ -11,7 +11,6 @@ import cloud.matthews.slimstore.register.Register.RegisterStatus;
 import cloud.matthews.slimstore.register.RegisterService;
 import cloud.matthews.slimstore.store.StoreService;
 import cloud.matthews.slimstore.tender.Tender;
-
 import lombok.RequiredArgsConstructor;
 
 @Controller

@@ -1,4 +1,4 @@
-package cloud.matthews.slimstore.admin;
+package cloud.matthews.slimstore.translation;
 
 import java.util.Arrays;
 
@@ -11,7 +11,6 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 import cloud.matthews.slimstore.user.UserService;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,14 +18,14 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class AdminApiSecurity {
+public class TranslationSecurity {
     
     private final UserService userService;
 
-    @Pointcut("execution(public * cloud.matthews.slimstore.admin.AdminApiController.*(..))")
-    private void aPointCutFromAdminApiController() {}
+    @Pointcut("execution(public * cloud.matthews.slimstore.translation.TranslationController.*(..))")
+    private void aPointCutFromTranslationController() {}
 
-    @Before(value = "aPointCutFromAdminApiController()")
+    @Before(value = "aPointCutFromTranslationController()")
     public void logBefore(
         JoinPoint joinPoint
     ) {
@@ -35,7 +34,7 @@ public class AdminApiSecurity {
         log.info(">> {}() - {}", methodName, Arrays.toString(args));
     }
 
-    @Around(value = "aPointCutFromAdminApiController()")
+    @Around(value = "aPointCutFromTranslationController()")
     public Object validateQueryAround(
         ProceedingJoinPoint joinPoint
     ) throws Throwable {

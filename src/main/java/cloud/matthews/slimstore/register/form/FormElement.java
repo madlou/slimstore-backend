@@ -17,6 +17,7 @@ public class FormElement {
         ERROR,
         EMAIL,
         IMAGE,
+        MESSAGE,
         NUMBER,
         PASSWORD,
         PRODUCT,

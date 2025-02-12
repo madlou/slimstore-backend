@@ -38,11 +38,13 @@ public class UserInterfaceTranslationDTO {
     private String number;
     private String open;
     private String password;
+    private String pinWithPath;
     private String product;
     private String quantity;
     private String reference;
     private String register;
     private String registerClosed;
+    private String registerNumber;
     private String returnedQuantity;
     private String role;
     private String sourceCode;
@@ -50,6 +52,7 @@ public class UserInterfaceTranslationDTO {
     private String status;
     private String store;
     private String storeName;
+    private String storeNumber;
     private String subtotal;
     private String tenderTotal;
     private String thankyou;

@@ -6,6 +6,11 @@
             "description": "Admin Password"
         },
         {
+            "name": "tjx.app.debug",
+            "type": "java.lang.Boolean",
+            "description": "Determine whether exceptions thrown to API"
+        },
+        {
             "name": "tjx.app.demo",
             "type": "java.lang.Boolean",
             "description": "Demo setting"

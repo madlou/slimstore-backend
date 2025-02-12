@@ -1,4 +1,4 @@
-package cloud.matthews.slimstore.admin;
+package cloud.matthews.slimstore.translation;
 
 import java.util.List;
 
@@ -7,18 +7,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cloud.matthews.slimstore.transaction.Transaction;
 import cloud.matthews.slimstore.transaction.report.TransactionReportService;
-import cloud.matthews.slimstore.translation.LanguageTranslationDTO;
-import cloud.matthews.slimstore.translation.TranslationService;
-import cloud.matthews.slimstore.user.User;
-import cloud.matthews.slimstore.user.UserService;
-
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-public class AdminApiController {
+public class TranslationController {
 
-    private final UserService userService;
     private final TransactionReportService transactionReportService;
     private final TranslationService translationService;
     
@@ -38,11 +32,6 @@ public class AdminApiController {
     @GetMapping(path = "/api/transactions/all")
     public Iterable<Transaction> getAllTransactions() {
         return transactionReportService.getTransactionReport();
-    }
-
-    @GetMapping(path = "/api/users/all")
-    public Iterable<User> getAllUsers() {
-        return userService.getAllUsers();
     }
 
 }

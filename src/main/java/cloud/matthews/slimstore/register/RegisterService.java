@@ -1,6 +1,7 @@
 package cloud.matthews.slimstore.register;
 
 import java.sql.Timestamp;
+import java.util.UUID;
 
 import org.springframework.session.Session;
 import org.springframework.session.data.redis.RedisSessionRepository;
@@ -11,7 +12,6 @@ import cloud.matthews.slimstore.register.form.Form;
 import cloud.matthews.slimstore.store.Store;
 import cloud.matthews.slimstore.store.StoreService;
 import cloud.matthews.slimstore.translation.TranslationService;
-
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
@@ -37,6 +37,14 @@ public class RegisterService {
         storeRegister.setLastTxnNumber(0);
         storeRegister = registerRepository.save(storeRegister);
         return storeRegister;
+    }
+
+    public String generateDisplayToken(Integer storeNumber, Integer registerNumber){
+        String uuid = UUID.randomUUID().toString();
+        Register dbRegister = getRegister(storeNumber, registerNumber);
+        dbRegister.setCustomerDisplayToken(uuid);
+        registerRepository.save(dbRegister);
+        return uuid;
     }
     
     public Register getRegister() {
@@ -68,6 +76,19 @@ public class RegisterService {
         return registerRepository.getReferenceById(register.getId());
     }
 
+    public String getSessionIdByRegister(
+        Integer storeNumber,
+        Integer registerNumber
+    ) {
+        Store store = storeService.getStore(storeNumber);
+        if ((store == null) ||
+            !store.isSet()) {
+            return null;
+        }
+        Register dbRegister = registerRepository.findByStoreAndNumber(store, registerNumber);
+        return dbRegister.getSessionId();
+    }
+
     public Session getSessionByRegister(
         Integer storeNumber,
         Integer registerNumber
@@ -86,16 +107,11 @@ public class RegisterService {
     ) throws Exception {
         Store store = storeService.getStore();
         if (!store.isSet()) {
-            if (storeRegCookie != null) {
-                String[] storeRegCookieSplit = storeRegCookie.split("-");
-                if (storeRegCookieSplit[1] != null) {
-                    Integer storeCookie = null;
-                    Integer registerCookie = null;
-                    storeCookie = Integer.parseInt(storeRegCookieSplit[0]);
-                    registerCookie = Integer.parseInt(storeRegCookieSplit[1]);
-                    store = storeService.setStore(storeCookie);
-                    setRegister(registerCookie);
-                }
+            RegisterCookie cookie = new RegisterCookie();
+            cookie.set(storeRegCookie);
+            if(cookie.isValid()){
+                store = storeService.setStore(cookie.getStore());
+                setRegister(cookie.getRegister());
             }
         }
     }
@@ -139,6 +155,8 @@ public class RegisterService {
     public void updateRegister(
         Register register
     ) {
+        this.register.setCustomerDisplayPin(register.getCustomerDisplayPin());
+        this.register.setCustomerDisplayToken(register.getCustomerDisplayToken());
         this.register.setId(register.getId());
         this.register.setLastTxnNumber(register.getLastTxnNumber());
         this.register.setLastTxnTime(register.getLastTxnTime());
@@ -167,6 +185,7 @@ public class RegisterService {
             dbRegister.setSessionId(httpServletRequest.getRequestedSessionId());
             dbRegister.setStatus(RegisterStatus.OPEN);
             dbRegister.setUserName(username);
+            dbRegister.setCustomerDisplayPin((int)(Math.random()*10000));
             dbRegister = registerRepository.save(dbRegister);
             updateRegister(dbRegister);
         }

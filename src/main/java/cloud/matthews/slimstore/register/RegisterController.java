@@ -27,7 +27,6 @@ import cloud.matthews.slimstore.user.User;
 import cloud.matthews.slimstore.user.UserDTO;
 import cloud.matthews.slimstore.user.UserLoginException;
 import cloud.matthews.slimstore.user.UserService;
-
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -51,7 +50,7 @@ public class RegisterController {
     
     private final ModelMapper modelMapper;
 
-    @Value("${app.debug}")
+    @Value("${tjx.app.debug}")
     private Boolean appDebug;
     
     @PostMapping(path = "/api/register")

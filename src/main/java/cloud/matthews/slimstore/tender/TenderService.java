@@ -119,6 +119,9 @@ public class TenderService {
             return new TenderLine[0];
         }
         Tender sessionTender = (Tender) session.getAttribute("scopedTarget.tender");
+        if(sessionTender == null) {
+            return new TenderLine[0];
+        }
         return sessionTender.getArray();
     }
     

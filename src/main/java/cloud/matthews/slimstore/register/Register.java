@@ -12,8 +12,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import cloud.matthews.slimstore.store.Store;
 
+import cloud.matthews.slimstore.store.Store;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -46,7 +46,7 @@ public class Register implements Serializable {
         CLOSED
     }
     
-    private static final long serialVersionUID = 6945284200219381757L;
+    private static final long serialVersionUID = 972644074L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,6 +61,8 @@ public class Register implements Serializable {
     private String sessionId;
     private String userName;
     private Timestamp lastTxnTime;
+    private String customerDisplayToken;
+    private Integer customerDisplayPin;
     
     @JsonIgnore
     public Boolean isSet() {

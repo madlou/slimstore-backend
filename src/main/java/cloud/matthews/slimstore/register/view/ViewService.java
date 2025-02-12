@@ -112,6 +112,10 @@ public class ViewService {
                 String searchQuery = requestForm.getValueByKey("search");
                 responseForm.setElements(productService.search(searchQuery));
                 break;
+            case SYSTEM:
+                Integer pinNumber = registerService.getRegister().getCustomerDisplayPin();
+                responseForm.setValueByKey("pin", String.format("%04d", pinNumber));
+                break;
             case STORE_SETUP:
                 userService.managerCheck();
                 responseForm.setValueByKey("name", storeService.getStore().getName());

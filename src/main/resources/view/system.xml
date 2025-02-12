@@ -14,7 +14,14 @@
         <property name="form">
             <bean class="cloud.matthews.slimstore.register.form.Form">
                 <property name="elements">
-                    <array> </array>
+                    <array>
+                        <bean class="cloud.matthews.slimstore.register.form.FormElement">
+                            <property name="type" value="MESSAGE" />
+                            <property name="key" value="pin" />
+                            <property name="label" value="Current Register PIN" />
+                            <property name="value" value="0000" />
+                        </bean>
+                    </array>
                 </property>
             </bean>
         </property>
