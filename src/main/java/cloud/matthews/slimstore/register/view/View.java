@@ -18,6 +18,7 @@ public class View {
         LOGIN,
         PAGE_NOT_FOUND,
         REGISTER_CHANGE,
+        REGISTER_SETUP,
         REPORTS,
         RETURN,
         RETURN_MANUAL,

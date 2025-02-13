@@ -63,6 +63,7 @@ public class Register implements Serializable {
     private Timestamp lastTxnTime;
     private String customerDisplayToken;
     private Integer customerDisplayPin;
+    private String printerIpAddress;
     
     @JsonIgnore
     public Boolean isSet() {

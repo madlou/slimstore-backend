@@ -17,6 +17,7 @@ public class Form {
         LOGOUT,
         NEW_USER,
         PROCESS_GIFTCARD,
+        REGISTER_SETUP,
         RUN_REPORT,
         SAVE_USER,
         SEARCH,

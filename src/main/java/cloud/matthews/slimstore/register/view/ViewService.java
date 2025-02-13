@@ -71,6 +71,12 @@ public class ViewService {
                     responseForm.setValueByKey("days", "1");
                 }
                 break;
+            case REGISTER_SETUP:
+                userService.managerCheck();
+                Integer pinNumber = registerService.getRegister().getCustomerDisplayPin();
+                responseForm.setValueByKey("pin", String.format("%04d", pinNumber));
+                responseForm.setValueByKey("printerIpAddress", registerService.getRegister().getPrinterIpAddress().toString());
+                break;
             case RETURN:
                 responseForm.setValueByKey("store", storeService.getStore().getNumber());
                 break;
@@ -111,10 +117,6 @@ public class ViewService {
             case SEARCH:
                 String searchQuery = requestForm.getValueByKey("search");
                 responseForm.setElements(productService.search(searchQuery));
-                break;
-            case SYSTEM:
-                Integer pinNumber = registerService.getRegister().getCustomerDisplayPin();
-                responseForm.setValueByKey("pin", String.format("%04d", pinNumber));
                 break;
             case STORE_SETUP:
                 userService.managerCheck();

@@ -15,12 +15,6 @@
             <bean class="cloud.matthews.slimstore.register.form.Form">
                 <property name="elements">
                     <array>
-                        <bean class="cloud.matthews.slimstore.register.form.FormElement">
-                            <property name="type" value="MESSAGE" />
-                            <property name="key" value="pin" />
-                            <property name="label" value="Current Register PIN" />
-                            <property name="value" value="0000" />
-                        </bean>
                     </array>
                 </property>
             </bean>
@@ -58,11 +52,21 @@
                     <property name="condition" value="user.role != ASSOCIATE" />
                 </bean>
                 <bean class="cloud.matthews.slimstore.register.view.ViewFunctionButton">
-                    <property name="position" value="6" />
+                    <property name="position" value="5" />
                     <property name="label" value="Change Register" />
                     <property name="form">
                         <bean class="cloud.matthews.slimstore.register.form.Form">
                             <property name="targetView" value="REGISTER_CHANGE" />
+                        </bean>
+                    </property>
+                    <property name="condition" value="user.role != ASSOCIATE" />
+                </bean>
+                <bean class="cloud.matthews.slimstore.register.view.ViewFunctionButton">
+                    <property name="position" value="6" />
+                    <property name="label" value="Register Setup" />
+                    <property name="form">
+                        <bean class="cloud.matthews.slimstore.register.form.Form">
+                            <property name="targetView" value="REGISTER_SETUP" />
                         </bean>
                     </property>
                     <property name="condition" value="user.role != ASSOCIATE" />

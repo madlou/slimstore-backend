@@ -18,28 +18,36 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class RegisterService {
-
+    
     private final StoreService storeService;
     private final RegisterRepository registerRepository;
     private final TranslationService translationService;
     private final HttpServletRequest httpServletRequest;
     private final RedisSessionRepository redisRepo;
-
+    
     private final Register register;
     
     private Register addRegister(
         Integer registerNumber
-    ) {
-        Register storeRegister = new Register();
-        storeRegister.setStore(storeService.getStoreReference());
-        storeRegister.setNumber(registerNumber);
-        storeRegister.setStatus(RegisterStatus.CLOSED);
-        storeRegister.setLastTxnNumber(0);
-        storeRegister = registerRepository.save(storeRegister);
-        return storeRegister;
-    }
-
-    public String generateDisplayToken(Integer storeNumber, Integer registerNumber){
+        ) {
+            Register storeRegister = new Register();
+            storeRegister.setStore(storeService.getStoreReference());
+            storeRegister.setNumber(registerNumber);
+            storeRegister.setStatus(RegisterStatus.CLOSED);
+            storeRegister.setLastTxnNumber(0);
+            storeRegister = registerRepository.save(storeRegister);
+            return storeRegister;
+        }
+    
+        public void changePrinterIpAddress(Form form) {
+            String printerIpAddress = form.getValueByKey("printerIpAddress");
+            Register dbRegister = getRegisterFromDb();
+            dbRegister.setPrinterIpAddress(printerIpAddress);
+            dbRegister = registerRepository.save(dbRegister);
+            updateRegister(dbRegister);
+        }
+        
+        public String generateDisplayToken(Integer storeNumber, Integer registerNumber){
         String uuid = UUID.randomUUID().toString();
         Register dbRegister = getRegister(storeNumber, registerNumber);
         dbRegister.setCustomerDisplayToken(uuid);
@@ -161,6 +169,7 @@ public class RegisterService {
         this.register.setLastTxnNumber(register.getLastTxnNumber());
         this.register.setLastTxnTime(register.getLastTxnTime());
         this.register.setNumber(register.getNumber());
+        this.register.setPrinterIpAddress(register.getPrinterIpAddress());
         this.register.setSessionId(register.getSessionId());
         this.register.setStatus(register.getStatus());
         this.register.setStore(register.getStore());

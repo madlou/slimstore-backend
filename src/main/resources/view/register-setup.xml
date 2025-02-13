@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+    xsi:schemaLocation="http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
+                        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+                        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+    <bean class="cloud.matthews.slimstore.register.view.View" scope="request">
+        <property name="name" value="REGISTER_SETUP" />
+        <property name="title" value="Register Setup" />
+        <property name="message" value="Please enter register setup data." />
+        <property name="form">
+            <bean class="cloud.matthews.slimstore.register.form.Form">
+                <property name="targetView" value="HOME" />
+                <property name="serverProcess" value="REGISTER_SETUP" />
+                <property name="elements">
+                    <array>
+                        <bean class="cloud.matthews.slimstore.register.form.FormElement">
+                            <property name="type" value="Text" />
+                            <property name="key" value="pin" />
+                            <property name="label" value="Current Register PIN" />
+                            <property name="value" value="0000" />
+                            <property name="disabled" value="true" />
+                        </bean>
+                        <bean class="cloud.matthews.slimstore.register.form.FormElement">
+                            <property name="type" value="text" />
+                            <property name="key" value="printerIpAddress" />
+                            <property name="label" value="Printer IP Address" />
+                            <property name="required" value="true" />
+                        </bean>
+                        <bean class="cloud.matthews.slimstore.register.form.FormElement">
+                            <property name="type" value="submit" />
+                            <property name="key" value="submit" />
+                            <property name="label" value="Submit" />
+                            <property name="hidden" value="true"></property>
+                        </bean>
+                    </array>
+                </property>
+            </bean>
+        </property>
+        <property name="functionButtons">
+            <array>
+                <bean class="cloud.matthews.slimstore.register.view.ViewFunctionButton">
+                    <property name="position" value="1" />
+                    <property name="label" value="Change" />
+                    <property name="primaryFormSubmit" value="true" />
+                </bean>
+                <bean class="cloud.matthews.slimstore.register.view.ViewFunctionButton">
+                    <property name="position" value="8" />
+                    <property name="label" value="Back" />
+                    <property name="form">
+                        <bean class="cloud.matthews.slimstore.register.form.Form">
+                            <property name="targetView" value="SYSTEM" />
+                        </bean>
+                    </property>
+                </bean>
+            </array>
+        </property>
+    </bean>
+
+</beans>

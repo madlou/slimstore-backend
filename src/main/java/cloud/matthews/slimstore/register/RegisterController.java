@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cloud.matthews.slimstore.basket.BasketService;
 import cloud.matthews.slimstore.giftcard.GiftCardService;
+import cloud.matthews.slimstore.print.PrintService;
 import cloud.matthews.slimstore.product.barcode.Barcode;
 import cloud.matthews.slimstore.product.barcode.BarcodeService;
 import cloud.matthews.slimstore.register.form.Form.ServerProcess;
@@ -43,6 +44,7 @@ public class RegisterController {
     private final StoreService storeService;
     private final BarcodeService barcodeService;
     private final TransactionService transactionService;
+    private final PrintService printService;
 
     private final TransactionReportService transactionReportService;
     
@@ -171,6 +173,9 @@ public class RegisterController {
             case PROCESS_GIFTCARD:
                 basketService.addToBasketByForm(giftCardService.topupByForm(request));
                 break;
+            case REGISTER_SETUP:
+                registerService.changePrinterIpAddress(request);
+                break;
             case RUN_REPORT:
                 userService.managerCheck();
                 response.setReport(transactionReportService.runReportByForm(request));
@@ -195,6 +200,7 @@ public class RegisterController {
                 if (tenderService.isComplete()) {
                     request.setTargetView(ViewName.COMPLETE);
                     transactionService.addTransaction();
+                    printService.printReceipt();
                 }
                 break;
             case TRANSACTION_COMPLETE:
