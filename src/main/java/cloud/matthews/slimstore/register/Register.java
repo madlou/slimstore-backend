@@ -57,7 +57,7 @@ public class Register implements Serializable {
     private Integer number;
     @Enumerated(EnumType.STRING)
     private RegisterStatus status;
-    private Integer lastTxnNumber;
+    private Integer lastTxnNumber = 0;
     private String sessionId;
     private String userName;
     private Timestamp lastTxnTime;
