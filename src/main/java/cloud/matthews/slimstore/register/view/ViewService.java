@@ -75,7 +75,11 @@ public class ViewService {
                 userService.managerCheck();
                 Integer pinNumber = registerService.getRegister().getCustomerDisplayPin();
                 responseForm.setValueByKey("pin", String.format("%04d", pinNumber));
-                responseForm.setValueByKey("printerIpAddress", registerService.getRegister().getPrinterIpAddress().toString());
+                String printerIp = registerService.getRegister().getPrinterIpAddress();
+                if(printerIp == null) {
+                    printerIp = "";
+                }
+                responseForm.setValueByKey("printerIpAddress", printerIp);
                 break;
             case RETURN:
                 responseForm.setValueByKey("store", storeService.getStore().getNumber());
