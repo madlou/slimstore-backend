@@ -29,25 +29,30 @@ public class RegisterService {
     
     private Register addRegister(
         Integer registerNumber
-        ) {
-            Register storeRegister = new Register();
-            storeRegister.setStore(storeService.getStoreReference());
-            storeRegister.setNumber(registerNumber);
-            storeRegister.setStatus(RegisterStatus.CLOSED);
-            storeRegister.setLastTxnNumber(0);
-            storeRegister = registerRepository.save(storeRegister);
-            return storeRegister;
-        }
+    ) {
+        Register storeRegister = new Register();
+        storeRegister.setStore(storeService.getStoreReference());
+        storeRegister.setNumber(registerNumber);
+        storeRegister.setStatus(RegisterStatus.CLOSED);
+        storeRegister.setLastTxnNumber(0);
+        storeRegister = registerRepository.save(storeRegister);
+        return storeRegister;
+    }
     
-        public void changePrinterIpAddress(Form form) {
-            String printerIpAddress = form.getValueByKey("printerIpAddress");
-            Register dbRegister = getRegisterFromDb();
-            dbRegister.setPrinterIpAddress(printerIpAddress);
-            dbRegister = registerRepository.save(dbRegister);
-            updateRegister(dbRegister);
-        }
-        
-        public String generateDisplayToken(Integer storeNumber, Integer registerNumber){
+    public void changePrinterIpAddress(
+        Form form
+    ) {
+        String printerIpAddress = form.getValueByKey("printerIpAddress");
+        Register dbRegister = getRegisterFromDb();
+        dbRegister.setPrinterIpAddress(printerIpAddress);
+        dbRegister = registerRepository.save(dbRegister);
+        updateRegister(dbRegister);
+    }
+    
+    public String generateDisplayToken(
+        Integer storeNumber,
+        Integer registerNumber
+    ){
         String uuid = UUID.randomUUID().toString();
         Register dbRegister = getRegister(storeNumber, registerNumber);
         dbRegister.setCustomerDisplayToken(uuid);
