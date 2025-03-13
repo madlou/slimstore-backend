@@ -13,6 +13,7 @@ import org.springframework.web.util.WebUtils;
 import cloud.matthews.slimstore.register.Register;
 import cloud.matthews.slimstore.register.RegisterCookie;
 import cloud.matthews.slimstore.register.RegisterService;
+import cloud.matthews.slimstore.user.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,6 +30,7 @@ public class DisplaySecurity {
     private final HttpServletResponse response;
     private final RegisterService registerService;
     private final DisplaySession displaySession;
+    private final UserService userService;
 
     @Pointcut("execution(public * cloud.matthews.slimstore.display.DisplayApiController.*(..))")
     private void aPointCutFromDisplayApiController() {}
@@ -38,7 +40,7 @@ public class DisplaySecurity {
         ProceedingJoinPoint joinPoint
     ) throws Throwable {
         Boolean isPublic = request.getRequestURI().substring(0, 11).equals("/api/public");
-        if(isPublic || displaySession.getAuthenticated()){
+        if(isPublic || displaySession.getAuthenticated() || userService.isLoggedIn()){
             return joinPoint.proceed();
         }
         RegisterCookie storeRegisterCookie = new RegisterCookie();

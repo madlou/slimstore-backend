@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import cloud.matthews.slimstore.basket.BasketService;
 import cloud.matthews.slimstore.register.form.Form;
 import cloud.matthews.slimstore.register.form.FormElement;
+import cloud.matthews.slimstore.tender.card.Card;
 import cloud.matthews.slimstore.transaction.TransactionTender.TenderType;
 import cloud.matthews.slimstore.translation.TranslationService;
 import lombok.RequiredArgsConstructor;
@@ -20,12 +21,14 @@ public class TenderService {
     private final BasketService basketService;
     private final Tender tender;
     private final TranslationService translationService;
+    private final TenderWebsocket tenderWebsocket;
 
     public void addFormElement(
         FormElement element
     ) throws Exception {
         BigDecimal value;
         TenderType type = TenderType.valueOf(element.getKey());
+        Card card = null;
         if (element.getValue().equals("full")) {
             value = basketService.getTotal().subtract(tender.getTotal());
         } else {
@@ -40,7 +43,12 @@ public class TenderService {
                     (getRemaining().compareTo(value) < 0)) {
                     throw new Exception(translationService.translate("error.tender_value_not_allowed"));
                 }
-                tender.add(new TenderLine(type, element.getLabel(), value, ""));
+                if(type.equals(TenderType.CARD)){
+                    card = new Card();
+                    card.setAmount(value);
+                    card.setStatus(Card.Status.INITIAL);
+                } 
+                tender.add(new TenderLine(type, element.getLabel(), value, card));
             } else {
                 throw new Exception(translationService.translate("error.tender_value_not_allowed"));
             }
@@ -51,7 +59,7 @@ public class TenderService {
             }
             if (value.compareTo(BigDecimal.ZERO) <= 0) {
                 if (getRemaining().compareTo(value) <= 0) {
-                    tender.add(new TenderLine(type, element.getLabel(), value, ""));
+                    tender.add(new TenderLine(type, element.getLabel(), value, card));
                 } else {
                     throw new Exception(translationService.translate("error.tender_value_not_allowed"));
                 }
@@ -67,6 +75,7 @@ public class TenderService {
         for (FormElement element : elements) {
             addFormElement(element);
         }
+        tenderWebsocket.sendTender(tender);
     }
     
     public Tender addTenderByForm(
@@ -76,7 +85,7 @@ public class TenderService {
         if (isSaleTxn() &&
             (getRemaining().compareTo(BigDecimal.ZERO) <= 0)) {
             if (getRemaining().compareTo(BigDecimal.ZERO) < 0) {
-                tender.add(new TenderLine(TenderType.CASH, "Cash Change", getRemaining(), ""));
+                tender.add(new TenderLine(TenderType.CASH, "Cash Change", getRemaining(), null));
             }
             tender.setComplete();
         }
@@ -101,11 +110,16 @@ public class TenderService {
     
     public void empty() {
         tender.empty();
+        tenderWebsocket.sendTender(tender);
     }
     
     public BigDecimal getRemaining() {
         BigDecimal remaining = basketService.getTotal().subtract(tender.getTotal());
         return remaining;
+    }
+    
+    public Tender getTender() {
+        return tender;
     }
     
     public TenderLine[] getTenderArray() {
@@ -139,6 +153,16 @@ public class TenderService {
 
     public boolean isSaleTxn() {
         return basketService.getTotal().compareTo(BigDecimal.ZERO) >= 0;
+    }
+
+    public void updateCard(
+        String reference,
+        Card.Status status
+    ) {
+        Card card = getTenderArrayList().getLast().getCard();
+        card.setReference(reference);
+        card.setStatus(status);
+        tenderWebsocket.sendTender(tender);
     }
     
 }

@@ -238,8 +238,6 @@ public class RegisterController {
         response.setStore(storeDTO);
         response.setRegister(registerDTO);
         if (userService.isLoggedIn()) {
-            response.setBasket(basketService.getBasketArray());
-            response.setTender(tenderService.getTenderArray());
             response.setUser(modelMapper.map(userService.getUser(), UserDTO.class));
         }
         response.setUiTranslations(userInterfaceService.getUserInterfaceTranslations());

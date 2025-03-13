@@ -5,23 +5,21 @@ import java.util.ArrayList;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import cloud.matthews.slimstore.basket.BasketLine;
-import cloud.matthews.slimstore.register.Register.RegisterStatus;
+import cloud.matthews.slimstore.register.RegisterDTO;
 import cloud.matthews.slimstore.tender.TenderLine;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import cloud.matthews.slimstore.tender.card.CardResponseDTO;
 import lombok.Data;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DisplayResponseDTO {
 
-    private Integer store;
-    private Integer register;
-    @Enumerated(EnumType.STRING)
-    private RegisterStatus status;
-    private Integer transactionNumber;
+    private Integer storeNumber;
+    private Integer registerNumber;
     private ArrayList<BasketLine> basket;
     private ArrayList<TenderLine> tender;
+    private RegisterDTO register;
+    private CardResponseDTO cardResponse;
     private String token;
     private String error;
 

@@ -16,7 +16,6 @@ import cloud.matthews.slimstore.tender.TenderLine;
 import cloud.matthews.slimstore.tender.TenderService;
 import cloud.matthews.slimstore.transaction.TransactionLine.TransactionLineType;
 import cloud.matthews.slimstore.user.UserService;
-
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -84,7 +83,9 @@ public class TransactionService {
             txnTender.setNumber(counter++);
             txnTender.setType(tenderLine.getType());
             txnTender.setValue(tenderLine.getValue());
-            txnTender.setReference(tenderLine.getReference());
+            if(tenderLine.getCard() != null){
+                txnTender.setReference(tenderLine.getCard().getReference());
+            }
             tenderRepo.save(txnTender);
         }
     }

@@ -24,6 +24,7 @@ public class RegisterService {
     private final TranslationService translationService;
     private final HttpServletRequest httpServletRequest;
     private final RedisSessionRepository redisRepo;
+    private final RegisterWebsocket registerWebsocket;
     
     private final Register register;
     
@@ -188,6 +189,7 @@ public class RegisterService {
             dbRegister.setUserName(null);
             dbRegister = registerRepository.save(dbRegister);
             updateRegister(dbRegister);
+            registerWebsocket.sendRegister(register);
         }
     }
     
@@ -202,6 +204,7 @@ public class RegisterService {
             dbRegister.setCustomerDisplayPin((int)(Math.random()*10000));
             dbRegister = registerRepository.save(dbRegister);
             updateRegister(dbRegister);
+            registerWebsocket.sendRegister(register);
         }
     }
     
@@ -214,6 +217,7 @@ public class RegisterService {
         dbRegister.setLastTxnTime(time);
         dbRegister = registerRepository.save(dbRegister);
         updateRegister(dbRegister);
+        registerWebsocket.sendRegister(register);
         return txnNumber;
     }
     

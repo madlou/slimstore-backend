@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 public class BasketService {
 
     private final Basket basket;
+    private final BasketWebsocket basketWebsocket;
 
     public void addFormElement(
         FormElement element
@@ -41,6 +42,7 @@ public class BasketService {
         for (FormElement element : elements) {
             addFormElement(element);
         }
+        basketWebsocket.sendBasket(basket);
     }
 
     public Basket addManualReturnToBasketByForm(
@@ -53,6 +55,7 @@ public class BasketService {
         basketLine.setQuantity(requestForm.getIntegerValueByKey("quantity"));
         basketLine.setUnitValue(new BigDecimal(requestForm.getValueByKey("price")));
         basket.add(basketLine);
+        basketWebsocket.sendBasket(basket);
         return basket;
     }
 
@@ -65,6 +68,7 @@ public class BasketService {
 
     public void empty() {
         basket.empty();
+        basketWebsocket.sendBasket(basket);
     }
     
     public BasketLine[] getBasketArray() {
@@ -97,6 +101,7 @@ public class BasketService {
         BasketLine line = tempBasket.get(request.getIntegerValueByKey("void"));
         tempBasket.remove(line);
         basket.setBasket(tempBasket);
+        basketWebsocket.sendBasket(basket);
         return basket;
     }
 

@@ -44,8 +44,8 @@ public class DisplayApiController {
         Integer pin
     ) {
         DisplayResponseDTO response = new DisplayResponseDTO();
-        response.setStore(storeNumber);
-        response.setRegister(registerNumber);
+        response.setStoreNumber(storeNumber);
+        response.setRegisterNumber(registerNumber);
         Register register = registerService.getRegister(storeNumber, registerNumber);
         if(register !=null && register.getCustomerDisplayPin().equals(pin)){
             displaySession.setStoreNumber(storeNumber);
@@ -59,8 +59,8 @@ public class DisplayApiController {
         return response;
     }
 
-    @GetMapping(path = "/api/location/{storeNumber}")
-    public Store getAllUsers(
+    @GetMapping(path = "/api/public/location/{storeNumber}")
+    public Store getPublicStore(
         @PathVariable("storeNumber")
         Integer storeNumber
     ) {
@@ -68,7 +68,7 @@ public class DisplayApiController {
     }
 
     @GetMapping(path = "/api/location/{storeNumber}/{registerNumber}")
-    public Register getAllUsers(
+    public Register getStore(
         @PathVariable("storeNumber")
         Integer storeNumber,
         @PathVariable("registerNumber")
