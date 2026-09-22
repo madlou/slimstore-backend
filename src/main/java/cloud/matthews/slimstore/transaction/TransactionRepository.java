@@ -18,7 +18,7 @@ public interface TransactionRepository extends CrudRepository<Transaction, Integ
             SELECT
             s.number AS 'store',
             s.name AS 'storeName',
-            DATE(x.date) AS 'date',
+            DATE_FORMAT(x.date, '%Y-%m-%d') AS 'date',
             r.number AS 'register',
             t.type AS 'type',
             ROUND(SUM(t.value), 2) AS 'value'
@@ -34,14 +34,14 @@ public interface TransactionRepository extends CrudRepository<Transaction, Integ
             GROUP BY
             s.number,
             s.name,
-            DATE(x.date),
+            DATE_FORMAT(x.date, '%Y-%m-%d'),
             r.number,
             t.type
             HAVING t.type != ""
             ORDER BY
             s.number ASC,
             r.number ASC,
-            DATE(x.date) ASC,
+            DATE_FORMAT(x.date, '%Y-%m-%d') ASC,
             t.type ASC
         """, nativeQuery = true)
     List<TransactionTenderAggregationInterface> aggregateTenders(
