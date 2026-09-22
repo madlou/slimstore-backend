@@ -1,7 +1,7 @@
 #
 # Build stage
 #
-FROM openjdk:23-jdk AS build
+FROM openjdk:21-jdk AS build
 ENV HOME=/usr/app
 RUN mkdir -p $HOME
 WORKDIR $HOME
@@ -14,7 +14,7 @@ RUN ./mvnw clean package -Dmaven.test.skip=true
 #
 # Package stage
 #
-FROM openjdk:23-jdk 
+FROM openjdk:21-jdk
 ENV MYSQL_HOST=db
 ENV MYSQL_PORT=3306
 ENV MYSQL_DATABASE=slimstore_prod

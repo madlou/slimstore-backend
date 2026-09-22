@@ -12,3 +12,11 @@ This repository is part of a wider set of repositories that form a set of micro 
 The application is currently deployed on the Oracle platform and can be found here:
 
  - https://slimstore.matthews.cloud/ 
+
+  
+## Local Development
+
+You can run a local dev environment with:
+
+```nix develop```
+```mvn spring-boot:run```
