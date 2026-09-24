@@ -2,9 +2,11 @@
 /target
 /bin
 
-### Database Files ###
-dev/database/data
-/app.log
-/app.log.2024-10-31.0.gz
-/app.log.2024-10-31.0171716122734524.tmp
-/messages*
+### IDE ###
+/.classpath
+/.factorypath
+/.project
+/.settings/
+
+### direnv ###
+/.direnv/
