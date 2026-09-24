@@ -1,20 +1,18 @@
 #
 # Build stage
 #
-FROM openjdk:21-jdk AS build
+FROM maven:3.9-eclipse-temurin-21 AS build
 ENV HOME=/usr/app
 RUN mkdir -p $HOME
 WORKDIR $HOME
 ADD ./src $HOME/src
 ADD ./pom.xml $HOME/pom.xml
-ADD ./.mvn $HOME/.mvn
-ADD ./mvnw $HOME/mvnw
-RUN ./mvnw clean package -Dmaven.test.skip=true
+RUN mvn clean package -Dmaven.test.skip=true
 
 #
 # Package stage
 #
-FROM openjdk:21-jdk
+FROM eclipse-temurin:21-jdk
 ENV MYSQL_HOST=db
 ENV MYSQL_PORT=3306
 ENV MYSQL_DATABASE=slimstore_prod
