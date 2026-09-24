@@ -6,10 +6,9 @@ import java.util.ArrayList;
 import org.springframework.session.Session;
 import org.springframework.stereotype.Service;
 
-import cloud.matthews.slimstore.register.RegisterRequestDTO;
-import cloud.matthews.slimstore.register.form.Form;
-import cloud.matthews.slimstore.register.form.FormElement;
-import cloud.matthews.slimstore.register.form.FormElement.FormElementType;
+import cloud.matthews.slimstore.form.Form;
+import cloud.matthews.slimstore.form.FormElement;
+import cloud.matthews.slimstore.form.FormElement.FormElementType;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -92,7 +91,7 @@ public class BasketService {
         return basket.getTotal();
     }
 
-    public Basket voidLineByForm(RegisterRequestDTO request) {
+    public Basket voidLineByForm(Form request) {
         ArrayList<BasketLine> tempBasket = basket.getArrayList();
         BasketLine line = tempBasket.get(request.getIntegerValueByKey("void"));
         tempBasket.remove(line);

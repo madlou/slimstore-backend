@@ -2,7 +2,7 @@ package cloud.matthews.slimstore.product.barcode;
 
 import java.math.BigDecimal;
 
-import cloud.matthews.slimstore.register.form.FormElement;
+import cloud.matthews.slimstore.form.FormElement;
 import lombok.Data;
 
 @Data

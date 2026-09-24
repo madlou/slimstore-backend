@@ -1,8 +1,8 @@
-package cloud.matthews.slimstore.register.form;
+package cloud.matthews.slimstore.form;
 
 import java.math.BigDecimal;
 
-import cloud.matthews.slimstore.register.view.View.ViewName;
+import cloud.matthews.slimstore.view.View.ViewName;
 import lombok.Data;
 
 @Data

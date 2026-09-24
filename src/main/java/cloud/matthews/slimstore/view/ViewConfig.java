@@ -1,10 +1,10 @@
-package cloud.matthews.slimstore.register.view;
+package cloud.matthews.slimstore.view;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.web.context.annotation.RequestScope;
 
-import cloud.matthews.slimstore.register.view.View.ViewName;
+import cloud.matthews.slimstore.view.View.ViewName;
 
 import lombok.RequiredArgsConstructor;
 

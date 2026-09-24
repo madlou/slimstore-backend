@@ -12,7 +12,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import cloud.matthews.slimstore.register.Register;
 import cloud.matthews.slimstore.register.RegisterService;
-import cloud.matthews.slimstore.register.form.Form;
+import cloud.matthews.slimstore.form.Form;
 import cloud.matthews.slimstore.store.Store;
 import cloud.matthews.slimstore.store.StoreService;
 import cloud.matthews.slimstore.transaction.Transaction;

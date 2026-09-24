@@ -1,19 +1,20 @@
-package cloud.matthews.slimstore.register;
+package cloud.matthews.slimstore.pos;
 
 import com.fasterxml.jackson.annotation.JsonRawValue;
+
 import cloud.matthews.slimstore.basket.BasketLine;
-import cloud.matthews.slimstore.register.view.View;
+import cloud.matthews.slimstore.register.RegisterDTO;
 import cloud.matthews.slimstore.store.StoreDTO;
 import cloud.matthews.slimstore.tender.TenderLine;
 import cloud.matthews.slimstore.translation.Language;
 import cloud.matthews.slimstore.translation.UserInterfaceTranslationDTO;
 import cloud.matthews.slimstore.user.UserDTO;
-
+import cloud.matthews.slimstore.view.View;
 import lombok.Data;
 
 @Data
-public class RegisterResponseDTO {
-    
+public class PosResponseDTO {
+
     private BasketLine[] basket = new BasketLine[0];
     private String error = new String();
     private Language[] languages = Language.values();
@@ -27,5 +28,5 @@ public class RegisterResponseDTO {
     private View view = new View();
     // TODO: Pull out initial data from view
     // Private ArrayList<FormElement> viewValues = new ArrayList<FormElement>();
-    
+
 }

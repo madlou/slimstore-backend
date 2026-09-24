@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import cloud.matthews.slimstore.register.form.FormElement;
+import cloud.matthews.slimstore.form.FormElement;
 import lombok.RequiredArgsConstructor;
 
 @Service

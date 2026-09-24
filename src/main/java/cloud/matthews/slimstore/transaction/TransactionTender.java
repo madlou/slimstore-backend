@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import cloud.matthews.slimstore.tender.TenderType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -22,13 +23,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TransactionTender {
 
-    public enum TenderType {
-        CARD,
-        CASH,
-        GIFTCARD,
-        VOUCHER,
-    }
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore

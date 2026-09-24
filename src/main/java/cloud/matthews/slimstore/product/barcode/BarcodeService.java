@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Service;
 
-import cloud.matthews.slimstore.register.form.Form;
+import cloud.matthews.slimstore.form.Form;
 import cloud.matthews.slimstore.store.Store.Banner;
 import cloud.matthews.slimstore.store.Store.Region;
 import lombok.RequiredArgsConstructor;

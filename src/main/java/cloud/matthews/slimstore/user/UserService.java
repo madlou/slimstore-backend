@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import cloud.matthews.slimstore.register.RegisterService;
-import cloud.matthews.slimstore.register.form.Form;
-import cloud.matthews.slimstore.register.form.FormElement;
-import cloud.matthews.slimstore.register.form.FormElement.FormElementType;
-import cloud.matthews.slimstore.register.form.FormElementButton;
-import cloud.matthews.slimstore.register.view.View.ViewName;
+import cloud.matthews.slimstore.form.Form;
+import cloud.matthews.slimstore.form.FormElement;
+import cloud.matthews.slimstore.form.FormElement.FormElementType;
+import cloud.matthews.slimstore.form.FormElementButton;
+import cloud.matthews.slimstore.view.View.ViewName;
 import cloud.matthews.slimstore.store.StoreService;
 import cloud.matthews.slimstore.translation.TranslationService;
 

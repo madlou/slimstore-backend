@@ -1,4 +1,4 @@
-package cloud.matthews.slimstore.register.form;
+package cloud.matthews.slimstore.form;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -20,3 +20,21 @@ You can run a local dev environment with:
 
 ```nix develop```
 ```mvn spring-boot:run```
+
+## Class Dependancy Tree
+
+```
+basket      -> form
+display     -> basket, register, store, tender, transaction, translation
+form       <-> view
+giftcard    -> form, register
+pos         -> everything
+print       -> basket, register, tender
+product     -> form
+register    -> form, store, translation
+store       -> form, translation
+tender      -> basket, form, translation
+transaction -> basket, form, register, store, tender, user
+translation -> form, view
+user        -> form, register, store, translation, view
+```

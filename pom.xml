@@ -101,7 +101,7 @@
     </dependencies>
 
     <build>
-        <finalName>playground</finalName>
+        <finalName>slimstore</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

@@ -9,7 +9,7 @@ import cloud.matthews.slimstore.basket.BasketLine;
 import cloud.matthews.slimstore.basket.BasketService;
 import cloud.matthews.slimstore.register.Register;
 import cloud.matthews.slimstore.register.RegisterService;
-import cloud.matthews.slimstore.register.form.FormElement.FormElementType;
+import cloud.matthews.slimstore.form.FormElement.FormElementType;
 import cloud.matthews.slimstore.store.Store;
 import cloud.matthews.slimstore.store.StoreService;
 import cloud.matthews.slimstore.tender.TenderLine;

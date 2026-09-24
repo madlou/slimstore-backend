@@ -1,10 +1,10 @@
-package cloud.matthews.slimstore.register;
+package cloud.matthews.slimstore.store;
 
-public class RegisterChangeException extends Exception {
+public class LocationSetupException extends Exception {
 
     private static final long serialVersionUID = -234141543579069546L;
 
-    public RegisterChangeException(
+    public LocationSetupException(
         String errorMessage
     ) {
         super(errorMessage);

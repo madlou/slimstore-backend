@@ -3,7 +3,6 @@ package cloud.matthews.slimstore.tender;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import cloud.matthews.slimstore.transaction.TransactionTender.TenderType;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;

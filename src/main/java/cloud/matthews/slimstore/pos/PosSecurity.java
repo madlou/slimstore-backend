@@ -1,4 +1,4 @@
-package cloud.matthews.slimstore.register;
+package cloud.matthews.slimstore.pos;
 
 import java.util.Arrays;
 
@@ -15,12 +15,12 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class RegisterSecurity {
+public class PosSecurity {
 
-    @Pointcut("execution(public * cloud.matthews.slimstore.register.RegisterController.apiRegister(..))")
+    @Pointcut("execution(public * cloud.matthews.slimstore.pos.PosController.apiRegister(..))")
     private void aPointCutFromRegisterController() {}
     
-    @Before(value = "aPointCutFromRegisterController()")
+    @Before(value = "aPointCutFromPosController()")
     public void logBefore(
         JoinPoint joinPoint
     ) {

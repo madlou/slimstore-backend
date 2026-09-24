@@ -14,15 +14,16 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
-import cloud.matthews.slimstore.register.form.FormElement;
-import cloud.matthews.slimstore.register.view.View;
-import cloud.matthews.slimstore.register.view.ViewConfig;
-import cloud.matthews.slimstore.register.view.ViewFunctionButton;
+import cloud.matthews.slimstore.form.FormElement;
+import cloud.matthews.slimstore.view.View;
+import cloud.matthews.slimstore.view.ViewConfig;
+import cloud.matthews.slimstore.view.ViewFunctionButton;
+import cloud.matthews.slimstore.view.ViewTranslator;
 
 import jakarta.servlet.http.HttpServletRequest;
 
 @Service
-public class TranslationService {
+public class TranslationService implements ViewTranslator {
     
     private MessageSource messageSource;
     private ViewConfig viewConfig;
@@ -237,6 +238,7 @@ public class TranslationService {
         return message.formatted(args);
     }
 
+    @Override
     @Cacheable(value = "viewTranslations", key = "#view.cacheKey")
     public View translateView(
         View view

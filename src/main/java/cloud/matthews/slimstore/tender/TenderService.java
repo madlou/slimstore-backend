@@ -7,9 +7,8 @@ import org.springframework.session.Session;
 import org.springframework.stereotype.Service;
 
 import cloud.matthews.slimstore.basket.BasketService;
-import cloud.matthews.slimstore.register.form.Form;
-import cloud.matthews.slimstore.register.form.FormElement;
-import cloud.matthews.slimstore.transaction.TransactionTender.TenderType;
+import cloud.matthews.slimstore.form.Form;
+import cloud.matthews.slimstore.form.FormElement;
 import cloud.matthews.slimstore.translation.TranslationService;
 import lombok.RequiredArgsConstructor;
 

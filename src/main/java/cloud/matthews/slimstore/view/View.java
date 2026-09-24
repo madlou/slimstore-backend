@@ -1,10 +1,10 @@
-package cloud.matthews.slimstore.register.view;
+package cloud.matthews.slimstore.view;
 
 import java.util.Locale;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import cloud.matthews.slimstore.register.form.Form;
+import cloud.matthews.slimstore.form.Form;
 import lombok.Data;
 
 @Data

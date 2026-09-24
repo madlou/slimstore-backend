@@ -2,8 +2,7 @@ package cloud.matthews.slimstore.store;
 
 import org.springframework.stereotype.Service;
 
-import cloud.matthews.slimstore.register.RegisterChangeException;
-import cloud.matthews.slimstore.register.form.Form;
+import cloud.matthews.slimstore.form.Form;
 import cloud.matthews.slimstore.store.Store.Country;
 import cloud.matthews.slimstore.store.Store.Currency;
 import cloud.matthews.slimstore.translation.Language;
@@ -93,7 +92,7 @@ public class StoreService {
             if (isUserAdmin) {
                 updateStore(addStore(storeNumber));
             } else {
-                throw new RegisterChangeException(translationService.translate("error.location_invalid_store"));
+                throw new LocationSetupException(translationService.translate("error.location_invalid_store"));
             }
         }
     }

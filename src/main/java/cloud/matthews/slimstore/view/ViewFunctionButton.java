@@ -1,8 +1,8 @@
-package cloud.matthews.slimstore.register.view;
+package cloud.matthews.slimstore.view;
 
 import org.springframework.web.context.annotation.RequestScope;
 
-import cloud.matthews.slimstore.register.form.Form;
+import cloud.matthews.slimstore.form.Form;
 import lombok.Data;
 
 @Data

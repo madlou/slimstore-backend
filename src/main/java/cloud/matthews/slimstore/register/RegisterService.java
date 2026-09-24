@@ -8,8 +8,9 @@ import org.springframework.session.data.redis.RedisSessionRepository;
 import org.springframework.stereotype.Service;
 
 import cloud.matthews.slimstore.register.Register.RegisterStatus;
-import cloud.matthews.slimstore.register.form.Form;
+import cloud.matthews.slimstore.form.Form;
 import cloud.matthews.slimstore.store.Store;
+import cloud.matthews.slimstore.store.LocationSetupException;
 import cloud.matthews.slimstore.store.StoreService;
 import cloud.matthews.slimstore.translation.TranslationService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -131,7 +132,7 @@ public class RegisterService {
 
     public void registerCheck() throws Exception {
         if (!getRegister().isSet()) {
-            throw new RegisterChangeException(translationService.translate("error.location_enter_register"));
+            throw new LocationSetupException(translationService.translate("error.location_enter_register"));
         }
     }
 
@@ -160,7 +161,7 @@ public class RegisterService {
                 addRegister(registerNumber);
                 setRegister(registerNumber);
             } else {
-                throw new RegisterChangeException(translationService.translate("error.location_invalid_store"));
+                throw new LocationSetupException(translationService.translate("error.location_invalid_store"));
             }
         }
     }

@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import cloud.matthews.slimstore.register.form.FormElement.FormElementType;
+import cloud.matthews.slimstore.form.FormElement.FormElementType;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
