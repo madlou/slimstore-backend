@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import cloud.matthews.slimstore.register.Register.RegisterStatus;
 import cloud.matthews.slimstore.form.Form;
 import cloud.matthews.slimstore.store.Store;
-import cloud.matthews.slimstore.store.LocationSetupException;
 import cloud.matthews.slimstore.store.StoreService;
 import cloud.matthews.slimstore.translation.TranslationService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,6 +24,7 @@ public class RegisterService {
     private final TranslationService translationService;
     private final HttpServletRequest httpServletRequest;
     private final RedisSessionRepository redisRepo;
+    private final RegisterChangeListener registerChangeListener;
     
     private final Register register;
     
@@ -132,7 +132,7 @@ public class RegisterService {
 
     public void registerCheck() throws Exception {
         if (!getRegister().isSet()) {
-            throw new LocationSetupException(translationService.translate("error.location_enter_register"));
+            throw new RegisterSetupException(translationService.translate("error.location_enter_register"));
         }
     }
 
@@ -161,7 +161,7 @@ public class RegisterService {
                 addRegister(registerNumber);
                 setRegister(registerNumber);
             } else {
-                throw new LocationSetupException(translationService.translate("error.location_invalid_store"));
+                throw new RegisterSetupException(translationService.translate("error.location_invalid_store"));
             }
         }
     }
@@ -189,6 +189,7 @@ public class RegisterService {
             dbRegister.setUserName(null);
             dbRegister = registerRepository.save(dbRegister);
             updateRegister(dbRegister);
+            registerChangeListener.onRegisterStatusChanged(RegisterStatus.CLOSED, register.getLastTxnNumber());
         }
     }
     
@@ -203,6 +204,7 @@ public class RegisterService {
             dbRegister.setCustomerDisplayPin((int)(Math.random()*10000));
             dbRegister = registerRepository.save(dbRegister);
             updateRegister(dbRegister);
+            registerChangeListener.onRegisterStatusChanged(RegisterStatus.OPEN, register.getLastTxnNumber() + 1);
         }
     }
     
@@ -215,6 +217,7 @@ public class RegisterService {
         dbRegister.setLastTxnTime(time);
         dbRegister = registerRepository.save(dbRegister);
         updateRegister(dbRegister);
+        registerChangeListener.onRegisterStatusChanged(RegisterStatus.OPEN, txnNumber);
         return txnNumber;
     }
     

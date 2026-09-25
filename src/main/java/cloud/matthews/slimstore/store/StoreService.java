@@ -92,7 +92,7 @@ public class StoreService {
             if (isUserAdmin) {
                 updateStore(addStore(storeNumber));
             } else {
-                throw new LocationSetupException(translationService.translate("error.location_invalid_store"));
+                throw new StoreSetupException(translationService.translate("error.location_invalid_store"));
             }
         }
     }

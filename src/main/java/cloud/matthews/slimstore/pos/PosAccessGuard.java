@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 import cloud.matthews.slimstore.form.Form.ServerProcess;
 import cloud.matthews.slimstore.register.RegisterService;
-import cloud.matthews.slimstore.store.LocationSetupException;
+import cloud.matthews.slimstore.store.StoreSetupException;
 import cloud.matthews.slimstore.store.Store;
 import cloud.matthews.slimstore.store.StoreService;
 import cloud.matthews.slimstore.translation.TranslationService;
@@ -65,7 +65,7 @@ public class PosAccessGuard {
             }
         } else if ((!storeService.getStore().isSet()) &&
             (request.getServerProcess() != ServerProcess.CHANGE_REGISTER)) {
-            throw new LocationSetupException(translationService.translate("error.location_setup_required"));
+            throw new StoreSetupException(translationService.translate("error.location_setup_required"));
         }
         return request;
     }

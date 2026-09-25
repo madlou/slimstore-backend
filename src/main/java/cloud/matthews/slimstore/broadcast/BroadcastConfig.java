@@ -1,4 +1,4 @@
-package cloud.matthews.slimstore.display;
+package cloud.matthews.slimstore.broadcast;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -8,7 +8,7 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 
 @Configuration
 @EnableWebSocketMessageBroker
-public class DisplayWebsocketConfig implements WebSocketMessageBrokerConfigurer {
+public class BroadcastConfig implements WebSocketMessageBrokerConfigurer {
     
     @SuppressWarnings("null")
     @Override
@@ -25,7 +25,7 @@ public class DisplayWebsocketConfig implements WebSocketMessageBrokerConfigurer 
         StompEndpointRegistry registry
     ) {
         registry.addEndpoint("/websocket").setAllowedOriginPatterns("*").withSockJS();
-        registry.addEndpoint("/websocket").setAllowedOriginPatterns("*");
+        registry.addEndpoint("/websocket-native").setAllowedOriginPatterns("*");
 //        registry.addEndpoint("/websocket").setAllowedOrigins("http://localhost:3002");
     }
 }

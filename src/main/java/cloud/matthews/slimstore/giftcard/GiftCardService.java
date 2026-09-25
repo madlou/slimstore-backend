@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 import org.springframework.stereotype.Service;
 
-import cloud.matthews.slimstore.register.RegisterService;
+import cloud.matthews.slimstore.register.Register;
 import cloud.matthews.slimstore.form.Form;
 import cloud.matthews.slimstore.form.FormElement;
 
@@ -14,13 +14,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class GiftCardService {
     
-    private final RegisterService registerService;
+    private final Register register;
 
     public void topup(
         String card,
         BigDecimal value
     ) {
-        Integer transactionNumber = registerService.getRegister().getLastTxnNumber() + 1;
+        Integer transactionNumber = register.getLastTxnNumber() + 1;
         topupQueue(card, value, transactionNumber);
     }
     

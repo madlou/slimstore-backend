@@ -37,8 +37,7 @@ public class DisplaySecurity {
     public Object authCheck(
         ProceedingJoinPoint joinPoint
     ) throws Throwable {
-        Boolean isPublic = request.getRequestURI().substring(0, 11).equals("/api/public");
-        if(isPublic || displaySession.getAuthenticated()){
+        if(displaySession.getAuthenticated()){
             return joinPoint.proceed();
         }
         RegisterCookie storeRegisterCookie = new RegisterCookie();

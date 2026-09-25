@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import cloud.matthews.slimstore.form.Form.ServerProcess;
-import cloud.matthews.slimstore.store.LocationSetupException;
+import cloud.matthews.slimstore.register.RegisterSetupException;
+import cloud.matthews.slimstore.store.StoreSetupException;
 import cloud.matthews.slimstore.user.UserLoginException;
 import cloud.matthews.slimstore.view.View.ViewName;
 import lombok.RequiredArgsConstructor;
@@ -40,41 +41,38 @@ public class PosController {
     }
 
     @PostMapping(path = "/api/register")
-    public @ResponseBody
-    PosResponseDTO apiRegister(
+    public @ResponseBody PosResponseDTO apiRegister(
         @RequestBody
         PosRequestDTO request,
         @CookieValue(value = "store-register", required = false)
-        String storeRegCookie,
-        String errorMessage
+        String storeRegCookie
     ) throws Exception {
         PosResponseDTO response = new PosResponseDTO();
         try {
             request = accessGuard.check(request, storeRegCookie);
             response = process(request);
-        } catch (UserLoginException e) {
-            request.setTargetView(ViewName.LOGIN);
-            errorMessage = e.getMessage();
-            if (appDebug.equals(Boolean.TRUE)) {
-                throw new Exception(e.getMessage());
-            }
-        } catch (LocationSetupException e) {
-            request.setTargetView(ViewName.REGISTER_CHANGE);
-            errorMessage = e.getMessage();
-            if (appDebug.equals(Boolean.TRUE)) {
-                throw new Exception(e.getMessage());
-            }
         } catch (Exception e) {
-            request.setTargetView(ViewName.HOME);
-            errorMessage = e.getMessage();
-            if (appDebug.equals(Boolean.TRUE)) {
-                throw new Exception(e.getMessage());
-            }
-        }
-        if (errorMessage != null) {
-            response.setError(errorMessage);
+            response.setError(handleException(request, e));
         }
         return responseAssembler.assemble(request, response, appDebug);
+    }
+
+    private String handleException(
+        PosRequestDTO request,
+        Exception e
+    ) throws Exception {
+        if (e instanceof UserLoginException) {
+            request.setTargetView(ViewName.LOGIN);
+        } else if ((e instanceof StoreSetupException) ||
+            (e instanceof RegisterSetupException)) {
+            request.setTargetView(ViewName.REGISTER_CHANGE);
+        } else {
+            request.setTargetView(ViewName.HOME);
+        }
+        if (Boolean.TRUE.equals(appDebug)) {
+            throw new Exception(e.getMessage());
+        }
+        return e.getMessage();
     }
 
     private PosResponseDTO process(

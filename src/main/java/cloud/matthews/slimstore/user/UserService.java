@@ -24,6 +24,7 @@ public class UserService {
     private final RegisterService registerService;
     private final TranslationService translationService;
     private final UserRepository userRepository;
+    private final UserChangeListener userChangeListener;
 
     private final User user;
 
@@ -231,6 +232,7 @@ public class UserService {
         this.user.setPassword(user.getPassword());
         this.user.setRole(user.getRole());
         this.user.setStore(user.getStore());
+        userChangeListener.onUserChanged(this.user);
     }
     
 }

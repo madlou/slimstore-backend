@@ -3,7 +3,7 @@ package cloud.matthews.slimstore.view.enricher;
 import org.springframework.stereotype.Component;
 
 import cloud.matthews.slimstore.form.Form;
-import cloud.matthews.slimstore.store.StoreService;
+import cloud.matthews.slimstore.store.Store;
 import cloud.matthews.slimstore.view.View;
 import cloud.matthews.slimstore.view.View.ViewName;
 import cloud.matthews.slimstore.view.ViewEnricher;
@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ReturnViewEnricher implements ViewEnricher {
 
-    private final StoreService storeService;
+    private final Store store;
 
     @Override
     public ViewName supports() {
@@ -25,7 +25,7 @@ public class ReturnViewEnricher implements ViewEnricher {
         View view,
         Form requestForm
     ) throws Exception {
-        view.getForm().setValueByKey("store", storeService.getStore().getNumber());
+        view.getForm().setValueByKey("store", store.getNumber());
     }
 
 }

@@ -19,6 +19,7 @@ public class TenderService {
     private final BasketService basketService;
     private final Tender tender;
     private final TranslationService translationService;
+    private final TenderChangeListener tenderChangeListener;
 
     public void addFormElement(
         FormElement element
@@ -83,6 +84,7 @@ public class TenderService {
             (getRemaining().compareTo(BigDecimal.ZERO) == 0)) {
             tender.setComplete();
         }
+        tenderChangeListener.onTenderChanged(tender);
         return tender;
     }
     
@@ -100,6 +102,7 @@ public class TenderService {
     
     public void empty() {
         tender.empty();
+        tenderChangeListener.onTenderChanged(tender);
     }
     
     public BigDecimal getRemaining() {

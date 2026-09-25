@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 public class PosSecurity {
 
     @Pointcut("execution(public * cloud.matthews.slimstore.pos.PosController.apiRegister(..))")
-    private void aPointCutFromRegisterController() {}
+    private void aPointCutFromPosController() {}
     
     @Before(value = "aPointCutFromPosController()")
     public void logBefore(

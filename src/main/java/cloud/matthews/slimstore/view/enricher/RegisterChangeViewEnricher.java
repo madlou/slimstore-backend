@@ -3,9 +3,8 @@ package cloud.matthews.slimstore.view.enricher;
 import org.springframework.stereotype.Component;
 
 import cloud.matthews.slimstore.form.Form;
-import cloud.matthews.slimstore.register.RegisterService;
+import cloud.matthews.slimstore.register.Register;
 import cloud.matthews.slimstore.store.Store;
-import cloud.matthews.slimstore.store.StoreService;
 import cloud.matthews.slimstore.user.UserService;
 import cloud.matthews.slimstore.view.View;
 import cloud.matthews.slimstore.view.View.ViewName;
@@ -17,8 +16,8 @@ import lombok.RequiredArgsConstructor;
 public class RegisterChangeViewEnricher implements ViewEnricher {
 
     private final UserService userService;
-    private final StoreService storeService;
-    private final RegisterService registerService;
+    private final Store store;
+    private final Register register;
 
     @Override
     public ViewName supports() {
@@ -31,12 +30,12 @@ public class RegisterChangeViewEnricher implements ViewEnricher {
         Form requestForm
     ) throws Exception {
         Form responseForm = view.getForm();
-        Store store = userService.getUser().getStore();
-        if (storeService.getStore().isSet()) {
-            store = storeService.getStore();
+        Store selectedStore = userService.getUser().getStore();
+        if (store.isSet()) {
+            selectedStore = store;
         }
-        String registerNumber = (registerService.getRegister().isSet()) ? registerService.getRegister().getNumber().toString() : "";
-        responseForm.setValueByKey("storeNumber", store.isSet() ? store.getNumber().toString() : "");
+        String registerNumber = register.isSet() ? register.getNumber().toString() : "";
+        responseForm.setValueByKey("storeNumber", selectedStore.isSet() ? selectedStore.getNumber().toString() : "");
         responseForm.setValueByKey("registerNumber", registerNumber);
         if (userService.isUserManagerOrAdmin()) {
             responseForm.findByKey("storeNumber").setDisabled(false);

@@ -1,7 +1,5 @@
 package cloud.matthews.slimstore.display;
 
-import java.util.Locale;
-
 import org.springframework.session.Session;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cloud.matthews.slimstore.basket.BasketLine;
 import cloud.matthews.slimstore.basket.BasketService;
+import cloud.matthews.slimstore.broadcast.BroadcastResponseDTO;
 import cloud.matthews.slimstore.register.Register;
 import cloud.matthews.slimstore.register.RegisterService;
 import cloud.matthews.slimstore.store.Store;
@@ -16,9 +15,7 @@ import cloud.matthews.slimstore.store.StoreService;
 import cloud.matthews.slimstore.tender.TenderLine;
 import cloud.matthews.slimstore.tender.TenderService;
 import cloud.matthews.slimstore.transaction.TransactionService;
-import cloud.matthews.slimstore.translation.Language;
-import cloud.matthews.slimstore.translation.UserInterfaceService;
-import cloud.matthews.slimstore.translation.UserInterfaceTranslationDTO;
+import cloud.matthews.slimstore.user.User;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -30,12 +27,12 @@ public class DisplayApiController {
     private final StoreService storeService;
     private final TenderService tenderService;
     private final TransactionService transactionService;
-    private final UserInterfaceService userInterfaceService;
+    private final User user;
 
     private final DisplaySession displaySession;
     
     @GetMapping(path = "/api/public/display/authentication/{storeNumber}/{registerNumber}/{pin}")
-    public DisplayResponseDTO authenticate(
+    public BroadcastResponseDTO authenticate(
         @PathVariable("storeNumber")
         Integer storeNumber,
         @PathVariable("registerNumber")
@@ -43,10 +40,11 @@ public class DisplayApiController {
         @PathVariable("pin")
         Integer pin
     ) {
-        DisplayResponseDTO response = new DisplayResponseDTO();
-        response.setStore(storeNumber);
-        response.setRegister(registerNumber);
+        BroadcastResponseDTO response = new BroadcastResponseDTO();
+        response.setStore(storeService.getStore(storeNumber));
         Register register = registerService.getRegister(storeNumber, registerNumber);
+        response.setRegister(register);
+        response.setUser(user);
         if(register !=null && register.getCustomerDisplayPin().equals(pin)){
             displaySession.setStoreNumber(storeNumber);
             displaySession.setRegisterNumber(registerNumber);
@@ -59,16 +57,18 @@ public class DisplayApiController {
         return response;
     }
 
+    // TODO: remove later after refactor
     @GetMapping(path = "/api/location/{storeNumber}")
-    public Store getAllUsers(
+    public Store getStore(
         @PathVariable("storeNumber")
         Integer storeNumber
     ) {
         return storeService.getStore(storeNumber);
     }
 
+    // TODO: remove later after refactor
     @GetMapping(path = "/api/location/{storeNumber}/{registerNumber}")
-    public Register getAllUsers(
+    public Register getRegister(
         @PathVariable("storeNumber")
         Integer storeNumber,
         @PathVariable("registerNumber")
@@ -77,6 +77,7 @@ public class DisplayApiController {
         return registerService.getRegister(storeNumber, registerNumber);
     }
 
+    // TODO: remove later after refactor
     @GetMapping(path = "/api/basket/{storeNumber}/{registerNumber}")
     public BasketLine[] getBasket(
         @PathVariable("storeNumber")
@@ -88,11 +89,7 @@ public class DisplayApiController {
         return basketService.getBasketArray(session);
     }
 
-    @GetMapping(path = "/api/public/languages")
-    public Language[] getLanguages() {
-        return Language.values();
-    }
-
+    // TODO: remove later after refactor
     @GetMapping(path = "/api/tender/{storeNumber}/{registerNumber}")
     public TenderLine[] getTender(
         @PathVariable("storeNumber")
@@ -104,16 +101,8 @@ public class DisplayApiController {
         return tenderService.getTenderArray(session);
     }
     
-    @GetMapping(path = "/api/public/translations/{languageCode}")
-    public UserInterfaceTranslationDTO getUiTranslations(
-        @PathVariable("languageCode")
-        String languageCode
-    ) {
-        return userInterfaceService.getUserInterfaceTranslations(Locale.of(languageCode));
-    }
-    
     @GetMapping(path = "/api/review/add/{storeNumber}/{registerNumber}/{transactionNumber}/{score}")
-    public void updateReviewScore(
+    public boolean updateReviewScore(
         @PathVariable("storeNumber")
         Integer storeNumber,
         @PathVariable("registerNumber")
@@ -124,6 +113,7 @@ public class DisplayApiController {
         Integer score
     ) {
         transactionService.addReview(storeNumber, registerNumber, transactionNumber, score);
+        return true;
     }
 
 }

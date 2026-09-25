@@ -3,7 +3,7 @@ package cloud.matthews.slimstore.view.enricher;
 import org.springframework.stereotype.Component;
 
 import cloud.matthews.slimstore.form.Form;
-import cloud.matthews.slimstore.register.RegisterService;
+import cloud.matthews.slimstore.register.Register;
 import cloud.matthews.slimstore.user.UserService;
 import cloud.matthews.slimstore.view.View;
 import cloud.matthews.slimstore.view.View.ViewName;
@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 public class RegisterSetupViewEnricher implements ViewEnricher {
 
     private final UserService userService;
-    private final RegisterService registerService;
+    private final Register register;
 
     @Override
     public ViewName supports() {
@@ -29,9 +29,9 @@ public class RegisterSetupViewEnricher implements ViewEnricher {
     ) throws Exception {
         userService.managerCheck();
         Form responseForm = view.getForm();
-        Integer pinNumber = registerService.getRegister().getCustomerDisplayPin();
+        Integer pinNumber = register.getCustomerDisplayPin();
         responseForm.setValueByKey("pin", String.format("%04d", pinNumber));
-        String printerIp = registerService.getRegister().getPrinterIpAddress();
+        String printerIp = register.getPrinterIpAddress();
         if (printerIp == null) {
             printerIp = "";
         }

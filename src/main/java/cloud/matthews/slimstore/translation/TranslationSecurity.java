@@ -11,6 +11,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 import cloud.matthews.slimstore.user.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,6 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 public class TranslationSecurity {
     
     private final UserService userService;
+    private final HttpServletRequest request;
 
     @Pointcut("execution(public * cloud.matthews.slimstore.translation.TranslationController.*(..))")
     private void aPointCutFromTranslationController() {}
@@ -38,6 +40,10 @@ public class TranslationSecurity {
     public Object validateQueryAround(
         ProceedingJoinPoint joinPoint
     ) throws Throwable {
+        Boolean isPublic = request.getRequestURI().substring(0, 11).equals("/api/public");
+        if(isPublic){
+            return joinPoint.proceed();
+        }
         if (!userService.isUserAdmin()) {
             String methodName = joinPoint.getSignature().getName();
             log.info(">> {}() - Not logged in as admin user.", methodName);
