@@ -10,6 +10,11 @@ public interface RegisterRepository extends CrudRepository<Register, Integer> {
         Store store,
         Integer number
     );
+
+    Register findByStoreNumberAndNumber(
+        Integer storeNumber,
+        Integer number
+    );
     
     Register getReferenceById(
         Integer id
