@@ -35,7 +35,7 @@ public class PosController {
     private Map<ServerProcess, PosProcessHandler> handlersByProcess() {
         if (handlersByProcess == null) {
             handlersByProcess = serverProcessHandlers.stream()
-                .collect(Collectors.toMap(PosProcessHandler::supports, Function.identity()));
+                .collect(Collectors.toMap(handler -> handler.supports(), Function.identity()));
         }
         return handlersByProcess;
     }

@@ -26,7 +26,7 @@ public class ViewService {
     private Map<ViewName, ViewEnricher> enrichersByViewName() {
         if (enrichersByViewName == null) {
             enrichersByViewName = viewEnrichers.stream()
-                .collect(Collectors.toMap(ViewEnricher::supports, Function.identity()));
+                .collect(Collectors.toMap(enricher -> enricher.supports(), Function.identity()));
         }
         return enrichersByViewName;
     }

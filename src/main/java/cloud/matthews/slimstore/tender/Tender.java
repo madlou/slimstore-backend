@@ -14,14 +14,12 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @Component
 @NoArgsConstructor
-@AllArgsConstructor
 @SessionScope
 @JsonSerialize
 @JsonDeserialize(as = Tender.class)
@@ -33,7 +31,6 @@ public class Tender implements Serializable {
     
     private ArrayList<TenderLine> tender = new ArrayList<TenderLine>();
     
-    @JsonIgnore
     private boolean isComplete = false;
     
     public void add(
@@ -66,6 +63,7 @@ public class Tender implements Serializable {
         return total;
     }
     
+    // The field is serialized; ignore the getter's separate "complete" property.
     @JsonIgnore
     public boolean isComplete() {
         return isComplete;

@@ -1,5 +1,8 @@
 package cloud.matthews.slimstore;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.restclient.RestTemplateBuilder;
 import org.springframework.cache.CacheManager;
@@ -9,16 +12,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
-import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.GenericJacksonJsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
+import tools.jackson.databind.SerializationFeature;
+import tools.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
 
 @Configuration(proxyBeanMethods = false)
 @EnableCaching
@@ -46,12 +48,19 @@ public class SpringConfig {
     
     @Bean
     public RedisSerializer<Object> springSessionDefaultRedisSerializer() {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
-        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        mapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
-        mapper.activateDefaultTyping(mapper.getPolymorphicTypeValidator());
-        return new GenericJackson2JsonRedisSerializer(mapper);
+        var typeValidator = BasicPolymorphicTypeValidator.builder()
+            .allowIfSubType("cloud.matthews.slimstore.")
+            .allowIfSubType("java.util.")
+            .allowIfSubType("java.time.")
+            .allowIfSubType(BigDecimal.class)
+            .allowIfSubType(Timestamp.class)
+            .build();
+        return GenericJacksonJsonRedisSerializer.builder()
+            .enableDefaultTyping(typeValidator)
+            .customize(mapper -> mapper
+                .configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
+                .changeDefaultVisibility(visibility -> visibility.withFieldVisibility(Visibility.ANY)))
+            .build();
     }
     
 }
